@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/bottom_nab_bar_tab.dart';
+import 'package:sonicity/views/library_view/library_view.dart';
 
 class NavigationView extends StatefulWidget {
   NavigationView({super.key});
@@ -24,22 +25,20 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: TabBarView(
-          controller: tabController,
-          children: [
-            Center(child: Text("Queue", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))),
-            Center(child: Text("Player", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))),
-            Center(child: Text("Library", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold)))
-          ],
-        ),
+      body: TabBarView(
+        controller: tabController,
+        children: [
+          Center(child: Text("Queue", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))),
+          Center(child: Text("Player", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))),
+          LibraryView()
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
-      elevation: 1,
-      color: Colors.transparent,
-      shadowColor: Colors.transparent,
-      surfaceTintColor: Colors.transparent,
-      child: TabBar(
+        elevation: 1,
+        color: Colors.transparent,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        child: TabBar(
         controller: tabController,
         indicatorColor: Colors.transparent,
         dividerHeight: 0,
