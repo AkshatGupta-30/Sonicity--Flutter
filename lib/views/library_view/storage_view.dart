@@ -2,12 +2,8 @@
 
 import 'dart:io';
 
-import 'package:file_manager/file_manager.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/persistence/shared_preference/allowed_directories.dart';
-import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/storage_tile.dart';
 
 class StorageView extends StatefulWidget {
@@ -18,16 +14,8 @@ class StorageView extends StatefulWidget {
 }
 
 class _StorageViewState extends State<StorageView> {
-  late bool correctPath = false;
-  late RxList<String> allowedDirectories = <String>[].obs;
-  RxBool inAllowedDirectories = true.obs;
-
-  final FileManagerController fileManagerController = Get.put(FileManagerController());
-
-  String currentFolder = "Storage";
-  String currentPath = "Storage";
-  int songCount = 0;
-  Duration totalDuration = Duration.zero;
+  late Rx<Directory> musicDir = Directory("storage/emulated/0/").obs;
+  late RxInt currentDirectoryItemCount = 0.obs;
 
   @override
   void initState() {
@@ -36,7 +24,12 @@ class _StorageViewState extends State<StorageView> {
   }
 
   void initAsync() async {
-    allowedDirectories.value = await AllowedDirectories.load();
+    bool isMusicDirPresent = await Directory("storage/emulated/0/Music").exists();
+    if(!isMusicDirPresent) {
+      musicDir.value = await Directory("storage/emulated/0/Music").create();
+    }
+    musicDir.value = Directory("storage/emulated/0/Music");
+    currentDirectoryItemCount.value = musicDir.value.listSync().length;
   }
 
   @override
@@ -55,46 +48,27 @@ class _StorageViewState extends State<StorageView> {
       ),
       child: Obx(
         () {
-          initAsync();
-          return ControlBackButton(
-            controller: fileManagerController,
-            child: Scaffold(
-              backgroundColor: Colors.transparent,
-              body: SafeArea(
-                child: CustomScrollView(
-                  physics: (allowedDirectories.isEmpty) ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
-                  slivers: [
-                    appBar(media, safe),
-                    SliverToBoxAdapter(
-                      child: (allowedDirectories.isEmpty)
-                      ? blank()
-                      : operateAllowedDirectories()
-                    ),
-                  ],
-                ),
-              ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () async {
-                  String? directoryPath = await FilePicker.platform.getDirectoryPath();
-                  if (directoryPath != null) {
-                    AllowedDirectories.update(directoryPath, isAdded: true);
-                  }
-                },
-                backgroundColor: accentColor,
-                child: Icon(Icons.create_new_folder_rounded, size: 30),
-              ),
-            )
+          return Scaffold(
+            backgroundColor: Colors.transparent,
+            body: CustomScrollView(
+              slivers: [
+                appBar(media, safe),
+                SliverList.builder(
+                  itemCount: currentDirectoryItemCount.value,
+                  itemBuilder: (context, index) {
+                    FileSystemEntity entity = musicDir.value.listSync()[index];
+                    String entityName = rootName(entity.path);
+                    if (entityName[0] == ".") return SizedBox();
+                    return StorageTile(
+                      entity: entity,
+                      onTap: openDirectory,
+                    );
+                  },
+                )
+              ],
+            ),
           );
         }
-      ),
-    );
-  }
-
-  Widget blank() {
-    return Center(
-      child: Text(
-        "No Folders to Show",
-        style: TextStyle(color: Colors.redAccent, fontSize: 30, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -104,7 +78,7 @@ class _StorageViewState extends State<StorageView> {
       backgroundColor: Colors.transparent,
       leading: Icon(Icons.folder_special_rounded, color: Colors.white, size: 30),
       title: Text(
-        currentFolder,
+        "Path",
         style: TextStyle(color: Colors.white, fontSize: 30),
       ),
       toolbarHeight: kBottomNavigationBarHeight,
@@ -117,19 +91,19 @@ class _StorageViewState extends State<StorageView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                currentPath.replaceAll("/", ">"), textAlign: TextAlign.start,
+                "storage/emulated/0", textAlign: TextAlign.start,
                 style: TextStyle(color: Colors.grey.shade300, fontSize: 18),
               ),
               SizedBox(height: 5),
               Row(
                 children: [
                   Text(
-                    "$songCount Songs\t\t\t", textAlign: TextAlign.start,
+                    "0 Songs\t\t\t", textAlign: TextAlign.start,
                     style: TextStyle(color: Colors.grey.shade300, fontSize: 18),
                   ),
                   Icon(Icons.timer_outlined, color: Colors.grey.shade300, size: 18),
                   Text(
-                    " ${totalDuration.inMinutes} Minutes", textAlign: TextAlign.start,
+                    " 0 Minutes", textAlign: TextAlign.start,
                     style: TextStyle(color: Colors.grey.shade300, fontSize: 18),
                   ),
                 ],
@@ -143,68 +117,23 @@ class _StorageViewState extends State<StorageView> {
     );
   }
 
-  Widget operateAllowedDirectories() {
-    return FileManager(
-      controller: fileManagerController,
-      builder: (context, _) {
-        if(allowedDirectories.length==1) {
-          FileSystemEntity entity = Directory(allowedDirectories.first);
-          return singleEntity(entity);
-        } else {
-          List<FileSystemEntity> entities = [];
-          for(var path in allowedDirectories) {
-            entities.add(Directory(path));
-          }
-          return multipleEntities(entities);
-        }
-      },
-    );
+  void openDirectory() async {
+
   }
 
-  Widget singleEntity(FileSystemEntity entity) {
-    return SizedBox(
-      height: 72,
-      child: StorageTile(
-        entity: entity,
-        onTap: () {
-          if (FileManager.isDirectory(entity)) {
-            if(allowedDirectories.contains(entity.path)) {
-              inAllowedDirectories.value = false;
-            }
-            fileManagerController.openDirectory(entity);
-          }
-        },
-        onLongPress: () {
-          if(allowedDirectories.contains(entity.path)) {
-            AllowedDirectories.update(entity.path, isAdded: false);
-          }
-        },
-      ),
-    );
+  String rootName(String path) {
+    String newPath = path.substring(path.lastIndexOf('/'), path.length);
+    if (newPath.startsWith('/')) {
+      newPath = newPath.substring(1, newPath.length);
+    }
+    return newPath;
   }
 
-  Widget multipleEntities(List<FileSystemEntity> entities) {
-    return SizedBox(
-      height: entities.length * 72,
-      child: ListView.builder(
-        itemCount: entities.length,
-        itemBuilder: (context, index) {
-          FileSystemEntity entity = entities[index];
-          return StorageTile(
-            entity: entity,
-            onTap: () async {
-              if (FileManager.isDirectory(entity)) {
-                fileManagerController.openDirectory(entity);
-              }
-            },
-            onLongPress: () {
-              if(allowedDirectories.contains(entity.path)) {
-                AllowedDirectories.update(entity.path, isAdded: false);
-              }
-            },
-          );
-        },
-      ),
-    );
+  String parentDirectory(String path) {
+    String newPath = path.substring(0, path.lastIndexOf('/'));
+    if (newPath.endsWith('/')) {
+      newPath = newPath.substring(0, newPath.length - 1);
+    }
+    return newPath;
   }
 }

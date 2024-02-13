@@ -7,14 +7,13 @@ import 'package:flutter/material.dart';
 
 class StorageTile extends StatelessWidget {
   final FileSystemEntity entity;
-  final VoidCallback onTap, onLongPress;
-  StorageTile({super.key, required this.entity, required this.onTap, required this.onLongPress});
+  final VoidCallback onTap;
+  StorageTile({super.key, required this.entity, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      onLongPress: onLongPress,
       leading: FileManager.isFile(entity)
         ? Icon(Icons.feed_outlined, color: Colors.white,)
         : Icon(Icons.folder, color: Colors.white),
