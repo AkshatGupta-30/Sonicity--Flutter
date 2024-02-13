@@ -1,13 +1,32 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sonicity/views/library_view/storage_view.dart';
 
-class LibraryView extends StatelessWidget {
+class LibraryView extends StatefulWidget {
   LibraryView({super.key});
+
+  @override
+  State<LibraryView> createState() => _LibraryViewState();
+}
+
+class _LibraryViewState extends State<LibraryView> {
+  @override
+  void initState() {
+    initAsync();
+    super.initState();
+  }
+
+  void initAsync() async {
+    if(!await Directory("storage/emulated/0/Music").exists()) {
+      await Directory("storage/emulated/0/Music").create();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

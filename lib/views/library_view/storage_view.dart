@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sonicity/utils/widgets/storage_tile.dart';
 
 class StorageView extends StatefulWidget {
@@ -14,8 +15,8 @@ class StorageView extends StatefulWidget {
 }
 
 class _StorageViewState extends State<StorageView> {
-  late Rx<Directory> musicDir = Directory("storage/emulated/0/").obs;
-  late RxInt currentDirectoryItemCount = 0.obs;
+  late Rx<Directory> curDir = Directory("storage/emulated/0/Music").obs;
+  late RxInt currentDirItemCount = 0.obs;
 
   @override
   void initState() {
@@ -24,59 +25,75 @@ class _StorageViewState extends State<StorageView> {
   }
 
   void initAsync() async {
-    bool isMusicDirPresent = await Directory("storage/emulated/0/Music").exists();
-    if(!isMusicDirPresent) {
-      musicDir.value = await Directory("storage/emulated/0/Music").create();
+    if(!await Permission.storage.request().isGranted) {
+      currentDirItemCount.value = curDir.value.listSync().length;
     }
-    musicDir.value = Directory("storage/emulated/0/Music");
-    currentDirectoryItemCount.value = musicDir.value.listSync().length;
   }
 
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     var safe = MediaQuery.paddingOf(context);
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0.0, 1],
-          tileMode: TileMode.clamp,
-        ),
-      ),
-      child: Obx(
-        () {
-          return Scaffold(
-            backgroundColor: Colors.transparent,
-            body: CustomScrollView(
-              slivers: [
-                appBar(media, safe),
-                SliverList.builder(
-                  itemCount: currentDirectoryItemCount.value,
-                  itemBuilder: (context, index) {
-                    FileSystemEntity entity = musicDir.value.listSync()[index];
-                    String entityName = rootName(entity.path);
-                    if (entityName[0] == ".") return SizedBox();
-                    return StorageTile(
-                      entity: entity,
-                      onTap: openDirectory,
-                    );
-                  },
-                )
-              ],
+    return Obx(
+      () {
+        return PopScope(
+          canPop: (curDir.value.path == "storage/emulated/0/Music"),
+          onPopInvoked: (didPop) {
+            if(curDir.value.path != "storage/emulated/0/Music") {
+              curDir.value = curDir.value.parent;
+            }
+          },
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.0, 1],
+                tileMode: TileMode.clamp,
+              ),
             ),
-          );
-        }
-      ),
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: CustomScrollView(
+                slivers: [
+                  appBar(media, safe),
+                  SliverList.builder(
+                    itemCount: curDir.value.listSync().length,
+                    itemBuilder: (context, index) {
+                      FileSystemEntity entity = curDir.value.listSync()[index];
+                      String entityName = rootName(entity.path);
+                      if (entityName[0] == ".") return SizedBox();
+                      return StorageTile(
+                        entity: entity,
+                        onTap: () {
+                          curDir.value = Directory(entity.path);
+                        },
+                      );
+                    },
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      }
     );
   }
 
   SliverAppBar appBar(Size media, EdgeInsets safe) {
     return SliverAppBar(
       backgroundColor: Colors.transparent,
-      leading: Icon(Icons.folder_special_rounded, color: Colors.white, size: 30),
+      leading: BackButton(
+        color: Colors.white,
+        onPressed: () {
+          if(curDir.value.path != "storage/emulated/0/Music") {
+            curDir.value = curDir.value.parent;
+          } else {
+            Get.back();
+          }
+        },
+      ),
       title: Text(
         "Path",
         style: TextStyle(color: Colors.white, fontSize: 30),
@@ -117,22 +134,10 @@ class _StorageViewState extends State<StorageView> {
     );
   }
 
-  void openDirectory() async {
-
-  }
-
   String rootName(String path) {
     String newPath = path.substring(path.lastIndexOf('/'), path.length);
     if (newPath.startsWith('/')) {
       newPath = newPath.substring(1, newPath.length);
-    }
-    return newPath;
-  }
-
-  String parentDirectory(String path) {
-    String newPath = path.substring(0, path.lastIndexOf('/'));
-    if (newPath.endsWith('/')) {
-      newPath = newPath.substring(0, newPath.length - 1);
     }
     return newPath;
   }
