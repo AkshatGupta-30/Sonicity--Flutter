@@ -17,6 +17,7 @@ class StorageView extends StatefulWidget {
 class _StorageViewState extends State<StorageView> {
   late Rx<Directory> curDir = Directory("storage/emulated/0/Music").obs;
   late RxInt currentDirItemCount = 0.obs;
+  late RxInt songCounts = 0.obs;
 
   @override
   void initState() {
@@ -28,12 +29,13 @@ class _StorageViewState extends State<StorageView> {
     if(!await Permission.storage.request().isGranted) {
       currentDirItemCount.value = curDir.value.listSync().length;
     }
+    songCounts.value = await countSongs(curDir.value);
   }
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.sizeOf(context);
-    var safe = MediaQuery.paddingOf(context);
+    var media = MediaQuery.of(context).size;
+    var safe = MediaQuery.of(context).padding;
     return Obx(
       () {
         return PopScope(
@@ -42,6 +44,7 @@ class _StorageViewState extends State<StorageView> {
             if(curDir.value.path != "storage/emulated/0/Music") {
               curDir.value = curDir.value.parent;
             }
+            updateAppBar();
           },
           child: DecoratedBox(
             decoration: BoxDecoration(
@@ -68,6 +71,7 @@ class _StorageViewState extends State<StorageView> {
                         entity: entity,
                         onTap: () {
                           curDir.value = Directory(entity.path);
+                          updateAppBar();
                         },
                       );
                     },
@@ -92,10 +96,11 @@ class _StorageViewState extends State<StorageView> {
           } else {
             Get.back();
           }
+          updateAppBar();
         },
       ),
       title: Text(
-        "Path",
+        rootName(curDir.value.path),
         style: TextStyle(color: Colors.white, fontSize: 30),
       ),
       toolbarHeight: kBottomNavigationBarHeight,
@@ -108,14 +113,14 @@ class _StorageViewState extends State<StorageView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "storage/emulated/0", textAlign: TextAlign.start,
+                curDir.value.path.substring(19, curDir.value.path.length).replaceAll('/', ' \u203A '), textAlign: TextAlign.start,
                 style: TextStyle(color: Colors.grey.shade300, fontSize: 18),
               ),
               SizedBox(height: 5),
               Row(
                 children: [
                   Text(
-                    "0 Songs\t\t\t", textAlign: TextAlign.start,
+                    "${songCounts.value} Songs\t\t\t", textAlign: TextAlign.start,
                     style: TextStyle(color: Colors.grey.shade300, fontSize: 18),
                   ),
                   Icon(Icons.timer_outlined, color: Colors.grey.shade300, size: 18),
@@ -132,6 +137,29 @@ class _StorageViewState extends State<StorageView> {
         ),
       ),
     );
+  }
+
+  void updateAppBar() async {
+    songCounts.value = await countSongs(curDir.value);
+  }
+
+  Future<int> countSongs(Directory directory) async {
+    int count = 0;
+    List<FileSystemEntity> entities = directory.listSync();
+    for (var entity in entities) {
+      if(entity is Directory) {
+        if (rootName(entity.path)[0] != ".") {
+          int newCount = await countSongs(entity);
+          count = count + newCount;
+        }
+      } else {
+        String extension = entity.path.split('.').last.toLowerCase();
+        if (extension == 'mp3' || extension == 'wav' || extension == 'ogg') {
+          count++;
+        }
+      }
+    }
+    return count;
   }
 
   String rootName(String path) {

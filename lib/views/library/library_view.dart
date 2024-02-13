@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:sonicity/views/library_view/storage_view.dart';
+import 'package:sonicity/views/library/storage_view.dart';
 
 class LibraryView extends StatefulWidget {
   LibraryView({super.key});
@@ -71,7 +71,7 @@ class _LibraryViewState extends State<LibraryView> {
               title: "Favorites",
             ),
             Tile(// * : My Storage
-              onPressed: () => Get.to(() => StorageView()),
+              onPressed: () => Get.to(StorageView()),
               icon: Icons.folder_outlined,
               title: "My Storage",
             ),

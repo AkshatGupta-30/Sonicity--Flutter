@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/bottom_nab_bar_tab.dart';
-import 'package:sonicity/views/library_view/library_view.dart';
+import 'package:sonicity/views/library/library_view.dart';
 
 class NavigationView extends StatefulWidget {
   NavigationView({super.key});
