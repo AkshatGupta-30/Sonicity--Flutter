@@ -38,3 +38,5 @@ flutter:
     - family: LovelyMamma
       fonts:
         - asset: assets/fonts/lovelyMamma.ttf
+  assets:
+    - assets/images/
