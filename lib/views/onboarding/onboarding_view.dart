@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sonicity/views/navigation_view.dart';
+import 'package:sonicity/views/onboarding/permission_view.dart';
 import 'package:sonicity/views/onboarding/welcome_view.dart';
 import 'package:sonicity/views/todo/todo_view.dart';
 
@@ -11,7 +12,8 @@ class OnBoardingView extends StatelessWidget {
   OnBoardingView({super.key});
 
   final PageController onBoardingPageController = PageController();
-  final firstPage = true.obs, lastPage = false.obs;
+  // final firstPage = true.obs, lastPage = false.obs;
+  final firstPage = false.obs, lastPage = false.obs;
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
@@ -35,7 +37,7 @@ class OnBoardingView extends StatelessWidget {
               },
               children: [
                 WelcomeView(),
-                ToDoView(bgColor: Colors.yellow),
+                PermissionView(pageController: onBoardingPageController,),
                 ToDoView(bgColor: Colors.green,)
               ],
             ),
