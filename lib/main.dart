@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sonicity/views/navigation_view.dart';
+import 'package:sonicity/views/onboarding/onboarding_view.dart';
 
 void main() {
   runApp(MainApp());
@@ -38,7 +38,7 @@ class _MainAppState extends State<MainApp> {
         fontFamily: "LovelyMamma",
         scaffoldBackgroundColor: Colors.black,
       ),
-      home: NavigationView(),
+      home: OnBoardingView(),
     );
   }
 }
