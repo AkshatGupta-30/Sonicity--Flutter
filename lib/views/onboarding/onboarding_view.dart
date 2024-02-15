@@ -12,8 +12,7 @@ class OnBoardingView extends StatelessWidget {
   OnBoardingView({super.key});
 
   final PageController onBoardingPageController = PageController();
-  // final firstPage = true.obs, lastPage = false.obs;
-  final firstPage = false.obs, lastPage = false.obs;
+  final firstPage = true.obs, lastPage = false.obs;
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
@@ -24,7 +23,7 @@ class OnBoardingView extends StatelessWidget {
           children: [
             PageView(
               controller: onBoardingPageController,
-              physics: NeverScrollableScrollPhysics(),
+              // physics: NeverScrollableScrollPhysics(),
               onPageChanged: (page) {
                 if(page==0) {
                   firstPage.value = true;
@@ -43,7 +42,7 @@ class OnBoardingView extends StatelessWidget {
             ),
             Container(
               width: media.width, height: media.width/3,
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withOpacity(0.25),
               padding: EdgeInsets.all(12),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,

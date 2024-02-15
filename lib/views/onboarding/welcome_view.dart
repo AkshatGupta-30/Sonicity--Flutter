@@ -27,7 +27,7 @@ class WelcomeView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: [  
                   SizedBox(height: 40),
                   Container(
                     width: 100,
@@ -38,7 +38,7 @@ class WelcomeView extends StatelessWidget {
                       shape: BoxShape.circle
                     ),
                     child: ClipOval(
-                      child: Image.asset("assets/images/appLogo.jpg"),
+                      child: Image.asset("assets/images/appLogo150x150.png"),
                     ),
                   ),
                   SizedBox(height: 10),
