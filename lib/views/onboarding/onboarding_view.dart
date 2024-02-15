@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sonicity/views/navigation_view.dart';
+import 'package:sonicity/views/onboarding/add_folder_view.dart';
 import 'package:sonicity/views/onboarding/permission_view.dart';
 import 'package:sonicity/views/onboarding/welcome_view.dart';
-import 'package:sonicity/views/todo/todo_view.dart';
 
 class OnBoardingView extends StatelessWidget {
   OnBoardingView({super.key});
@@ -37,7 +37,7 @@ class OnBoardingView extends StatelessWidget {
               children: [
                 WelcomeView(),
                 PermissionView(pageController: onBoardingPageController,),
-                ToDoView(bgColor: Colors.green,)
+                AddFolderView()
               ],
             ),
             Container(
