@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:sonicity/views/library/storage_view.dart';
+import 'package:sonicity/src/views/library/storage_view.dart';
 
 class LibraryView extends StatefulWidget {
   LibraryView({super.key});

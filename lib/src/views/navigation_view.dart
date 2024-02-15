@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:sonicity/utils/contants/colors.dart';
-import 'package:sonicity/utils/widgets/bottom_nab_bar_tab.dart';
-import 'package:sonicity/views/library/library_view.dart';
+import 'package:sonicity/src/utils/contants/colors.dart';
+import 'package:sonicity/src/utils/widgets/bottom_nab_bar_tab.dart';
+import 'package:sonicity/src/views/library/library_view.dart';
 
 class NavigationView extends StatefulWidget {
   NavigationView({super.key});

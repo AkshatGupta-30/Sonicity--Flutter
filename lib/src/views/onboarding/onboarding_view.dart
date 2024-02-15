@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:sonicity/views/navigation_view.dart';
-import 'package:sonicity/views/onboarding/add_folder_view.dart';
-import 'package:sonicity/views/onboarding/permission_view.dart';
-import 'package:sonicity/views/onboarding/welcome_view.dart';
+import 'package:sonicity/src/views/navigation_view.dart';
+import 'package:sonicity/src/views/onboarding/add_folder_view.dart';
+import 'package:sonicity/src/views/onboarding/permission_view.dart';
+import 'package:sonicity/src/views/onboarding/welcome_view.dart';
 
 class OnBoardingView extends StatelessWidget {
   OnBoardingView({super.key});

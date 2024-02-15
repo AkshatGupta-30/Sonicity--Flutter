@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sonicity/utils/widgets/storage_tile.dart';
+import 'package:sonicity/src/utils/widgets/storage_tile.dart';
 
 class StorageView extends StatefulWidget {
   StorageView({super.key});
