@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
-import 'package:sonicity/src/utils/contants/colors.dart';
+import 'package:sonicity/utils/contants/colors.dart';
 
 class Tabs extends StatelessWidget {
   final int thisTab, selectedTab;

@@ -6,7 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/persistence/shared_preference/allowed_directories.dart';
-import 'package:sonicity/src/utils/widgets/folder_tile.dart';
+import 'package:sonicity/utils/widgets/folder_tile.dart';
 
 class AddFolderView extends StatelessWidget {
   AddFolderView({super.key});
