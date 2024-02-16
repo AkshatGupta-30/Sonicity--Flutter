@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:sonicity/src/views/navigation/homeview.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/bottom_nab_bar_tab.dart';
 import 'package:sonicity/src/views/library/library_view.dart';
@@ -13,7 +14,7 @@ class NavigationView extends StatefulWidget {
 }
 
 class _NavigationViewState extends State<NavigationView> with SingleTickerProviderStateMixin {
-  int _selectedTab = 2;
+  int _selectedTab = 1;
   late TabController tabController;
 
   @override
@@ -29,7 +30,7 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
         controller: tabController,
         children: [
           Center(child: Text("Queue", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))),
-          Center(child: Text("Player", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))),
+          HomeView(),
           LibraryView()
         ],
       ),
@@ -50,7 +51,7 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
         onTap: (value) => setState(() => _selectedTab = value),
         tabs: [
           Tabs(thisTab: 0, selectedTab: _selectedTab, icon: Icons.queue_music_rounded, label: "Queue"),
-          Tabs(thisTab: 1, selectedTab: _selectedTab, icon: Icons.play_circle_rounded, label: "Player"),
+          Tabs(thisTab: 1, selectedTab: _selectedTab, icon: Icons.home_rounded, label: "Home"),
           Tabs(thisTab: 2, selectedTab: _selectedTab, icon: Icons.library_music_rounded, label: "Library"),
         ],
       ),

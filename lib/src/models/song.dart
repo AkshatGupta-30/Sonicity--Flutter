@@ -41,7 +41,7 @@ class Song {
     return Song(
       id: json['id'],
       name: json['name'],
-      album: Album.fromJson(json['album']),
+      album: Album.fromNameJson(json['album']),
       year: json['year'],
       releaseDate: json['releaseDate'],
       duration: json['duration'],
@@ -49,11 +49,14 @@ class Song {
       primaryArtistsId: json['primaryArtistsId'],
       featuredArtists: json['featuredArtists'],
       featuredArtistsId: json['featuredArtistsId'],
-      playCount: json['playCount'],
+      playCount: json['playCount'].toString(),
       language: json['language'],
-      hasLyrics: json['hasLyrics'],
+      hasLyrics: (json['hasLyrics']=="true") ? true : false,
       image: ImageUrl.fromJson(json['image']),
-      downloadUrl: json['downloadUrl'],
+      downloadUrl: DownloadUrl.fromJson(json['downloadUrl']),
     );
   }
+
+  String get title => name;
+  String get subtitle => "${album.name} ▪ $primaryArtists";
 }
