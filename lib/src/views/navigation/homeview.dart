@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/services/test_service.dart';
+import 'package:sonicity/utils/contants/colors.dart';
+import 'package:sonicity/utils/sections/last_session_section.dart';
 import 'package:sonicity/utils/sections/top_charts_section.dart';
 import 'package:sonicity/utils/sections/trending_now_section.dart';
 
@@ -37,7 +39,9 @@ class HomeView extends StatelessWidget{
                     SizedBox(height: 20),
                     TrendingNowSection(media: media, testApi: testApi),
                     SizedBox(height: 20),
-                    TopChartsSection(media: media, testApi: testApi)
+                    TopChartsSection(media: media, testApi: testApi),
+                    SizedBox(height: 20),
+                    LastSessionSecton(media: media, testApi: testApi)
                   ])
                 ),
               ],
@@ -52,7 +56,8 @@ class HomeView extends StatelessWidget{
     return SliverAppBar(
       pinned: true,
       toolbarHeight: kBottomNavigationBarHeight,
-      backgroundColor: Colors.transparent, shadowColor: Colors.transparent, surfaceTintColor: Colors.transparent,
+      backgroundColor: Colors.transparent,
+      shadowColor: Colors.black87, surfaceTintColor: Colors.black87,
       expandedHeight: kBottomNavigationBarHeight * 2,
       flexibleSpace: FlexibleSpaceBar(
         expandedTitleScale: 1, centerTitle: true,
@@ -62,17 +67,18 @@ class HomeView extends StatelessWidget{
           height: kBottomNavigationBarHeight,
           decoration: BoxDecoration(
             color: Color(0xFF151515),
+            border: Border.all(color: accentColor.withOpacity(0.5), width: 2),
             borderRadius: BorderRadius.circular(50)
           ),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Icon(Icons.search, size: 35, color: Colors.cyanAccent),
+              Icon(Icons.search, size: 30, color: Colors.cyanAccent),
               SizedBox(width: 5),
               Expanded(
                 child: Text(
                   "Songs, albums, genre or artists", overflow: TextOverflow.ellipsis, maxLines: 1,
-                  style: TextStyle(fontSize: 24, color: Colors.grey)
+                  style: TextStyle(fontSize: 21, color: Colors.grey)
                 ),
               )
             ],

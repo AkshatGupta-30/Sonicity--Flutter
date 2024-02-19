@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/services/test_service.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
-import 'package:sonicity/utils/widgets/title_section.dart';
+import 'package:sonicity/utils/sections/title_section.dart';
 
 class TopChartsSection extends StatelessWidget {
   final Size media;
@@ -18,7 +18,7 @@ class TopChartsSection extends StatelessWidget {
         TitleSection(title: "Top Charts", size: 24),
         SizedBox(height: 12),
         SizedBox(
-          height: media.width/1.5,
+          height: 175,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: testApi.playlistList.length,

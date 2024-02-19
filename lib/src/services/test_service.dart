@@ -347,6 +347,343 @@ class TestApi extends GetxController {
               "https://aac.saavncdn.com/300/ba452e07b8d8a8d96918300a1d7739f0_320.mp4"
         }
       ]
+    },
+    {
+      "id": "8RseXQeJ",
+      "name": "Careless",
+      "type": "",
+      "album": {
+        "id": "33357604",
+        "name": "Careless",
+        "url": "https://www.jiosaavn.com/album/careless/De-,2PbLqv0_"
+      },
+      "year": "2022",
+      "releaseDate": "null",
+      "duration": "248",
+      "label": "Speed Records",
+      "primaryArtists": "Korala Maan",
+      "primaryArtistsId": "7098898",
+      "featuredArtists": "",
+      "featuredArtistsId": "",
+      "explicitContent": 0,
+      "playCount": "1621373",
+      "language": "punjabi",
+      "hasLyrics": "true",
+      "url": "https://www.jiosaavn.com/song/careless/SDoYVCxhUnk",
+      "copyright": "© 2022 Speed Records",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/085/Careless-Punjabi-2022-20220307201147-50x50.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/085/Careless-Punjabi-2022-20220307201147-150x150.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/085/Careless-Punjabi-2022-20220307201147-500x500.jpg"
+        }
+      ],
+      "downloadUrl": [
+        {
+          "quality": "12kbps",
+          "link":
+              "https://aac.saavncdn.com/085/737cc31ff29e24680777919f9d32dd01_12.mp4"
+        },
+        {
+          "quality": "48kbps",
+          "link":
+              "https://aac.saavncdn.com/085/737cc31ff29e24680777919f9d32dd01_48.mp4"
+        },
+        {
+          "quality": "96kbps",
+          "link":
+              "https://aac.saavncdn.com/085/737cc31ff29e24680777919f9d32dd01_96.mp4"
+        },
+        {
+          "quality": "160kbps",
+          "link":
+              "https://aac.saavncdn.com/085/737cc31ff29e24680777919f9d32dd01_160.mp4"
+        },
+        {
+          "quality": "320kbps",
+          "link":
+              "https://aac.saavncdn.com/085/737cc31ff29e24680777919f9d32dd01_320.mp4"
+        }
+      ]
+    },
+    {
+      "id": "UCJUXD9Q",
+      "name": "Careless",
+      "type": "",
+      "album": {
+        "id": "25808516",
+        "name": "Careless",
+        "url": "https://www.jiosaavn.com/album/careless/kgh5KSNZjKc_"
+      },
+      "year": "2021",
+      "releaseDate": "null",
+      "duration": "273",
+      "label": "Judge Records",
+      "primaryArtists": "Mani Sekhon",
+      "primaryArtistsId": "4797335",
+      "featuredArtists": "",
+      "featuredArtistsId": "",
+      "explicitContent": 0,
+      "playCount": "384571",
+      "language": "punjabi",
+      "hasLyrics": "false",
+      "url": "https://www.jiosaavn.com/song/careless/JSshZCx0DmI",
+      "copyright": "℗ 2021 Judge Records",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/804/Careless-Punjabi-2021-20210309073348-50x50.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/804/Careless-Punjabi-2021-20210309073348-150x150.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/804/Careless-Punjabi-2021-20210309073348-500x500.jpg"
+        }
+      ],
+      "downloadUrl": [
+        {
+          "quality": "12kbps",
+          "link":
+              "https://aac.saavncdn.com/804/bb4bb846095a0408d980225c510a1110_12.mp4"
+        },
+        {
+          "quality": "48kbps",
+          "link":
+              "https://aac.saavncdn.com/804/bb4bb846095a0408d980225c510a1110_48.mp4"
+        },
+        {
+          "quality": "96kbps",
+          "link":
+              "https://aac.saavncdn.com/804/bb4bb846095a0408d980225c510a1110_96.mp4"
+        },
+        {
+          "quality": "160kbps",
+          "link":
+              "https://aac.saavncdn.com/804/bb4bb846095a0408d980225c510a1110_160.mp4"
+        },
+        {
+          "quality": "320kbps",
+          "link":
+              "https://aac.saavncdn.com/804/bb4bb846095a0408d980225c510a1110_320.mp4"
+        }
+      ]
+    },
+    {
+      "id": "1TOljJcs",
+      "name": "Careless",
+      "type": "",
+      "album": {
+        "id": "10961120",
+        "name": "Careless",
+        "url": "https://www.jiosaavn.com/album/careless/FXBeDlVk1Hk_"
+      },
+      "year": "2017",
+      "releaseDate": "null",
+      "duration": "297",
+      "label": "Burning Boat",
+      "primaryArtists": "Neffex",
+      "primaryArtistsId": "2029969",
+      "featuredArtists": "",
+      "featuredArtistsId": "",
+      "explicitContent": 0,
+      "playCount": "518285",
+      "language": "english",
+      "hasLyrics": "true",
+      "url": "https://www.jiosaavn.com/song/careless/QTwkXR56VEA",
+      "copyright": "© 2017 Burning Boat",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/981/Careless-Unknown-2017-20200603230817-50x50.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/981/Careless-Unknown-2017-20200603230817-150x150.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/981/Careless-Unknown-2017-20200603230817-500x500.jpg"
+        }
+      ],
+      "downloadUrl": [
+        {
+          "quality": "12kbps",
+          "link":
+              "https://aac.saavncdn.com/981/91cfc1494c7c0504d668e6d55422722d_12.mp4"
+        },
+        {
+          "quality": "48kbps",
+          "link":
+              "https://aac.saavncdn.com/981/91cfc1494c7c0504d668e6d55422722d_48.mp4"
+        },
+        {
+          "quality": "96kbps",
+          "link":
+              "https://aac.saavncdn.com/981/91cfc1494c7c0504d668e6d55422722d_96.mp4"
+        },
+        {
+          "quality": "160kbps",
+          "link":
+              "https://aac.saavncdn.com/981/91cfc1494c7c0504d668e6d55422722d_160.mp4"
+        },
+        {
+          "quality": "320kbps",
+          "link":
+              "https://aac.saavncdn.com/981/91cfc1494c7c0504d668e6d55422722d_320.mp4"
+        }
+      ]
+    },
+    {
+      "id": "HgJOOm1i",
+      "name": "Careless Whisper",
+      "type": "",
+      "album": {
+        "id": "1101450",
+        "name": "Ladies &amp; Gentlemen",
+        "url": "https://www.jiosaavn.com/album/ladies-gentlemen/j9lDC7QGGDY_"
+      },
+      "year": "2011",
+      "releaseDate": "null",
+      "duration": "300",
+      "label": "Epic",
+      "primaryArtists": "George Michael",
+      "primaryArtistsId": "511776",
+      "featuredArtists": "",
+      "featuredArtistsId": "",
+      "explicitContent": 0,
+      "playCount": "1013027",
+      "language": "english",
+      "hasLyrics": "false",
+      "url": "https://www.jiosaavn.com/song/careless-whisper/OA8hfjtdBlo",
+      "copyright": "(P) 1984 Sony Music Entertainment UK Limited",
+      "image": [
+        {
+          "quality": "50x50",
+          "link": "https://c.saavncdn.com/011/Ladies-Gentlemen-2011-50x50.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link": "https://c.saavncdn.com/011/Ladies-Gentlemen-2011-150x150.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link": "https://c.saavncdn.com/011/Ladies-Gentlemen-2011-500x500.jpg"
+        }
+      ],
+      "downloadUrl": [
+        {
+          "quality": "12kbps",
+          "link":
+              "https://aac.saavncdn.com/011/9f7a1e1d3905c952e54399d6e471ec45_12.mp4"
+        },
+        {
+          "quality": "48kbps",
+          "link":
+              "https://aac.saavncdn.com/011/9f7a1e1d3905c952e54399d6e471ec45_48.mp4"
+        },
+        {
+          "quality": "96kbps",
+          "link":
+              "https://aac.saavncdn.com/011/9f7a1e1d3905c952e54399d6e471ec45_96.mp4"
+        },
+        {
+          "quality": "160kbps",
+          "link":
+              "https://aac.saavncdn.com/011/9f7a1e1d3905c952e54399d6e471ec45_160.mp4"
+        },
+        {
+          "quality": "320kbps",
+          "link":
+              "https://aac.saavncdn.com/011/9f7a1e1d3905c952e54399d6e471ec45_320.mp4"
+        }
+      ]
+    },
+    {
+      "id": "ftYvHoes",
+      "name": "Careless",
+      "type": "",
+      "album": {
+        "id": "45046679",
+        "name": "Careless",
+        "url": "https://www.jiosaavn.com/album/careless/ObcRfvayqRM_"
+      },
+      "year": "2023",
+      "releaseDate": "null",
+      "duration": "128",
+      "label": "Shrey Singhal",
+      "primaryArtists": "Shrey Singhal",
+      "primaryArtistsId": "680727",
+      "featuredArtists": "",
+      "featuredArtistsId": "",
+      "explicitContent": 0,
+      "playCount": "12520",
+      "language": "punjabi",
+      "hasLyrics": "false",
+      "url": "https://www.jiosaavn.com/song/careless/FhwyRzxfUkA",
+      "copyright": "© 2023 Shrey Singhal",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/926/Careless-Punjabi-2023-20230502153350-50x50.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/926/Careless-Punjabi-2023-20230502153350-150x150.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/926/Careless-Punjabi-2023-20230502153350-500x500.jpg"
+        }
+      ],
+      "downloadUrl": [
+        {
+          "quality": "12kbps",
+          "link":
+              "https://aac.saavncdn.com/926/8b80931f81740f05fb5ef6e5465c2e6b_12.mp4"
+        },
+        {
+          "quality": "48kbps",
+          "link":
+              "https://aac.saavncdn.com/926/8b80931f81740f05fb5ef6e5465c2e6b_48.mp4"
+        },
+        {
+          "quality": "96kbps",
+          "link":
+              "https://aac.saavncdn.com/926/8b80931f81740f05fb5ef6e5465c2e6b_96.mp4"
+        },
+        {
+          "quality": "160kbps",
+          "link":
+              "https://aac.saavncdn.com/926/8b80931f81740f05fb5ef6e5465c2e6b_160.mp4"
+        },
+        {
+          "quality": "320kbps",
+          "link":
+              "https://aac.saavncdn.com/926/8b80931f81740f05fb5ef6e5465c2e6b_320.mp4"
+        }
+      ]
     }
   ].obs;
 

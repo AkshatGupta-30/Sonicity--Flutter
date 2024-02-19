@@ -9,7 +9,7 @@ import 'package:sonicity/src/services/test_service.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
-import 'package:sonicity/utils/widgets/title_section.dart';
+import 'package:sonicity/utils/sections/title_section.dart';
 
 class TrendingNowSection extends StatefulWidget {
   final Size media;
@@ -39,8 +39,8 @@ class _TrendingNowSectionState extends State<TrendingNowSection> with SingleTick
             TitleSection(title: "Trending Now", center: true),
             TabBar(
               controller: tabController,
-              indicatorColor: Colors.redAccent,
-              dividerColor: Colors.transparent, dividerHeight: 0,
+              indicatorColor: Colors.red,
+              dividerColor: Colors.red.withOpacity(0.5),
               overlayColor: MaterialStatePropertyAll(Colors.transparent),
               splashFactory: NoSplash.splashFactory,
               labelColor: accentColor.withOpacity(0.75), unselectedLabelColor: accentColorDark,
