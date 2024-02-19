@@ -5,13 +5,21 @@ import 'package:flutter/material.dart';
 class TitleSection extends StatelessWidget {
   final String title;
   final double leftPadding;
-  TitleSection({super.key, required this.title, this.leftPadding = 10});
+  final bool center;
+  final double size;
+  TitleSection({
+    super.key, required this.title,
+    this.leftPadding = 10,
+    this.center = false,
+    this.size = 20
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: leftPadding),
-      child: Text(title, style: TextStyle(color: Colors.cyanAccent, fontWeight: FontWeight.bold, fontSize: 20)),
+    return Container(
+      alignment: (center) ? Alignment.center : Alignment.centerLeft,
+      padding: EdgeInsets.only(left: (center) ? 0 : leftPadding),
+      child: Text(title, style: TextStyle(color: Colors.cyanAccent, fontWeight: FontWeight.bold, fontSize: size)),
     );
   }
 }
