@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/services/test_service.dart';
+import 'package:sonicity/utils/sections/top_charts_section.dart';
 import 'package:sonicity/utils/sections/trending_now_section.dart';
 
 class HomeView extends StatelessWidget{
@@ -36,6 +37,7 @@ class HomeView extends StatelessWidget{
                     SizedBox(height: 20),
                     TrendingNowSection(media: media, testApi: testApi),
                     SizedBox(height: 20),
+                    TopChartsSection(media: media, testApi: testApi)
                   ])
                 ),
               ],

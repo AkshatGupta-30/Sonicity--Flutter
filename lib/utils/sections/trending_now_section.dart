@@ -77,7 +77,7 @@ class _TrendingNowSectionState extends State<TrendingNowSection> with SingleTick
                     itemCount: widget.testApi.songsList.length,
                     itemBuilder: (context, index, realIndex) {
                       Song song = Song.fromJson(widget.testApi.songsList[index]);
-                      return SongTile(song: song);
+                      return SongCell(song: song);
                     },
                     options: CarouselOptions(
                       height: widget.media.width/1.25,
@@ -89,7 +89,7 @@ class _TrendingNowSectionState extends State<TrendingNowSection> with SingleTick
                     itemCount: widget.testApi.albumList.length,
                     itemBuilder: (context, index, realIndex) {
                       Album album = Album.fromShortJson(widget.testApi.albumList[index]);
-                      return AlbumTile(album: album);
+                      return AlbumCell(album: album);
                     },
                     options: CarouselOptions(
                       height: widget.media.width/1.25,
@@ -100,7 +100,6 @@ class _TrendingNowSectionState extends State<TrendingNowSection> with SingleTick
                 ],
               ),
             ),
-            SizedBox(height: 20),
           ],
         );
       }

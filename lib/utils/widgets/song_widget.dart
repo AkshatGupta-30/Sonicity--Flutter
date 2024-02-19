@@ -4,9 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sonicity/src/models/song.dart';
 
-class SongTile extends StatelessWidget {
+class SongCell extends StatelessWidget {
   final Song song;
-  const SongTile({super.key, required this.song});
+  const SongCell({super.key, required this.song});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,6 @@ class SongTile extends StatelessWidget {
       onTap: () {/* Play Button Pressed */},
       child: Container(
         width: media.width/1.25, height: media.width/1.25,
-        padding: EdgeInsets.only(right: 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
         ),
