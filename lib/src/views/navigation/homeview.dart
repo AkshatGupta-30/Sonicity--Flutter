@@ -2,18 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/services/homeview_service.dart';
+import 'package:sonicity/src/services/test_service.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 import 'package:sonicity/utils/widgets/title_section.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({super.key});
 
-  final trendingNow = {}.obs;
-  final trendingSongs = <Song>[].obs;
-  final trendingAlbums = <Album>[].obs;
+  final testApi = Get.put(TestApi());
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
@@ -67,7 +65,6 @@ class HomeView extends StatelessWidget {
                 ),
                 Obx(
                   () {
-                    retrieveTrendingNow();
                     return SliverList(
                       delegate: SliverChildListDelegate([
                         SizedBox(height: 20),
@@ -77,9 +74,9 @@ class HomeView extends StatelessWidget {
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             padding: EdgeInsets.only(left: 12, top: 12, bottom: 12),
-                            itemCount: trendingSongs.length,
+                            itemCount: testApi.songsList.length,
                             itemBuilder: (context, index) {
-                              Song song = trendingSongs[index];
+                              Song song = Song.fromJson(testApi.songsList[index]);
                               return SongTile(song: song);
                             },
                           ),
@@ -98,11 +95,6 @@ class HomeView extends StatelessWidget {
         ),
       )
     );
-  }
-
-  void retrieveTrendingNow() async {
-    final trending = await HomeDataService.trending();
-    trendingSongs.value = trending['songs'];
   }
 }
 
