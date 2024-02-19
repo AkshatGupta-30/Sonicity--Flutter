@@ -11,7 +11,7 @@ class TitleSection extends StatelessWidget {
     super.key, required this.title,
     this.leftPadding = 10,
     this.center = false,
-    this.size = 20
+    this.size = 27
   });
 
   @override
