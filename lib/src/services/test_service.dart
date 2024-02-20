@@ -921,85 +921,189 @@ class TestApi extends GetxController {
 
   final artistList = [
     {
-      "image": imageUrl,
-      "title": "Arijit Singh",
+      "id": "599452",
+      "name": "Imagine Dragons",
+      "url":
+          "https://www.jiosaavn.com/artist/imagine-dragons-songs/f0aFxsa231o_",
+      "role": "Artist",
+      "image": [
+        {
+          "quality": "50x50",
+          "link": "https://c.saavncdn.com/artists/Imagine_Dragons_50x50.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link": "https://c.saavncdn.com/artists/Imagine_Dragons_150x150.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link": "https://c.saavncdn.com/artists/Imagine_Dragons_500x500.jpg"
+        }
+      ],
+      "isRadioPresent": true
     },
     {
-      "image": imageUrl,
-      "title": "Ed Sheeran",
+      "id": "4992352",
+      "name": "Kygo &amp; Imagine Dragons",
+      "image": [
+        {
+          "quality": "50x50",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-music.png"
+        },
+        {
+          "quality": "150x150",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-music.png"
+        },
+        {
+          "quality": "500x500",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-music.png"
+        }
+      ]
     },
     {
-      "image": imageUrl,
-      "title": "Tones and I",
+      "id": "10540127",
+      "name": "In the style of Imagine Dragons",
+      "image": [
+        {
+          "quality": "50x50",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "150x150",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "500x500",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        }
+      ]
     },
     {
-      "image": imageUrl,
-      "title": "The Weeknd",
+      "id": "12664018",
+      "name": "Imagine Nastya Dragons",
+      "image": [
+        {
+          "quality": "50x50",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "150x150",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "500x500",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        }
+      ]
     },
     {
-      "image": imageUrl,
-      "title": "Shawn Mendes",
+      "id": "13217374",
+      "name": "Imagine Dragons Publishing",
+      "image": [
+        {
+          "quality": "50x50",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "150x150",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "500x500",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        }
+      ]
     },
     {
-      "image": imageUrl,
-      "title": "Lady Gaga",
+      "id": "13646546",
+      "name": "INC. OBO IMAGINE DRAGONS PUB",
+      "image": [
+        {
+          "quality": "50x50",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "150x150",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "500x500",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        }
+      ]
     },
     {
-      "image": imageUrl,
-      "title": "Camila Cabello",
+      "id": "13647141",
+      "name": "SONGS OF UNIVERSAL INC OBO IMAGINE DRAGONS PUBLISHING",
+      "image": [
+        {
+          "quality": "50x50",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "150x150",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "500x500",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        }
+      ]
     },
     {
-      "image": imageUrl,
-      "title": "Mark Ronson",
+      "id": "13461219",
+      "name": "Imagine Dragons Not Today",
+      "image": [
+        {
+          "quality": "50x50",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-music.png"
+        },
+        {
+          "quality": "150x150",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-music.png"
+        },
+        {
+          "quality": "500x500",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-music.png"
+        }
+      ]
     },
     {
-      "image": imageUrl,
-      "title": "Lewis Capaldi",
+      "id": "13947978",
+      "name": "Imagine Dragons Publishing/Songs Of Universal",
+      "image": [
+        {
+          "quality": "50x50",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "150x150",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "500x500",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        }
+      ]
     },
     {
-      "image": imageUrl,
-      "title": "Travis Scott",
-    },
-    {
-      "image": imageUrl,
-      "title": "Taylor Swift",
-    },
-    {
-      "image": imageUrl,
-      "title": "Billie Eilish",
-    },
-    {
-      "image": imageUrl,
-      "title": "Drake",
-    },
-    {
-      "image": imageUrl,
-      "title": "Dua Lipa",
-    },
-    {
-      "image": imageUrl,
-      "title": "Kanye West",
-    },
-    {
-      "image": imageUrl,
-      "title": "Adele",
-    },
-    {
-      "image": imageUrl,
-      "title": "Justin Bieber",
-    },
-    {
-      "image": imageUrl,
-      "title": "Rihanna",
-    },
-    {
-      "image": imageUrl,
-      "title": "Eminem",
-    },
-    {
-      "image": imageUrl,
-      "title": "Beyoncé",
-    },
+      "id": "14124856",
+      "name": "Songs of Universal Inc Obo Imagine Dragons Pub",
+      "image": [
+        {
+          "quality": "50x50",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "150x150",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        },
+        {
+          "quality": "500x500",
+          "link": "https://www.jiosaavn.com/_i/3.0/artist-default-film.png"
+        }
+      ]
+    }
   ].obs;
 
   final playlistList = [
