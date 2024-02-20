@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/src/services/test_service.dart';
+import 'package:sonicity/src/services/home_view_api.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 
 class TopChartsSection extends StatelessWidget {
   final Size media;
-  final TestApi testApi;
-  TopChartsSection({super.key, required this.media, required this.testApi});
+  final HomeViewApi homeViewApi;
+  TopChartsSection({super.key, required this.media, required this.homeViewApi});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,9 @@ class TopChartsSection extends StatelessWidget {
           height: 175,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: testApi.playlistList.length,
+            itemCount: homeViewApi.topCharts.value.playlists.length,
             itemBuilder: (context, index) {
-              Playlist playlist = Playlist.fromJson(testApi.playlistList[index]);
+              Playlist playlist = homeViewApi.topCharts.value.playlists[index];
               return PlaylistCell(playlist: playlist);
             },
           ),

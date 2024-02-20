@@ -19,7 +19,19 @@ class PlaylistCell extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             child: CachedNetworkImage(
               imageUrl: playlist.image.standardQuality,
-              width: 140, height: 140, fit: BoxFit.fill
+              width: 140, height: 140, fit: BoxFit.fill,
+              placeholder: (context, url) {
+                return Image.asset(
+                  "assets/images/appLogo150x150.png",
+                  width: 140, height: 140, fit: BoxFit.fill,
+                );
+              },
+              errorWidget: (context, url, error) {
+                return Image.asset(
+                  "assets/images/appLogo150x150.png",
+                  width: 140, height: 140, fit: BoxFit.fill,
+                );
+              },
             ),
           ),
           SizedBox(height: 2,),

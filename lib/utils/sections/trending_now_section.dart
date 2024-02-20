@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/services/test_service.dart';
+import 'package:sonicity/src/services/home_view_api.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
@@ -13,9 +13,9 @@ import 'package:sonicity/utils/sections/title_section.dart';
 
 class TrendingNowSection extends StatefulWidget {
   final Size media;
-  final TestApi testApi;
+  final HomeViewApi homeViewApi;
 
-  const TrendingNowSection({super.key, required this.media, required this.testApi});
+  const TrendingNowSection({super.key, required this.media, required this.homeViewApi});
 
   @override
   State<TrendingNowSection> createState() => _TrendingNowSectionState();
@@ -74,9 +74,9 @@ class _TrendingNowSectionState extends State<TrendingNowSection> with SingleTick
                 controller: tabController,
                 children: [
                   CarouselSlider.builder(
-                    itemCount: widget.testApi.songsList.length,
+                    itemCount: widget.homeViewApi.trendingNowList.value.songs.length,
                     itemBuilder: (context, index, realIndex) {
-                      Song song = Song.fromJson(widget.testApi.songsList[index]);
+                      Song song = widget.homeViewApi.trendingNowList.value.songs[index];
                       return SongCard(song: song);
                     },
                     options: CarouselOptions(
@@ -86,9 +86,9 @@ class _TrendingNowSectionState extends State<TrendingNowSection> with SingleTick
                     ),
                   ),
                   CarouselSlider.builder(
-                    itemCount: widget.testApi.albumList.length,
+                    itemCount: widget.homeViewApi.trendingNowList.value.albums.length,
                     itemBuilder: (context, index, realIndex) {
-                      Album album = Album.fromShortJson(widget.testApi.albumList[index]);
+                      Album album = widget.homeViewApi.trendingNowList.value.albums[index];
                       return AlbumCard(album: album);
                     },
                     options: CarouselOptions(

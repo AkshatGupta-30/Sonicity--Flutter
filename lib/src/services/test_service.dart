@@ -1482,4 +1482,398 @@ class TestApi extends GetxController {
       ]
     }
   ].obs;
+
+  final topCharts = [
+    {
+      "id": "110858205",
+      "title": "Trending Today",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_TrendingToday_134351_20230826113717.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_TrendingToday_134351_20230826113717.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_TrendingToday_134351_20230826113717.jpg"
+        }
+      ]
+    },
+    {
+      "id": "845149969",
+      "title": "Romantic Top 40 -  English",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_RomanticTop40-English_158417_20220315153203.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_RomanticTop40-English_158417_20220315153203.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_RomanticTop40-English_158417_20220315153203.jpg"
+        }
+      ]
+    },
+    {
+      "id": "142311984",
+      "title": "Romantic Top 40",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_RomanticTop40_167985_20220311173413.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_RomanticTop40_167985_20220311173413.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_RomanticTop40_167985_20220311173413.jpg"
+        }
+      ]
+    },
+    {
+      "id": "61969868",
+      "title": "International Charts",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_InternationalCharts_143799_20220315153513.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_InternationalCharts_143799_20220315153513.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_InternationalCharts_143799_20220315153513.jpg"
+        }
+      ]
+    },
+    {
+      "id": "1167751270",
+      "title": "Hindi 2000s",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_CHARTS_SAAVN_hindi_2000s_139784_20230711094322.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_CHARTS_SAAVN_hindi_2000s_139784_20230711094322.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_CHARTS_SAAVN_hindi_2000s_139784_20230711094322.jpg"
+        }
+      ]
+    },
+    {
+      "id": "1167751266",
+      "title": "Hindi 1990s",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_CHARTS_SAAVN_hindi_1990s_175982_20230711094900.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_CHARTS_SAAVN_hindi_1990s_175982_20230711094900.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_CHARTS_SAAVN_hindi_1990s_175982_20230711094900.jpg"
+        }
+      ]
+    },
+    {
+      "id": "142311985",
+      "title": "EDM Hot 40",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_EDMHot40_150598_20220315153607.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_EDMHot40_150598_20220315153607.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_EDMHot40_150598_20220315153607.jpg"
+        }
+      ]
+    },
+    {
+      "id": "63116921",
+      "title": "English 2000s",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English00s_177292_20220315153709.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English00s_177292_20220315153709.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English00s_177292_20220315153709.jpg"
+        }
+      ]
+    },
+    {
+      "id": "1170578723",
+      "title": "Hindi 1980s",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_CHARTS_SAAVN_hindi_1980s_139462_20230711095004.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_CHARTS_SAAVN_hindi_1980s_139462_20230711095004.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_CHARTS_SAAVN_hindi_1980s_139462_20230711095004.jpg"
+        }
+      ]
+    },
+    {
+      "id": "63116918",
+      "title": "English 1990s",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English90s_183339_20220315153803.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English90s_183339_20220315153803.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English90s_183339_20220315153803.jpg"
+        }
+      ]
+    },
+    {
+      "id": "114107255",
+      "title": "Hindi 1970s",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_Hindi1970s_180599_20230713045713.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_Hindi1970s_180599_20230713045713.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_Hindi1970s_180599_20230713045713.jpg"
+        }
+      ]
+    },
+    {
+      "id": "901538745",
+      "title": "English 1980s",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English80s_102505_20220315153947.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English80s_102505_20220315153947.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English80s_102505_20220315153947.jpg"
+        }
+      ]
+    },
+    {
+      "id": "901538742",
+      "title": "English 1970s",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English70s_136461_20220315154102.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English70s_136461_20220315154102.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English70s_136461_20220315154102.jpg"
+        }
+      ]
+    },
+    {
+      "id": "901538738",
+      "title": "English 1960s",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English60s_154284_20220315154214.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English60s_154284_20220315154214.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English60s_154284_20220315154214.jpg"
+        }
+      ]
+    },
+    {
+      "id": "82711685",
+      "title": "English Retro",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_EnglishRetro_174284_20220315154327.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_EnglishRetro_174284_20220315154327.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_EnglishRetro_174284_20220315154327.jpg"
+        }
+      ]
+    },
+    {
+      "id": "63116930",
+      "title": "English 2010s",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English2010s_20220316070529.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English2010s_20220316070529.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_English2010s_20220316070529.jpg"
+        }
+      ]
+    },
+    {
+      "id": "110858200",
+      "title": "Mumbai Hot 50",
+      "type": "playlist",
+      "songCount": "12",
+      "image": [
+        {
+          "quality": "50x50",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_MumbaiHot50_118422_20220311201459.jpg"
+        },
+        {
+          "quality": "150x150",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_MumbaiHot50_118422_20220311201459.jpg"
+        },
+        {
+          "quality": "500x500",
+          "link":
+              "https://c.saavncdn.com/editorial/charts_MumbaiHot50_118422_20220311201459.jpg"
+        }
+      ]
+    }
+  ].obs;
 }

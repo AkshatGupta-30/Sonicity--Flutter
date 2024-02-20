@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sonicity/src/services/home_view_api.dart';
 import 'package:sonicity/src/services/test_service.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/last_session_section.dart';
@@ -12,6 +13,7 @@ class HomeView extends StatelessWidget{
   HomeView({super.key});
 
   final testApi = Get.put(TestApi());
+  final homeViewApi = Get.put(HomeViewApi());
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +39,9 @@ class HomeView extends StatelessWidget{
                 SliverList(
                   delegate: SliverChildListDelegate([
                     SizedBox(height: 20),
-                    TrendingNowSection(media: media, testApi: testApi),
+                    TrendingNowSection(media: media, homeViewApi: homeViewApi),
                     SizedBox(height: 20),
-                    TopChartsSection(media: media, testApi: testApi),
+                    TopChartsSection(media: media, homeViewApi: homeViewApi),
                     SizedBox(height: 20),
                     LastSessionSecton(media: media, testApi: testApi)
                   ])
