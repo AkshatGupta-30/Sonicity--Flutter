@@ -4,9 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sonicity/src/models/album.dart';
 
-class AlbumCell extends StatelessWidget {
+class AlbumCard extends StatelessWidget {
   final Album album;
-  const AlbumCell({super.key, required this.album});
+  const AlbumCard({super.key, required this.album});
 
   @override
   Widget build(BuildContext context) {

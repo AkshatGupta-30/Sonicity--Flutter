@@ -4,9 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sonicity/src/models/song.dart';
 
-class SongCell extends StatelessWidget {
+class SongCard extends StatelessWidget {
   final Song song;
-  const SongCell({super.key, required this.song});
+  const SongCard({super.key, required this.song});
 
   @override
   Widget build(BuildContext context) {
