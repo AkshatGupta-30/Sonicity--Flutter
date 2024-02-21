@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -108,6 +108,52 @@ class AlbumCard extends StatelessWidget {
           style: TextStyle(color: Colors.grey.shade100, fontSize: 18),
         ),
       ],
+    );
+  }
+}
+
+class AlbumCell extends StatelessWidget {
+  final Album album;
+  AlbumCell({super.key, required this.album});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 140,
+      margin: EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: CachedNetworkImage(
+              imageUrl: album.image!.standardQuality,
+              width: 140, height: 140, fit: BoxFit.fill,
+              placeholder: (context, url) {
+                return Image.asset(
+                  "assets/images/appLogo150x150.png",
+                  width: 140, height: 140, fit: BoxFit.fill,
+                );
+              },
+              errorWidget: (context, url, error) {
+                return Image.asset(
+                  "assets/images/appLogo150x150.png",
+                  width: 140, height: 140, fit: BoxFit.fill,
+                );
+              },
+            ),
+          ),
+          SizedBox(height: 2,),
+          Text(
+            album.name, maxLines: 1, overflow: TextOverflow.ellipsis,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+          ),
+          Text(
+            "${album.language}",
+            style: TextStyle(color: Colors.grey,  fontSize: 11),
+          )
+        ],
+      ),
     );
   }
 }

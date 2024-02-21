@@ -6,6 +6,7 @@ import 'package:sonicity/src/services/home_view_api.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/hot_playlists_section.dart';
 import 'package:sonicity/utils/sections/last_session_section.dart';
+import 'package:sonicity/utils/sections/top_albums_section.dart';
 import 'package:sonicity/utils/sections/top_charts_section.dart';
 import 'package:sonicity/utils/sections/trending_now_section.dart';
 
@@ -46,6 +47,8 @@ class HomeView extends StatelessWidget{
                         SizedBox(height: 20),
                         if(homeViewApi.lastSessionSongs.isNotEmpty)
                         LastSessionSection(media: media, homeViewApi: homeViewApi),
+                        SizedBox(height: 20),
+                        TopAlbumsSection(media: media, homeViewApi: homeViewApi),
                         SizedBox(height: 20),
                         HotPlaylistSection(media: media, homeViewApi: homeViewApi),
                       ])

@@ -60,11 +60,27 @@ class HotPlaylists {
   }
 }
 
+class TopAlbums {
+  final List<Album> albums;
+  TopAlbums({required this.albums});
+
+  factory TopAlbums.fromJson({required List<Map<String, dynamic>> jsonList}) {
+    List<Album> albums = [];
+    for (var json in jsonList) {
+      if(json['type'] == 'album') {
+        albums.add(Album.fromShortJson(json));
+      }
+    }
+    return TopAlbums(albums: albums);
+  }
+}
+
 class HomeViewApi extends GetxController {
   final trendingNowList = TrendingNow.fromList(al: TestApi().albumList, so: TestApi().songsList).obs;
   final topCharts = TopCharts.fromJson(jsonList: TestApi().topCharts).obs;
   final lastSessionSprefs = <String>[].obs;
   final lastSessionSongs = <Song>[].obs;
+  final topAlbums = TopAlbums.fromJson(jsonList: TestApi().topAlbums).obs;
   final hotPlaylist = HotPlaylists.fromJson(jsonList: TestApi().playlistList).obs;
 
   @override

@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/song.dart';
 
@@ -10,6 +11,7 @@ class Album {
   final String ? songCount;
   final String ? primaryArtistsId;
   final String ? primaryArtists;
+  final String ? language;
   final List<Song> ? songs;
 
   Album({
@@ -21,6 +23,7 @@ class Album {
     this.songCount,
     this.primaryArtistsId,
     this.primaryArtists,
+    this.language,
     this.songs,
   });
 
@@ -37,16 +40,19 @@ class Album {
       songCount: json['songCount'],
       primaryArtistsId: json['primaryArtistsId'],
       primaryArtists: json['primaryArtists'],
+      language: json['language'],
       songs: songs,
     );
   }
 
   factory Album.fromShortJson(Map<String, dynamic> json) {
+    String language = json['language'].toString().capitalizeFirst!;
     return Album(
       id: json['id'],
       name: json['name'],
       image: ImageUrl.fromJson(json['image']),
       songCount: json['songCount'],
+      language: language,
     );
   }
 
