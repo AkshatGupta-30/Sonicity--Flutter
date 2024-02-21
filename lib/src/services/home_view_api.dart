@@ -5,7 +5,6 @@ import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/services/song_details_api.dart';
-import 'package:sonicity/src/services/test_service.dart';
 import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,12 +37,8 @@ class HotPlaylists {
 
   HotPlaylists({required this.playlists});
 
-  factory HotPlaylists.fromJson({required List<Map<String, dynamic>> jsonList}) {
-    List<Playlist> playlists = [];
-    for (var playlist in jsonList) {
-      playlists.add(Playlist.fromJson(playlist));
-    }
-    return HotPlaylists(playlists: playlists);
+  factory HotPlaylists.fromJson({required List<Playlist> jsonList}) {
+    return HotPlaylists(playlists: jsonList);
   }
 }
 
@@ -51,14 +46,8 @@ class TopAlbums {
   final List<Album> albums;
   TopAlbums({required this.albums});
 
-  factory TopAlbums.fromJson({required List<Map<String, dynamic>> jsonList}) {
-    List<Album> albums = [];
-    for (var json in jsonList) {
-      if(json['type'] == 'album') {
-        albums.add(Album.fromShortJson(json));
-      }
-    }
-    return TopAlbums(albums: albums);
+  factory TopAlbums.fromJson({required List<Album> jsonList}) {
+    return TopAlbums(albums: jsonList);
   }
 }
 
@@ -67,8 +56,8 @@ class HomeViewApi extends GetxController {
   final topCharts = TopCharts.fromList(jsonList: []).obs;
   final lastSessionSprefs = <String>[].obs;
   final lastSessionSongs = <Song>[].obs;
-  final topAlbums = TopAlbums.fromJson(jsonList: TestApi().topAlbums).obs;
-  final hotPlaylist = HotPlaylists.fromJson(jsonList: TestApi().playlistList).obs;
+  final topAlbums = TopAlbums.fromJson(jsonList: []).obs;
+  final hotPlaylist = HotPlaylists.fromJson(jsonList: []).obs;
 
   @override
   void onReady() {
@@ -84,6 +73,8 @@ class HomeViewApi extends GetxController {
 
     getTrendingData(json['data']['trending']);
     getTopCharts(json['data']['charts']);
+    getTopAlbums(json['data']['albums']);
+    getHotPlaylists(json['data']['playlists']);
   }
 
   void getTrendingData(Map<String, dynamic> data) async {
@@ -112,6 +103,24 @@ class HomeViewApi extends GetxController {
       }
     }
     topCharts.value = TopCharts.fromList(jsonList: playlistList);
+  }
+
+  void getTopAlbums(List<dynamic> data) async {
+    final List<Album> albums = [];
+
+    for(var album in data) {
+      albums.add(Album.fromShortJson(album));
+    }
+    topAlbums.value = TopAlbums.fromJson(jsonList: albums);
+  }
+
+  void getHotPlaylists(List<dynamic> data) async {
+    final List<Playlist> playlists = [];
+
+    for(var playlist in data) {
+      playlists.add(Playlist.fromJson(playlist));
+    }
+    hotPlaylist.value = HotPlaylists.fromJson(jsonList: playlists);
   }
 
   void getLastSession() async {

@@ -42,7 +42,7 @@ class PlaylistCell extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
           ),
           Text(
-            playlist.language!.capitalizeFirst!,
+            (playlist.language == null) ? "${playlist.songCount!} Songs" : playlist.language!.capitalizeFirst!,
             style: TextStyle(color: Colors.grey,  fontSize: 11),
           )
         ],
