@@ -15,11 +15,7 @@ class TrendingNow {
 
   TrendingNow({required this.songs, required this.albums});
 
-  factory TrendingNow.fromList({required List<Map<String, dynamic>> al, required List<Song> songs}) {
-    List<Album> albums = [];
-    for (var album in al) {
-      albums.add(Album.fromShortJson(album));
-    }
+  factory TrendingNow.fromList({required List<Album> albums, required List<Song> songs}) {
     return TrendingNow(
       albums: albums,
       songs: songs
@@ -73,7 +69,7 @@ class TopAlbums {
 }
 
 class HomeViewApi extends GetxController {
-  final trendingNowList = TrendingNow.fromList(al: TestApi().albumList, songs: []).obs;
+  final trendingNowList = TrendingNow.fromList(albums: [], songs: []).obs;
   final topCharts = TopCharts.fromJson(jsonList: TestApi().topCharts).obs;
   final lastSessionSprefs = <String>[].obs;
   final lastSessionSongs = <Song>[].obs;
@@ -97,11 +93,18 @@ class HomeViewApi extends GetxController {
 
   void getTrendingData(Map<String, dynamic> data) async {
     final List<Song> trendingSongsList = [];
+    final List<Album> trendingAlbumsList = [];
+
     for (var song in data['songs']) {
       Song songDetail = await SongDetailsApi.short(song['id'].toString());
       trendingSongsList.add(songDetail);
     }
-    trendingNowList.value = TrendingNow.fromList(al: [], songs: trendingSongsList);
+
+    for (var album in data['albums']) {
+      Album albumDetail = Album.fromShortJson(album);
+      trendingAlbumsList.add(albumDetail);
+    }
+    trendingNowList.value = TrendingNow.fromList(albums: trendingAlbumsList, songs: trendingSongsList);
   }
 
   void getLastSession() async {
