@@ -65,7 +65,7 @@ class HomeViewApi extends GetxController {
   final topCharts = TopCharts.fromJson(jsonList: TestApi().topCharts).obs;
   final lastSessionSprefs = <String>[].obs;
   final lastSessionSongs = <Song>[].obs;
-  final hotPlaylists = HotPlaylists.fromJson(jsonList: TestApi().playlistList).obs;
+  final hotPlaylist = HotPlaylists.fromJson(jsonList: TestApi().playlistList).obs;
 
   @override
   void onReady() {

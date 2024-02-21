@@ -6,10 +6,10 @@ import 'package:sonicity/src/services/home_view_api.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 
-class HotPlaylistsSection extends StatelessWidget {
+class HotPlaylistSection extends StatelessWidget {
   final Size media;
   final HomeViewApi homeViewApi;
-  HotPlaylistsSection({super.key, required this.media, required this.homeViewApi});
+  HotPlaylistSection({super.key, required this.media, required this.homeViewApi});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,9 @@ class HotPlaylistsSection extends StatelessWidget {
           height: 175,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: homeViewApi.hotPlaylists.value.playlists.length,
+            itemCount: homeViewApi.hotPlaylist.value.playlists.length,
             itemBuilder: (context, index) {
-              Playlist playlist = homeViewApi.hotPlaylists.value.playlists[index];
+              Playlist playlist = homeViewApi.hotPlaylist.value.playlists[index];
               return PlaylistCell(playlist: playlist);
             },
           ),

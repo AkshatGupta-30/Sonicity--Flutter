@@ -47,7 +47,7 @@ class HomeView extends StatelessWidget{
                         if(homeViewApi.lastSessionSongs.isNotEmpty)
                         LastSessionSection(media: media, homeViewApi: homeViewApi),
                         SizedBox(height: 20),
-                        HotPlaylistsSection(media: media, homeViewApi: homeViewApi),
+                        HotPlaylistSection(media: media, homeViewApi: homeViewApi),
                       ])
                     ),
                   ],
