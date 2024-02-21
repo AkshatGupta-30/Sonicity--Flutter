@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/services/song_details_api.dart';
 import 'package:sonicity/src/services/test_service.dart';
 import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
 import 'package:http/http.dart' as http;
@@ -14,14 +15,10 @@ class TrendingNow {
 
   TrendingNow({required this.songs, required this.albums});
 
-  factory TrendingNow.fromList({required List<Map<String, dynamic>> al, required List<Map<String, dynamic>> so}) {
+  factory TrendingNow.fromList({required List<Map<String, dynamic>> al, required List<Song> songs}) {
     List<Album> albums = [];
-    List<Song> songs = [];
     for (var album in al) {
       albums.add(Album.fromShortJson(album));
-    }
-    for (var song in so) {
-      songs.add(Song.fromJson(song));
     }
     return TrendingNow(
       albums: albums,
@@ -76,7 +73,7 @@ class TopAlbums {
 }
 
 class HomeViewApi extends GetxController {
-  final trendingNowList = TrendingNow.fromList(al: TestApi().albumList, so: TestApi().songsList).obs;
+  final trendingNowList = TrendingNow.fromList(al: TestApi().albumList, songs: []).obs;
   final topCharts = TopCharts.fromJson(jsonList: TestApi().topCharts).obs;
   final lastSessionSprefs = <String>[].obs;
   final lastSessionSongs = <Song>[].obs;
@@ -85,8 +82,26 @@ class HomeViewApi extends GetxController {
 
   @override
   void onReady() {
+    getHomeData();
     getLastSession();
     super.onReady();
+  }
+
+  void getHomeData() async {
+    const uri = "https://saavn.dev/modules?language=hindi,english";
+    final response = await http.get(Uri.parse(uri));
+    final json = jsonDecode(response.body);
+
+    getTrendingData(json['data']['trending']);
+  }
+
+  void getTrendingData(Map<String, dynamic> data) async {
+    final List<Song> trendingSongsList = [];
+    for (var song in data['songs']) {
+      Song songDetail = await SongDetailsApi.short(song['id'].toString());
+      trendingSongsList.add(songDetail);
+    }
+    trendingNowList.value = TrendingNow.fromList(al: [], songs: trendingSongsList);
   }
 
   void getLastSession() async {

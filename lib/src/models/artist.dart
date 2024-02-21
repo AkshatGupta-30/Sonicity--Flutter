@@ -21,4 +21,13 @@ class Artist {
       songCount: json['songCount']
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'image': image.toMap(),
+      'songCount': songCount,
+    };
+  }
 }

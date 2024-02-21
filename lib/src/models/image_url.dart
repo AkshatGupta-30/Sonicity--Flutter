@@ -19,6 +19,14 @@ class ImageUrl {
     List<ImageData> links = json.map((link) => ImageData.fromJson(link)).toList();
     return ImageUrl(imageLinks: links);
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'lowQuality': lowQuality,
+      'standardQuality': standardQuality,
+      'highQuality': highQuality,
+    };
+  }
 }
 
 class ImageData {
