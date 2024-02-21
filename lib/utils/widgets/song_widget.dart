@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
 
 class SongCard extends StatelessWidget {
   final Song song;
@@ -12,7 +13,10 @@ class SongCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return GestureDetector(
-      onTap: () {/* Play Button Pressed */},
+      onTap: () {
+        /* Play Button Pressed */
+        LastSessionSprefs.add(song.id);
+      },
       child: Container(
         width: media.width/1.25, height: media.width/1.25,
         decoration: BoxDecoration(

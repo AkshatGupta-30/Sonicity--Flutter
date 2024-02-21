@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/services/home_view_api.dart';
-import 'package:sonicity/src/services/test_service.dart';
 import 'package:sonicity/utils/contants/colors.dart';
+import 'package:sonicity/utils/sections/hot_playlists_section.dart';
 import 'package:sonicity/utils/sections/last_session_section.dart';
 import 'package:sonicity/utils/sections/top_charts_section.dart';
 import 'package:sonicity/utils/sections/trending_now_section.dart';
@@ -12,45 +12,51 @@ import 'package:sonicity/utils/sections/trending_now_section.dart';
 class HomeView extends StatelessWidget{
   HomeView({super.key});
 
-  final testApi = Get.put(TestApi());
   final homeViewApi = Get.put(HomeViewApi());
 
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0, 1],
-          tileMode: TileMode.clamp,
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: CustomScrollView(
-              slivers: [
-                _appBar(),
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    SizedBox(height: 20),
-                    TrendingNowSection(media: media, homeViewApi: homeViewApi),
-                    SizedBox(height: 20),
-                    TopChartsSection(media: media, homeViewApi: homeViewApi),
-                    SizedBox(height: 20),
-                    LastSessionSecton(media: media, testApi: testApi)
-                  ])
-                ),
-              ],
+    return Obx(
+      () {
+        return Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0, 1],
+              tileMode: TileMode.clamp,
             ),
           ),
-        ),
-      )
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CustomScrollView(
+                  slivers: [
+                    _appBar(),
+                    SliverList(
+                      delegate: SliverChildListDelegate([
+                        SizedBox(height: 20),
+                        TrendingNowSection(media: media, homeViewApi: homeViewApi),
+                        SizedBox(height: 20),
+                        TopChartsSection(media: media, homeViewApi: homeViewApi),
+                        SizedBox(height: 20),
+                        if(homeViewApi.lastSessionSongs.isNotEmpty)
+                        LastSessionSection(media: media, homeViewApi: homeViewApi),
+                        SizedBox(height: 20),
+                        HotPlaylistsSection(media: media, homeViewApi: homeViewApi),
+                      ])
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        );
+      }
     );
   }
 

@@ -1,14 +1,14 @@
 class DownloadUrl {
-  final List<DownloadData> _imageLinks;
+  final List<DownloadData> _downloadData;
 
-  DownloadUrl({required List<DownloadData> imageLinks}) : _imageLinks = imageLinks;
+  DownloadUrl({required List<DownloadData> imageLinks}) : _downloadData = imageLinks;
 
   late final String lowQuality = _getImageUrl('96kbps');
   late final String standardQuality = _getImageUrl('160kbps');
   late final String highQuality = _getImageUrl('320kbps');
 
   String _getImageUrl(String quality) {
-    final link = _imageLinks.firstWhere(
+    final link = _downloadData.firstWhere(
       (element) => element.quality == quality,
       orElse: () => DownloadData(quality: '', link: ''),
     );
