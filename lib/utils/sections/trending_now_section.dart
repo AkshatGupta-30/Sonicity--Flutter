@@ -8,6 +8,7 @@ import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/services/home_view_api.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
+import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 
@@ -74,8 +75,13 @@ class _TrendingNowSectionState extends State<TrendingNowSection> with SingleTick
                 controller: tabController,
                 children: [
                   CarouselSlider.builder(
-                    itemCount: widget.homeViewApi.trendingNowList.value.songs.length,
+                    itemCount: (widget.homeViewApi.trendingNowList.value.songs.isEmpty)
+                    ? 1
+                    : widget.homeViewApi.trendingNowList.value.songs.length,
                     itemBuilder: (context, index, realIndex) {
+                      if(widget.homeViewApi.trendingNowList.value.songs.isEmpty) {
+                        return ShimmerCard();
+                      }
                       Song song = widget.homeViewApi.trendingNowList.value.songs[index];
                       return SongCard(song: song);
                     },
@@ -86,8 +92,13 @@ class _TrendingNowSectionState extends State<TrendingNowSection> with SingleTick
                     ),
                   ),
                   CarouselSlider.builder(
-                    itemCount: widget.homeViewApi.trendingNowList.value.albums.length,
+                    itemCount: (widget.homeViewApi.trendingNowList.value.albums.isEmpty)
+                    ? 1
+                    : widget.homeViewApi.trendingNowList.value.albums.length,
                     itemBuilder: (context, index, realIndex) {
+                      if(widget.homeViewApi.trendingNowList.value.albums.isEmpty) {
+                        return ShimmerCard();
+                      }
                       Album album = widget.homeViewApi.trendingNowList.value.albums[index];
                       return AlbumCard(album: album);
                     },

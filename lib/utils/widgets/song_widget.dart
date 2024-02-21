@@ -148,17 +148,17 @@ class SongsRow extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(
-                imageUrl: song.image.lowQuality, fit: BoxFit.cover, width: 50, height: 50,
+                imageUrl: song.image.lowQuality, fit: BoxFit.cover, width: 60, height: 60,
                 errorWidget: (context, url, error) {
                   return Image.asset(
                     "assets/images/appLogo50x50.png",
-                    fit: BoxFit.cover, width: 50, height: 50
+                    fit: BoxFit.cover, width: 60, height: 60
                   );
                 },
                 placeholder: (context, url) {
                   return Image.asset(
                     "assets/images/appLogo50x50.png",
-                    fit: BoxFit.cover, width: 50, height: 50
+                    fit: BoxFit.cover, width: 60, height: 60
                   );
                 },
               ),

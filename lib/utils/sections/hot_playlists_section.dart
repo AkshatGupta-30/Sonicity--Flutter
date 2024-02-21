@@ -5,6 +5,7 @@ import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/services/home_view_api.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
+import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 
 class HotPlaylistSection extends StatelessWidget {
   final Size media;
@@ -21,8 +22,11 @@ class HotPlaylistSection extends StatelessWidget {
           height: 175,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: homeViewApi.hotPlaylist.value.playlists.length,
+            itemCount: (homeViewApi.hotPlaylist.value.playlists.isEmpty) ? 5 : homeViewApi.hotPlaylist.value.playlists.length,
             itemBuilder: (context, index) {
+              if(homeViewApi.hotPlaylist.value.playlists.isEmpty) {
+                return ShimmerCell();
+              }
               Playlist playlist = homeViewApi.hotPlaylist.value.playlists[index];
               return PlaylistCell(playlist: playlist);
             },

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/services/home_view_api.dart';
 import 'package:sonicity/utils/sections/view_all_section.dart';
+import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 
 class LastSessionSection extends StatelessWidget {
@@ -26,6 +27,17 @@ class LastSessionSection extends StatelessWidget {
         Obx(
           () {
             int listLength = (homeViewApi.lastSessionSongs.length > 20) ? 20 : homeViewApi.lastSessionSongs.length;
+            if(homeViewApi.lastSessionSongs.isEmpty) {
+              return SizedBox(
+                height: (homeViewApi.lastSessionSprefs.length > 4) ? 4 * 70 : homeViewApi.lastSessionSprefs.length * 70,
+                child: ListView.builder(
+                  itemCount: (homeViewApi.lastSessionSprefs.length > 4) ? 4 : homeViewApi.lastSessionSprefs.length,
+                  itemBuilder: (context, index) {
+                    return ShimmerRow();
+                  },
+                ),
+              );
+            }
             return SizedBox(
               height: (listLength < 4) ? listLength * 70 : 4 * 70,
               child: ListView.builder(

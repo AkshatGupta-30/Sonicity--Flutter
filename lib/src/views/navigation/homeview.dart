@@ -45,7 +45,7 @@ class HomeView extends StatelessWidget{
                         SizedBox(height: 20),
                         TopChartsSection(media: media, homeViewApi: homeViewApi),
                         SizedBox(height: 20),
-                        if(homeViewApi.lastSessionSongs.isNotEmpty)
+                        if(homeViewApi.lastSessionSprefs.isNotEmpty)
                         LastSessionSection(media: media, homeViewApi: homeViewApi),
                         SizedBox(height: 20),
                         TopAlbumsSection(media: media, homeViewApi: homeViewApi),
