@@ -28,14 +28,8 @@ class TopCharts {
 
   TopCharts({required this.playlists});
 
-  factory TopCharts.fromJson({required List<Map<String, dynamic>> jsonList}) {
-    List<Playlist> playlists = [];
-    for (var chart in jsonList) {
-      if(chart['type'] == 'playlist') {
-        playlists.add(Playlist.fromJson(chart));
-      }
-    }
-    return TopCharts(playlists: playlists);
+  factory TopCharts.fromList({required List<Playlist> jsonList}) {
+    return TopCharts(playlists: jsonList);
   }
 }
 
@@ -70,7 +64,7 @@ class TopAlbums {
 
 class HomeViewApi extends GetxController {
   final trendingNowList = TrendingNow.fromList(albums: [], songs: []).obs;
-  final topCharts = TopCharts.fromJson(jsonList: TestApi().topCharts).obs;
+  final topCharts = TopCharts.fromList(jsonList: []).obs;
   final lastSessionSprefs = <String>[].obs;
   final lastSessionSongs = <Song>[].obs;
   final topAlbums = TopAlbums.fromJson(jsonList: TestApi().topAlbums).obs;
@@ -89,6 +83,7 @@ class HomeViewApi extends GetxController {
     final json = jsonDecode(response.body);
 
     getTrendingData(json['data']['trending']);
+    getTopCharts(json['data']['charts']);
   }
 
   void getTrendingData(Map<String, dynamic> data) async {
@@ -105,6 +100,18 @@ class HomeViewApi extends GetxController {
       trendingAlbumsList.add(albumDetail);
     }
     trendingNowList.value = TrendingNow.fromList(albums: trendingAlbumsList, songs: trendingSongsList);
+  }
+
+  void getTopCharts(List<dynamic> data) async {
+    final List<Playlist> playlistList = [];
+
+    for (var chart in data) {
+      if(chart['type'] == 'playlist') {
+        Playlist playlistDetail = Playlist.fromJson(chart);
+        playlistList.add(playlistDetail);
+      }
+    }
+    topCharts.value = TopCharts.fromList(jsonList: playlistList);
   }
 
   void getLastSession() async {

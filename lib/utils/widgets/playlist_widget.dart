@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sonicity/src/models/playlist.dart';
 
 class PlaylistCell extends StatelessWidget {
@@ -11,6 +12,7 @@ class PlaylistCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 140,
       margin: EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,11 +38,11 @@ class PlaylistCell extends StatelessWidget {
           ),
           SizedBox(height: 2,),
           Text(
-            playlist.name,
+            playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
           ),
           Text(
-            "${playlist.songCount} Songs",
+            playlist.language!.capitalizeFirst!,
             style: TextStyle(color: Colors.grey,  fontSize: 11),
           )
         ],
