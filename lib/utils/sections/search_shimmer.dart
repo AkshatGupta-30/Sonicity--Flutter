@@ -1,0 +1,146 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
+
+import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
+
+class SearchShimmer extends StatelessWidget {
+  SearchShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade500, highlightColor: Colors.grey.shade100,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 20),
+          Container(// * Top Results Title
+            height: 27.0, width: 125,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12)
+            )
+          ),
+          SizedBox(height: 10),
+          _listTile(),
+          SizedBox(height: 20),
+          Row(// * Songs Title
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                height: 27.0, width: 80,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12)
+                )
+              ),
+              Spacer(),
+              Container(
+                height: 16.0, width: 65,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12)
+                )
+              ),
+            ],
+          ),
+          _listTile(), _listTile(), _listTile(),
+          SizedBox(height: 20),
+          Row(// * Albums Title
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                height: 27.0, width: 95,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12)
+                )
+              ),
+              Spacer(),
+              Container(
+                height: 16.0, width: 65,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12)
+                )
+              ),
+            ],
+          ),
+          _listTile(), _listTile(), _listTile(),
+          SizedBox(height: 20),
+          Row(// * Artists Title
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                height: 27.0, width: 90,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12)
+                )
+              ),
+              Spacer(),
+              Container(
+                height: 16.0, width: 65,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12)
+                )
+              ),
+            ],
+          ),
+          _listTile(), _listTile(), _listTile(),
+          SizedBox(height: 20),
+          Row(// * Playlists Title
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                height: 27.0, width: 110,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12)
+                )
+              ),
+              Spacer(),
+              Container(
+                height: 16.0, width: 65,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12)
+                )
+              ),
+            ],
+          ),
+          _listTile(), _listTile(), _listTile(),
+        ],
+      ),
+    );
+  }
+
+  ListTile _listTile() {
+    return ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: Container(
+            height: 60, width: 60,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12)
+            )
+          ),
+          title: Container(
+            height: 18, margin: EdgeInsets.only(right: 40),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12)
+            )
+          ),
+          subtitle: Container(
+            height: 14, margin: EdgeInsets.only(right: 90),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12)
+            )
+          ),
+          trailing: Icon(Icons.keyboard_arrow_down, size: 30),
+        );
+  }
+}

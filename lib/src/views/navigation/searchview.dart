@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/searchview_controller.dart';
 import 'package:sonicity/utils/contants/colors.dart';
+import 'package:sonicity/utils/sections/search_shimmer.dart';
 import 'package:sonicity/utils/widgets/search_history_cells.dart';
 import 'package:sonicity/utils/widgets/search_widgte.dart';
 
@@ -36,6 +37,9 @@ class SearchView extends StatelessWidget {
                   width: media.width, height: media.height,
                   padding: const EdgeInsets.all(15.0),
                   child: SingleChildScrollView(
+                    physics: (searchViewCont.loading.value)
+                      ? NeverScrollableScrollPhysics()
+                      : AlwaysScrollableScrollPhysics(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -48,31 +52,34 @@ class SearchView extends StatelessWidget {
                           )
                         ),
                         const SizedBox(height: 12),
-                        if(searchViewCont.historyList.isNotEmpty)
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(// * : Heading
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "History",
-                                style: TextStyle(color: accentColor, fontWeight: FontWeight.bold, fontSize: 25, ),
-                              ),
-                            ),
-                            Wrap(// * : All History Cells
-                              alignment: WrapAlignment.start,
-                              children: searchViewCont.historyList.asMap().entries.map((entry) {
-                                final int index = entry.key;
-                                final String itemText = entry.value;
-                                return SearchHistoryCell(
-                                  itemText: itemText,
-                                  onTap: () => searchViewCont.chipTapped(index),
-                                  onRemove: () => searchViewCont.chipRemoved(index),
-                                );
-                              }).toList(),
-                            ),
-                          ],
-                        )
+                        (searchViewCont.loading.value)
+                          ? SearchShimmer()
+                          : (searchViewCont.historyList.isNotEmpty)
+                            ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(// * : Heading
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "History",
+                                    style: TextStyle(color: accentColor, fontWeight: FontWeight.bold, fontSize: 25, ),
+                                  ),
+                                ),
+                                Wrap(// * : All History Cells
+                                  alignment: WrapAlignment.start,
+                                  children: searchViewCont.historyList.asMap().entries.map((entry) {
+                                    final int index = entry.key;
+                                    final String itemText = entry.value;
+                                    return SearchHistoryCell(
+                                      itemText: itemText,
+                                      onTap: () => searchViewCont.chipTapped(index),
+                                      onRemove: () => searchViewCont.chipRemoved(index),
+                                    );
+                                  }).toList(),
+                                ),
+                              ],
+                            )
+                            : SizedBox()
                       ],
                     ),
                   ),
