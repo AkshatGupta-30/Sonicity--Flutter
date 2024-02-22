@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/searchview_controller.dart';
+import 'package:sonicity/utils/contants/colors.dart';
+import 'package:sonicity/utils/widgets/search_history_cells.dart';
 import 'package:sonicity/utils/widgets/search_widgte.dart';
 
 class SearchView extends StatelessWidget {
@@ -28,26 +30,54 @@ class SearchView extends StatelessWidget {
         child: SafeArea(
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            body: Container(
-              width: media.width, height: media.height,
-              padding: const EdgeInsets.all(15.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 55,
-                      child: SearchBox(
-                        searchController: searchViewCont.searchController,
-                        onChanged: (text) {},
-                        onSubmitted: (text) {},
-                        onClear: () {},
-                      )
+            body: Obx(
+              () {
+                return Container(
+                  width: media.width, height: media.height,
+                  padding: const EdgeInsets.all(15.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 55,
+                          child: SearchBox(
+                            searchController: searchViewCont.searchController,
+                            onChanged: (text) => searchViewCont.searchChanged(text),
+                            onSubmitted: (text) => searchViewCont.searchSubmitted(text),
+                          )
+                        ),
+                        const SizedBox(height: 12),
+                        if(searchViewCont.historyList.isNotEmpty)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(// * : Heading
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "History",
+                                style: TextStyle(color: accentColor, fontWeight: FontWeight.bold, fontSize: 25, ),
+                              ),
+                            ),
+                            Wrap(// * : All History Cells
+                              alignment: WrapAlignment.start,
+                              children: searchViewCont.historyList.asMap().entries.map((entry) {
+                                final int index = entry.key;
+                                final String itemText = entry.value;
+                                return SearchHistoryCell(
+                                  itemText: itemText,
+                                  onTap: () => searchViewCont.chipTapped(index),
+                                  onRemove: () => searchViewCont.chipRemoved(index),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
-                    const SizedBox(height: 12),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              }
             ),
           ),
         ),

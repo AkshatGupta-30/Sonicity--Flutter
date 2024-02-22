@@ -44,8 +44,7 @@ class SearchContainer extends StatelessWidget {
 class SearchBox extends StatelessWidget {
   final TextEditingController searchController;
   final Function(String) onSubmitted, onChanged;
-  final VoidCallback onClear;
-  SearchBox({super.key, required this.onSubmitted, required this.onChanged, required this.searchController, required this.onClear});
+  SearchBox({super.key, required this.onSubmitted, required this.onChanged, required this.searchController});
 
   final FocusNode focusNode = FocusNode();
 
