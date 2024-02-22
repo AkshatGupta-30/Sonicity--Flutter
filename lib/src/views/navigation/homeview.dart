@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/services/home_view_api.dart';
+import 'package:sonicity/src/services/navigation_controller.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/hot_playlists_section.dart';
 import 'package:sonicity/utils/sections/last_session_section.dart';
@@ -14,6 +16,8 @@ class HomeView extends StatelessWidget{
   HomeView({super.key});
 
   final homeViewApi = Get.put(HomeViewApi());
+  final scrollController = ScrollController();
+  final padding = 0.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +36,14 @@ class HomeView extends StatelessWidget{
           ),
           child: Scaffold(
             backgroundColor: Colors.transparent,
+            drawer: Drawer(),
             body: SafeArea(
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: CustomScrollView(
+                  controller: scrollController,
                   slivers: [
-                    _appBar(),
+                    _appBar(media),
                     SliverList(
                       delegate: SliverChildListDelegate([
                         SizedBox(height: 20),
@@ -63,39 +69,46 @@ class HomeView extends StatelessWidget{
     );
   }
 
-  SliverAppBar _appBar() {
+  SliverAppBar _appBar(Size media) {
     return SliverAppBar(
-      pinned: true,
-      toolbarHeight: kBottomNavigationBarHeight,
+      pinned: false, floating: true,
+      toolbarHeight: 75,
       backgroundColor: Colors.transparent,
       shadowColor: Colors.black87, surfaceTintColor: Colors.black87,
-      expandedHeight: kBottomNavigationBarHeight * 2,
-      flexibleSpace: FlexibleSpaceBar(
-        expandedTitleScale: 1, centerTitle: true,
-        titlePadding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-        title: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          height: kBottomNavigationBarHeight,
-          decoration: BoxDecoration(
-            color: Color(0xFF151515),
-            border: Border.all(color: accentColor.withOpacity(0.5), width: 2),
-            borderRadius: BorderRadius.circular(50)
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Icon(Icons.search, size: 30, color: Colors.cyanAccent),
-              SizedBox(width: 5),
-              Expanded(
-                child: Text(
-                  "Songs, albums, genre or artists", overflow: TextOverflow.ellipsis, maxLines: 1,
-                  style: TextStyle(fontSize: 21, color: Colors.grey)
-                ),
-              )
-            ],
-          ),
+      leading: GestureDetector(
+        onTap: () => Get.find<NavigationController>().openDrawer(),
+        child: Icon(Icons.line_weight, color: Colors.white)
+      ),
+      leadingWidth: 30, titleSpacing: 10,
+      title: Container(
+        height: 60, width: media.width,
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Color(0xFF151515),
+          border: Border.all(color: accentColor.withOpacity(0.5), width: 2),
+          borderRadius: BorderRadius.circular(50)
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Icon(Icons.search, size: 30, color: Colors.cyanAccent),
+            SizedBox(width: 5),
+            Expanded(
+              child: Text(
+                "Songs, albums, genre or artists", overflow: TextOverflow.ellipsis, maxLines: 1,
+                style: TextStyle(fontSize: 21, color: Colors.grey)
+              ),
+            )
+          ],
         ),
       ),
+      actions: [
+        GestureDetector(
+          onTap: () {},
+          child: Icon(Icons.favorite_border, size: 30, color: Colors.grey.shade300)
+        ),
+        SizedBox(width: 8)
+      ],
     );
   }
 }
