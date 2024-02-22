@@ -28,6 +28,7 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
     return Scaffold(
       body: TabBarView(
         controller: tabController,
+        physics: NeverScrollableScrollPhysics(),
         children: [
           Center(child: Text("Queue", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))),
           HomeView(),
