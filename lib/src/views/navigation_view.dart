@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/services/navigation_controller.dart';
+import 'package:sonicity/src/controllers/navigation_controller.dart';
 import 'package:sonicity/src/views/navigation/homeview.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/bottom_nab_bar_tab.dart';
