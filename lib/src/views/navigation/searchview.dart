@@ -41,37 +41,41 @@ class SearchView extends StatelessWidget {
         child: SafeArea(
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            body: Container(
-              width: media.width, height: media.height,
-              padding: const EdgeInsets.all(15.0),
-              child: SingleChildScrollView(
-                physics: (searchViewCont.loading.value)
-                  ? NeverScrollableScrollPhysics()
-                  : AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 55,
-                      child: SearchBox(
-                        searchController: searchViewCont.searchController,
-                        onChanged: (text) => searchViewCont.searchChanged(text),
-                        onSubmitted: (text) => searchViewCont.searchSubmitted(text),
-                      )
-                    ),
-                    const SizedBox(height: 12),
-                    Obx(
-                      () {
-                        return (searchViewCont.loading.value)
+            body: Obx(
+              () {
+                return Container(
+                  width: media.width, height: media.height,
+                  padding: const EdgeInsets.all(15.0),
+                  child: CustomScrollView(
+                    physics: (searchViewCont.searching.value)
+                      ? AlwaysScrollableScrollPhysics()
+                      : NeverScrollableScrollPhysics(),
+                    slivers: [
+                      SliverAppBar(
+                        pinned: true,
+                        backgroundColor: Colors.transparent,
+                        leading: SizedBox(),
+                        flexibleSpace: SizedBox(
+                          height: 55,
+                          child: SearchBox(
+                            searchController: searchViewCont.searchController,
+                            onChanged: (text) => searchViewCont.searchChanged(text),
+                            onSubmitted: (text) => searchViewCont.searchSubmitted(text),
+                          )
+                        ),
+                      ),
+                      SliverToBoxAdapter(child: const SizedBox(height: 12)),
+                      SliverToBoxAdapter(
+                        child: (searchViewCont.loading.value)
                           ? SearchShimmer()
                           : (searchViewCont.searching.value)
                             ? _searchResults()
-                            : _searchHistory();
-                      }
-                    )
-                  ],
-                ),
-              ),
+                            : _searchHistory(),
+                      )
+                    ],
+                  ),
+                );
+              }
             ),
           ),
         ),

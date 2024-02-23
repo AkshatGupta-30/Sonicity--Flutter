@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/models/search_all.dart';
-import 'package:sonicity/src/services/search_api.dart';
+import 'package:sonicity/src/services/search_all_api.dart';
 import 'package:sonicity/src/sprefs/search_history.dart';
 
 class SearchViewController extends GetxController {
@@ -36,7 +36,7 @@ class SearchViewController extends GetxController {
 
   void _searchText(text) async {
     loading.value = true;
-    SearchAll search = await SearchViewApi.searchAll(text);
+    SearchAll search = await SearchAllApi.searchAll(text);
     loading.value = false;
     searchAll.value = search;
     update();

@@ -8,7 +8,7 @@ import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/models/search_all.dart';
 import 'package:sonicity/src/services/song_details_api.dart';
 
-class SearchViewApi {
+class SearchAllApi {
   static Future<Map<String, dynamic>> _searchAll(String text) async {
     text = text.replaceAll(" ", "+");
     final uri = Uri.parse('https://saavn.dev/search/all?query=$text');
