@@ -7,7 +7,7 @@ class Song {
   final String name;
   final Album album;
   final String year;
-  final String releaseDate;
+  final String ? releaseDate;
   final String duration;
   final String primaryArtists;
   final String primaryArtistsId;
@@ -24,7 +24,7 @@ class Song {
     required this.name,
     required this.album,
     required this.year,
-    required this.releaseDate,
+    this.releaseDate,
     required this.duration,
     required this.primaryArtists,
     required this.primaryArtistsId,

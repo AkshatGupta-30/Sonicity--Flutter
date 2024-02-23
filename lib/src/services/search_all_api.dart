@@ -13,19 +13,10 @@ class SearchAllApi {
     text = text.replaceAll(" ", "+");
     final uri = Uri.parse('https://saavn.dev/search/all?query=$text');
 
-    final body = await _fetchData(uri);
-    final jsonMap = jsonDecode(body);
+    final response = await http.get(uri);
+    final jsonMap = jsonDecode(response.body);
     final data = jsonMap["data"];
     return data;
-  }
-
-  static Future<String> _fetchData(Uri uri) async {
-    final response = await http.get(uri);
-    if (response.statusCode == 200) {
-      return response.body;
-    } else {
-      throw Exception(response);
-    }
   }
 
   static Future<SearchAll> searchAll(String text) async {
