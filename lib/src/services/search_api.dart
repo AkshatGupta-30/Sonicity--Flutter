@@ -27,7 +27,7 @@ class SearchViewApi {
     if (response.statusCode == 200) {
       return response.body;
     } else {
-      throw Exception('Failed to fetch data');
+      throw Exception(response);
     }
   }
 

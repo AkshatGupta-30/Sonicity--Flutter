@@ -19,4 +19,11 @@ class TopQuery{
   }) {
     return TopQuery(songs: songs, albums: albums, artists: artists, playlists: playlists);
   }
+
+  void clear() {
+    songs.clear();
+    albums.clear();
+    artists.clear();
+    playlists.clear();
+  }
 }

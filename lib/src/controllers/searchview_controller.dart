@@ -19,8 +19,8 @@ class SearchViewController extends GetxController {
     searchController.addListener(() {
       if(searchController.text.isEmpty) {
         loading.value = false;
-      } else {
-        loading.value = true;
+        searching.value = false;
+        topQuery.value.clear();
       }
       update();
     });
@@ -28,19 +28,23 @@ class SearchViewController extends GetxController {
 
   void initAsync() async {
     historyList.value = await SearchHistorySprefs.load();
+    update();
   }
 
   void _searchText(text) async {
+    loading.value = true;
     TopQuery top = await SearchViewApi.searchTopQuery(text);
+    loading.value = false;
     topQuery.value = top;
     update();
   }
 
   void searchChanged(String text) {
-    _searchText(text);
   }
 
   void searchSubmitted(String text) {
+    searching.value = true;
+    _searchText(text);
     if(historyList.contains(text)) {
       historyList.remove(text);
     }
@@ -49,6 +53,7 @@ class SearchViewController extends GetxController {
       historyList.removeAt(21);
     }
     SearchHistorySprefs.save(historyList);
+    update();
   }
 
   void chipRemoved(int index) {
