@@ -20,6 +20,20 @@ class TopQuery{
     return TopQuery(songs: songs, albums: albums, artists: artists, playlists: playlists);
   }
 
+  bool isEmpty() {
+    if(songs.isEmpty && albums.isEmpty && artists.isEmpty && playlists.isEmpty) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isNotEmpty() {
+    if(songs.isEmpty && albums.isEmpty && artists.isEmpty && playlists.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
   void clear() {
     songs.clear();
     albums.clear();

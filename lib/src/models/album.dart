@@ -75,6 +75,11 @@ class Album {
   }
 
   factory Album.fromSearchAllAlbum(Map<String, dynamic> json) {
-    return Album(id: json['id'], name: json['name'] ?? json['title'], artist: json['artist']);
+    return Album(
+      id: json['id'],
+      name: json['name'] ?? json['title'],
+      artist: json['artist'],
+      image: ImageUrl.fromJson(json['image'])
+    );
   }
 }

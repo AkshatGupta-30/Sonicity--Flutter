@@ -10,6 +10,7 @@ import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/search_shimmer.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
+import 'package:sonicity/utils/sections/view_all_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/artist_widgte.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
@@ -119,58 +120,151 @@ class SearchView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(// * : Top Results
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20),
-                TitleSection(title: "Top Results", leftPadding: 0, size: 22),
-                SizedBox(height: 10),
-                if(searchViewCont.searchAll.value.topQuery.songs.isNotEmpty) // * : Top songs
-                  SizedBox(
-                    height: 60.0 * searchViewCont.searchAll.value.songs.length,
+            if(searchViewCont.searchAll.value.topQuery.isNotEmpty())
+              Column(// * : Top Results
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  TitleSection(title: "Top Results", leftPadding: 0, size: 22),
+                  SizedBox(height: 10),
+                  if(searchViewCont.searchAll.value.topQuery.songs.isNotEmpty) // * : Top songs
+                    SizedBox(
+                      height: 60.0 * searchViewCont.searchAll.value.songs.length,
+                      child: ListView.builder(
+                        itemCount: searchViewCont.searchAll.value.topQuery.songs.length,
+                        itemBuilder: (context, index) {
+                          Song song = searchViewCont.searchAll.value.songs[index];
+                          return SongsRow(song: song);
+                        },
+                      ),
+                    )
+                  else if(searchViewCont.searchAll.value.topQuery.albums.isNotEmpty) // * : Top albums
+                    SizedBox(
+                      height: 60.0 * searchViewCont.searchAll.value.topQuery.albums.length,
+                      child: ListView.builder(
+                        itemCount: searchViewCont.searchAll.value.topQuery.albums.length,
+                        itemBuilder: (context, index) {
+                          Album album = searchViewCont.searchAll.value.topQuery.albums[index];
+                          return AlbumRow(album: album, subtitle: album.language!);
+                        },
+                      ),
+                    )
+                  else if(searchViewCont.searchAll.value.topQuery.artists.isNotEmpty) // * : Top artists
+                    SizedBox(
+                      height: 60.0 * searchViewCont.searchAll.value.topQuery.artists.length,
+                      child: ListView.builder(
+                        itemCount: searchViewCont.searchAll.value.topQuery.artists.length,
+                        itemBuilder: (context, index) {
+                          Artist artist = searchViewCont.searchAll.value.topQuery.artists[index];
+                          return ArtistRow(artist: artist, subtitle: artist.description!);
+                        },
+                      ),
+                    )
+                  else if(searchViewCont.searchAll.value.topQuery.playlists.isNotEmpty) // * : Top playlists
+                    SizedBox(
+                      height: 60.0 * searchViewCont.searchAll.value.topQuery.playlists.length,
+                      child: ListView.builder(
+                        itemCount: searchViewCont.searchAll.value.topQuery.playlists.length,
+                        itemBuilder: (context, index) {
+                          Playlist playlist = searchViewCont.searchAll.value.topQuery.playlists[index];
+                          return PlaylistRow(playlist: playlist);
+                        },
+                      ),
+                    )
+                ],
+              ),
+            if(searchViewCont.searchAll.value.songs.isNotEmpty) // * : Songs
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  ViewAllSection(
+                    title: "Songs", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
+                    onPressed: () {},
+                  ),
+                  Container(
+                    color: Colors.transparent,
+                    height: 70.0 * searchViewCont.searchAll.value.songs.length,
                     child: ListView.builder(
-                      itemCount: searchViewCont.searchAll.value.topQuery.songs.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: searchViewCont.searchAll.value.songs.length,
                       itemBuilder: (context, index) {
                         Song song = searchViewCont.searchAll.value.songs[index];
                         return SongsRow(song: song);
                       },
                     ),
-                  )
-                else if(searchViewCont.searchAll.value.topQuery.albums.isNotEmpty) // * : Top albums
-                  SizedBox(
-                    height: 60.0 * searchViewCont.searchAll.value.topQuery.albums.length,
+                  ),
+                ],
+              ),
+            if(searchViewCont.searchAll.value.albums.isNotEmpty) // * : Albums
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  ViewAllSection(
+                    title: "Albums", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
+                    onPressed: () {},
+                  ),
+                  Container(
+                    color: Colors.transparent,
+                    height: 70.0 * searchViewCont.searchAll.value.albums.length,
                     child: ListView.builder(
-                      itemCount: searchViewCont.searchAll.value.topQuery.albums.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: searchViewCont.searchAll.value.albums.length,
                       itemBuilder: (context, index) {
-                        Album album = searchViewCont.searchAll.value.topQuery.albums[index];
-                        return AlbumRow(album: album, subtitle: album.language!);
+                        Album album = searchViewCont.searchAll.value.albums[index];
+                        return AlbumRow(album: album, subtitle: album.artist!);
                       },
                     ),
-                  )
-                else if(searchViewCont.searchAll.value.topQuery.artists.isNotEmpty) // * : Top artists
-                  SizedBox(
-                    height: 60.0 * searchViewCont.searchAll.value.topQuery.artists.length,
+                  ),
+                ],
+              ),
+            if(searchViewCont.searchAll.value.artists.isNotEmpty) // * : Artists
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  ViewAllSection(
+                    title: "Artists", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
+                    onPressed: () {},
+                  ),
+                  Container(
+                    color: Colors.transparent,
+                    height: 70.0 * searchViewCont.searchAll.value.artists.length,
                     child: ListView.builder(
-                      itemCount: searchViewCont.searchAll.value.topQuery.artists.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: searchViewCont.searchAll.value.artists.length,
                       itemBuilder: (context, index) {
-                        Artist artist = searchViewCont.searchAll.value.topQuery.artists[index];
+                        Artist artist = searchViewCont.searchAll.value.artists[index];
                         return ArtistRow(artist: artist, subtitle: artist.description!);
                       },
                     ),
-                  )
-                else if(searchViewCont.searchAll.value.topQuery.playlists.isNotEmpty) // * : Top playlists
-                  SizedBox(
-                    height: 60.0 * searchViewCont.searchAll.value.topQuery.playlists.length,
+                  ),
+                ],
+              ),
+            if(searchViewCont.searchAll.value.playlists.isNotEmpty) // * : Playlists
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  ViewAllSection(
+                    title: "Playlists", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
+                    onPressed: () {},
+                  ),
+                  Container(
+                    color: Colors.transparent,
+                    height: 70.0 * searchViewCont.searchAll.value.playlists.length,
                     child: ListView.builder(
-                      itemCount: searchViewCont.searchAll.value.topQuery.playlists.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: searchViewCont.searchAll.value.playlists.length,
                       itemBuilder: (context, index) {
-                        Playlist playlist = searchViewCont.searchAll.value.topQuery.playlists[index];
+                        Playlist playlist = searchViewCont.searchAll.value.playlists[index];
                         return PlaylistRow(playlist: playlist);
                       },
                     ),
-                  )
-              ],
-            )
+                  ),
+                ],
+              ),
           ]
         );
       }
