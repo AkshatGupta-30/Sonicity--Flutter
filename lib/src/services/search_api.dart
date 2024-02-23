@@ -6,9 +6,6 @@ import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/models/search_all.dart';
-import 'package:sonicity/src/services/album_details_api.dart';
-import 'package:sonicity/src/services/artist_details_api.dart';
-import 'package:sonicity/src/services/playlist_details_api.dart';
 import 'package:sonicity/src/services/song_details_api.dart';
 
 class SearchViewApi {
@@ -53,13 +50,13 @@ class SearchViewApi {
         Song song = await SongDetailsApi.short(id);
         songs.add(song);
       } else if(type == 'artist') {
-        Artist artist = await ArtistDetailsApi.short(id);
+        Artist artist = Artist.fromSearchAllTop(result);
         artists.add(artist);
       } else if(type == 'album') {
-        Album album = await AlbumDetailsApi.short(id);
+        Album album = Album.fromSearchAllTop(result);
         albums.add(album);
       } else if(type == 'playlist') {
-        Playlist playlist = await PlaylistDetailsApi.short(id);
+        Playlist playlist = Playlist.fromSearchAllTop(result);
         playlists.add(playlist);
       }
     }

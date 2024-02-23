@@ -24,6 +24,15 @@ class Artist {
     );
   }
 
+  factory Artist.fromSearchAllTop(Map<String, dynamic> json) {
+    return Artist(
+      id: json['id'],
+      name: json['name'] ?? json['title'],
+      image: ImageUrl.fromJson(json['image']),
+      description: json['description']
+    );
+  }
+
   factory Artist.fromSearchAll(Map<String, dynamic> json) {
     return Artist(
       id: json['id'],
@@ -32,6 +41,8 @@ class Artist {
       description: json['description']
     );
   }
+
+  get language => null;
 
   Map<String, dynamic> toMap() {
     return {

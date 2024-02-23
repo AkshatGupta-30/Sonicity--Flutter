@@ -1,59 +1,13 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:sonicity/src/models/playlist.dart';
+import 'package:sonicity/src/models/artist.dart';
 
-class PlaylistCell extends StatelessWidget {
-  final Playlist playlist;
-  PlaylistCell({super.key, required this.playlist});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 140,
-      margin: EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: CachedNetworkImage(
-              imageUrl: playlist.image.standardQuality,
-              width: 140, height: 140, fit: BoxFit.fill,
-              placeholder: (context, url) {
-                return Image.asset(
-                  "assets/images/appLogo150x150.png",
-                  width: 140, height: 140, fit: BoxFit.fill,
-                );
-              },
-              errorWidget: (context, url, error) {
-                return Image.asset(
-                  "assets/images/appLogo150x150.png",
-                  width: 140, height: 140, fit: BoxFit.fill,
-                );
-              },
-            ),
-          ),
-          SizedBox(height: 2,),
-          Text(
-            playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
-          ),
-          Text(
-            (playlist.language == null) ? "${playlist.songCount!} Songs" : playlist.language!.capitalizeFirst!,
-            style: TextStyle(color: Colors.grey,  fontSize: 11),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class PlaylistRow extends StatelessWidget {
-  final Playlist playlist;
-  PlaylistRow({super.key,required this.playlist});
+class ArtistRow extends StatelessWidget {
+  final Artist artist;
+  final String subtitle;
+  ArtistRow({super.key,required this.artist, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +21,7 @@ class PlaylistRow extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(
-                imageUrl: playlist.image.lowQuality,
+                imageUrl: artist.image.lowQuality,
                 fit: BoxFit.cover, width: 60, height: 60,
                 errorWidget: (context, url, error) {
                   return Image.asset(
@@ -85,12 +39,25 @@ class PlaylistRow extends StatelessWidget {
             ),
             SizedBox(width: 10),
             Expanded(
-              child: SizedBox(
-                height: 26,
-                child: Text(
-                  playlist.name,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                )
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 26,
+                    child: Text(
+                      artist.name,
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                  ),
+                  SizedBox(
+                    height: 20,
+                    child: Text(
+                      subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                    )
+                  ),
+                ],
               ),
             ),
             PopupMenuButton(

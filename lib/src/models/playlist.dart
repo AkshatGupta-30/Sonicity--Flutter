@@ -26,6 +26,15 @@ class Playlist {
     );
   }
 
+  factory Playlist.fromSearchAllTop(Map<String, dynamic> json) {
+    return Playlist(
+      id: json['id'],
+      name: json['name'] ?? json['title'],
+      image: ImageUrl.fromJson(json['image']),
+      language: json['language'].toString().capitalizeFirst
+    );
+  }
+
   factory Playlist.fromSearchAll(Map<String, dynamic> json) {
     return Playlist(
       id: json['id'],

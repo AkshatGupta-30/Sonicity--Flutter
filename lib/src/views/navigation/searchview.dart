@@ -3,10 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/searchview_controller.dart';
+import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/artist.dart';
+import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/search_shimmer.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
+import 'package:sonicity/utils/widgets/album_widget.dart';
+import 'package:sonicity/utils/widgets/artist_widgte.dart';
+import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/widgets/search_history_cells.dart';
 import 'package:sonicity/utils/widgets/search_widgte.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
@@ -127,6 +133,39 @@ class SearchView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         Song song = searchViewCont.searchAll.value.songs[index];
                         return SongsRow(song: song);
+                      },
+                    ),
+                  )
+                else if(searchViewCont.searchAll.value.topQuery.albums.isNotEmpty) // * : Top albums
+                  SizedBox(
+                    height: 60.0 * searchViewCont.searchAll.value.topQuery.albums.length,
+                    child: ListView.builder(
+                      itemCount: searchViewCont.searchAll.value.topQuery.albums.length,
+                      itemBuilder: (context, index) {
+                        Album album = searchViewCont.searchAll.value.topQuery.albums[index];
+                        return AlbumRow(album: album, subtitle: album.language!);
+                      },
+                    ),
+                  )
+                else if(searchViewCont.searchAll.value.topQuery.artists.isNotEmpty) // * : Top artists
+                  SizedBox(
+                    height: 60.0 * searchViewCont.searchAll.value.topQuery.artists.length,
+                    child: ListView.builder(
+                      itemCount: searchViewCont.searchAll.value.topQuery.artists.length,
+                      itemBuilder: (context, index) {
+                        Artist artist = searchViewCont.searchAll.value.topQuery.artists[index];
+                        return ArtistRow(artist: artist, subtitle: artist.description!);
+                      },
+                    ),
+                  )
+                else if(searchViewCont.searchAll.value.topQuery.playlists.isNotEmpty) // * : Top playlists
+                  SizedBox(
+                    height: 60.0 * searchViewCont.searchAll.value.topQuery.playlists.length,
+                    child: ListView.builder(
+                      itemCount: searchViewCont.searchAll.value.topQuery.playlists.length,
+                      itemBuilder: (context, index) {
+                        Playlist playlist = searchViewCont.searchAll.value.topQuery.playlists[index];
+                        return PlaylistRow(playlist: playlist);
                       },
                     ),
                   )
