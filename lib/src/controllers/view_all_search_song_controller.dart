@@ -9,7 +9,7 @@ class ViewAllSearchSongsController extends GetxController {
 
   final scrollController = ScrollController();
   final songs = <Song>[].obs;
-  final currentPage = 0.obs;
+  int currentPage = 1;
 
   @override
   void onInit() {
@@ -20,8 +20,8 @@ class ViewAllSearchSongsController extends GetxController {
 
   void _loadMore() {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
-      currentPage.value++;
-      fetchSongs(searchText, currentPage.value);
+      currentPage++;
+      fetchSongs(searchText, currentPage);
     }
     update();
   }

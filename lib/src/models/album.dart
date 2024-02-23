@@ -6,7 +6,7 @@ class Album {
   final String id;
   final String name;
   final String ? artist;
-  final ImageUrl ? image;
+  final ImageUrl image;
   final String ? year;
   final String ? releaseDate;
   final String ? songCount;
@@ -19,7 +19,7 @@ class Album {
     required this.id,
     required this.name,
     this.artist,
-    this.image,
+    required this.image,
     this.year,
     this.releaseDate,
     this.songCount,
@@ -62,6 +62,7 @@ class Album {
     return Album(
       id: json['id'],
       name: json['name'],
+      image: ImageUrl(imageLinks: [])
     );
   }
 
@@ -79,6 +80,15 @@ class Album {
       id: json['id'],
       name: json['name'] ?? json['title'],
       artist: json['artist'],
+      image: ImageUrl.fromJson(json['image'])
+    );
+  }
+
+  factory Album.fromSearchAlbum(Map<String, dynamic> json) {
+    return Album(
+      id: json['id'],
+      name: json['name'] ?? json['title'],
+      songCount: json['songCount'],
       image: ImageUrl.fromJson(json['image'])
     );
   }

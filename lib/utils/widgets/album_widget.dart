@@ -24,7 +24,7 @@ class AlbumCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: CachedNetworkImage(
-                imageUrl: album.image!.highQuality,
+                imageUrl: album.image.highQuality,
                 width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
                 placeholder: (context, url) {
                   return Image.asset(
@@ -127,7 +127,7 @@ class AlbumCell extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: CachedNetworkImage(
-              imageUrl: album.image!.standardQuality,
+              imageUrl: album.image.standardQuality,
               width: 140, height: 140, fit: BoxFit.fill,
               placeholder: (context, url) {
                 return Image.asset(
@@ -175,7 +175,7 @@ class AlbumRow extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(
-                imageUrl: album.image!.lowQuality,
+                imageUrl: album.image.lowQuality,
                 fit: BoxFit.cover, width: 60, height: 60,
                 errorWidget: (context, url, error) {
                   return Image.asset(

@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/searchview_controller.dart';
-import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/view_all/view_all_albums_view.dart';
 import 'package:sonicity/src/views/view_all/view_all_songs_view.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/search_shimmer.dart';
@@ -27,7 +27,6 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ViewAllSearchSongsController(searchViewCont.searchController.text));
     var media = MediaQuery.sizeOf(context);
     return ColoredBox(
       color: Colors.black,
@@ -212,7 +211,9 @@ class SearchView extends StatelessWidget {
                   SizedBox(height: 20),
                   ViewAllSection(
                     title: "Albums", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => ViewAllAlbumsView());
+                    },
                   ),
                   Container(
                     color: Colors.transparent,
