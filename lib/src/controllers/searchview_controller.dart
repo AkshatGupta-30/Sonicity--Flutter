@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/models/top_query.dart';
+import 'package:sonicity/src/models/search_all.dart';
 import 'package:sonicity/src/services/search_api.dart';
 import 'package:sonicity/src/sprefs/search_history.dart';
 
@@ -9,7 +9,10 @@ class SearchViewController extends GetxController {
   final historyList = <String>[].obs;
   final loading = false.obs;
   final searching = false.obs;
-  final topQuery = TopQuery(songs: [], albums: [], artists: [], playlists: []).obs;
+  final searchAll = SearchAll(
+    topQuery: TopQuery(songs: [], albums: [], artists: [], playlists: []),
+    songs: [], albums: [], artists: [], playlists: []
+  ).obs;
 
   @override
   void onInit() {
@@ -20,7 +23,7 @@ class SearchViewController extends GetxController {
       if(searchController.text.isEmpty) {
         loading.value = false;
         searching.value = false;
-        topQuery.value.clear();
+        searchAll.value.clear();
       }
       update();
     });
@@ -33,9 +36,9 @@ class SearchViewController extends GetxController {
 
   void _searchText(text) async {
     loading.value = true;
-    TopQuery top = await SearchViewApi.searchTopQuery(text);
+    SearchAll search = await SearchViewApi.searchAll(text);
     loading.value = false;
-    topQuery.value = top;
+    searchAll.value = search;
     update();
   }
 
@@ -63,6 +66,7 @@ class SearchViewController extends GetxController {
 
   void chipTapped(int index) {
     searchController.text = historyList[index];
+    searchSubmitted(searchController.text);
   }
 
   @override

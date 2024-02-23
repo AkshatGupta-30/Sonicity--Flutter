@@ -5,7 +5,7 @@ import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/models/top_query.dart';
+import 'package:sonicity/src/models/search_all.dart';
 import 'package:sonicity/src/services/album_details_api.dart';
 import 'package:sonicity/src/services/artist_details_api.dart';
 import 'package:sonicity/src/services/playlist_details_api.dart';
@@ -31,10 +31,14 @@ class SearchViewApi {
     }
   }
 
-  static Future<TopQuery> searchTopQuery(String text) async {
+  static Future<SearchAll> searchAll(String text) async {
     final data = await _searchAll(text);
     TopQuery topQuery = await _getTopQuery(data["topQuery"]["results"]);
-    return topQuery;
+    List<Song> songs = await _getSongsList(data["songs"]["results"]);
+    List<Album> albums = await _getAlbumsList(data["albums"]["results"]);
+    List<Artist> artists = await _getArtistsList(data["artists"]["results"]);
+    List<Playlist> playlists = await _getPlaylistsList(data["playlists"]["results"]);
+    return SearchAll.fromLists(topQuery: topQuery, songs: songs, albums: albums, artists: artists, playlists: playlists);
   }
 
   static Future<TopQuery> _getTopQuery(List<dynamic> topQuery) async {
@@ -60,5 +64,41 @@ class SearchViewApi {
       }
     }
     return TopQuery.fromJson(songs: songs, albums: albums, artists: artists, playlists: playlists);
+  }
+  
+  static Future<List<Song>> _getSongsList(List<dynamic> songList) async {
+    List<Song> songs = [];
+    for(var result in songList) {
+      Song song = await SongDetailsApi.short(result['id']);
+      songs.add(song);
+    }
+    return songs;
+  }
+
+  static Future<List<Album>> _getAlbumsList(List<dynamic> albumList) async {
+    List<Album> albums = [];
+    for(var result in albumList) {
+      Album album = Album.fromSearchAllAlbum(result);
+      albums.add(album);
+    }
+    return albums;
+  }
+
+  static Future<List<Artist>> _getArtistsList(List<dynamic> artistList) async {
+    List<Artist> artists = [];
+    for(var result in artistList) {
+      Artist artist = Artist.fromSearchAll(result);
+      artists.add(artist);
+    }
+    return artists;
+  }
+
+  static Future<List<Playlist>> _getPlaylistsList(List<dynamic> playlistList) async {
+    List<Playlist> playlists = [];
+    for(var result in playlistList) {
+      Playlist playlist = Playlist.fromSearchAll(result);
+      playlists.add(playlist);
+    }
+    return playlists;
   }
 }

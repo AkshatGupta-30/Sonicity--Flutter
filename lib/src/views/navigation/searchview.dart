@@ -119,35 +119,17 @@ class SearchView extends StatelessWidget {
                 SizedBox(height: 20),
                 TitleSection(title: "Top Results", leftPadding: 0, size: 22),
                 SizedBox(height: 10),
-                if(searchViewCont.topQuery.value.songs.isNotEmpty) // * : Top songs
+                if(searchViewCont.searchAll.value.topQuery.songs.isNotEmpty) // * : Top songs
                   SizedBox(
-                    height: 60.0 * searchViewCont.topQuery.value.songs.length,
+                    height: 60.0 * searchViewCont.searchAll.value.songs.length,
                     child: ListView.builder(
-                      itemCount: searchViewCont.topQuery.value.songs.length,
+                      itemCount: searchViewCont.searchAll.value.topQuery.songs.length,
                       itemBuilder: (context, index) {
-                        Song song = searchViewCont.topQuery.value.songs[index];
+                        Song song = searchViewCont.searchAll.value.songs[index];
                         return SongsRow(song: song);
                       },
                     ),
                   )
-                // else if(searchViewCont.topQuery.value.albums.isNotEmpty) // * : Top albums
-                //   Container(
-                //     color: Colors.transparent,
-                //     height: 60.0, width: double.maxFinite,
-                //     child: ArtistRow(artist: topQuery['artist'][0]),
-                //   )
-                // else if(searchViewCont.topQuery.value.artists.isNotEmpty) // * : Top albums
-                //   Container(
-                //     color: Colors.transparent,
-                //     height: 60.0, width: double.maxFinite,
-                //     child: AlbumRow(album: topQuery['album'][0]),
-                //   )
-                // else if(searchViewCont.topQuery.value.playlists.isNotEmpty) // * : Top playlists
-                //   Container(
-                //     color: Colors.transparent,
-                //     height: 60.0, width: double.maxFinite,
-                //     child: PlaylistRow(playlist: topQuery['playlist'][0]),
-                //   ),
               ],
             )
           ]

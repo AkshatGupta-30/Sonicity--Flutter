@@ -5,12 +5,14 @@ class Artist {
   final String name;
   final ImageUrl image;
   final String? songCount;
+  final String ? description;
 
   Artist({
     required this.id,
     required this.name,
     required this.image,
-    required this.songCount
+    this.songCount,
+    this.description
   });
 
   factory Artist.fromShortJson(Map<String, dynamic> json) {
@@ -19,6 +21,15 @@ class Artist {
       name: json['name'],
       image: ImageUrl.fromJson(json['image']),
       songCount: json['songCount']
+    );
+  }
+
+  factory Artist.fromSearchAll(Map<String, dynamic> json) {
+    return Artist(
+      id: json['id'],
+      name: json['name'] ?? json['title'],
+      image: ImageUrl.fromJson(json['image']),
+      description: json['description']
     );
   }
 

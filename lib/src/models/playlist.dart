@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:sonicity/src/models/image_url.dart';
 
 class Playlist {
@@ -22,6 +23,15 @@ class Playlist {
       songCount: json['songCount'],
       image: ImageUrl.fromJson(json['image']),
       language: json['language']
+    );
+  }
+
+  factory Playlist.fromSearchAll(Map<String, dynamic> json) {
+    return Playlist(
+      id: json['id'],
+      name: json['name'] ?? json['title'],
+      image: ImageUrl.fromJson(json['image']),
+      language: json['language'].toString().capitalizeFirst
     );
   }
 }

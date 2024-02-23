@@ -5,6 +5,7 @@ import 'package:sonicity/src/models/song.dart';
 class Album {
   final String id;
   final String name;
+  final String ? artist;
   final ImageUrl ? image;
   final String ? year;
   final String ? releaseDate;
@@ -17,6 +18,7 @@ class Album {
   Album({
     required this.id,
     required this.name,
+    this.artist,
     this.image,
     this.year,
     this.releaseDate,
@@ -61,5 +63,13 @@ class Album {
       id: json['id'],
       name: json['name'],
     );
+  }
+
+  factory Album.fromSearchAllTop(Map<String, dynamic> json) {
+    return Album(id: json['id'], name: json['name'], language:  json['language'].toString().capitalizeFirst);
+  }
+
+  factory Album.fromSearchAllAlbum(Map<String, dynamic> json) {
+    return Album(id: json['id'], name: json['name'] ?? json['title'], artist: json['artist']);
   }
 }
