@@ -11,13 +11,14 @@ class ViewAllSearchPlaylistsController extends GetxController {
   final playlists = <Playlist>[].obs;
   int currentPage = 1;
   final playlistCount = 0.obs;
+  final isLoadingMore = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     fetchCount(searchText);
     fetchPlaylists(searchText, 1);
-    scrollController.addListener(() => _loadMore());
+    scrollController.addListener(_loadMore);
   }
 
   void fetchCount(String text) async {
@@ -25,15 +26,17 @@ class ViewAllSearchPlaylistsController extends GetxController {
     playlistCount.value = fetchCount;
   }
 
-  void _loadMore() {
-      if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+  Future<void> _loadMore() async {
+    if(isLoadingMore.value) return;
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+      isLoadingMore.value = true;
       currentPage++;
-      fetchPlaylists(searchText, currentPage);
+      await fetchPlaylists(searchText, currentPage).then((value) => isLoadingMore.value = false);
     }
     update();
   }
 
-  void fetchPlaylists(String text, int page) async {
+  Future<void> fetchPlaylists(String text, int page) async {
     List<Playlist> fetchedList = await SearchPlaylistsApi.fetchData(text, page);
     playlists.addAll(fetchedList);
     update();

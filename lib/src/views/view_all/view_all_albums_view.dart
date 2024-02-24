@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_album_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
@@ -98,31 +99,18 @@ class ViewAllAlbumsView extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.all(15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Albums",
-                          style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "${viewAllController.albumCount.value} Albums",
-                          style: TextStyle(color: Colors.grey.shade200, fontSize: 25),
-                        ),
-                      ],
+                    Text(
+                      "Albums",
+                      style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),
                     ),
-                    CircleAvatar(
-                      radius: 30, backgroundColor: Colors.black45,
-                      child: IconButton(
-                        onPressed: () {}, // TODO
-                        icon: Icon(Icons.favorite_border, color: Colors.white, size: 40),
-                      ),
-                    )
+                    Text(
+                      "${viewAllController.albumCount.value} Albums",
+                      style: TextStyle(color: Colors.grey.shade200, fontSize: 25),
+                    ),
                   ],
                 ),
               )
@@ -139,12 +127,18 @@ class ViewAllAlbumsView extends StatelessWidget {
         return SizedBox(
           height: media.height - media.width/1.2,
           child: ListView.builder(
-            controller: viewAllController.scrollController,
             padding: EdgeInsets.all(15),
-            itemCount: viewAllController.albums.length,
+            controller: viewAllController.scrollController,
+            itemCount: (viewAllController.isLoadingMore.value)
+              ? viewAllController.albums.length + 1
+              : viewAllController.albums.length,
             itemBuilder: (context, index) {
-              Album album = viewAllController.albums[index];
-              return AlbumRow(album: album, subtitle: "${album.songCount!} Songs");
+              if(index < viewAllController.albums.length) {
+                Album album = viewAllController.albums[index];
+                return AlbumRow(album: album, subtitle: "${album.songCount!} Songs");
+              } else {
+                return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
+              }
             },
           ),
         );

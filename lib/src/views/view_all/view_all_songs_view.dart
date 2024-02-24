@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
@@ -123,7 +124,7 @@ class ViewAllSongsView extends StatelessWidget {
                     style: TextStyle(color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    "${viewAllController.songs.length} Songs",
+                    "${viewAllController.songCount.value} Songs",
                     style: TextStyle(color: Colors.grey, fontSize: 15),
                   ),
                   SizedBox(height: 12),
@@ -181,10 +182,16 @@ class ViewAllSongsView extends StatelessWidget {
         return Expanded(
           child: ListView.builder(
             controller: viewAllController.scrollController,
-            itemCount: viewAllController.songs.length,
+            itemCount: (viewAllController.isLoadingMore.value)
+              ? viewAllController.songs.length + 1
+              : viewAllController.songs.length,
             itemBuilder: (context, index) {
-              Song song = viewAllController.songs[index];
-              return SongsRow(song: song);
+              if(index < viewAllController.songs.length) {
+                Song song = viewAllController.songs[index];
+                return SongsRow(song: song);
+              } else {
+                return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
+              }
             },
           ),
         );

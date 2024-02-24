@@ -11,24 +11,27 @@ class ViewAllSearchAlbumsController extends GetxController {
   final albums = <Album>[].obs;
   int currentPage = 1;
   final albumCount = 0.obs;
+  final isLoadingMore = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     fetchAlbums(searchText, 1);
-    scrollController.addListener(() => _loadMore());
+    scrollController.addListener(_loadMore);
   }
 
-  void _loadMore() {
-        if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+  Future<void> _loadMore() async {
+    if(isLoadingMore.value) return;
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+      isLoadingMore.value = true;
       currentPage++;
-      fetchAlbums(searchText, currentPage);
+      await fetchAlbums(searchText, currentPage).then((value) => isLoadingMore.value = false);
     }
     update();
   }
 
-  void fetchAlbums(String text, int page) async {
-        List<Album> fetchedList = await SearchAlbumsApi.fetchData(text, page);
+  Future<void> fetchAlbums(String text, int page) async {
+    List<Album> fetchedList = await SearchAlbumsApi.fetchData(text, page);
     albums.addAll(fetchedList);
     int fetchCount = await SearchAlbumsApi.fetchCount(text);
     albumCount.value = fetchCount;

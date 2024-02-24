@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_artist_controller.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/utils/widgets/artist_widgte.dart';
@@ -135,12 +136,18 @@ class ViewAllArtistsView extends StatelessWidget {
         return SizedBox(
           height: media.height - media.width/1.2,
           child: ListView.builder(
-            controller: viewAllController.scrollController,
             padding: EdgeInsets.all(15),
-            itemCount: viewAllController.artists.length,
+            controller: viewAllController.scrollController,
+            itemCount: (viewAllController.isLoadingMore.value)
+              ? viewAllController.artists.length + 1
+              : viewAllController.artists.length,
             itemBuilder: (context, index) {
-              Artist artist = viewAllController.artists[index];
-              return ArtistRow(artist: artist, subtitle: artist.description!);
+              if(index < viewAllController.artists.length) {
+                Artist artist = viewAllController.artists[index];
+                return ArtistRow(artist: artist, subtitle: artist.description!);
+              } else {
+                return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
+              }
             },
           ),
         );
