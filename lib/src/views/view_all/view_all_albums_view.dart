@@ -15,20 +15,20 @@ class ViewAllAlbumsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
-    return Container(
-      height: media.height,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.grey.shade900, Colors.black],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: const [0.0, 0.5],
-          tileMode: TileMode.clamp,
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Container(
+        height: media.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0, 1],
+            tileMode: TileMode.clamp,
+          ),
         ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _cover(media),

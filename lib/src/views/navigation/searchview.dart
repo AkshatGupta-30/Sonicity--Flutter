@@ -8,6 +8,7 @@ import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/view_all/view_all_albums_view.dart';
+import 'package:sonicity/src/views/view_all/view_all_artist_view.dart';
 import 'package:sonicity/src/views/view_all/view_all_songs_view.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/search_shimmer.dart';
@@ -28,9 +29,9 @@ class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
-    return ColoredBox(
-      color: Colors.black,
-      child: Container(
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
@@ -41,44 +42,41 @@ class SearchView extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Obx(
-              () {
-                return Container(
-                  width: media.width, height: media.height,
-                  padding: const EdgeInsets.all(15.0),
-                  child: CustomScrollView(
-                    physics: (searchViewCont.searching.value)
-                      ? AlwaysScrollableScrollPhysics()
-                      : NeverScrollableScrollPhysics(),
-                    slivers: [
-                      SliverAppBar(
-                        pinned: true,
-                        backgroundColor: Colors.transparent,
-                        leading: SizedBox(),
-                        flexibleSpace: SizedBox(
-                          height: 55,
-                          child: SearchBox(
-                            searchController: searchViewCont.searchController,
-                            onChanged: (text) => searchViewCont.searchChanged(text),
-                            onSubmitted: (text) => searchViewCont.searchSubmitted(text),
-                          )
-                        ),
+          child: Obx(
+            () {
+              return Container(
+                width: media.width, height: media.height,
+                padding: const EdgeInsets.all(15.0),
+                child: CustomScrollView(
+                  physics: (searchViewCont.searching.value)
+                    ? AlwaysScrollableScrollPhysics()
+                    : NeverScrollableScrollPhysics(),
+                  slivers: [
+                    SliverAppBar(
+                      pinned: true,
+                      backgroundColor: Colors.transparent,
+                      leading: SizedBox(),
+                      flexibleSpace: SizedBox(
+                        height: 55,
+                        child: SearchBox(
+                          searchController: searchViewCont.searchController,
+                          onChanged: (text) => searchViewCont.searchChanged(text),
+                          onSubmitted: (text) => searchViewCont.searchSubmitted(text),
+                        )
                       ),
-                      SliverToBoxAdapter(child: const SizedBox(height: 12)),
-                      SliverToBoxAdapter(
-                        child: (searchViewCont.loading.value)
-                          ? SearchShimmer()
-                          : (searchViewCont.searching.value)
-                            ? _searchResults()
-                            : _searchHistory(),
-                      )
-                    ],
-                  ),
-                );
-              }
-            ),
+                    ),
+                    SliverToBoxAdapter(child: const SizedBox(height: 12)),
+                    SliverToBoxAdapter(
+                      child: (searchViewCont.loading.value)
+                        ? SearchShimmer()
+                        : (searchViewCont.searching.value)
+                          ? _searchResults()
+                          : _searchHistory(),
+                    )
+                  ],
+                ),
+              );
+            }
           ),
         ),
       ),
@@ -236,7 +234,9 @@ class SearchView extends StatelessWidget {
                   SizedBox(height: 20),
                   ViewAllSection(
                     title: "Artists", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => ViewAllArtistsView());
+                    },
                   ),
                   Container(
                     color: Colors.transparent,

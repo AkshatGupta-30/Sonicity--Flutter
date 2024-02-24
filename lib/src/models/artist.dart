@@ -42,6 +42,15 @@ class Artist {
     );
   }
 
+  factory Artist.fromSearchArtist(Map<String, dynamic> json) {
+    return Artist(
+      id: json['id'],
+      name: json['name'] ?? json['title'],
+      image: ImageUrl.fromJson(json['image']),
+      description: json['role']
+    );
+  }
+
   get language => null;
 
   Map<String, dynamic> toMap() {

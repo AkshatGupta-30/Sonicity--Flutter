@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/view_all_search_album_controller.dart';
+import 'package:sonicity/src/controllers/view_all_search_artist_controller.dart';
 import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
 import 'package:sonicity/src/models/search_all.dart';
 import 'package:sonicity/src/services/search_all_api.dart';
@@ -44,6 +45,9 @@ class SearchViewController extends GetxController {
   if (Get.isRegistered<ViewAllSearchAlbumsController>()) {
     Get.delete<ViewAllSearchAlbumsController>();
   }
+  if (Get.isRegistered<ViewAllSearchArtistsController>()) {
+    Get.delete<ViewAllSearchArtistsController>();
+  }
 }
 
   void _searchText(text) async {
@@ -62,6 +66,7 @@ class SearchViewController extends GetxController {
     _searchText(text);
     Get.put(ViewAllSearchSongsController(searchController.text));
     Get.put(ViewAllSearchAlbumsController(searchController.text));
+    Get.put(ViewAllSearchArtistsController(searchController.text));
     if(historyList.contains(text)) {
       historyList.remove(text);
     }
