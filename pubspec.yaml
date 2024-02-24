@@ -13,8 +13,10 @@ dependencies:
   file_picker: ^6.1.1
   flutter:
     sdk: flutter
+  flutter_glow: ^0.3.0
   font_awesome_flutter: ^10.7.0
   get: ^4.6.6
+  google_fonts: ^6.1.0
   google_nav_bar: ^5.0.6
   http: ^1.2.0
   iconify_flutter_plus: ^1.0.3

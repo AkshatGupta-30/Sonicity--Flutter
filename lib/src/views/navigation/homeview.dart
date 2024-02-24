@@ -23,20 +23,20 @@ class HomeView extends StatelessWidget{
     var media = MediaQuery.sizeOf(context);
     return Obx(
       () {
-        return Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0, 1],
-              tileMode: TileMode.clamp,
+        return Scaffold(
+          backgroundColor: Colors.black,
+          drawer: Drawer(),
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0, 1],
+                tileMode: TileMode.clamp,
+              ),
             ),
-          ),
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            drawer: Drawer(),
-            body: SafeArea(
+            child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: CustomScrollView(
@@ -62,7 +62,7 @@ class HomeView extends StatelessWidget{
                 ),
               ),
             ),
-          )
+          ),
         );
       }
     );

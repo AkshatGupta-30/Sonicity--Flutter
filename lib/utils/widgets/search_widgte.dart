@@ -2,7 +2,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:sonicity/src/views/navigation/searchview.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 
@@ -15,31 +19,58 @@ class SearchContainer extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.to(() => SearchView()),
       child: Container(
-        height: 60, width: media.width,
-        padding: EdgeInsets.all(8),
+        height: 60, width: media.width, alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
           color: Color(0xFF151515),
-          border: Border.all(color: accentColor.withOpacity(0.5), width: 2),
+          border: Border.all(color: accentColor.withOpacity(0.4), width: 2),
           borderRadius: BorderRadius.circular(50)
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Icon(Icons.search, size: 30, color: Colors.cyanAccent),
-            SizedBox(width: 5),
-            Expanded(
-              child: Text(
-                "Songs, albums, genre or artists", overflow: TextOverflow.ellipsis, maxLines: 1,
-                style: TextStyle(fontSize: 21, color: Colors.grey)
+        child: RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            children: [
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: GlowText(
+                  "S", blurRadius: 25,
+                  style: GoogleFonts.audiowide(
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                    color: accentColor,
+                    letterSpacing: 10, decoration: TextDecoration.underline
+                  )
+                )
               ),
-            )
-          ],
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: GlowContainer(
+                  blurRadius: 25,
+                  child: Iconify(
+                    IconParkTwotone.search,
+                    color: accentColor, size: 32,
+                  )
+                )
+              ),
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: GlowText(
+                  "nicity", blurRadius: 25,
+                  style: GoogleFonts.audiowide(
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                    color: accentColor,
+                    letterSpacing: 10, decoration: TextDecoration.underline
+                  )
+                )
+              )
+            ]
+          ),
         ),
       ),
     );
   }
 }
-
 
 class SearchBox extends StatelessWidget {
   final TextEditingController searchController;

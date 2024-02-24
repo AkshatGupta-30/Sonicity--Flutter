@@ -79,8 +79,8 @@ class _TrendingNowSectionState extends State<TrendingNowSection> with SingleTick
                 children: [
                   CarouselSlider.builder(
                     itemCount: (widget.homeViewApi.trendingNowList.value.songs.isEmpty)
-                    ? 1
-                    : widget.homeViewApi.trendingNowList.value.songs.length,
+                      ? 1
+                      : widget.homeViewApi.trendingNowList.value.songs.length,
                     itemBuilder: (context, index, realIndex) {
                       if(widget.homeViewApi.trendingNowList.value.songs.isEmpty) {
                         return ShimmerCard();
@@ -99,8 +99,8 @@ class _TrendingNowSectionState extends State<TrendingNowSection> with SingleTick
                   ),
                   CarouselSlider.builder(
                     itemCount: (widget.homeViewApi.trendingNowList.value.albums.isEmpty)
-                    ? 1
-                    : widget.homeViewApi.trendingNowList.value.albums.length,
+                      ? 1
+                      : widget.homeViewApi.trendingNowList.value.albums.length,
                     itemBuilder: (context, index, realIndex) {
                       if(widget.homeViewApi.trendingNowList.value.albums.isEmpty) {
                         return ShimmerCard();

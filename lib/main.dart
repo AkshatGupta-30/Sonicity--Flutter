@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
 
 void main() {
+  // GoogleFonts.config.allowRuntimeFetching = false;
   runApp(MainApp());
 }
 
