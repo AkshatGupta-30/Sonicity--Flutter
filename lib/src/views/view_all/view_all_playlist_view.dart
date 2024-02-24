@@ -3,14 +3,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/controllers/view_all_search_artist_controller.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/utils/widgets/artist_widgte.dart';
+import 'package:sonicity/src/controllers/view_all_search_playlist_controller.dart';
+import 'package:sonicity/src/models/playlist.dart';
+import 'package:sonicity/utils/widgets/playlist_widget.dart';
 
-class ViewAllArtistsView extends StatelessWidget {
-  ViewAllArtistsView({super.key});
+class ViewAllPlaylistsView extends StatelessWidget {
+  ViewAllPlaylistsView({super.key});
 
-  final viewAllController = Get.find<ViewAllSearchArtistsController>();
+  final viewAllController = Get.find<ViewAllSearchPlaylistsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class ViewAllArtistsView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _cover(media),
-            _displayArtists(media)
+            _displayPlaylists(media)
           ],
         ),
       ),
@@ -40,7 +40,7 @@ class ViewAllArtistsView extends StatelessWidget {
   }
 
   Widget _cover(Size media) {
-    double imageSize = 100;
+    double imageSize = 125;
     return Obx(
       () {
         return SizedBox(
@@ -50,43 +50,43 @@ class ViewAllArtistsView extends StatelessWidget {
             children: [
               SizedBox(
                 height: media.width/1.2, width: double.maxFinite,
-                child: (viewAllController.artists.length < 6)
+                child: (viewAllController.playlists.length < 6)
                 ? CachedNetworkImage(
-                  imageUrl: viewAllController.artists.first.image.highQuality, fit: BoxFit.cover,
+                  imageUrl: viewAllController.playlists.first.image.highQuality, fit: BoxFit.cover,
                   height: media.width/1.15, width: media.width/2,
                   errorWidget: (context, url, error) {
-                    return Image.network("https://images.pexels.com/photos/1389429/pexels-photo-1389429.jpeg", fit: BoxFit.cover, height: media.width/1.15, width: media.width/2,);
+                    return Image.asset(
+                      "assets/images/appLogo50x50.png",
+                      fit: BoxFit.cover, height: media.width/1.15, width: media.width/2
+                    );
                   },
                   placeholder: (context, url) {
-                    return Image.network("https://images.pexels.com/photos/1389429/pexels-photo-1389429.jpeg", fit: BoxFit.cover, height: media.width/1.15, width: media.width/2,);
+                    return Image.asset(
+                      "assets/images/appLogo50x50.png",
+                      fit: BoxFit.cover, height: media.width/1.15, width: media.width/2
+                    );
                   },
                 )
                 : SafeArea(
                   child: Stack(
                     children: [
                       Positioned(
-                        top: media.width/10, left: 20,
-                        child: CoverImages(image: viewAllController.artists[0].image.standardQuality, size: imageSize)
+                        top: 10, right: 30,
+                        child: CoverImages(image: viewAllController.playlists[1].image.standardQuality, size: imageSize)
                       ),
                       Positioned(
-                        top: 10, left: media.width/2 - imageSize/2,
-                        child: CoverImages(image: viewAllController.artists[1].image.standardQuality, size: imageSize)
+                        right: 30, bottom: 10,
+                        child: CoverImages(image: viewAllController.playlists[2].image.standardQuality, size: imageSize)
                       ),
                       Positioned(
-                        top: media.width/10, right: 20,
-                        child: CoverImages(image: viewAllController.artists[2].image.standardQuality, size: imageSize)
+                        bottom: 10, left: 30,
+                        child: CoverImages(image: viewAllController.playlists[3].image.standardQuality, size: imageSize)
                       ),
                       Positioned(
-                        bottom: media.width/10, left: 20,
-                        child: CoverImages(image: viewAllController.artists[3].image.standardQuality, size: imageSize)
+                        top: 10, left: 30,
+                        child: CoverImages(image: viewAllController.playlists[4].image.standardQuality, size: imageSize)
                       ),
-                      Positioned(
-                        bottom: 10, left: media.width/2 - imageSize/2,
-                        child: CoverImages(image: viewAllController.artists[4].image.standardQuality, size: imageSize)
-                      ),
-                      Positioned(
-                        bottom: media.width/10, right: 20,
-                        child: CoverImages(image: viewAllController.artists[5].image.standardQuality, size: imageSize)
+                      Center(child: CoverImages(image: viewAllController.playlists.first.image.standardQuality, size: imageSize)
                       ),
                     ],
                   ),
@@ -112,11 +112,11 @@ class ViewAllArtistsView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Artists",
+                      "Playlists",
                       style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "${viewAllController.artistCount.value} Artists",
+                      "${viewAllController.playlistCount.value} Playlists",
                       style: TextStyle(color: Colors.grey.shade300, fontSize: 25),
                     ),
                   ],
@@ -129,7 +129,7 @@ class ViewAllArtistsView extends StatelessWidget {
     );
   }
 
-  Widget _displayArtists(Size media) {
+  Widget _displayPlaylists(Size media) {
     return Obx(
       () {
         return SizedBox(
@@ -137,10 +137,10 @@ class ViewAllArtistsView extends StatelessWidget {
           child: ListView.builder(
             controller: viewAllController.scrollController,
             padding: EdgeInsets.all(15),
-            itemCount: viewAllController.artists.length,
+            itemCount: viewAllController.playlists.length,
             itemBuilder: (context, index) {
-              Artist artist = viewAllController.artists[index];
-              return ArtistRow(artist: artist, subtitle: artist.description!);
+              Playlist playlist = viewAllController.playlists[index];
+              return PlaylistRow(playlist: playlist, subtitle: "${playlist.songCount} Songs");
             },
           ),
         );

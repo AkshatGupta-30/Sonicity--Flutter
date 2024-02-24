@@ -9,6 +9,7 @@ import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/view_all/view_all_albums_view.dart';
 import 'package:sonicity/src/views/view_all/view_all_artist_view.dart';
+import 'package:sonicity/src/views/view_all/view_all_playlist_view.dart';
 import 'package:sonicity/src/views/view_all/view_all_songs_view.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/search_shimmer.dart';
@@ -171,7 +172,7 @@ class SearchView extends StatelessWidget {
                         itemCount: searchViewCont.searchAll.value.topQuery.playlists.length,
                         itemBuilder: (context, index) {
                           Playlist playlist = searchViewCont.searchAll.value.topQuery.playlists[index];
-                          return PlaylistRow(playlist: playlist);
+                          return PlaylistRow(playlist: playlist, subtitle: "Playlist");
                         },
                       ),
                     )
@@ -259,7 +260,9 @@ class SearchView extends StatelessWidget {
                   SizedBox(height: 20),
                   ViewAllSection(
                     title: "Playlists", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => ViewAllPlaylistsView());
+                    },
                   ),
                   Container(
                     color: Colors.transparent,
@@ -269,7 +272,7 @@ class SearchView extends StatelessWidget {
                       itemCount: searchViewCont.searchAll.value.playlists.length,
                       itemBuilder: (context, index) {
                         Playlist playlist = searchViewCont.searchAll.value.playlists[index];
-                        return PlaylistRow(playlist: playlist);
+                        return PlaylistRow(playlist: playlist, subtitle: playlist.language!.capitalizeFirst!);
                       },
                     ),
                   ),

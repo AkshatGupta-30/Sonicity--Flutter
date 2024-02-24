@@ -53,7 +53,8 @@ class PlaylistCell extends StatelessWidget {
 
 class PlaylistRow extends StatelessWidget {
   final Playlist playlist;
-  PlaylistRow({super.key,required this.playlist});
+  final String subtitle;
+  PlaylistRow({super.key,required this.playlist, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -85,12 +86,24 @@ class PlaylistRow extends StatelessWidget {
             ),
             SizedBox(width: 10),
             Expanded(
-              child: SizedBox(
-                height: 26,
-                child: Text(
-                  playlist.name,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                )
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 26,
+                    child: Text(
+                      playlist.name,
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                  ),
+                  SizedBox(
+                    height: 20,
+                    child: Text(
+                      subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                    )
+                  ),
+                ],
               ),
             ),
             PopupMenuButton(

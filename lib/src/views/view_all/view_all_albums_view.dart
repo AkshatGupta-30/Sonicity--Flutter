@@ -86,7 +86,7 @@ class ViewAllAlbumsView extends StatelessWidget {
                   );
                 },
               ),
-              Container(height: media.width/1.2, width: double.maxFinite, color: Colors.black.withOpacity(0.3)),
+              Container(height: media.width/1.2, width: double.maxFinite, color: Colors.black.withOpacity(0.25)),
               Positioned(
                 left: 10, top: 10,
                 child: SafeArea(
