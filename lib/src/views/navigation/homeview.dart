@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/mdi.dart';
+import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:sonicity/src/services/home_view_api.dart';
 import 'package:sonicity/src/controllers/navigation_controller.dart';
 import 'package:sonicity/utils/sections/hot_playlists_section.dart';
@@ -76,14 +79,14 @@ class HomeView extends StatelessWidget{
       shadowColor: Colors.black87, surfaceTintColor: Colors.black87,
       leading: GestureDetector(
         onTap: () => Get.find<NavigationController>().openDrawer(),
-        child: Icon(Icons.line_weight, color: Colors.white)
+        child: Iconify(Mdi.format_line_weight, color: Colors.white)
       ),
       leadingWidth: 30, titleSpacing: 10,
       title: SearchContainer(media: media),
       actions: [
         GestureDetector(
           onTap: () {},
-          child: Icon(Icons.favorite_border, size: 30, color: Colors.grey.shade300)
+          child: Iconify(Uis.favorite, size: 30, color: Colors.yellowAccent)
         ),
         SizedBox(width: 8)
       ],

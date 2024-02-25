@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconify_flutter_plus/icons/ant_design.dart';
+import 'package:iconify_flutter_plus/icons/heroicons.dart';
 import 'package:sonicity/src/persistence/shared_preference/allowed_directories.dart';
 import 'package:sonicity/utils/widgets/folder_tile.dart';
 
@@ -52,7 +54,7 @@ class AddFolderView extends StatelessWidget {
                   color: Colors.cyanAccent,
                   title: "ADD FOLDER",
                   fontSize: 18,
-                  icon: Icons.create_new_folder_rounded,
+                  icon: AntDesign.folder_add_twotone,
                 ),
               ],
             ),
@@ -128,7 +130,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                           String title = mediaDirectory[index].path;
                           return FolderTile(
                             onTap: () async {},
-                            icon: Icons.phone_android_rounded,
+                            icon: Heroicons.device_phone_mobile_20_solid,
                             title: title.substring(20, title.length).replaceAll("/", " > "),
                           );
                         }
@@ -149,7 +151,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                       AllowedDirectories.update(pickedFolder, isAdded: true);
                     }
                   },
-                  icon: Icons.phone_android,
+                  icon: Heroicons.device_phone_mobile_20_solid,
                   title: "Internal Storage",
                 )
               ],

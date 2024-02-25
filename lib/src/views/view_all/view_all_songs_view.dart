@@ -3,6 +3,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/ic.dart';
+import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
 import 'package:sonicity/src/models/song.dart';
@@ -148,7 +151,7 @@ class ViewAllSongsView extends StatelessWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.play_arrow, color: Colors.white, size: 30),
+                              Iconify(Ic.twotone_play_arrow, color: Colors.white, size: 30),
                               SizedBox(width: 3),
                               Text("Play", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),)
                             ],
@@ -162,7 +165,7 @@ class ViewAllSongsView extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.white)),
-                          child: Icon(Icons.shuffle, color: Colors.white, size: 30)
+                          child: Iconify(Ph.shuffle_duotone, color: Colors.white, size: 30)
                         ),
                       ),
                     ],

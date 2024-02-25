@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/ri.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sonicity/utils/widgets/storage_tile.dart';
 
@@ -123,7 +125,7 @@ class _StorageViewState extends State<StorageView> {
                     "${songCounts.value} Songs\t\t\t", textAlign: TextAlign.start,
                     style: TextStyle(color: Colors.grey.shade300, fontSize: 18),
                   ),
-                  Icon(Icons.timer_outlined, color: Colors.grey.shade300, size: 18),
+                  Iconify(Ri.timer_flash_line, color: Colors.grey.shade300, size: 18),
                   Text(
                     " 0 Minutes", textAlign: TextAlign.start,
                     style: TextStyle(color: Colors.grey.shade300, fontSize: 18),

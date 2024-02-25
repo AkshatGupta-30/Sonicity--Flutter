@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/ic.dart';
+import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
 import 'package:sonicity/src/views/onboarding/add_folder_view.dart';
@@ -56,7 +59,7 @@ class OnBoardingView extends StatelessWidget {
                       },
                       child: CircleAvatar(
                         radius: 25, backgroundColor: Colors.grey.shade800,
-                        child: Icon(Icons.keyboard_arrow_left, color: Colors.white, size: 30),
+                        child: Iconify(Ic.round_keyboard_arrow_left, color: Colors.white, size: 30),
                       ),
                     ),
                   SmoothPageIndicator(
@@ -75,7 +78,7 @@ class OnBoardingView extends StatelessWidget {
                       },
                       child: CircleAvatar(
                         radius: 25, backgroundColor: Colors.cyanAccent,
-                        child: Icon(Icons.done_rounded, color: Colors.black, size: 30),
+                        child: Iconify(MaterialSymbols.done_rounded, color: Colors.black, size: 30),
                       ),
                     )
                     : GestureDetector(
@@ -84,7 +87,7 @@ class OnBoardingView extends StatelessWidget {
                       },
                       child: CircleAvatar(
                         radius: 25, backgroundColor: Colors.cyanAccent,
-                        child: Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30),
+                        child: Iconify(Ic.round_keyboard_arrow_right, color: Colors.black, size: 30),
                       ),
                     ),
                 ],

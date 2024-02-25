@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerCard extends StatelessWidget {
@@ -141,7 +143,7 @@ class ShimmerRow extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.more_vert, size: 35)
+            Iconify(Ic.sharp_more_vert, size: 35)
           ]
         ),
       ),

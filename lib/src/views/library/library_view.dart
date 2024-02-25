@@ -3,9 +3,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/bx.dart';
+import 'package:iconify_flutter_plus/icons/ic.dart';
+import 'package:iconify_flutter_plus/icons/ion.dart';
+import 'package:iconify_flutter_plus/icons/material_symbols.dart';
+import 'package:iconify_flutter_plus/icons/pepicons.dart';
+import 'package:iconify_flutter_plus/icons/raphael.dart';
+import 'package:iconify_flutter_plus/icons/uis.dart';
+import 'package:iconify_flutter_plus/icons/wpf.dart';
 import 'package:sonicity/src/views/library/storage_view.dart';
 
 class LibraryView extends StatefulWidget {
@@ -57,47 +64,42 @@ class _LibraryViewState extends State<LibraryView> {
           children: [
             Tile(// * : All Songs
               onPressed: () {},
-              icon: LineAwesomeIcons.music,
+              icon: Pepicons.music_note_single,
               title: "All Songs",
             ),
             Tile(// * : Recents
               onPressed: () {},
-              icon: Icons.history,
+              icon: Raphael.history,
               title: "Recents",
             ),
             Tile(// * : Favorities
               onPressed: () {},
-              icon: Icons.favorite_border,
+              icon: Uis.favorite,
               title: "Favorites",
             ),
             Tile(// * : My Storage
               onPressed: () => Get.to(StorageView()),
-              icon: Icons.folder_outlined,
+              icon: MaterialSymbols.home_storage_rounded,
               title: "My Storage",
             ),
             Tile(// * : Playlists
               onPressed: () {},
-              icon: Icons.playlist_play_rounded,
+              icon: Bx.bxs_playlist,
               title: "Playlists",
             ),
             Tile(// * : Album
               onPressed: () {},
-              icon: Icons.album_rounded,
+              icon: Ic.baseline_album,
               title: "Album",
             ),
             Tile(// * : Artsists
               onPressed: () {},
-              icon: Icons.person,
+              icon: Ion.md_microphone,
               title: "Artists",
-            ),
-            Tile(// * : Genres
-              onPressed: () {},
-              icon: FontAwesomeIcons.tags,
-              title: "Genres",
             ),
             Tile(// * : Stats
               onPressed: () {},
-              icon: Icons.auto_graph,
+              icon: Wpf.statistics,
               title: "Stats",
             ),
           ],
@@ -109,7 +111,7 @@ class _LibraryViewState extends State<LibraryView> {
 
 class Tile extends StatelessWidget {
   final VoidCallback onPressed;
-  final IconData icon;
+  final String icon;
   final String title;
   
   Tile({super.key, required this.onPressed, required this.icon, required this.title});
@@ -120,7 +122,7 @@ class Tile extends StatelessWidget {
       onTap: onPressed,
       contentPadding: EdgeInsets.all(5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      leading: Icon(icon, size: 30),
+      leading: Iconify(icon, size: 30, color: Colors.grey.shade100),
       horizontalTitleGap: 30,
       title: Text(title),
       titleTextStyle: TextStyle(fontSize: 20),

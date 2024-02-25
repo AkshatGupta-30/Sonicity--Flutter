@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SearchShimmer extends StatelessWidget {
@@ -140,7 +142,7 @@ class SearchShimmer extends StatelessWidget {
               borderRadius: BorderRadius.circular(12)
             )
           ),
-          trailing: Icon(Icons.keyboard_arrow_down, size: 30),
+          trailing: Iconify(Ic.sharp_more_vert, size: 30),
         );
   }
 }

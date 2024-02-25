@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/ic.dart';
+import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 
 class WelcomeView extends StatelessWidget {
   WelcomeView({super.key});
@@ -64,11 +67,11 @@ class WelcomeView extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Row(
-                    children: <Icon>[
-                      Icon(Icons.phone_android, color: Colors.grey, size: 30),
-                      Icon(Icons.sd_card, color: Colors.grey, size: 30),
-                      Icon(Icons.keyboard_arrow_right, color: Colors.grey, size: 30),
-                      Icon(Icons.headphones, color: Colors.grey, size: 30),
+                    children: <Iconify>[
+                      Iconify(Ic.twotone_phone_android, color: Colors.grey, size: 30),
+                      Iconify(Ic.twotone_sd_card, color: Colors.grey, size: 30),
+                      Iconify(Ic.twotone_keyboard_arrow_right, color: Colors.grey, size: 30),
+                      Iconify(IconParkTwotone.headphone_sound, color: Colors.grey, size: 30),
                     ],
                   ),
                 ],

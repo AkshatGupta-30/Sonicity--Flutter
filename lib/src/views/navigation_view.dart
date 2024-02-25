@@ -1,7 +1,17 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/ic.dart';
+import 'package:iconify_flutter_plus/icons/icomoon_free.dart';
+import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
+import 'package:iconify_flutter_plus/icons/ion.dart';
+import 'package:iconify_flutter_plus/icons/material_symbols.dart';
+import 'package:iconify_flutter_plus/icons/pajamas.dart';
 import 'package:sonicity/src/controllers/navigation_controller.dart';
 import 'package:sonicity/src/views/navigation/homeview.dart';
 import 'package:sonicity/utils/contants/colors.dart';
@@ -57,9 +67,9 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
             labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             onTap: (value) => navController.selectedTab.value = value,
             tabs: [
-              Tabs(thisTab: 0, selectedTab: navController.selectedTab.value, icon: Icons.queue_music_rounded, label: "Queue"),
-              Tabs(thisTab: 1, selectedTab: navController.selectedTab.value, icon: Icons.home_rounded, label: "Home"),
-              Tabs(thisTab: 2, selectedTab: navController.selectedTab.value, icon: Icons.library_music_rounded, label: "Library"),
+              Tabs(thisTab: 0, selectedTab: navController.selectedTab.value, icon: MaterialSymbols.queue_music_rounded, label: "Queue"),
+              Tabs(thisTab: 1, selectedTab: navController.selectedTab.value, icon: Ion.home_outline, label: "Home"),
+              Tabs(thisTab: 2, selectedTab: navController.selectedTab.value, icon: Ic.twotone_library_music, label: "Library"),
             ],
           ),
               );
@@ -100,52 +110,54 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
               onTap: () {
                 navController.closeDrawer();
               },
-              leading: Icon(Icons.home, color: accentColor),
+              leading: Iconify(Ion.home_outline, color: accentColor),
               title: Text("Home", style: TextStyle(color: accentColor)),
             ),
             ListTile(
               onTap: () {
                 navController.closeDrawer();
               },
-              leading: Icon(Icons.folder, color: Colors.white,),
+              leading: Iconify(IconParkTwotone.folder_music, color: Colors.white,),
               title: Text("My Music", style: TextStyle(color: Colors.white)),
             ),
             ListTile(
               onTap: () {
                 navController.closeDrawer();
               },
-              leading: Icon(Icons.library_add_check, color: Colors.white,),
+              leading: Iconify(Pajamas.task_done, color: Colors.white,),
               title: Text("Added", style: TextStyle(color: Colors.white)),
             ),
             ListTile(
               onTap: () {
                 navController.closeDrawer();
               },
-              leading: Icon(Icons.playlist_play, color: Colors.white),
+              leading: Iconify(Ic.sharp_playlist_play, color: Colors.white),
               title: Text("Playlists", style: TextStyle(color: Colors.white)),
             ),
             ListTile(
               onTap: () {
                 navController.closeDrawer();
               },
-              leading: Icon(Icons.settings, color: Colors.white),
+              leading: Iconify(Ion.settings_sharp, color: Colors.white),
               title: Text("Settings", style: TextStyle(color: Colors.white)),
             ),
             ListTile(
               onTap: () {
                 navController.closeDrawer();
               },
-              leading: Icon(Icons.info_outline, color: Colors.white),
+              leading: Iconify(IcomoonFree.info, color: Colors.white),
               title: Text("About", style: TextStyle(color: Colors.white)),
             ),
             Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Made with ", style: TextStyle(color: Colors.white)),
-                Icon(Icons.favorite, color: Colors.red),
-                Text(" by Akshat Gupta", style: TextStyle(color: Colors.white)),
-              ],
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  WidgetSpan(child: Text("Made with ", style: GoogleFonts.arbutus(color: Colors.white))),
+                  WidgetSpan(child: Iconify(MaterialSymbols.favorite_rounded, color: Colors.red)),
+                  WidgetSpan(child: Text(" by Akshat Gupta", style: GoogleFonts.arbutus(color: Colors.white))),
+                ],
+              )
             )
           ],
         ),

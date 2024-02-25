@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/ic.dart';
+import 'package:iconify_flutter_plus/icons/pepicons.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PermissionView extends StatelessWidget {
@@ -33,7 +35,7 @@ class PermissionView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(Icons.music_note_sharp, color: Colors.white, size: 50),
+                Iconify(Ic.twotone_music_note, color: Colors.white, size: 50),
                 SizedBox(height: 20),
                 RichText(
                   textAlign: TextAlign.center,
@@ -75,7 +77,7 @@ class PermissionView extends StatelessWidget {
                       },
                       tileColor: Colors.cyanAccent,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      leading: Icon(FontAwesomeIcons.music, color: Colors.black),
+                      leading: Iconify(Pepicons.music_note_double, color: Colors.black),
                       title: Text(
                         "MUSIC AND AUDIO PERMISSION",
                         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -84,7 +86,7 @@ class PermissionView extends StatelessWidget {
                     : Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.check_circle, color: Colors.cyanAccent),
+                        Iconify(Ic.twotone_check_circle, color: Colors.cyanAccent),
                         SizedBox(width: 10),
                         Text(
                           "Premission is granted",

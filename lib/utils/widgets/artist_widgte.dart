@@ -2,7 +2,12 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/ic.dart';
+import 'package:iconify_flutter_plus/icons/mi.dart';
+import 'package:iconify_flutter_plus/icons/teenyicons.dart';
 import 'package:sonicity/src/models/artist.dart';
+import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class ArtistRow extends StatelessWidget {
   final Artist artist;
@@ -65,52 +70,23 @@ class ArtistRow extends StatelessWidget {
                 return [
                   PopupMenuItem(
                     padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: popButtonRow(icon: Icons.add, label: "Add to Library"),
+                    child: PopUpButtonRow(icon: Teenyicons.section_add_solid, label: "Add to Library"),
                   ),
                   PopupMenuItem(
                     padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: popButtonRow(icon: Icons.favorite_border, label: "Add to Favorities"),
+                    child: PopUpButtonRow(icon: Mi.favorite, label: "Add to Favorities"),
                   ),
-                  PopupMenuItem(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: popButtonRow(icon: Icons.queue_music, label: "Add to Queue"),
-                  ),
-                  PopupMenuItem(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: popButtonRow(icon: Icons.playlist_add, label: "Add to Playlist"),
-                  ),
-                  PopupMenuItem(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: popButtonRow(icon: Icons.album, label: "View Album"),
-                  ),
-                  PopupMenuItem(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: popButtonRow(icon: Icons.info_outline, label: "Song Info"),
-                  )
                 ];
               },
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               padding: EdgeInsets.zero,
               position: PopupMenuPosition.under,
               color: Colors.grey.shade900,
-              icon: Icon(Icons.more_vert, color: Colors.grey.shade100, size: 32),
+              icon: Iconify(Ic.sharp_more_vert, color: Colors.grey.shade100, size: 32),
             )
           ]
         ),
       ),
-    );
-  }
-
-  Row popButtonRow({required IconData icon, required String label}) {
-    return Row(
-      children: [
-        Icon(icon, color: Colors.grey.shade100, size: 22),
-        SizedBox(width: 10),
-        Text(
-          label,
-          style: TextStyle(color: Colors.grey.shade100, fontSize: 18),
-        ),
-      ],
     );
   }
 }

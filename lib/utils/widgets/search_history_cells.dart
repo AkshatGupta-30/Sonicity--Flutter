@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/ri.dart';
 
 class SearchHistoryCell extends StatelessWidget {
   final String itemText;
@@ -30,10 +32,7 @@ class SearchHistoryCell extends StatelessWidget {
             SizedBox(width: 8,),
             GestureDetector(
               onTap: onRemove,
-              child: CircleAvatar(
-                backgroundColor: Colors.white, radius: 8,
-                child: Icon(Icons.close, size: 15, color: Color(0xFF3d3d3d)),
-              ),
+              child: Iconify(Ri.close_circle_fill, size: 20, color: Colors.white),
             )
           ],
         ),

@@ -1,12 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
+import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 
 class Tabs extends StatelessWidget {
   final int thisTab, selectedTab;
   final String label;
-  final IconData icon;
+  final String icon;
 
   Tabs({
     super.key,
@@ -25,7 +26,10 @@ class Tabs extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [Icon(icon), Text(label, style: TextStyle(fontFamily: 'LovelyMamma'))],
+        children: [
+          Iconify(icon, color: (thisTab == selectedTab) ? accentColor : Colors.white),
+          Text(label, style: TextStyle(fontFamily: 'LovelyMamma'))
+        ],
       ),
     );
   }

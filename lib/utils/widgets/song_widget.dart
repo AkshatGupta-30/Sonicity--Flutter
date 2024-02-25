@@ -11,6 +11,7 @@ import 'package:iconify_flutter_plus/icons/tabler.dart';
 import 'package:iconify_flutter_plus/icons/teenyicons.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
+import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class SongCard extends StatelessWidget {
   final Song song;
@@ -174,31 +175,6 @@ class SongPopUpMenu extends StatelessWidget {
       position: PopupMenuPosition.under,
       color: Colors.grey.shade900,
       icon: Iconify(Ic.sharp_more_vert, color: Colors.grey.shade100, size: 32),
-    );
-  }
-}
-
-class PopUpButtonRow extends StatelessWidget {
-  const PopUpButtonRow({
-    super.key,
-    required this.icon,
-    required this.label,
-  });
-
-  final String icon;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Iconify(icon, color: Colors.grey.shade100, size: 22),
-        SizedBox(width: 10),
-        Text(
-          label,
-          style: TextStyle(color: Colors.grey.shade100, fontSize: 18),
-        ),
-      ],
     );
   }
 }
