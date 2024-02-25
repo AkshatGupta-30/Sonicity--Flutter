@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
@@ -36,7 +37,7 @@ class PermissionView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Iconify(Ic.twotone_music_note, color: Colors.white, size: 50),
-                SizedBox(height: 20),
+                Gap(20),
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
@@ -57,7 +58,7 @@ class PermissionView extends StatelessWidget {
                     ]
                   ),
                 ),
-                SizedBox(height: 20),
+                Gap(20),
                 Obx(
                   () {
                     permissionStatus();
@@ -87,7 +88,7 @@ class PermissionView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Iconify(Ic.twotone_check_circle, color: Colors.cyanAccent),
-                        SizedBox(width: 10),
+                        Gap(10),
                         Text(
                           "Premission is granted",
                           style: TextStyle(color: Colors.cyanAccent, fontWeight: FontWeight.bold, fontSize: 20),

@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
@@ -42,7 +43,7 @@ class ArtistRow extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(width: 10),
+            Gap(10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

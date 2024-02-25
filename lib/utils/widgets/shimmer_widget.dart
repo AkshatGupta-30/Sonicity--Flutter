@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:shimmer/shimmer.dart';
@@ -43,7 +44,7 @@ class ShimmerCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(width: media.width/2, height: 20, color: Colors.black,),
-                  SizedBox(height: 5),
+                  Gap(5),
                   Container(width: media.width/3, height: 14, color: Colors.black,),
                 ],
               ),
@@ -81,7 +82,7 @@ class ShimmerCell extends StatelessWidget {
               ),
             )
           ),
-          SizedBox(height: 2),
+          Gap(2),
           Shimmer.fromColors(
             direction: ShimmerDirection.ltr,
             period: Duration(milliseconds: 1000),
@@ -92,7 +93,7 @@ class ShimmerCell extends StatelessWidget {
                 crossAxisAlignment: crossAxisAlignment,
                 children: [
                   Container(width: 85, height: 12, color: Colors.black),
-                  SizedBox(height: 1),
+                  Gap(1),
                   Container(width: 65, height: 9, color: Colors.black),
                 ],
               ),
@@ -125,7 +126,7 @@ class ShimmerRow extends StatelessWidget {
                 child: Container(width: 60, height: 60, color: Colors.black),
               ),
             ),
-            SizedBox(width: 10),
+            Gap(10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,7 +136,7 @@ class ShimmerRow extends StatelessWidget {
                     padding: EdgeInsets.only(right: 50),
                     child: Container(height: 26, color: Colors.black),
                   ),
-                  SizedBox(height: 3),
+                  Gap(3),
                   Padding(
                     padding: EdgeInsets.only(right: 125),
                     child: Container(height: 20, color: Colors.black),

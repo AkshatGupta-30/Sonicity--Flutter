@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ri.dart';
 
@@ -29,7 +30,7 @@ class SearchHistoryCell extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.normal, ),
               ),
             ),
-            SizedBox(width: 8,),
+            Gap(8),
             GestureDetector(
               onTap: onRemove,
               child: Iconify(Ri.close_circle_fill, size: 20, color: Colors.white),

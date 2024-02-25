@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
@@ -31,7 +32,7 @@ class WelcomeView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [  
-                  SizedBox(height: 40),
+                  Gap(40),
                   Container(
                     width: 100,
                     padding: EdgeInsets.all(3),
@@ -44,7 +45,7 @@ class WelcomeView extends StatelessWidget {
                       child: Image.asset("assets/images/appLogo150x150.png"),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  Gap(10),
                   RichText(
                     text: TextSpan(
                       style: TextStyle(fontFamily: "LovelyMamma", fontSize: 18),
@@ -60,12 +61,12 @@ class WelcomeView extends StatelessWidget {
                       ]
                     ),
                   ),
-                  SizedBox(height: 50),
+                  Gap(50),
                   Text(
                     "It can organise and play audio files stored on your phone, SD card or USB storage",
                     style: TextStyle(color: Colors.grey, fontSize: 18),
                   ),
-                  SizedBox(height: 5),
+                  Gap(5),
                   Row(
                     children: <Iconify>[
                       Iconify(Ic.twotone_phone_android, color: Colors.grey, size: 30),

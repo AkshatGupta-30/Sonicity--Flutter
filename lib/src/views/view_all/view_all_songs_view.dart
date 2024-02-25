@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
@@ -50,7 +51,7 @@ class ViewAllSongsView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _cover(media),
-                      SizedBox(height: 10),
+                      Gap(10),
                       _displaySongs(),
                     ],
                   ),
@@ -130,7 +131,7 @@ class ViewAllSongsView extends StatelessWidget {
                     "${viewAllController.songCount.value} Songs",
                     style: TextStyle(color: Colors.grey, fontSize: 15),
                   ),
-                  SizedBox(height: 12),
+                  Gap(12),
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -152,13 +153,13 @@ class ViewAllSongsView extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Iconify(Ic.twotone_play_arrow, color: Colors.white, size: 30),
-                              SizedBox(width: 3),
+                              Gap(3),
                               Text("Play", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),)
                             ],
                           )
                         ),
                       ),
-                      SizedBox(width: 10),
+                      Gap(10),
                       InkWell(
                         onTap: (){},
                         borderRadius: BorderRadius.circular(15),

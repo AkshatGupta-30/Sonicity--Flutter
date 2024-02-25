@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 
 class PopUpButtonRow extends StatelessWidget {
@@ -18,7 +19,7 @@ class PopUpButtonRow extends StatelessWidget {
     return Row(
       children: [
         Iconify(icon, color: Colors.grey.shade100, size: 22),
-        SizedBox(width: 10),
+        Gap(10),
         Text(
           label,
           style: TextStyle(color: Colors.grey.shade100, fontSize: 18),

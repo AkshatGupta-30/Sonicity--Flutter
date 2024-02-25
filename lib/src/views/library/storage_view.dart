@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ri.dart';
@@ -118,7 +119,7 @@ class _StorageViewState extends State<StorageView> {
                 curDir.value.path.substring(19, curDir.value.path.length).replaceAll('/', ' \u203A '), textAlign: TextAlign.start,
                 style: TextStyle(color: Colors.grey.shade300, fontSize: 18),
               ),
-              SizedBox(height: 5),
+              Gap(5),
               Row(
                 children: [
                   Text(
@@ -132,7 +133,7 @@ class _StorageViewState extends State<StorageView> {
                   ),
                 ],
               ),
-              SizedBox(height: 5),
+              Gap(5),
               Divider(color: Colors.white.withOpacity(0.25)),
             ],
           ),

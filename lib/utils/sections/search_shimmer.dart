@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:shimmer/shimmer.dart';
@@ -15,7 +16,7 @@ class SearchShimmer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 20),
+          Gap(20),
           Container(// * Top Results Title
             height: 27.0, width: 125,
             decoration: BoxDecoration(
@@ -23,9 +24,9 @@ class SearchShimmer extends StatelessWidget {
               borderRadius: BorderRadius.circular(12)
             )
           ),
-          SizedBox(height: 10),
+          Gap(10),
           _listTile(),
-          SizedBox(height: 20),
+          Gap(20),
           Row(// * Songs Title
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -47,7 +48,7 @@ class SearchShimmer extends StatelessWidget {
             ],
           ),
           _listTile(), _listTile(), _listTile(),
-          SizedBox(height: 20),
+          Gap(20),
           Row(// * Albums Title
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -69,7 +70,7 @@ class SearchShimmer extends StatelessWidget {
             ],
           ),
           _listTile(), _listTile(), _listTile(),
-          SizedBox(height: 20),
+          Gap(20),
           Row(// * Artists Title
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -91,7 +92,7 @@ class SearchShimmer extends StatelessWidget {
             ],
           ),
           _listTile(), _listTile(), _listTile(),
-          SizedBox(height: 20),
+          Gap(20),
           Row(// * Playlists Title
             mainAxisSize: MainAxisSize.max,
             children: [

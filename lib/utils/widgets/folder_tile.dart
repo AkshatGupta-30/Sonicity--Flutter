@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 
 class FolderTile extends StatelessWidget {
@@ -36,7 +37,7 @@ class FolderTile extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Iconify(icon, color: color, size: 27),
-            SizedBox(width: 12),
+            Gap(12),
             Flexible(
               child: Text(
                 title, overflow: TextOverflow.visible, maxLines: null,

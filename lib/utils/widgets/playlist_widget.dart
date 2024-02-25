@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
@@ -41,7 +42,7 @@ class PlaylistCell extends StatelessWidget {
               },
             ),
           ),
-          SizedBox(height: 2,),
+          Gap(2),
           Text(
             playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
@@ -89,7 +90,7 @@ class PlaylistRow extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(width: 10),
+            Gap(10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

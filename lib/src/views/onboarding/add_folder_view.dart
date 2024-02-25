@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/ant_design.dart';
 import 'package:iconify_flutter_plus/icons/heroicons.dart';
@@ -39,12 +40,12 @@ class AddFolderView extends StatelessWidget {
                   "Folders to scan",
                   style: TextStyle(color: Colors.grey.shade300, fontSize: 40),
                 ),
-                SizedBox(height: 12),
+                Gap(12),
                 Text(
                   "Select the folders where you keep your audio files.",
                   style: TextStyle(color: Colors.grey.shade400, fontSize: 16),
                 ),
-                SizedBox(height: 15),
+                Gap(15),
                 FolderTile(
                   onTap: () {
                     Get.bottomSheet(
@@ -109,7 +110,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
             'Select a folder',
             style: TextStyle(color: Colors.grey.shade200, fontSize: 20),
           ),
-          SizedBox(height: 20),
+          Gap(20),
           Container(
             padding: EdgeInsets.only(left: 15),
             child: Column(
@@ -119,7 +120,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                   'Folders with full access :',
                   style: TextStyle(color: Colors.grey, fontSize: 18),
                 ),
-                SizedBox(height: 20),
+                Gap(20),
                 Obx(
                   () {
                     return Wrap(
@@ -138,12 +139,12 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                     );
                   }
                 ),
-                SizedBox(height: 20),
+                Gap(20),
                 Text(
                   'Select a folder from :',
                   style: TextStyle(color: Colors.grey, fontSize: 18),
                 ),
-                SizedBox(height: 20),
+                Gap(20),
                 FolderTile(
                   onTap: () async {
                     var pickedFolder = await FilePicker.platform.getDirectoryPath(initialDirectory: "/storage/emulated/0");

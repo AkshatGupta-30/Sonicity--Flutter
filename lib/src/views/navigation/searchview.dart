@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/searchview_controller.dart';
 import 'package:sonicity/src/models/album.dart';
@@ -66,7 +67,7 @@ class SearchView extends StatelessWidget {
                         )
                       ),
                     ),
-                    SliverToBoxAdapter(child: const SizedBox(height: 12)),
+                    SliverToBoxAdapter(child: Gap(12)),
                     SliverToBoxAdapter(
                       child: (searchViewCont.loading.value)
                         ? SearchShimmer()
@@ -129,9 +130,9 @@ class SearchView extends StatelessWidget {
               Column(// * : Top Results
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20),
+                  Gap(20),
                   TitleSection(title: "Top Results", leftPadding: 0, size: 22),
-                  SizedBox(height: 10),
+                  Gap(10),
                   if(searchViewCont.searchAll.value.topQuery.songs.isNotEmpty) // * : Top songs
                     SizedBox(
                       height: 60.0 * searchViewCont.searchAll.value.topQuery.songs.length,
@@ -182,7 +183,7 @@ class SearchView extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20),
+                  Gap(20),
                   ViewAllSection(
                     title: "Songs", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
                     onPressed: () {
@@ -207,7 +208,7 @@ class SearchView extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20),
+                  Gap(20),
                   ViewAllSection(
                     title: "Albums", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
                     onPressed: () {
@@ -232,7 +233,7 @@ class SearchView extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20),
+                  Gap(20),
                   ViewAllSection(
                     title: "Artists", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
                     onPressed: () {
@@ -257,7 +258,7 @@ class SearchView extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20),
+                  Gap(20),
                   ViewAllSection(
                     title: "Playlists", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
                     onPressed: () {

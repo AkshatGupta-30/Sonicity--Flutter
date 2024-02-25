@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
@@ -52,7 +53,7 @@ class OnBoardingView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   (firstPage.value)
-                    ? SizedBox(width: 50)
+                    ? Gap(50)
                     : GestureDetector(
                       onTap: () {
                         onBoardingPageController.previousPage(duration: Duration(milliseconds: 250), curve: Curves.easeInOut);

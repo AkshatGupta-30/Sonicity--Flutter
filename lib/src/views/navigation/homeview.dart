@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
@@ -48,16 +49,16 @@ class HomeView extends StatelessWidget{
                     _appBar(media),
                     SliverList(
                       delegate: SliverChildListDelegate([
-                        SizedBox(height: 20),
+                        Gap(20),
                         TrendingNowSection(media: media, homeController: homeViewController),
-                        SizedBox(height: 20),
+                        Gap(20),
                         TopChartsSection(media: media, homeController: homeViewController),
-                        SizedBox(height: 20),
+                        Gap(20),
                         if(homeViewController.home.value.lastSession.isNotEmpty)
                         LastSessionSection(media: media, homeController: homeViewController),
-                        SizedBox(height: 20),
+                        Gap(20),
                         TopAlbumsSection(media: media, homeController: homeViewController),
-                        SizedBox(height: 20),
+                        Gap(20),
                         HotPlaylistSection(media: media, homeController: homeViewController),
                       ])
                     ),
@@ -88,7 +89,7 @@ class HomeView extends StatelessWidget{
           onTap: () {},
           child: Iconify(Uis.favorite, size: 30, color: Colors.yellowAccent)
         ),
-        SizedBox(width: 8)
+        Gap(8)
       ],
     );
   }

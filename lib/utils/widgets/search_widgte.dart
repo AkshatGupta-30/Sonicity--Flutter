@@ -37,8 +37,7 @@ class SearchContainer extends StatelessWidget {
                   style: GoogleFonts.audiowide(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
-                    color: accentColor,
-                    letterSpacing: 10, decoration: TextDecoration.underline
+                    color: accentColor, letterSpacing: 10,
                   )
                 )
               ),
@@ -59,8 +58,7 @@ class SearchContainer extends StatelessWidget {
                   style: GoogleFonts.audiowide(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
-                    color: accentColor,
-                    letterSpacing: 10, decoration: TextDecoration.underline
+                    color: accentColor, letterSpacing: 10,
                   )
                 )
               )

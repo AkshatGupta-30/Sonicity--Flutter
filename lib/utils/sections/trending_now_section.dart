@@ -2,6 +2,7 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
@@ -45,7 +46,7 @@ class TrendingNowSection extends StatelessWidget {
                         Ph.music_note_duotone, size: 25,
                         color: (homeController.selectedTab.value == 0) ? accentColor : accentColorDark,
                       ),
-                      SizedBox(width: 8),
+                      Gap(8),
                       Text(
                         "Music",
                         style: TextStyle(
@@ -64,7 +65,7 @@ class TrendingNowSection extends StatelessWidget {
                           Ic.twotone_album, size: 25,
                           color: (homeController.selectedTab.value == 1) ? accentColor : accentColorDark,
                         ),
-                        SizedBox(width: 8),
+                        Gap(8),
                         Text(
                             "Album",
                             style: TextStyle(
@@ -77,7 +78,7 @@ class TrendingNowSection extends StatelessWidget {
                   ),
               ]
             ),
-            SizedBox(height: 20),
+            Gap(20),
             SizedBox(
               height: media.width/1.25,
               child: TabBarView(
