@@ -2,54 +2,15 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/hot_playlists.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/models/top_albums.dart';
+import 'package:sonicity/src/models/top_charts.dart';
+import 'package:sonicity/src/models/trending_now.dart';
 import 'package:sonicity/src/services/song_details_api.dart';
 import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
 import 'package:http/http.dart' as http;
-
-class TrendingNow {
-  final List<Song> songs;
-  final List<Album> albums;
-
-  TrendingNow({required this.songs, required this.albums});
-
-  factory TrendingNow.fromList({required List<Album> albums, required List<Song> songs}) {
-    return TrendingNow(
-      albums: albums,
-      songs: songs
-    );
-  }
-}
-
-class TopCharts {
-  final List<Playlist> playlists;
-
-  TopCharts({required this.playlists});
-
-  factory TopCharts.fromList({required List<Playlist> jsonList}) {
-    return TopCharts(playlists: jsonList);
-  }
-}
-
-class HotPlaylists {
-  final List<Playlist> playlists;
-
-  HotPlaylists({required this.playlists});
-
-  factory HotPlaylists.fromJson({required List<Playlist> jsonList}) {
-    return HotPlaylists(playlists: jsonList);
-  }
-}
-
-class TopAlbums {
-  final List<Album> albums;
-  TopAlbums({required this.albums});
-
-  factory TopAlbums.fromJson({required List<Album> jsonList}) {
-    return TopAlbums(albums: jsonList);
-  }
-}
 
 class HomeViewApi extends GetxController {
   final trendingNowList = TrendingNow.fromList(albums: [], songs: []).obs;
