@@ -82,7 +82,7 @@ class HomeViewApi extends GetxController {
     final List<Album> trendingAlbumsList = [];
 
     for (var song in data['songs']) {
-      Song songDetail = await SongDetailsApi.short(song['id'].toString());
+      Song songDetail = await SongDetailsApi.get(song['id'].toString());
       trendingSongsList.add(songDetail);
     }
 

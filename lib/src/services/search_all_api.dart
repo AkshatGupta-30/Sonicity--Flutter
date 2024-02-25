@@ -38,7 +38,7 @@ class SearchAllApi {
       String id = result['id'];
       String type = result['type'];
       if(type == 'song') {
-        Song song = await SongDetailsApi.short(id);
+        Song song = await SongDetailsApi.get(id);
         songs.add(song);
       } else if(type == 'artist') {
         Artist artist = Artist.fromSearchAllTop(result);
@@ -57,7 +57,7 @@ class SearchAllApi {
   static Future<List<Song>> _getSongsList(List<dynamic> songList) async {
     List<Song> songs = [];
     for(var result in songList) {
-      Song song = await SongDetailsApi.short(result['id']);
+      Song song = await SongDetailsApi.get(result['id']);
       songs.add(song);
     }
     return songs;
