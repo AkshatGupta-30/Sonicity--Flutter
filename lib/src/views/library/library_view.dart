@@ -72,10 +72,10 @@ class _LibraryViewState extends State<LibraryView> {
               icon: Raphael.history,
               title: "Recents",
             ),
-            Tile(// * : Favorities
+            Tile(// * : Starred
               onPressed: () {},
               icon: Uis.favorite,
-              title: "Favorites",
+              title: "Starred",
             ),
             Tile(// * : My Storage
               onPressed: () => Get.to(StorageView()),

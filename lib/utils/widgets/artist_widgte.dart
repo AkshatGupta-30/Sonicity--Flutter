@@ -75,7 +75,7 @@ class ArtistRow extends StatelessWidget {
                   ),
                   PopupMenuItem(
                     padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: PopUpButtonRow(icon: Mi.favorite, label: "Add to Favorities"),
+                    child: PopUpButtonRow(icon: Mi.favorite, label: "Add to Starred"),
                   ),
                 ];
               },
