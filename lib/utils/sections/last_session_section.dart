@@ -4,16 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:sonicity/src/controllers/homeview_controller.dart';
 import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/services/home_view_api.dart';
 import 'package:sonicity/utils/sections/view_all_section.dart';
 import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 
 class LastSessionSection extends StatelessWidget {
   final Size media;
-  final HomeViewApi homeViewApi;
-  LastSessionSection({super.key, required this.media, required this.homeViewApi});
+  final HomeViewController homeController;
+  LastSessionSection({super.key, required this.media, required this.homeController});
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +26,12 @@ class LastSessionSection extends StatelessWidget {
         ),
         Obx(
           () {
-            int listLength = (homeViewApi.lastSessionSongs.length > 20) ? 20 : homeViewApi.lastSessionSongs.length;
-            if(homeViewApi.lastSessionSongs.isEmpty) {
+            int listLength = (homeController.home.value.lastSession.length > 20) ? 20 : homeController.home.value.lastSession.length;
+            if(homeController.home.value.lastSession.isEmpty) {
               return SizedBox(
-                height: (homeViewApi.lastSessionSprefs.length > 4) ? 4 * 70 : homeViewApi.lastSessionSprefs.length * 70,
+                height: (homeController.home.value.lastSession.length > 4) ? 4 * 70 : homeController.home.value.lastSession.length * 70,
                 child: ListView.builder(
-                  itemCount: (homeViewApi.lastSessionSprefs.length > 4) ? 4 : homeViewApi.lastSessionSprefs.length,
+                  itemCount: (homeController.home.value.lastSession.length > 4) ? 4 : homeController.home.value.lastSession.length,
                   itemBuilder: (context, index) {
                     return ShimmerRow();
                   },
@@ -44,19 +44,19 @@ class LastSessionSection extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 physics: (listLength <= 4) ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                itemCount: (homeViewApi.lastSessionSongs.length / 4).ceil(),
+                itemCount: (homeController.home.value.lastSession.length / 4).ceil(),
                 itemBuilder: (context, outerIndex) {
                   var currentRowIndex = outerIndex * 4;
                   return SizedBox(
-                    width: (homeViewApi.lastSessionSongs.length <= 4) ? media.width / 1.05 : media.width / 1.2,
+                    width: (homeController.home.value.lastSession.length <= 4) ? media.width / 1.05 : media.width / 1.2,
                     child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       addSemanticIndexes: true,
                       itemCount: 4,
                       itemBuilder: (context, innerIndex) {
                         var currentItemIndex = currentRowIndex + innerIndex;
-                        if (currentItemIndex < homeViewApi.lastSessionSongs.length) {
-                          Song song = homeViewApi.lastSessionSongs[currentItemIndex];
+                        if (currentItemIndex < homeController.home.value.lastSession.length) {
+                          Song song = homeController.home.value.lastSession[currentItemIndex];
                           return SongsRow(song: song);
                         } else {
                           return SizedBox();

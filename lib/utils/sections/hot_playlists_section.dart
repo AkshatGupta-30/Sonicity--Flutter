@@ -2,16 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sonicity/src/controllers/homeview_controller.dart';
 import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/src/services/home_view_api.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 
 class HotPlaylistSection extends StatelessWidget {
   final Size media;
-  final HomeViewApi homeViewApi;
-  HotPlaylistSection({super.key, required this.media, required this.homeViewApi});
+  final HomeViewController homeController;
+  HotPlaylistSection({super.key, required this.media, required this.homeController});
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +25,12 @@ class HotPlaylistSection extends StatelessWidget {
               height: 175,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: (homeViewApi.hotPlaylist.value.playlists.isEmpty) ? 5 : homeViewApi.hotPlaylist.value.playlists.length,
+                itemCount: (homeController.home.value.hotPlaylists.playlists.isEmpty) ? 5 : homeController.home.value.hotPlaylists.playlists.length,
                 itemBuilder: (context, index) {
-                  if(homeViewApi.hotPlaylist.value.playlists.isEmpty) {
+                  if(homeController.home.value.hotPlaylists.playlists.isEmpty) {
                     return ShimmerCell();
                   }
-                  Playlist playlist = homeViewApi.hotPlaylist.value.playlists[index];
+                  Playlist playlist = homeController.home.value.hotPlaylists.playlists[index];
                   return PlaylistCell(playlist: playlist);
                 },
               ),

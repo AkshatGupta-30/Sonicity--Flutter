@@ -8,4 +8,8 @@ class HotPlaylists {
   factory HotPlaylists.fromJson({required List<Playlist> jsonList}) {
     return HotPlaylists(playlists: jsonList);
   }
+
+  factory HotPlaylists.empty() {
+    return HotPlaylists(playlists: []);
+  }
 }

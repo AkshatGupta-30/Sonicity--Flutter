@@ -13,4 +13,8 @@ class TrendingNow {
       songs: songs
     );
   }
+
+  factory TrendingNow.empty() {
+    return TrendingNow(songs: [], albums: []);
+  }
 }

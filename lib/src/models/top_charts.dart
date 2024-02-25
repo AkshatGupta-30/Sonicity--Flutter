@@ -8,5 +8,9 @@ class TopCharts {
   factory TopCharts.fromList({required List<Playlist> jsonList}) {
     return TopCharts(playlists: jsonList);
   }
+
+  factory TopCharts.empty() {
+    return TopCharts(playlists: []);
+  }
 }
 

@@ -7,4 +7,8 @@ class TopAlbums {
   factory TopAlbums.fromJson({required List<Album> jsonList}) {
     return TopAlbums(albums: jsonList);
   }
+
+  factory TopAlbums.empty() {
+    return TopAlbums(albums: []);
+  }
 }

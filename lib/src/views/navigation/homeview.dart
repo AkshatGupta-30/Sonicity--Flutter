@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
-import 'package:sonicity/src/services/home_view_api.dart';
+import 'package:sonicity/src/controllers/homeview_controller.dart';
 import 'package:sonicity/src/controllers/navigation_controller.dart';
 import 'package:sonicity/utils/sections/hot_playlists_section.dart';
 import 'package:sonicity/utils/sections/last_session_section.dart';
@@ -17,7 +17,7 @@ import 'package:sonicity/utils/widgets/search_widgte.dart';
 class HomeView extends StatelessWidget{
   HomeView({super.key});
 
-  final homeViewApi = Get.put(HomeViewApi());
+  final homeViewController = Get.put(HomeViewController());
   final scrollController = ScrollController();
   final padding = 0.obs;
 
@@ -49,16 +49,16 @@ class HomeView extends StatelessWidget{
                     SliverList(
                       delegate: SliverChildListDelegate([
                         SizedBox(height: 20),
-                        TrendingNowSection(media: media, homeViewApi: homeViewApi),
+                        TrendingNowSection(media: media, homeController: homeViewController),
                         SizedBox(height: 20),
-                        TopChartsSection(media: media, homeViewApi: homeViewApi),
+                        TopChartsSection(media: media, homeController: homeViewController),
                         SizedBox(height: 20),
-                        if(homeViewApi.lastSessionSprefs.isNotEmpty)
-                        LastSessionSection(media: media, homeViewApi: homeViewApi),
+                        if(homeViewController.home.value.lastSession.isNotEmpty)
+                        LastSessionSection(media: media, homeController: homeViewController),
                         SizedBox(height: 20),
-                        TopAlbumsSection(media: media, homeViewApi: homeViewApi),
+                        TopAlbumsSection(media: media, homeController: homeViewController),
                         SizedBox(height: 20),
-                        HotPlaylistSection(media: media, homeViewApi: homeViewApi),
+                        HotPlaylistSection(media: media, homeController: homeViewController),
                       ])
                     ),
                   ],

@@ -3,9 +3,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:sonicity/src/controllers/homeview_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/services/home_view_api.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/shimmer_widget.dart';
@@ -14,9 +14,9 @@ import 'package:sonicity/utils/sections/title_section.dart';
 
 class TrendingNowSection extends StatefulWidget {
   final Size media;
-  final HomeViewApi homeViewApi;
+  final HomeViewController homeController;
 
-  const TrendingNowSection({super.key, required this.media, required this.homeViewApi});
+  const TrendingNowSection({super.key, required this.media, required this.homeController});
 
   @override
   State<TrendingNowSection> createState() => _TrendingNowSectionState();
@@ -78,34 +78,34 @@ class _TrendingNowSectionState extends State<TrendingNowSection> with SingleTick
                 physics: NeverScrollableScrollPhysics(),
                 children: [
                   CarouselSlider.builder(
-                    itemCount: (widget.homeViewApi.trendingNowList.value.songs.isEmpty)
+                    itemCount: (widget.homeController.home.value.trendingNow.songs.isEmpty)
                       ? 1
-                      : widget.homeViewApi.trendingNowList.value.songs.length,
+                      : widget.homeController.home.value.trendingNow.songs.length,
                     itemBuilder: (context, index, realIndex) {
-                      if(widget.homeViewApi.trendingNowList.value.songs.isEmpty) {
+                      if(widget.homeController.home.value.trendingNow.songs.isEmpty) {
                         return ShimmerCard();
-                      } else if(widget.homeViewApi.trendingNowList.value.songs.length == 1) {
-                        return SongCard(song: widget.homeViewApi.trendingNowList.value.songs.first);
+                      } else if(widget.homeController.home.value.trendingNow.songs.length == 1) {
+                        return SongCard(song: widget.homeController.home.value.trendingNow.songs.first);
                       }
-                      Song song = widget.homeViewApi.trendingNowList.value.songs[index];
+                      Song song = widget.homeController.home.value.trendingNow.songs[index];
                       return SongCard(song: song);
                     },
                     options: CarouselOptions(
                       height: widget.media.width/1.25,
                       autoPlay: true, autoPlayAnimationDuration: Duration(milliseconds: 700), autoPlayInterval: Duration(seconds: 8),
                       initialPage: 0, enlargeCenterPage: true,
-                      enableInfiniteScroll: (widget.homeViewApi.trendingNowList.value.songs.length != 1)
+                      enableInfiniteScroll: (widget.homeController.home.value.trendingNow.songs.length != 1)
                     ),
                   ),
                   CarouselSlider.builder(
-                    itemCount: (widget.homeViewApi.trendingNowList.value.albums.isEmpty)
+                    itemCount: (widget.homeController.home.value.trendingNow.albums.isEmpty)
                       ? 1
-                      : widget.homeViewApi.trendingNowList.value.albums.length,
+                      : widget.homeController.home.value.trendingNow.albums.length,
                     itemBuilder: (context, index, realIndex) {
-                      if(widget.homeViewApi.trendingNowList.value.albums.isEmpty) {
+                      if(widget.homeController.home.value.trendingNow.albums.isEmpty) {
                         return ShimmerCard();
                       }
-                      Album album = widget.homeViewApi.trendingNowList.value.albums[index];
+                      Album album = widget.homeController.home.value.trendingNow.albums[index];
                       return AlbumCard(album: album);
                     },
                     options: CarouselOptions(
