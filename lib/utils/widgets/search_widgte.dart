@@ -19,8 +19,8 @@ class SearchContainer extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.to(() => SearchView()),
       child: Container(
-        height: 60, width: media.width, alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 8),
+        width: media.width/1.4, height: kBottomNavigationBarHeight,
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: Color(0xFF151515),
           border: Border.all(color: accentColor.withOpacity(0.4), width: 2),
@@ -35,7 +35,7 @@ class SearchContainer extends StatelessWidget {
                 child: GlowText(
                   "S", blurRadius: 25,
                   style: GoogleFonts.audiowide(
-                    fontSize: 35,
+                    fontSize: 32,
                     fontWeight: FontWeight.bold,
                     color: accentColor, letterSpacing: 10,
                   )
@@ -56,7 +56,7 @@ class SearchContainer extends StatelessWidget {
                 child: GlowText(
                   "nicity", blurRadius: 25,
                   style: GoogleFonts.audiowide(
-                    fontSize: 35,
+                    fontSize: 32,
                     fontWeight: FontWeight.bold,
                     color: accentColor, letterSpacing: 10,
                   )

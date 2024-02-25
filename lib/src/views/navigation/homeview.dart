@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
-import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:sonicity/src/controllers/homeview_controller.dart';
 import 'package:sonicity/src/controllers/navigation_controller.dart';
@@ -25,6 +26,7 @@ class HomeView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
+    EdgeInsets safeArea = MediaQuery.paddingOf(context);
     return Obx(
       () {
         return Scaffold(
@@ -40,31 +42,31 @@ class HomeView extends StatelessWidget{
                 tileMode: TileMode.clamp,
               ),
             ),
-            child: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: CustomScrollView(
-                  controller: scrollController,
-                  slivers: [
-                    _appBar(media),
-                    SliverList(
-                      delegate: SliverChildListDelegate([
+            child: CustomScrollView(
+              controller: scrollController,
+              slivers: [
+                _appBar(media, safeArea),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
                         Gap(20),
                         TrendingNowSection(media: media, homeController: homeViewController),
                         Gap(20),
                         TopChartsSection(media: media, homeController: homeViewController),
                         Gap(20),
                         if(homeViewController.home.value.lastSession.isNotEmpty)
-                        LastSessionSection(media: media, homeController: homeViewController),
+                          LastSessionSection(media: media, homeController: homeViewController),
                         Gap(20),
                         TopAlbumsSection(media: media, homeController: homeViewController),
                         Gap(20),
                         HotPlaylistSection(media: media, homeController: homeViewController),
-                      ])
+                      ]
                     ),
-                  ],
+                  )
                 ),
-              ),
+              ],
             ),
           ),
         );
@@ -72,18 +74,24 @@ class HomeView extends StatelessWidget{
     );
   }
 
-  SliverAppBar _appBar(Size media) {
+  SliverAppBar _appBar(Size media, EdgeInsets safeArea) {
+    List<String> concertLinkList = [ // TODO : From server
+      "assets/images/concert1.jpg",
+      "assets/images/concert2.jpg",
+      "assets/images/concert3.jpg",
+      "assets/images/concert6.jpg",
+      "assets/images/concert7.jpg",
+      "assets/images/concert8.jpg",
+      "assets/images/concert9.jpg",
+    ];
     return SliverAppBar(
-      pinned: false, floating: true,
-      toolbarHeight: 75,
-      backgroundColor: Colors.transparent,
+      pinned: true,
+      toolbarHeight: 75, backgroundColor: Colors.transparent,
       shadowColor: Colors.black87, surfaceTintColor: Colors.black87,
       leading: GestureDetector(
         onTap: () => Get.find<NavigationController>().openDrawer(),
-        child: Iconify(Mdi.format_line_weight, color: Colors.white)
+        child: Icon(Icons.line_weight, color: Colors.white)
       ),
-      leadingWidth: 30, titleSpacing: 10,
-      title: SearchContainer(media: media),
       actions: [
         GestureDetector(
           onTap: () {},
@@ -91,6 +99,14 @@ class HomeView extends StatelessWidget{
         ),
         Gap(8)
       ],
+      expandedHeight: 300,
+      flexibleSpace: FlexibleSpaceBar(
+        centerTitle: true, expandedTitleScale: 1.25,
+        titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+        title: SearchContainer(media: media),
+        background: Image.asset(concertLinkList[Random().nextInt(concertLinkList.length)], fit: BoxFit.fill),
+        stretchModes: [StretchMode.blurBackground],
+      ),
     );
   }
 }
