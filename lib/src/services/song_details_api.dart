@@ -16,7 +16,7 @@ class SongDetailsApi {
   static Future<List<Map<String, dynamic>>> _getArtists(List<String> artistIds) async {
     List<Map<String, dynamic>> artistForData = [];
     for(var id in artistIds) {
-      Artist artist = await ArtistDetailsApi.short(id);
+      Artist artist = await ArtistDetailsApi.full(id);
       Map<String, dynamic> artistMap = artist.toMap();
       artistForData.add(artistMap);
     }

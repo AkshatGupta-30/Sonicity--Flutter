@@ -41,7 +41,7 @@ class SearchAllApi {
         Song song = await SongDetailsApi.get(id);
         songs.add(song);
       } else if(type == 'artist') {
-        Artist artist = Artist.fromSearchAllTop(result);
+        Artist artist = Artist.fromImageDescription(result);
         artists.add(artist);
       } else if(type == 'album') {
         Album album = Album.fromSearchAllTop(result);
@@ -75,7 +75,7 @@ class SearchAllApi {
   static Future<List<Artist>> _getArtistsList(List<dynamic> artistList) async {
     List<Artist> artists = [];
     for(var result in artistList) {
-      Artist artist = Artist.fromSearchAll(result);
+      Artist artist = Artist.fromImageDescription(result);
       artists.add(artist);
     }
     return artists;

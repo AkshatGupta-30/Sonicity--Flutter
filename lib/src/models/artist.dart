@@ -1,57 +1,60 @@
 import 'package:sonicity/src/models/image_url.dart';
+import 'package:super_string/super_string.dart';
 
 class Artist {
   final String id;
   final String name;
   final ImageUrl image;
-  final String? songCount;
+  final String ? dominantLanguage;
+  final String ? dominantType;
+  final String ? songCount;
   final String ? description;
 
   Artist({
     required this.id,
     required this.name,
     required this.image,
+    this.dominantLanguage,
+    this.dominantType,
     this.songCount,
     this.description
   });
 
-  factory Artist.fromShortJson(Map<String, dynamic> json) {
-    return Artist(
-      id: json['id'],
-      name: json['name'],
-      image: ImageUrl.fromJson(json['image']),
-      songCount: json['songCount']
-    );
-  }
-
-  factory Artist.fromSearchAllTop(Map<String, dynamic> json) {
+  factory Artist.fromDetail(Map<String, dynamic> json) {
     return Artist(
       id: json['id'],
       name: json['name'] ?? json['title'],
       image: ImageUrl.fromJson(json['image']),
-      description: json['description']
+      dominantLanguage: json['dominantLanguage'].toString().title(),
+      dominantType: json['dominantType'].toString().title(),
+      songCount: json['songCount'],
+      description: json['description'].toString().title(),
     );
   }
 
-  factory Artist.fromSearchAll(Map<String, dynamic> json) {
+  factory Artist.withImageSongCount(Map<String, dynamic> json) {
     return Artist(
       id: json['id'],
       name: json['name'] ?? json['title'],
       image: ImageUrl.fromJson(json['image']),
-      description: json['description']
+      songCount: json['songCount'],
     );
   }
 
-  factory Artist.fromSearchArtist(Map<String, dynamic> json) {
+  factory Artist.fromImageDescription(Map<String, dynamic> json) {
+    String ? des;
+    if(json['description'] == null) {
+      des = json['description'].toString().title();
+    } else {
+      json['role'].toString().title();
+    }
     return Artist(
       id: json['id'],
       name: json['name'] ?? json['title'],
       image: ImageUrl.fromJson(json['image']),
-      description: json['role']
+      description: des,
     );
   }
-
-  get language => null;
 
   Map<String, dynamic> toMap() {
     return {
@@ -59,6 +62,7 @@ class Artist {
       'name': name,
       'image': image.toMap(),
       'songCount': songCount,
+      "description" : description
     };
   }
 }

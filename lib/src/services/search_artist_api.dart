@@ -18,7 +18,7 @@ class SearchArtistsApi {
     }
     List<Artist> artists = [];
     for (var element in result['data']['results']) {
-      artists.add(Artist.fromSearchArtist(element));
+      artists.add(Artist.fromImageDescription(element));
     }
     return artists;
   }
