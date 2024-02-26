@@ -14,6 +14,7 @@ import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/song_detail_controller.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/colors.dart';
+import 'package:sonicity/utils/sections/cover_image_section.dart';
 
 class SongInfoView extends StatelessWidget {
   SongInfoView({super.key});
@@ -108,7 +109,8 @@ class SongInfoView extends StatelessWidget {
                         _head("Release Date"),
                         _detail(song.releaseDate!),
                         _divide(),
-                        _head("Cover Image"),
+                        _head("Cover Image Url"),
+                        CoverImageSection(image: song.image),
                         _divide(),
                         _head("Download url"),
                         _divide(),
