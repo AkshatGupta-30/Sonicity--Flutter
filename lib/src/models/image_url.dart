@@ -27,6 +27,16 @@ class ImageUrl {
       'highQuality': highQuality,
     };
   }
+
+  factory ImageUrl.empty() {
+    return ImageUrl(
+      imageLinks: []
+    );
+  }
+
+  bool isEmpty() {
+    return _imageData.isEmpty;
+  }
 }
 
 class ImageData {

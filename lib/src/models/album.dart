@@ -92,4 +92,30 @@ class Album {
       image: ImageUrl.fromJson(json['image'])
     );
   }
+
+  factory Album.empty() {
+    return Album(
+      id: "",
+      image: ImageUrl.empty(),
+      name: ""
+    );
+  }
+
+  bool isEmpty() {
+    return id.isEmpty &&
+        name.isEmpty &&
+        (artist == null || artist!.isEmpty) &&
+        image.isEmpty() &&
+        (year == null || year!.isEmpty) &&
+        (releaseDate == null || releaseDate!.isEmpty) &&
+        (songCount == null || songCount!.isEmpty) &&
+        (primaryArtistsId == null || primaryArtistsId!.isEmpty) &&
+        (primaryArtists == null || primaryArtists!.isEmpty) &&
+        (language == null || language!.isEmpty) &&
+        (songs == null || songs!.isEmpty);
+  }
+
+  bool isNotEmpty() {
+    return !isEmpty();
+  }
 }

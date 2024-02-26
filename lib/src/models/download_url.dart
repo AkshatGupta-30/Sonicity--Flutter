@@ -19,6 +19,16 @@ class DownloadUrl {
     List<DownloadData> links = json.map((link) => DownloadData.fromJson(link)).toList();
     return DownloadUrl(imageLinks: links);
   }
+
+  factory DownloadUrl.empty() {
+    return DownloadUrl(
+      imageLinks: []
+    );
+  }
+
+  bool isEmpty() {
+    return _downloadData.isEmpty;
+  }
 }
 
 class DownloadData {

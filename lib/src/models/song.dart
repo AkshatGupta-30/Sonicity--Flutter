@@ -57,6 +57,68 @@ class Song {
     );
   }
 
+  factory Song.full(Map<String, dynamic> json) {
+    return Song(
+      id: json['id'],
+      name: json['name'],
+      album: Album.fromJson(json['album']),
+      year: json['year'],
+      releaseDate: json['releaseDate'],
+      duration: json['duration'],
+      primaryArtists: json['primaryArtists'],
+      primaryArtistsId: json['primaryArtistsId'],
+      featuredArtists: json['featuredArtists'],
+      featuredArtistsId: json['featuredArtistsId'],
+      playCount: json['playCount'].toString(),
+      language: json['language'],
+      hasLyrics: (json['hasLyrics']=="true") ? true : false,
+      image: ImageUrl.fromJson(json['image']),
+      downloadUrl: DownloadUrl.fromJson(json['downloadUrl']),
+    );
+  }
+
+  factory Song.empty() {
+    return Song(
+      id: "",
+      name: "",
+      album: Album.empty(),
+      year: "",
+      releaseDate: "",
+      duration: "",
+      primaryArtists: "",
+      primaryArtistsId: "",
+      featuredArtists: "",
+      featuredArtistsId: "",
+      playCount: "",
+      language: "",
+      hasLyrics: false,
+      image: ImageUrl.empty(),
+      downloadUrl: DownloadUrl.empty(),
+    );
+  }
+
+  bool isEmpty() {
+    return id.isEmpty &&
+        name.isEmpty &&
+        album.isEmpty() &&
+        year.isEmpty &&
+        (releaseDate == null || releaseDate!.isEmpty) &&
+        duration.isEmpty &&
+        primaryArtists.isEmpty &&
+        primaryArtistsId.isEmpty &&
+        (featuredArtists == null || featuredArtists!.isEmpty) &&
+        (featuredArtistsId == null || featuredArtistsId!.isEmpty) &&
+        (playCount == null || playCount!.isEmpty) &&
+        (language == null || language!.isEmpty) &&
+        (hasLyrics == null || !hasLyrics!) &&
+        image.isEmpty() &&
+        downloadUrl.isEmpty();
+  }
+
+  bool isNotEmpty() {
+    return !isEmpty();
+  }
+
   String get title => name;
   String get subtitle => "${album.name} ▪ $primaryArtists";
 }

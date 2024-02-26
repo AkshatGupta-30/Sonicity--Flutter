@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/entypo.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
@@ -9,8 +10,10 @@ import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
 import 'package:iconify_flutter_plus/icons/teenyicons.dart';
+import 'package:sonicity/src/controllers/song_detail_controller.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
+import 'package:sonicity/src/views/details/song_details_view.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class SongCard extends StatelessWidget {
@@ -84,7 +87,7 @@ class SongCard extends StatelessWidget {
             ),
             Positioned(
               top: 0, right: 0,
-              child: SongPopUpMenu(),
+              child: SongPopUpMenu(song: song),
             ),
           ],
         ),
@@ -129,15 +132,14 @@ class SongsRow extends StatelessWidget {
         song.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
         style: TextStyle(color: Colors.grey, fontSize: 14),
       ),
-      trailing:   SongPopUpMenu()
+      trailing:   SongPopUpMenu(song: song)
     );
   }
 }
 
 class SongPopUpMenu extends StatelessWidget {
-  const SongPopUpMenu({
-    super.key,
-  });
+  final Song song;
+  const SongPopUpMenu({super.key, required this.song});
 
   @override
   Widget build(BuildContext context) {
@@ -166,6 +168,10 @@ class SongPopUpMenu extends StatelessWidget {
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),
+            onTap: () {
+              Get.put(SongDetailController(song.id));
+              Get.to(() => SongInfoView());
+            },
             child: PopUpButtonRow(icon: Entypo.info_with_circle, label: "Song Info"),
           )
         ];

@@ -38,4 +38,20 @@ class SongDetailsApi {
 
     return Song.fromJson(data);
   }
+
+  static Future<Song> full(String id) async {
+    Map<String, dynamic> data = await _apiCall(id);
+    String allArtistId = "${data['primaryArtistsId']}";
+    if(data['featuredArtistsId'].toString().isNotEmpty) {
+      allArtistId += ",${data['featuredArtistsId']}";
+    }
+
+    List<String> artistIds = allArtistId.split(", ").toList();
+    artistIds = artistIds.toSet().toList();
+
+    List<Map<String, dynamic>> artistForData = await _getArtists(artistIds);
+    data['artists'] = artistForData;
+
+    return Song.fromJson(data);
+  }
 }
