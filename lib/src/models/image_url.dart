@@ -20,14 +20,6 @@ class ImageUrl {
     return ImageUrl(imageLinks: links);
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'lowQuality': lowQuality,
-      'standardQuality': standardQuality,
-      'highQuality': highQuality,
-    };
-  }
-
   factory ImageUrl.empty() {
     return ImageUrl(
       imageLinks: []
@@ -36,6 +28,12 @@ class ImageUrl {
 
   bool isEmpty() {
     return _imageData.isEmpty;
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'image': _imageData.map((data) => data.toMap()).toList(),
+    };
   }
 }
 
@@ -50,5 +48,12 @@ class ImageData {
       quality: json['quality'],
       link: json['link'],
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'quality': quality,
+      'link': link,
+    };
   }
 }

@@ -29,6 +29,12 @@ class DownloadUrl {
   bool isEmpty() {
     return _downloadData.isEmpty;
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'downloadUrl': _downloadData.map((data) => data.toMap()).toList(),
+    };
+  }
 }
 
 class DownloadData {
@@ -42,5 +48,12 @@ class DownloadData {
       quality: json['quality'],
       link: json['link'],
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'quality': quality,
+      'link': link,
+    };
   }
 }
