@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_album_controller.dart';
-import 'package:sonicity/src/models/new_album.dart';
+import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 
 class ViewAllAlbumsView extends StatelessWidget {
@@ -134,7 +134,7 @@ class ViewAllAlbumsView extends StatelessWidget {
               : viewAllController.albums.length,
             itemBuilder: (context, index) {
               if(index < viewAllController.albums.length) {
-                NewAlbum album = viewAllController.albums[index];
+                Album album = viewAllController.albums[index];
                 return AlbumRow(album: album, subtitle: "${album.songCount!} Songs");
               } else {
                 return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);

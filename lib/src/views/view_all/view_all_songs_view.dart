@@ -9,7 +9,7 @@ import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
-import 'package:sonicity/src/models/new_song.dart';
+import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 
 class ViewAllSongsView extends StatelessWidget {
@@ -191,7 +191,7 @@ class ViewAllSongsView extends StatelessWidget {
               : viewAllController.songs.length,
             itemBuilder: (context, index) {
               if(index < viewAllController.songs.length) {
-                NewSong song = viewAllController.songs[index];
+                Song song = viewAllController.songs[index];
                 return SongsRow(song: song);
               } else {
                 return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);

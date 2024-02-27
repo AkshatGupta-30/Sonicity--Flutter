@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:sonicity/src/models/new_album.dart';
-import 'package:sonicity/src/models/new_artist.dart';
-import 'package:sonicity/src/models/new_artist_song_album.dart';
-import 'package:sonicity/src/models/new_song.dart';
+import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/artist.dart';
+import 'package:sonicity/src/models/artist_song_album.dart';
+import 'package:sonicity/src/models/song.dart';
 
-class NewArtistDetailsApi {
+class ArtistDetailsApi {
   static Future<Map<String, dynamic>> _detailsApiCall(String id) async {
     final uri = "https://saavn.dev/artists?id=$id";
     final response = await http.get(Uri.parse(uri));
@@ -41,14 +41,14 @@ class NewArtistDetailsApi {
     return data;
   }
 
-  static Future<List<NewAlbum>> getAlbums(String id, int page, Category category, Sort sort) async {
+  static Future<List<Album>> getAlbums(String id, int page, Category category, Sort sort) async {
     final data = await _albumsApiCall(id, page, category, sort);
     if(data['results'] == null) {
       return [];
     }
-    List<NewAlbum> albums = [];
+    List<Album> albums = [];
     for (var element in data['results']) {
-      albums.add(NewAlbum.image(element));
+      albums.add(Album.image(element));
     }
     return albums;
   }
@@ -61,14 +61,14 @@ class NewArtistDetailsApi {
     return int.parse(data['total'].toString());
   }
 
-  static Future<List<NewSong>> getSongs(String id, int page, Category category, Sort sort) async {
+  static Future<List<Song>> getSongs(String id, int page, Category category, Sort sort) async {
     final data = await _songsApiCall(id, page, category, sort);
     if(data['results'] == null) {
       return [];
     }
-    List<NewSong> songs = [];
+    List<Song> songs = [];
     for (var element in data['results']) {
-      songs.add(NewSong.detail(element));
+      songs.add(Song.detail(element));
     }
     return songs;
   }
@@ -81,18 +81,18 @@ class NewArtistDetailsApi {
     return int.parse(data['total'].toString());
   }
 
-  static Future<NewArtist> get(String id) async {
+  static Future<Artist> get(String id) async {
     final data = await _detailsApiCall(id);
-    return NewArtist.detail(data);
+    return Artist.detail(data);
   }
 
-  static Future<NewArtist> getImage(String id) async {
+  static Future<Artist> getImage(String id) async {
     final data = await _detailsApiCall(id);
-    return NewArtist.image(data);
+    return Artist.image(data);
   }
 
-  static Future<NewArtist> getName(String id) async {
+  static Future<Artist> getName(String id) async {
     final data = await _detailsApiCall(id);
-    return NewArtist.name(data);
+    return Artist.name(data);
   }
 }

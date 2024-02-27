@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/models/new_artist.dart';
-import 'package:sonicity/src/services/new_search_artist_api.dart';
+import 'package:sonicity/src/models/artist.dart';
+import 'package:sonicity/src/services/search_artist_api.dart';
 
 class ViewAllSearchArtistsController extends GetxController {
   final String searchText;
   ViewAllSearchArtistsController(this.searchText);
 
   final scrollController = ScrollController();
-  final artists = <NewArtist>[].obs;
+  final artists = <Artist>[].obs;
   int currentPage = 1;
   final artistCount = 0.obs;
   final isLoadingMore = false.obs;
@@ -22,7 +22,7 @@ class ViewAllSearchArtistsController extends GetxController {
   }
 
   void fetchCount(String text) async {
-    int fetchCount = await NewSearchArtistsApi.fetchCount(text);
+    int fetchCount = await SearchArtistsApi.fetchCount(text);
     artistCount.value = fetchCount;
   }
 
@@ -37,7 +37,7 @@ class ViewAllSearchArtistsController extends GetxController {
   }
 
   Future<void> fetchArtists(String text, int page) async {
-    List<NewArtist> fetchedList = await NewSearchArtistsApi.fetchData(text, page);
+    List<Artist> fetchedList = await SearchArtistsApi.fetchData(text, page);
     artists.addAll(fetchedList);
     update();
   }

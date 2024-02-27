@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:sonicity/src/models/new_album.dart';
-import 'package:sonicity/src/models/new_artist.dart';
-import 'package:sonicity/src/services/new_artist_details_api.dart';
+import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/artist.dart';
+import 'package:sonicity/src/services/artist_details_api.dart';
 
-class NewAlbumDetailsApi {
+class AlbumDetailsApi {
   static Future<Map<String, dynamic>> _apiCall(String id) async {
     final uri = "https://saavn.dev/albums?id=$id";
     final response = await http.get(Uri.parse(uri));
@@ -16,18 +16,18 @@ class NewAlbumDetailsApi {
     return data;
   }
 
-  static Future<NewAlbum> get(String id) async {
+  static Future<Album> get(String id) async {
     final data = await _apiCall(id);
-    NewArtist artist = await NewArtistDetailsApi.getImage(data['primaryArtistsId']);
+    Artist artist = await ArtistDetailsApi.getImage(data['primaryArtistsId']);
     if(data['artists'] != null) {
       data['artists'].clear();
     }
     data['artists'].add(artist.toMap());
-    return NewAlbum.detail(data);
+    return Album.detail(data);
   }
 
-  static Future<NewAlbum> getImage(String id) async {
+  static Future<Album> getImage(String id) async {
     final data = await _apiCall(id);
-    return NewAlbum.image(data);
+    return Album.image(data);
   }
 }

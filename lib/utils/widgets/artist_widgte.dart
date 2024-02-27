@@ -7,11 +7,11 @@ import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/teenyicons.dart';
-import 'package:sonicity/src/models/new_artist.dart';
+import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class ArtistRow extends StatelessWidget {
-  final NewArtist artist;
+  final Artist artist;
   final String subtitle;
   ArtistRow({super.key,required this.artist, required this.subtitle});
 

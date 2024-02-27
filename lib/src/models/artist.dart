@@ -1,6 +1,6 @@
 import 'package:sonicity/src/models/image_url.dart';
 
-class NewArtist {
+class Artist {
   final String id;
   final String name;
   final ImageUrl ? image;
@@ -14,15 +14,15 @@ class NewArtist {
   final String ? wiki;
   final List<String> ? availableLanguages;
 
-  NewArtist({
+  Artist({
     required this.id, required this.name, this.image,
     this.role, this.description,
     this.dominantLanguage, this.dominantType, this.dob, this.fb,
     this.twitter, this.wiki, this.availableLanguages,
   });
 
-  factory NewArtist.detail(Map<String,dynamic> data) {
-    return NewArtist(
+  factory Artist.detail(Map<String,dynamic> data) {
+    return Artist(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
@@ -38,16 +38,16 @@ class NewArtist {
     );
   }
 
-  factory NewArtist.image(Map<String,dynamic> data) {
-    return NewArtist(
+  factory Artist.image(Map<String,dynamic> data) {
+    return Artist(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
     );
   }
 
-  factory NewArtist.description(Map<String,dynamic> data) {
-    return NewArtist(
+  factory Artist.description(Map<String,dynamic> data) {
+    return Artist(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
@@ -55,15 +55,15 @@ class NewArtist {
     );
   }
 
-  factory NewArtist.name(Map<String,dynamic> data) {
-    return NewArtist(
+  factory Artist.name(Map<String,dynamic> data) {
+    return Artist(
       id: data['id'],
       name: data['name'] ?? data['title'],
     );
   }
 
-  factory NewArtist.empty() {
-    return NewArtist(id: "", name: "", image: ImageUrl.empty());
+  factory Artist.empty() {
+    return Artist(id: "", name: "", image: ImageUrl.empty());
   }
 
   Map<String, dynamic> toMap() {

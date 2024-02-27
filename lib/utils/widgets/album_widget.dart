@@ -7,11 +7,11 @@ import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/teenyicons.dart';
-import 'package:sonicity/src/models/new_album.dart';
+import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class AlbumCard extends StatelessWidget {
-  final NewAlbum album;
+  final Album album;
   const AlbumCard({super.key, required this.album});
 
   @override
@@ -106,7 +106,7 @@ class AlbumCard extends StatelessWidget {
 }
 
 class AlbumCell extends StatelessWidget {
-  final NewAlbum album;
+  final Album album;
   AlbumCell({super.key, required this.album});
 
   @override
@@ -152,7 +152,7 @@ class AlbumCell extends StatelessWidget {
 }
 
 class AlbumRow extends StatelessWidget {
-  final NewAlbum album;
+  final Album album;
   final String subtitle;
   AlbumRow({super.key,required this.album, required this.subtitle});
 

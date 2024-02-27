@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:sonicity/src/models/new_playlist.dart';
+import 'package:sonicity/src/models/playlist.dart';
 
-class NewPlaylistDetailsApi {
+class PlaylistDetailsApi {
   static Future<Map<String, dynamic>> _apiCall(String id) async {
     final uri = "https://saavn.dev/playlists?id=$id";
     final response = await http.get(Uri.parse(uri));
@@ -14,9 +14,9 @@ class NewPlaylistDetailsApi {
     return data;
   }
 
-  static Future<NewPlaylist> get(String id) async {
+  static Future<Playlist> get(String id) async {
     Map<String, dynamic> data = await _apiCall(id);
 
-    return NewPlaylist.detail(data);
+    return Playlist.detail(data);
   }
 }

@@ -8,8 +8,8 @@ import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:sonicity/src/controllers/homeview_controller.dart';
-import 'package:sonicity/src/models/new_album.dart';
-import 'package:sonicity/src/models/new_song.dart';
+import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/shimmer_widget.dart';
@@ -95,7 +95,7 @@ class TrendingNowSection extends StatelessWidget {
                       } else if(homeController.home.value.trendingNow.songs.length == 1) {
                         return SongCard(song: homeController.home.value.trendingNow.songs.first);
                       }
-                      NewSong song = homeController.home.value.trendingNow.songs[index];
+                      Song song = homeController.home.value.trendingNow.songs[index];
                       return SongCard(song: song);
                     },
                     options: CarouselOptions(
@@ -115,7 +115,7 @@ class TrendingNowSection extends StatelessWidget {
                         } else if(homeController.home.value.trendingNow.albums.length == 1) {
                           return AlbumCard(album: homeController.home.value.trendingNow.albums.first);
                         }
-                        NewAlbum album = homeController.home.value.trendingNow.albums[index];
+                        Album album = homeController.home.value.trendingNow.albums[index];
                         return AlbumCard(album: album);
                       },
                       options: CarouselOptions(

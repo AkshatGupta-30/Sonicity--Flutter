@@ -4,8 +4,8 @@ import 'package:sonicity/src/controllers/view_all_search_album_controller.dart';
 import 'package:sonicity/src/controllers/view_all_search_artist_controller.dart';
 import 'package:sonicity/src/controllers/view_all_search_playlist_controller.dart';
 import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
-import 'package:sonicity/src/models/new_search_all.dart';
-import 'package:sonicity/src/services/new_search_all_api.dart';
+import 'package:sonicity/src/models/search_all.dart';
+import 'package:sonicity/src/services/search_all_api.dart';
 import 'package:sonicity/src/sprefs/search_history.dart';
 
 class SearchViewController extends GetxController {
@@ -13,8 +13,8 @@ class SearchViewController extends GetxController {
   final historyList = <String>[].obs;
   final loading = false.obs;
   final searching = false.obs;
-  final searchAll = NewSearchAll(
-    topQuery: NewTopQuery(songs: [], albums: [], artists: [], playlists: []),
+  final searchAll = SearchAll(
+    topQuery: TopQuery(songs: [], albums: [], artists: [], playlists: []),
     songs: [], albums: [], artists: [], playlists: []
   ).obs;
 
@@ -56,7 +56,7 @@ class SearchViewController extends GetxController {
 
   void _searchText(text) async {
     loading.value = true;
-    NewSearchAll search = await NewSearchAllApi.searchAll(text);
+    SearchAll search = await SearchAllApi.searchAll(text);
     loading.value = false;
     searchAll.value = search;
     update();

@@ -12,12 +12,12 @@ import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/song_detail_controller.dart';
-import 'package:sonicity/src/models/new_song.dart';
+import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
 
-class SongInfoView extends StatelessWidget {
-  SongInfoView({super.key});
+class SongDetailsView extends StatelessWidget {
+  SongDetailsView({super.key});
 
   final controller = Get.find<SongDetailController>();
 
@@ -39,7 +39,7 @@ class SongInfoView extends StatelessWidget {
         ),
         child: Obx(
           () {
-            NewSong song = controller.song.value;
+            Song song = controller.song.value;
             if(song.isEmpty()) {
               return Center(
                 child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),

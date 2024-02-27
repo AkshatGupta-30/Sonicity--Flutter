@@ -1,28 +1,28 @@
 import 'package:sonicity/src/models/image_url.dart';
-import 'package:sonicity/src/models/new_song.dart';
+import 'package:sonicity/src/models/song.dart';
 import 'package:super_string/super_string.dart';
 
-class NewPlaylist {
+class Playlist {
   final String id;
   final String name;
   final ImageUrl image;
   final String ? songCount;
   final String ? language;
-  final List<NewSong> ? songs;
+  final List<Song> ? songs;
 
-  NewPlaylist({
+  Playlist({
     required this.id, required this.name, required this.image,
     this.songCount, this.language, this.songs
   });
 
-  factory NewPlaylist.detail(Map<String,dynamic> data) {
-    List<NewSong> songs = [];
+  factory Playlist.detail(Map<String,dynamic> data) {
+    List<Song> songs = [];
     if(data['songs'] != null) {
       for (var music in data['songs']) {
-        songs.add(NewSong.detail(music));
+        songs.add(Song.detail(music));
       }
     }
-    return NewPlaylist(
+    return Playlist(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
@@ -32,20 +32,20 @@ class NewPlaylist {
     );
   }
 
-  factory NewPlaylist.empty() {
-    return NewPlaylist(id: "", name: "", image: ImageUrl.empty());
+  factory Playlist.empty() {
+    return Playlist(id: "", name: "", image: ImageUrl.empty());
   }
 
-  factory NewPlaylist.image(Map<String,dynamic> data) {
-    return NewPlaylist(
+  factory Playlist.image(Map<String,dynamic> data) {
+    return Playlist(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
     );
   }
 
-  factory NewPlaylist.language(Map<String,dynamic> data) {
-    return NewPlaylist(
+  factory Playlist.language(Map<String,dynamic> data) {
+    return Playlist(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
@@ -53,8 +53,8 @@ class NewPlaylist {
     );
   }
 
-  factory NewPlaylist.songCount(Map<String,dynamic> data) {
-    return NewPlaylist(
+  factory Playlist.songCount(Map<String,dynamic> data) {
+    return Playlist(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),

@@ -1,10 +1,10 @@
 import 'package:sonicity/src/models/download_url.dart';
 import 'package:sonicity/src/models/image_url.dart';
-import 'package:sonicity/src/models/new_album.dart';
-import 'package:sonicity/src/models/new_artist.dart';
+import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/artist.dart';
 import 'package:super_string/super_string.dart';
 
-class NewSong {
+class Song {
   final String id;
   final String name;
   final ImageUrl image;
@@ -13,23 +13,23 @@ class NewSong {
   final String ? year;
   final String ? releaseDate;
   final String ? duration;
-  final List<NewArtist> ? artists;
-  final NewAlbum ? album;
+  final List<Artist> ? artists;
+  final Album ? album;
   final String ? language;
 
-  NewSong({
+  Song({
     required this.id, required this.name, required this.image, required this.downloadUrl, required this.hasLyrics,
     this.year, this.releaseDate, this.duration, this.artists, this.album, this.language
   });
 
-  factory NewSong.detail(Map<String,dynamic> data) {
-    List<NewArtist> arts = [];
+  factory Song.detail(Map<String,dynamic> data) {
+    List<Artist> arts = [];
     if(data['artists'] != null) {
       for (var ar in data['artists']) {
-        arts.add(NewArtist.image(ar));
+        arts.add(Artist.image(ar));
       }
     }
-    return NewSong(
+    return Song(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
@@ -39,17 +39,17 @@ class NewSong {
       releaseDate: data['releaseDate'],
       duration: data['duration'],
       artists: arts,
-      album: NewAlbum.name(data['album']),
+      album: Album.name(data['album']),
       language: data['language'].toString().title()
     );
   }
 
-  factory NewSong.empty() {
-    return NewSong(id: "", name: "", image: ImageUrl.empty(), downloadUrl: DownloadUrl.empty(), hasLyrics: false);
+  factory Song.empty() {
+    return Song(id: "", name: "", image: ImageUrl.empty(), downloadUrl: DownloadUrl.empty(), hasLyrics: false);
   }
 
   Map<String, dynamic> toMap() {
-    List<NewArtist> arts = [];
+    List<Artist> arts = [];
     if(artists != null) {
       arts = artists!;
     }

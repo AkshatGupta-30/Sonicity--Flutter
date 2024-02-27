@@ -11,13 +11,13 @@ import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
 import 'package:iconify_flutter_plus/icons/teenyicons.dart';
 import 'package:sonicity/src/controllers/song_detail_controller.dart';
-import 'package:sonicity/src/models/new_song.dart';
+import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
 import 'package:sonicity/src/views/details/song_details_view.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class SongCard extends StatelessWidget {
-  final NewSong song;
+  final Song song;
   SongCard({super.key, required this.song});
 
   @override
@@ -97,7 +97,7 @@ class SongCard extends StatelessWidget {
 }
 
 class SongsRow extends StatelessWidget {
-  final NewSong song;
+  final Song song;
   final String subtitle;
   SongsRow({super.key, required this.song, this.subtitle = ""});
 
@@ -139,7 +139,7 @@ class SongsRow extends StatelessWidget {
 }
 
 class SongPopUpMenu extends StatelessWidget {
-  final NewSong song;
+  final Song song;
   const SongPopUpMenu({super.key, required this.song});
 
   @override
@@ -171,7 +171,7 @@ class SongPopUpMenu extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8),
             onTap: () {
               Get.put(SongDetailController(song.id));
-              Get.to(() => SongInfoView());
+              Get.to(() => SongDetailsView());
             },
             child: PopUpButtonRow(icon: Entypo.info_with_circle, label: "Song Info"),
           )

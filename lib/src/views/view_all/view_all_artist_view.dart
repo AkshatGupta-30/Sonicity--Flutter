@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_artist_controller.dart';
-import 'package:sonicity/src/models/new_artist.dart';
+import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/utils/widgets/artist_widgte.dart';
 
 class ViewAllArtistsView extends StatelessWidget {
@@ -143,7 +143,7 @@ class ViewAllArtistsView extends StatelessWidget {
               : viewAllController.artists.length,
             itemBuilder: (context, index) {
               if(index < viewAllController.artists.length) {
-                NewArtist artist = viewAllController.artists[index];
+                Artist artist = viewAllController.artists[index];
                 return ArtistRow(artist: artist, subtitle: artist.description!);
               } else {
                 return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);

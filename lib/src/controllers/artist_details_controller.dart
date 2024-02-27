@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/models/new_album.dart';
-import 'package:sonicity/src/models/new_artist_song_album.dart';
-import 'package:sonicity/src/models/new_song.dart';
-import 'package:sonicity/src/services/new_artist_details_api.dart';
+import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/artist_song_album.dart';
+import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/services/artist_details_api.dart';
 
 class ArtistDetailsController extends GetxController {
-  final NewAlbum album;
+  final Album album;
   ArtistDetailsController(this.album);
 
-  final artistSongAlbum = NewArtistSongAlbum.empty().obs;
+  final artistSongAlbum = ArtistSongAlbum.empty().obs;
 
   final scrollAlbumCont = ScrollController();
   final scrollSongCont = ScrollController();
@@ -32,12 +32,12 @@ class ArtistDetailsController extends GetxController {
   }
 
   void fetchSongCount(String id) async {
-    int fetchCount = await NewArtistDetailsApi.getSongCount(id, albumPage, category.value, sort.value);
+    int fetchCount = await ArtistDetailsApi.getSongCount(id, albumPage, category.value, sort.value);
     songCount.value = fetchCount;
   }
 
   void fetchAlbumCount(String id) async {
-    int fetchCount = await NewArtistDetailsApi.getAlbumCount(id, albumPage, category.value, sort.value);
+    int fetchCount = await ArtistDetailsApi.getAlbumCount(id, albumPage, category.value, sort.value);
     albumCount.value = fetchCount;
   }
 
@@ -62,13 +62,13 @@ class ArtistDetailsController extends GetxController {
   }
 
   Future<void> fetchAlbums(String text, int page) async {
-    List<NewAlbum> fetchedList = await NewArtistDetailsApi.getAlbums(album.id, page, category.value, sort.value);
+    List<Album> fetchedList = await ArtistDetailsApi.getAlbums(album.id, page, category.value, sort.value);
     artistSongAlbum.value.albums.addAll(fetchedList);
     update();
   }
 
   Future<void> fetchSongs(String text, int page) async {
-    List<NewSong> fetchedList = await NewArtistDetailsApi.getSongs(album.id, page, category.value, sort.value);
+    List<Song> fetchedList = await ArtistDetailsApi.getSongs(album.id, page, category.value, sort.value);
     artistSongAlbum.value.songs.addAll(fetchedList);
     update();
   }

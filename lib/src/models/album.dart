@@ -1,9 +1,9 @@
 import 'package:sonicity/src/models/image_url.dart';
-import 'package:sonicity/src/models/new_artist.dart';
-import 'package:sonicity/src/models/new_song.dart';
+import 'package:sonicity/src/models/artist.dart';
+import 'package:sonicity/src/models/song.dart';
 import 'package:super_string/super_string.dart';
 
-class NewAlbum {
+class Album {
   final String id;
   final String name;
   final ImageUrl ? image;
@@ -12,29 +12,29 @@ class NewAlbum {
   final String ? language;
   final String ? description;
   final String ? songCount;
-  final List<NewArtist> ? artists;
-  final List<NewSong> ? songs;
+  final List<Artist> ? artists;
+  final List<Song> ? songs;
 
-  NewAlbum({
+  Album({
     required this.id, required this.name, this.image,
     this.language, this.description,
     this.year, this.releaseDate, this.songCount, this.artists, this.songs
   });
 
-  factory NewAlbum.detail(Map<String,dynamic> data) {
-    List<NewArtist> arts = [];
+  factory Album.detail(Map<String,dynamic> data) {
+    List<Artist> arts = [];
     if(data['artists'] != null) {
       for(var ar in data['artists']) {
-        arts.add(NewArtist.image(ar));
+        arts.add(Artist.image(ar));
       }
     }
-    List<NewSong> musics = [];
+    List<Song> musics = [];
     if(data['songs'] != null) {
       for(var so in data['songs']) {
-        musics.add(NewSong.detail(so));
+        musics.add(Song.detail(so));
       }
     }
-    return NewAlbum(
+    return Album(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
@@ -48,23 +48,23 @@ class NewAlbum {
     );
   }
 
-  factory NewAlbum.image(Map<String,dynamic> data) {
-    return NewAlbum(
+  factory Album.image(Map<String,dynamic> data) {
+    return Album(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
     );
   }
 
-  factory NewAlbum.name(Map<String,dynamic> data) {
-    return NewAlbum(
+  factory Album.name(Map<String,dynamic> data) {
+    return Album(
       id: data['id'],
       name: data['name'] ?? data['title'],
     );
   }
 
-  factory NewAlbum.language(Map<String,dynamic> data) {
-    return NewAlbum(
+  factory Album.language(Map<String,dynamic> data) {
+    return Album(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
@@ -72,8 +72,8 @@ class NewAlbum {
     );
   }
 
-  factory NewAlbum.songCount(Map<String,dynamic> data) {
-    return NewAlbum(
+  factory Album.songCount(Map<String,dynamic> data) {
+    return Album(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
@@ -81,8 +81,8 @@ class NewAlbum {
     );
   }
 
-  factory NewAlbum.empty() {
-    return NewAlbum(id: "", name: "", image: ImageUrl.empty());
+  factory Album.empty() {
+    return Album(id: "", name: "", image: ImageUrl.empty());
   }
 
   Map<String, dynamic> toMap() {
