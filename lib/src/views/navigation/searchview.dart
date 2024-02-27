@@ -1,13 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/searchview_controller.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/models/new_album.dart';
+import 'package:sonicity/src/models/new_artist.dart';
+import 'package:sonicity/src/models/new_playlist.dart';
+import 'package:sonicity/src/models/new_song.dart';
 import 'package:sonicity/src/views/view_all/view_all_albums_view.dart';
 import 'package:sonicity/src/views/view_all/view_all_artist_view.dart';
 import 'package:sonicity/src/views/view_all/view_all_playlist_view.dart';
@@ -139,8 +140,8 @@ class SearchView extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: searchViewCont.searchAll.value.topQuery.songs.length,
                         itemBuilder: (context, index) {
-                          Song song = searchViewCont.searchAll.value.songs[index];
-                          return SongsRow(song: song);
+                          NewSong song = searchViewCont.searchAll.value.songs[index];
+                          return SongsRow(song: song, subtitle: "Song");
                         },
                       ),
                     )
@@ -150,8 +151,8 @@ class SearchView extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: searchViewCont.searchAll.value.topQuery.albums.length,
                         itemBuilder: (context, index) {
-                          Album album = searchViewCont.searchAll.value.topQuery.albums[index];
-                          return AlbumRow(album: album, subtitle: album.language!);
+                          NewAlbum album = searchViewCont.searchAll.value.topQuery.albums[index];
+                          return AlbumRow(album: album, subtitle: "Album");
                         },
                       ),
                     )
@@ -161,8 +162,8 @@ class SearchView extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: searchViewCont.searchAll.value.topQuery.artists.length,
                         itemBuilder: (context, index) {
-                          Artist artist = searchViewCont.searchAll.value.topQuery.artists[index];
-                          return ArtistRow(artist: artist, subtitle: artist.description!);
+                          NewArtist artist = searchViewCont.searchAll.value.topQuery.artists[index];
+                          return ArtistRow(artist: artist, subtitle: "Artist");
                         },
                       ),
                     )
@@ -172,7 +173,7 @@ class SearchView extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: searchViewCont.searchAll.value.topQuery.playlists.length,
                         itemBuilder: (context, index) {
-                          Playlist playlist = searchViewCont.searchAll.value.topQuery.playlists[index];
+                          NewPlaylist playlist = searchViewCont.searchAll.value.topQuery.playlists[index];
                           return PlaylistRow(playlist: playlist, subtitle: "Playlist");
                         },
                       ),
@@ -197,7 +198,7 @@ class SearchView extends StatelessWidget {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: searchViewCont.searchAll.value.songs.length,
                       itemBuilder: (context, index) {
-                        Song song = searchViewCont.searchAll.value.songs[index];
+                        NewSong song = searchViewCont.searchAll.value.songs[index];
                         return SongsRow(song: song);
                       },
                     ),
@@ -222,8 +223,8 @@ class SearchView extends StatelessWidget {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: searchViewCont.searchAll.value.albums.length,
                       itemBuilder: (context, index) {
-                        Album album = searchViewCont.searchAll.value.albums[index];
-                        return AlbumRow(album: album, subtitle: album.artist!);
+                        NewAlbum album = searchViewCont.searchAll.value.albums[index];
+                        return AlbumRow(album: album, subtitle: album.language!);
                       },
                     ),
                   ),
@@ -247,7 +248,7 @@ class SearchView extends StatelessWidget {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: searchViewCont.searchAll.value.artists.length,
                       itemBuilder: (context, index) {
-                        Artist artist = searchViewCont.searchAll.value.artists[index];
+                        NewArtist artist = searchViewCont.searchAll.value.artists[index];
                         return ArtistRow(artist: artist, subtitle: artist.description!);
                       },
                     ),
@@ -272,7 +273,7 @@ class SearchView extends StatelessWidget {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: searchViewCont.searchAll.value.playlists.length,
                       itemBuilder: (context, index) {
-                        Playlist playlist = searchViewCont.searchAll.value.playlists[index];
+                        NewPlaylist playlist = searchViewCont.searchAll.value.playlists[index];
                         return PlaylistRow(playlist: playlist, subtitle: playlist.language!.capitalizeFirst!);
                       },
                     ),

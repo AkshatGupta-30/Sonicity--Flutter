@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/homeview_controller.dart';
-import 'package:sonicity/src/models/playlist.dart';
+import 'package:sonicity/src/models/new_playlist.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/widgets/shimmer_widget.dart';
@@ -31,7 +31,7 @@ class TopChartsSection extends StatelessWidget {
                   if(homeController.home.value.topCharts.playlists.isEmpty) {
                     return ShimmerCell();
                   }
-                  Playlist playlist = homeController.home.value.topCharts.playlists[index];
+                  NewPlaylist playlist = homeController.home.value.topCharts.playlists[index];
                   return PlaylistCell(playlist: playlist);
                 },
               ),

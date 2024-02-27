@@ -39,7 +39,7 @@ class NewPlaylist {
   factory NewPlaylist.image(Map<String,dynamic> data) {
     return NewPlaylist(
       id: data['id'],
-      name: data['name'],
+      name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
     );
   }
@@ -47,16 +47,16 @@ class NewPlaylist {
   factory NewPlaylist.language(Map<String,dynamic> data) {
     return NewPlaylist(
       id: data['id'],
-      name: data['name'],
+      name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
-      language: data['language']
+      language: data['language'].toString().title()
     );
   }
 
   factory NewPlaylist.songCount(Map<String,dynamic> data) {
     return NewPlaylist(
       id: data['id'],
-      name: data['name'],
+      name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
       songCount: data['songCount']
     );

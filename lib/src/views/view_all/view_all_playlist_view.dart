@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_playlist_controller.dart';
-import 'package:sonicity/src/models/playlist.dart';
+import 'package:sonicity/src/models/new_playlist.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 
 class ViewAllPlaylistsView extends StatelessWidget {
@@ -143,7 +143,7 @@ class ViewAllPlaylistsView extends StatelessWidget {
               : viewAllController.playlists.length,
             itemBuilder: (context, index) {
               if(index < viewAllController.playlists.length) {
-                Playlist playlist = viewAllController.playlists[index];
+                NewPlaylist playlist = viewAllController.playlists[index];
                 return PlaylistRow(playlist: playlist, subtitle: "${playlist.songCount} Songs");
               } else {
                 return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);

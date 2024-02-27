@@ -2,6 +2,7 @@ import 'package:sonicity/src/models/download_url.dart';
 import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/new_album.dart';
 import 'package:sonicity/src/models/new_artist.dart';
+import 'package:super_string/super_string.dart';
 
 class NewSong {
   final String id;
@@ -39,7 +40,7 @@ class NewSong {
       duration: data['duration'],
       artists: arts,
       album: NewAlbum.name(data['album']),
-      language: data['language']
+      language: data['language'].toString().title()
     );
   }
 
@@ -73,5 +74,18 @@ class NewSong {
 
   bool isNotEmpty() {
     return id.isNotEmpty;
+  }
+
+  
+
+  String get title => name;
+  String get subtitle {
+    String text = "";
+    if(artists == null || artists!.isEmpty) {
+      text = language!;
+    } else {
+      text = artists!.first.name;
+    }
+    return "${album!.name} ▪ $text";
   }
 }

@@ -3,7 +3,7 @@ import 'package:sonicity/src/models/image_url.dart';
 class NewArtist {
   final String id;
   final String name;
-  final ImageUrl image;
+  final ImageUrl ? image;
   final String ? role;
   final String ? description;
   final String ? dominantLanguage;
@@ -15,7 +15,7 @@ class NewArtist {
   final List<String> ? availableLanguages;
 
   NewArtist({
-    required this.id, required this.name, required this.image,
+    required this.id, required this.name, this.image,
     this.role, this.description,
     this.dominantLanguage, this.dominantType, this.dob, this.fb,
     this.twitter, this.wiki, this.availableLanguages,
@@ -55,15 +55,26 @@ class NewArtist {
     );
   }
 
+  factory NewArtist.name(Map<String,dynamic> data) {
+    return NewArtist(
+      id: data['id'],
+      name: data['name'] ?? data['title'],
+    );
+  }
+
   factory NewArtist.empty() {
     return NewArtist(id: "", name: "", image: ImageUrl.empty());
   }
 
   Map<String, dynamic> toMap() {
+    List<Map<String,dynamic>> img = [];
+    if(image != null) {
+      img = image!.toMap();
+    }
     return {
       "id" : id,
       "name" : name,
-      "image" : image.toMap(),
+      "image" : img,
       "role" : role,
       "description" : description,
       "dominantLanguage" : dominantLanguage,

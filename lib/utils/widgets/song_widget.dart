@@ -11,13 +11,13 @@ import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
 import 'package:iconify_flutter_plus/icons/teenyicons.dart';
 import 'package:sonicity/src/controllers/song_detail_controller.dart';
-import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/models/new_song.dart';
 import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
 import 'package:sonicity/src/views/details/song_details_view.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class SongCard extends StatelessWidget {
-  final Song song;
+  final NewSong song;
   SongCard({super.key, required this.song});
 
   @override
@@ -97,8 +97,9 @@ class SongCard extends StatelessWidget {
 }
 
 class SongsRow extends StatelessWidget {
-  final Song song;
-  SongsRow({super.key,required this.song});
+  final NewSong song;
+  final String subtitle;
+  SongsRow({super.key, required this.song, this.subtitle = ""});
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +130,7 @@ class SongsRow extends StatelessWidget {
         style: TextStyle(color: Colors.white, fontSize: 18),
       ),
       subtitle: Text(
-        song.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
+        (subtitle.isEmpty) ? song.subtitle : subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
         style: TextStyle(color: Colors.grey, fontSize: 14),
       ),
       trailing:   SongPopUpMenu(song: song)
@@ -138,7 +139,7 @@ class SongsRow extends StatelessWidget {
 }
 
 class SongPopUpMenu extends StatelessWidget {
-  final Song song;
+  final NewSong song;
   const SongPopUpMenu({super.key, required this.song});
 
   @override

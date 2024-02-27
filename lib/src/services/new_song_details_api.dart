@@ -28,9 +28,21 @@ class NewSongDetailsApi {
   static Future<NewSong> get(String id) async {
     Map<String, dynamic> data = await _apiCall(id);
     NewAlbum album = await NewAlbumDetailsApi.getImage(data['album']['id']);
-    
     data['album'] = album.toMap();
 
+    String allArtistId = "${data['primaryArtistsId']}";
+    if(data['featuredArtistsId'].toString().isNotEmpty) {
+      allArtistId += ", ${data['featuredArtistsId']}";
+    }
+    List<String> artistIds = allArtistId.split(", ").toList().toSet().toList();
+    List<Map<String, dynamic>> artistForData = await _getArtists(artistIds);
+    data['artists'] = artistForData;
+
+    return NewSong.detail(data);
+  }
+
+  static Future<NewSong> forPlay(String id) async {
+    Map<String, dynamic> data = await _apiCall(id);
     String allArtistId = "${data['primaryArtistsId']}";
     if(data['featuredArtistsId'].toString().isNotEmpty) {
       allArtistId += ", ${data['featuredArtistsId']}";

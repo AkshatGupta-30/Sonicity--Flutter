@@ -7,11 +7,11 @@ import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/teenyicons.dart';
-import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/new_album.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class AlbumCard extends StatelessWidget {
-  final Album album;
+  final NewAlbum album;
   const AlbumCard({super.key, required this.album});
 
   @override
@@ -30,7 +30,7 @@ class AlbumCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: CachedNetworkImage(
-                imageUrl: album.image.highQuality,
+                imageUrl: album.image!.highQuality,
                 width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
                 placeholder: (context, url) {
                   return Image.asset(
@@ -106,7 +106,7 @@ class AlbumCard extends StatelessWidget {
 }
 
 class AlbumCell extends StatelessWidget {
-  final Album album;
+  final NewAlbum album;
   AlbumCell({super.key, required this.album});
 
   @override
@@ -120,7 +120,7 @@ class AlbumCell extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: CachedNetworkImage(
-              imageUrl: album.image.standardQuality,
+              imageUrl: album.image!.standardQuality,
               width: 140, height: 140, fit: BoxFit.fill,
               placeholder: (context, url) {
                 return Image.asset(
@@ -152,7 +152,7 @@ class AlbumCell extends StatelessWidget {
 }
 
 class AlbumRow extends StatelessWidget {
-  final Album album;
+  final NewAlbum album;
   final String subtitle;
   AlbumRow({super.key,required this.album, required this.subtitle});
 
@@ -168,7 +168,7 @@ class AlbumRow extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(
-                imageUrl: album.image.lowQuality,
+                imageUrl: album.image!.lowQuality,
                 fit: BoxFit.cover, width: 60, height: 60,
                 errorWidget: (context, url, error) {
                   return Image.asset(

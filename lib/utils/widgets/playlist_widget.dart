@@ -8,11 +8,11 @@ import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/teenyicons.dart';
-import 'package:sonicity/src/models/playlist.dart';
+import 'package:sonicity/src/models/new_playlist.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class PlaylistCell extends StatelessWidget {
-  final Playlist playlist;
+  final NewPlaylist playlist;
   PlaylistCell({super.key, required this.playlist});
 
   @override
@@ -58,7 +58,7 @@ class PlaylistCell extends StatelessWidget {
 }
 
 class PlaylistRow extends StatelessWidget {
-  final Playlist playlist;
+  final NewPlaylist playlist;
   final String subtitle;
   PlaylistRow({super.key,required this.playlist, required this.subtitle});
 

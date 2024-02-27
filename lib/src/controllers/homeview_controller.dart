@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/models/home.dart';
-import 'package:sonicity/src/services/home_view_api.dart';
+import 'package:sonicity/src/models/new_home.dart';
+import 'package:sonicity/src/services/new_home_view_api.dart';
 
 class HomeViewController extends GetxController with GetSingleTickerProviderStateMixin {
-  final home = Home.empty().obs;
+  final home = NewHome.empty().obs;
   late TabController tabController;
   final selectedTab = 0.obs;
 
@@ -19,7 +19,7 @@ class HomeViewController extends GetxController with GetSingleTickerProviderStat
   }
 
   void getHomeData() async {
-    Home data = await HomeViewApi.get();
+    NewHome data = await NewHomeViewApi.get();
     home.value = data;
   }
 

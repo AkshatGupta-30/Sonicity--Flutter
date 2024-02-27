@@ -57,7 +57,7 @@ class NewSearchAllApi {
   static Future<List<NewSong>> _getSongsList(List<dynamic> songList) async {
     List<NewSong> songs = [];
     for(var result in songList) {
-      NewSong song = await NewSongDetailsApi.get(result['id']);
+      NewSong song = await NewSongDetailsApi.forPlay(result['id']);
       songs.add(song);
     }
     return songs;

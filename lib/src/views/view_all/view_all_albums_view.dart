@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_album_controller.dart';
-import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/new_album.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 
 class ViewAllAlbumsView extends StatelessWidget {
@@ -50,7 +50,7 @@ class ViewAllAlbumsView extends StatelessWidget {
             children: [
               (viewAllController.albums.length < 4)
               ? CachedNetworkImage(
-                imageUrl: viewAllController.albums.first.image.standardQuality,
+                imageUrl: viewAllController.albums.first.image!.standardQuality,
                 fit: BoxFit.cover, height: media.width/1.2, width: media.width/2,
                 errorWidget: (context, url, error) {
                   return Image.asset(
@@ -70,7 +70,7 @@ class ViewAllAlbumsView extends StatelessWidget {
                 itemCount: 4,
                 itemBuilder: (context, index) {
                   return CachedNetworkImage(
-                    imageUrl: viewAllController.albums[index].image.standardQuality,
+                    imageUrl: viewAllController.albums[index].image!.standardQuality,
                     fit: BoxFit.cover,
                     errorWidget: (context, url, error) {
                       return Image.asset(
@@ -134,7 +134,7 @@ class ViewAllAlbumsView extends StatelessWidget {
               : viewAllController.albums.length,
             itemBuilder: (context, index) {
               if(index < viewAllController.albums.length) {
-                Album album = viewAllController.albums[index];
+                NewAlbum album = viewAllController.albums[index];
                 return AlbumRow(album: album, subtitle: "${album.songCount!} Songs");
               } else {
                 return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);

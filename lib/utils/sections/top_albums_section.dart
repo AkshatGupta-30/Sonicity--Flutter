@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/homeview_controller.dart';
-import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/new_album.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/shimmer_widget.dart';
@@ -31,7 +31,7 @@ class TopAlbumsSection extends StatelessWidget {
                   if(homeController.home.value.topAlbums.albums.isEmpty) {
                     return ShimmerCell(crossAxisAlignment: CrossAxisAlignment.start);
                   }
-                  Album album = homeController.home.value.topAlbums.albums[index];
+                  NewAlbum album = homeController.home.value.topAlbums.albums[index];
                   return AlbumCell(album: album);
                 },
               ),

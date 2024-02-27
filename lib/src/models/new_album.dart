@@ -68,7 +68,7 @@ class NewAlbum {
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
-      language: data['language']
+      language: data['language'].toString().title()
     );
   }
 

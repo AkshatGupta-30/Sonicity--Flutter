@@ -30,7 +30,7 @@ class NewHomeViewApi {
     }
 
     for (var album in data['albums']) {
-      NewAlbum albumDetail = NewAlbum.detail(album);
+      NewAlbum albumDetail = NewAlbum.songCount(album);
       trendingAlbumsList.add(albumDetail);
     }
     return NewTrendingNow.fromList(albums: trendingAlbumsList, songs: trendingSongsList);
@@ -70,10 +70,8 @@ class NewHomeViewApi {
     List<String> loadedSongs = await LastSessionSprefs.load();
     List<NewSong> songs = [];
     for (var id in loadedSongs) {
-      final uri = "https://saavn.dev/songs?id=$id";
-      final response = await http.get(Uri.parse(uri));
-      final json = jsonDecode(response.body);
-      songs.insert(0, NewSong.detail(json['data'][0]));
+      NewSong song = await NewSongDetailsApi.get(id);
+      songs.insert(0, song);
     }
     return songs;
   }

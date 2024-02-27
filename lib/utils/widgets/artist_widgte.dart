@@ -7,11 +7,11 @@ import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/teenyicons.dart';
-import 'package:sonicity/src/models/artist.dart';
+import 'package:sonicity/src/models/new_artist.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class ArtistRow extends StatelessWidget {
-  final Artist artist;
+  final NewArtist artist;
   final String subtitle;
   ArtistRow({super.key,required this.artist, required this.subtitle});
 
@@ -27,7 +27,7 @@ class ArtistRow extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(
-                imageUrl: artist.image.lowQuality,
+                imageUrl: artist.image!.lowQuality,
                 fit: BoxFit.cover, width: 60, height: 60,
                 errorWidget: (context, url, error) {
                   return Image.asset(

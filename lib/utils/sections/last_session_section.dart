@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/homeview_controller.dart';
-import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/models/new_song.dart';
 import 'package:sonicity/utils/sections/view_all_section.dart';
 import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
@@ -56,7 +56,7 @@ class LastSessionSection extends StatelessWidget {
                       itemBuilder: (context, innerIndex) {
                         var currentItemIndex = currentRowIndex + innerIndex;
                         if (currentItemIndex < homeController.home.value.lastSession.length) {
-                          Song song = homeController.home.value.lastSession[currentItemIndex];
+                          NewSong song = homeController.home.value.lastSession[currentItemIndex];
                           return SongsRow(song: song);
                         } else {
                           return SizedBox();

@@ -90,4 +90,9 @@ class NewArtistDetailsApi {
     final data = await _detailsApiCall(id);
     return NewArtist.image(data);
   }
+
+  static Future<NewArtist> getName(String id) async {
+    final data = await _detailsApiCall(id);
+    return NewArtist.name(data);
+  }
 }
