@@ -30,10 +30,8 @@ class ImageUrl {
     return _imageData.isEmpty;
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'image': _imageData.map((data) => data.toMap()).toList(),
-    };
+  List<Map<String,dynamic>> toMap() {
+    return _imageData.map((data) => data.toMap()).toList();
   }
 }
 

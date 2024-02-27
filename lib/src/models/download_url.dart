@@ -30,10 +30,8 @@ class DownloadUrl {
     return _downloadData.isEmpty;
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'downloadUrl': _downloadData.map((data) => data.toMap()).toList(),
-    };
+  List<Map<String,dynamic>> toMap() {
+    return _downloadData.map((data) => data.toMap()).toList();
   }
 }
 
