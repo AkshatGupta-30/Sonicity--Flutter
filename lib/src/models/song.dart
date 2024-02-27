@@ -39,7 +39,7 @@ class Song {
       releaseDate: data['releaseDate'],
       duration: data['duration'],
       artists: arts,
-      album: Album.name(data['album']),
+      album: Album.image(data['album']),
       language: data['language'].toString().title()
     );
   }

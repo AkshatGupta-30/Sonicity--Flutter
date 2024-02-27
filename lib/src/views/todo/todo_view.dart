@@ -3,18 +3,15 @@
 import 'package:flutter/material.dart';
 
 class ToDoView extends StatelessWidget {
-  final Color bgColor, color;
-  ToDoView({super.key, this.bgColor = Colors.black, this.color = Colors.blue});
+  final String text;
+  ToDoView({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: Colors.black,
       body: Center(
-        child: Text(
-          "Comming Soon",
-          style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 30),
-        ),
+        child: Text(text, style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 30)),
       ),
     );
   }

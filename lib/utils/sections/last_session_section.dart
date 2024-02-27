@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/homeview_controller.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/sections/view_all_section.dart';
 import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
@@ -20,7 +21,9 @@ class LastSessionSection extends StatelessWidget {
     return Column(
       children: [
         ViewAllSection(
-          onPressed: () {},// TODO
+          onPressed: () {
+            Get.to(() => ToDoView(text: "View all last session song"));
+          },
           title: "Last Session", buttonTitle: "View All",
           size: 24, rightPadding: 0,
         ),
