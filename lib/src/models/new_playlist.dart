@@ -53,6 +53,15 @@ class NewPlaylist {
     );
   }
 
+  factory NewPlaylist.songCount(Map<String,dynamic> data) {
+    return NewPlaylist(
+      id: data['id'],
+      name: data['name'],
+      image: ImageUrl.fromJson(data['image']),
+      songCount: data['songCount']
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       "id" : id,

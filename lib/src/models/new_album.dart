@@ -72,6 +72,15 @@ class NewAlbum {
     );
   }
 
+  factory NewAlbum.songCount(Map<String,dynamic> data) {
+    return NewAlbum(
+      id: data['id'],
+      name: data['name'] ?? data['title'],
+      image: ImageUrl.fromJson(data['image']),
+      songCount: data['songCount']
+    );
+  }
+
   factory NewAlbum.empty() {
     return NewAlbum(id: "", name: "", image: ImageUrl.empty());
   }

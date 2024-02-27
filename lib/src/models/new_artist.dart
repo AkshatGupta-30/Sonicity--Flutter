@@ -51,7 +51,7 @@ class NewArtist {
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
-      description: data['description']
+      description: data['description'] ?? data['role']
     );
   }
 
