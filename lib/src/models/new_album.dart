@@ -63,6 +63,15 @@ class NewAlbum {
     );
   }
 
+  factory NewAlbum.language(Map<String,dynamic> data) {
+    return NewAlbum(
+      id: data['id'],
+      name: data['name'] ?? data['title'],
+      image: ImageUrl.fromJson(data['image']),
+      language: data['language']
+    );
+  }
+
   factory NewAlbum.empty() {
     return NewAlbum(id: "", name: "", image: ImageUrl.empty());
   }

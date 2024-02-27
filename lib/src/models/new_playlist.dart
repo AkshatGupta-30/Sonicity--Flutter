@@ -36,6 +36,23 @@ class NewPlaylist {
     return NewPlaylist(id: "", name: "", image: ImageUrl.empty());
   }
 
+  factory NewPlaylist.image(Map<String,dynamic> data) {
+    return NewPlaylist(
+      id: data['id'],
+      name: data['name'],
+      image: ImageUrl.fromJson(data['image']),
+    );
+  }
+
+  factory NewPlaylist.language(Map<String,dynamic> data) {
+    return NewPlaylist(
+      id: data['id'],
+      name: data['name'],
+      image: ImageUrl.fromJson(data['image']),
+      language: data['language']
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       "id" : id,

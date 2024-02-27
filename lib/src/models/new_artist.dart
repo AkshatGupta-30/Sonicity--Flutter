@@ -46,6 +46,15 @@ class NewArtist {
     );
   }
 
+  factory NewArtist.description(Map<String,dynamic> data) {
+    return NewArtist(
+      id: data['id'],
+      name: data['name'] ?? data['title'],
+      image: ImageUrl.fromJson(data['image']),
+      description: data['description']
+    );
+  }
+
   factory NewArtist.empty() {
     return NewArtist(id: "", name: "", image: ImageUrl.empty());
   }
