@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -31,15 +32,18 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      themeMode: ThemeMode.dark,
-      title: 'Sonicity',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: "LovelyMamma",
-        scaffoldBackgroundColor: Colors.black,
+    return BetterFeedback(
+      darkTheme: FeedbackThemeData.dark(),
+      child: GetMaterialApp(
+        themeMode: ThemeMode.dark,
+        title: 'Sonicity',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: "LovelyMamma",
+          scaffoldBackgroundColor: Colors.black,
+        ),
+        home: NavigationView(),
       ),
-      home: NavigationView(),
     );
   }
 }
