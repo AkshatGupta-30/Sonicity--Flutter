@@ -18,7 +18,6 @@ import 'package:sonicity/utils/widgets/search_widgte.dart';
 class HomeView extends StatelessWidget{
   HomeView({super.key});
 
-  final controller = Get.put(HomeViewController());
   final scrollController = ScrollController();
   final padding = 0.obs;
 
@@ -26,8 +25,9 @@ class HomeView extends StatelessWidget{
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     EdgeInsets safeArea = MediaQuery.paddingOf(context);
-    return Obx(
-      () {
+    return GetBuilder(
+      init: HomeViewController(),
+      builder: (controller) {
         return Scaffold(
           backgroundColor: Colors.black,
           drawer: Drawer(),
@@ -41,31 +41,35 @@ class HomeView extends StatelessWidget{
                 tileMode: TileMode.clamp,
               ),
             ),
-            child: CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                _appBar(media, safeArea),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Gap(20),
-                        TrendingNowSection(media: media, homeController: controller),
-                        Gap(20),
-                        TopChartsSection(media: media, topCharts: controller.home.value.topCharts),
-                        Gap(20),
-                        if(controller.home.value.lastSession.isNotEmpty)
-                          LastSessionSection(media: media, homeController: controller),
-                        Gap(20),
-                        TopAlbumsSection(media: media, topAlbums: controller.home.value.topAlbums),
-                        Gap(20),
-                        HotPlaylistSection(media: media, hotPlaylists: controller.home.value.hotPlaylists),
-                      ]
+            child: Obx(
+              () {
+                return CustomScrollView(
+                  controller: scrollController,
+                  slivers: [
+                    _appBar(media, safeArea),
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Gap(20),
+                            TrendingNowSection(media: media, homeController: controller),
+                            Gap(20),
+                            TopChartsSection(media: media, topCharts: controller.home.value.topCharts),
+                            Gap(20),
+                            if(controller.home.value.lastSession.isNotEmpty)
+                              LastSessionSection(media: media, homeController: controller),
+                            Gap(20),
+                            TopAlbumsSection(media: media, topAlbums: controller.home.value.topAlbums),
+                            Gap(20),
+                            HotPlaylistSection(media: media, hotPlaylists: controller.home.value.hotPlaylists),
+                          ]
+                        ),
+                      )
                     ),
-                  )
-                ),
-              ],
+                  ],
+                );
+              }
             ),
           ),
         );
@@ -76,7 +80,7 @@ class HomeView extends StatelessWidget{
   SliverAppBar _appBar(Size media, EdgeInsets safeArea) {
     return SliverAppBar(
       pinned: true,
-      toolbarHeight: 75, backgroundColor: Colors.transparent,
+      toolbarHeight: 75, backgroundColor: Colors.grey.shade900,
       shadowColor: Colors.black87, surfaceTintColor: Colors.black87,
       leading: GestureDetector(
         onTap: () => Get.find<NavigationController>().openDrawer(),
@@ -87,7 +91,7 @@ class HomeView extends StatelessWidget{
           onTap: () {},
           child: Iconify(Uis.favorite, size: 30, color: Colors.yellowAccent)
         ),
-        Gap(8)
+        Gap(12)
       ],
       expandedHeight: 300,
       flexibleSpace: FlexibleSpaceBar(

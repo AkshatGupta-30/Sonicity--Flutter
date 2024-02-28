@@ -29,7 +29,7 @@ class TopChartsSection extends StatelessWidget {
                 return ShimmerCell();
               }
               Playlist playlist = topCharts.playlists[index];
-              return PlaylistCell(playlist: playlist);
+              return PlaylistCell(playlist: playlist, subtitle: playlist.language!);
             },
           ),
         )

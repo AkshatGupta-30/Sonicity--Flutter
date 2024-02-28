@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_artist_controller.dart';
 import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/utils/widgets/artist_widget.dart';
+import 'package:sonicity/utils/widgets/artist_widgte.dart';
 
 class ViewAllArtistsView extends StatelessWidget {
   ViewAllArtistsView({super.key});

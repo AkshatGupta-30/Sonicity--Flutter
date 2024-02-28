@@ -18,7 +18,7 @@ import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/colors.dart';
-import 'package:sonicity/utils/widgets/artist_widget.dart';
+import 'package:sonicity/utils/widgets/artist_widgte.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 

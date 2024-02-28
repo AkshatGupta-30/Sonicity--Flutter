@@ -13,7 +13,8 @@ import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class PlaylistCell extends StatelessWidget {
   final Playlist playlist;
-  PlaylistCell({super.key, required this.playlist});
+  final String subtitle;
+  PlaylistCell({super.key, required this.playlist, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +52,11 @@ class PlaylistCell extends StatelessWidget {
               playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
             ),
-            Text(
-              (playlist.language == null) ? "${playlist.songCount!} Songs" : playlist.language!.capitalizeFirst!,
-              style: TextStyle(color: Colors.grey,  fontSize: 11),
-            )
+            if(subtitle.isNotEmpty)
+              Text(
+                subtitle,
+                style: TextStyle(color: Colors.grey,  fontSize: 11),
+              )
           ],
         ),
       ),
