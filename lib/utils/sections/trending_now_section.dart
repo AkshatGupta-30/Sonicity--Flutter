@@ -19,7 +19,6 @@ import 'package:sonicity/utils/sections/title_section.dart';
 class TrendingNowSection extends StatelessWidget {
   final Size media;
   final HomeViewController homeController;
-
   const TrendingNowSection({super.key, required this.media, required this.homeController});
 
   @override
@@ -58,24 +57,24 @@ class TrendingNowSection extends StatelessWidget {
                   ),
                 ),
                 Tab(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Iconify(
-                          Ic.twotone_album, size: 25,
-                          color: (homeController.selectedTab.value == 1) ? accentColor : accentColorDark,
-                        ),
-                        Gap(8),
-                        Text(
-                            "Album",
-                            style: TextStyle(
-                              fontSize: 21,
-                              color: (homeController.selectedTab.value == 1) ? accentColor : accentColorDark
-                          )
-                        ),
-                      ],
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Iconify(
+                        Ic.twotone_album, size: 25,
+                        color: (homeController.selectedTab.value == 1) ? accentColor : accentColorDark,
+                      ),
+                      Gap(8),
+                      Text(
+                          "Album",
+                          style: TextStyle(
+                            fontSize: 21,
+                            color: (homeController.selectedTab.value == 1) ? accentColor : accentColorDark
+                        )
+                      ),
+                    ],
                   ),
+                ),
               ]
             ),
             Gap(20),
@@ -100,9 +99,10 @@ class TrendingNowSection extends StatelessWidget {
                     },
                     options: CarouselOptions(
                       height: media.width/1.25,
-                      autoPlay: true, autoPlayAnimationDuration: Duration(milliseconds: 700), autoPlayInterval: Duration(seconds: 8),
+                      autoPlay: true, autoPlayAnimationDuration: Duration(milliseconds: 700),
+                      autoPlayInterval: Duration(seconds: 8),
                       initialPage: 0, enlargeCenterPage: true,
-                      enableInfiniteScroll: (homeController.home.value.trendingNow.songs.length != 1)
+                      enableInfiniteScroll: (homeController.home.value.trendingNow.songs.length > 2)
                     ),
                   ),
                   CarouselSlider.builder(

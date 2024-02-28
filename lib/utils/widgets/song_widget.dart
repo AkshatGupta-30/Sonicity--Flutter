@@ -103,7 +103,7 @@ class SongsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {},
-      contentPadding: EdgeInsets.only(bottom: 10),
+      contentPadding: EdgeInsets.zero,
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: CachedNetworkImage(

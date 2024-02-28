@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:sonicity/src/controllers/homeview_controller.dart';
+import 'package:sonicity/src/models/hot_playlists.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
@@ -11,34 +10,30 @@ import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 
 class HotPlaylistSection extends StatelessWidget {
   final Size media;
-  final HomeViewController homeController;
-  HotPlaylistSection({super.key, required this.media, required this.homeController});
+  final HotPlaylists hotPlaylists;
+  HotPlaylistSection({super.key, required this.media, required this.hotPlaylists});
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return Column(
-          children: [
-            TitleSection(title: "Hot Playlist", size: 24),
-            Gap(12),
-            SizedBox(
-              height: 175,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: (homeController.home.value.hotPlaylists.playlists.isEmpty) ? 5 : homeController.home.value.hotPlaylists.playlists.length,
-                itemBuilder: (context, index) {
-                  if(homeController.home.value.hotPlaylists.playlists.isEmpty) {
-                    return ShimmerCell();
-                  }
-                  Playlist playlist = homeController.home.value.hotPlaylists.playlists[index];
-                  return PlaylistCell(playlist: playlist);
-                },
-              ),
-            )
-          ],
-        );
-      }
+    return Column(
+      children: [
+        TitleSection(title: "Hot Playlist", size: 24),
+        Gap(12),
+        SizedBox(
+          height: 175,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: (hotPlaylists.playlists.isEmpty) ? 5 : hotPlaylists.playlists.length,
+            itemBuilder: (context, index) {
+              if(hotPlaylists.playlists.isEmpty) {
+                return ShimmerCell();
+              }
+              Playlist playlist = hotPlaylists.playlists[index];
+              return PlaylistCell(playlist: playlist);
+            },
+          ),
+        )
+      ],
     );
   }
 }

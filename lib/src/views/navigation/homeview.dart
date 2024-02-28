@@ -18,7 +18,7 @@ import 'package:sonicity/utils/widgets/search_widgte.dart';
 class HomeView extends StatelessWidget{
   HomeView({super.key});
 
-  final homeViewController = Get.put(HomeViewController());
+  final controller = Get.put(HomeViewController());
   final scrollController = ScrollController();
   final padding = 0.obs;
 
@@ -51,16 +51,16 @@ class HomeView extends StatelessWidget{
                     child: Column(
                       children: [
                         Gap(20),
-                        TrendingNowSection(media: media, homeController: homeViewController),
+                        TrendingNowSection(media: media, homeController: controller),
                         Gap(20),
-                        TopChartsSection(media: media, homeController: homeViewController),
+                        TopChartsSection(media: media, topCharts: controller.home.value.topCharts),
                         Gap(20),
-                        if(homeViewController.home.value.lastSession.isNotEmpty)
-                          LastSessionSection(media: media, homeController: homeViewController),
+                        if(controller.home.value.lastSession.isNotEmpty)
+                          LastSessionSection(media: media, homeController: controller),
                         Gap(20),
-                        TopAlbumsSection(media: media, homeController: homeViewController),
+                        TopAlbumsSection(media: media, topAlbums: controller.home.value.topAlbums),
                         Gap(20),
-                        HotPlaylistSection(media: media, homeController: homeViewController),
+                        HotPlaylistSection(media: media, hotPlaylists: controller.home.value.hotPlaylists),
                       ]
                     ),
                   )

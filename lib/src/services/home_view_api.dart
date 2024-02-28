@@ -70,7 +70,7 @@ class HomeViewApi {
     List<String> loadedSongs = await LastSessionSprefs.load();
     List<Song> songs = [];
     for (var id in loadedSongs) {
-      Song song = await SongDetailsApi.get(id);
+      Song song = await SongDetailsApi.forPlay(id);
       songs.insert(0, song);
     }
     return songs;

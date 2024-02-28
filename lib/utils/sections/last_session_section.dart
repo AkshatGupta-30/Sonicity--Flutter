@@ -34,6 +34,7 @@ class LastSessionSection extends StatelessWidget {
               return SizedBox(
                 height: (homeController.home.value.lastSession.length > 4) ? 4 * 70 : homeController.home.value.lastSession.length * 70,
                 child: ListView.builder(
+                  padding: EdgeInsets.zero,
                   itemCount: (homeController.home.value.lastSession.length > 4) ? 4 : homeController.home.value.lastSession.length,
                   itemBuilder: (context, index) {
                     return ShimmerRow();
@@ -42,7 +43,7 @@ class LastSessionSection extends StatelessWidget {
               );
             }
             return SizedBox(
-              height: (listLength < 4) ? listLength * 70 : 4 * 70,
+              height: (listLength < 4) ? listLength * 72 : 4 * 72,
               child: ListView.builder(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 physics: (listLength <= 4) ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
@@ -54,7 +55,7 @@ class LastSessionSection extends StatelessWidget {
                     width: (homeController.home.value.lastSession.length <= 4) ? media.width / 1.05 : media.width / 1.2,
                     child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
-                      addSemanticIndexes: true,
+                      padding: EdgeInsets.zero,
                       itemCount: 4,
                       itemBuilder: (context, innerIndex) {
                         var currentItemIndex = currentRowIndex + innerIndex;

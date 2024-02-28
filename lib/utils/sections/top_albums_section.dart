@@ -2,43 +2,38 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:sonicity/src/controllers/homeview_controller.dart';
 import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/top_albums.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 
 class TopAlbumsSection extends StatelessWidget {
   final Size media;
-  final HomeViewController homeController;
-  TopAlbumsSection({super.key, required this.media, required this.homeController});
+  final TopAlbums topAlbums;
+  TopAlbumsSection({super.key, required this.media, required this.topAlbums});
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return Column(
-          children: [
-            TitleSection(title: "Top Albums", size: 24),
-            Gap(12),
-            SizedBox(
-              height: 175,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: (homeController.home.value.topAlbums.albums.isEmpty) ? 5 : homeController.home.value.topAlbums.albums.length,
-                itemBuilder: (context, index) {
-                  if(homeController.home.value.topAlbums.albums.isEmpty) {
-                    return ShimmerCell(crossAxisAlignment: CrossAxisAlignment.start);
-                  }
-                  Album album = homeController.home.value.topAlbums.albums[index];
-                  return AlbumCell(album: album);
-                },
-              ),
-            )
-          ],
-        );
-      }
+    return Column(
+      children: [
+        TitleSection(title: "Top Albums", size: 24),
+        Gap(12),
+        SizedBox(
+          height: 175,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: (topAlbums.albums.isEmpty) ? 5 : topAlbums.albums.length,
+            itemBuilder: (context, index) {
+              if(topAlbums.albums.isEmpty) {
+                return ShimmerCell(crossAxisAlignment: CrossAxisAlignment.start);
+              }
+              Album album = topAlbums.albums[index];
+              return AlbumCell(album: album);
+            },
+          ),
+        )
+      ],
     );
   }
 }
