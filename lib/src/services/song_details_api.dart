@@ -51,6 +51,6 @@ class SongDetailsApi {
     List<Map<String, dynamic>> artistForData = await _getArtists(artistIds);
     data['artists'] = artistForData;
 
-    return Song.detail(data);
+    return Song.forPlay(data);
   }
 }

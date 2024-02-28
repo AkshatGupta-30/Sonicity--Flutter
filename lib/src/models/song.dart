@@ -56,7 +56,7 @@ class Song {
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
       downloadUrl: DownloadUrl.fromJson(data['downloadUrl']),
-      hasLyrics: (data['hasLyrics'] == 'true') ? true : false,
+      hasLyrics: (data['hasLyrics'].toString() == 'true') ? true : false,
       year: data['year'],
       releaseDate: data['releaseDate'],
       duration: data['duration'],

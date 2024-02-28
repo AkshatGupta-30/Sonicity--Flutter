@@ -15,6 +15,7 @@ class AlbumSection extends StatelessWidget {
         Get.to(() => ToDoView(text: "Album Details"));
       },
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),

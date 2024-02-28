@@ -66,10 +66,13 @@ class PlaylistDetailsView extends StatelessWidget {
                     flexibleSpace: FlexibleSpaceBar(
                       centerTitle: true, expandedTitleScale: 1.5,
                       stretchModes: [StretchMode.blurBackground],
-                      titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                      title: Text(
-                        playlist.name, maxLines: 2, overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                      titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+                      title: SizedBox(
+                        width: media.width/1.4, height: kBottomNavigationBarHeight,
+                        child: Text(
+                          playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                        ),
                       ),
                       background: Stack(
                         children: [
