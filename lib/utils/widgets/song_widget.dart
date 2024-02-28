@@ -9,7 +9,6 @@ import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
-import 'package:iconify_flutter_plus/icons/teenyicons.dart';
 import 'package:sonicity/src/controllers/song_detail_controller.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
@@ -149,7 +148,7 @@ class SongPopUpMenu extends StatelessWidget {
         return [
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),
-            child: PopUpButtonRow(icon: Teenyicons.section_add_solid, label: "Add to Library"),
+            child: PopUpButtonRow(icon: Ic.round_cyclone, label: "Clone to Library"),
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),

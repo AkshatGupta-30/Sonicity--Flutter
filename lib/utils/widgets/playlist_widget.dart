@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
-import 'package:iconify_flutter_plus/icons/teenyicons.dart';
 import 'package:sonicity/src/controllers/playlist_detail_controller.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/views/details/playlist_details_view.dart';
@@ -130,7 +129,7 @@ class PlaylistRow extends StatelessWidget {
                   return [
                     PopupMenuItem(
                       padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: PopUpButtonRow(icon: Teenyicons.section_add_solid, label: "Add to Library"),
+                      child: PopUpButtonRow(icon: Ic.round_cyclone, label: "Clone to Library"),
                     ),
                     PopupMenuItem(
                       padding: EdgeInsets.symmetric(horizontal: 8),
