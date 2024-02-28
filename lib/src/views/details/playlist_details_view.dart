@@ -62,13 +62,13 @@ class PlaylistDetailsView extends StatelessWidget {
                     toolbarHeight: kBottomNavigationBarHeight,
                     shadowColor: Colors.black87, surfaceTintColor: Colors.black87, backgroundColor: Colors.grey.shade900,
                     leading: BackButton(color: Colors.white),
-                    expandedHeight: 360,
+                    expandedHeight: 400,
                     flexibleSpace: FlexibleSpaceBar(
                       centerTitle: true, expandedTitleScale: 1.5,
                       stretchModes: [StretchMode.blurBackground],
-                      titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+                      titlePadding: EdgeInsets.only(left: 20, right: 20, bottom: 75),
                       title: SizedBox(
-                        width: media.width/1.4, height: kBottomNavigationBarHeight,
+                        width: media.width/1.4,
                         child: Text(
                           playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
@@ -78,7 +78,7 @@ class PlaylistDetailsView extends StatelessWidget {
                         children: [
                           CachedNetworkImage(
                             imageUrl: playlist.image.highQuality, fit: BoxFit.fill,
-                            width: 400, height: 400,
+                            width: double.maxFinite, height: 380,
                             placeholder: (context, url) {
                               return Image.asset("assets/images/appLogo150x150.png", fit: BoxFit.fill);
                             },
@@ -87,7 +87,7 @@ class PlaylistDetailsView extends StatelessWidget {
                             },
                           ),
                           Container(
-                            width: media.width, height: 400,
+                            width: media.width, height: 420,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [Colors.black.withOpacity(0), Colors.black.withOpacity(0.75)],
@@ -131,6 +131,53 @@ class PlaylistDetailsView extends StatelessWidget {
                       ),
                       Gap(10)
                     ],
+                    bottom: PreferredSize(
+                      preferredSize: Size(double.maxFinite, 60),
+                      child: Container(
+                        color: Colors.grey.shade900,
+                        child: Row( 
+                          children: [
+                            Gap(20),
+                              Text(
+                              "${playlist.songs!.length} Songs",
+                              style: TextStyle(color: Colors.white, fontSize: 21),
+                            ),
+                            Spacer(),
+                            Container(
+                              height: kBottomNavigationBarHeight, alignment: Alignment.center,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Shuffle",
+                                        style: TextStyle(color: Colors.grey.shade300, fontSize: 21),
+                                      ),
+                                      Iconify(Ic.twotone_shuffle, color: Colors.grey.shade300, size: 25),
+                                    ],
+                                  ),
+                                  Gap(5),
+                                  Container(height: 30, width: 1, color: Colors.white38),
+                                  Gap(5),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey.shade300),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Iconify(Ic.twotone_play_arrow, color: Colors.grey.shade300, size: 27),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Gap(10)
+                          ],
+                        ),
+                      )
+                    ),
                   ),
                   SliverPadding(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -154,7 +201,7 @@ class PlaylistDetailsView extends StatelessWidget {
           type: ExpandableFabType.fan,
           pos: ExpandableFabPos.right,
           childrenOffset: Offset(0,0),
-          fanAngle: 90,
+          fanAngle: 60,
           openButtonBuilder: RotateFloatingActionButtonBuilder(
             child: Iconify(IconParkTwotone.more_four, color: accentColor),
             fabSize: ExpandableFabSize.regular,
@@ -181,14 +228,6 @@ class PlaylistDetailsView extends StatelessWidget {
               tooltip: "Add to Playlist",
               backgroundColor: accentColorDark, shape: CircleBorder(),
               child: Iconify(MaterialSymbols.star_outline_rounded, color: accentColor, size: 40)
-            ),
-            FloatingActionButton(
-              onPressed: () {
-                Get.to(() => ToDoView(text: "Play all songs"));
-              },
-              tooltip: "Play Now",
-              backgroundColor: accentColorDark, shape: CircleBorder(),
-              child: Iconify(Ic.twotone_play_circle, color: accentColor, size: 40)
             ),
             FloatingActionButton(
               onPressed: () {
