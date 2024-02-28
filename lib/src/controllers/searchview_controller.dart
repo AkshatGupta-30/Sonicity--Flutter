@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/controllers/view_all_search_album_controller.dart';
-import 'package:sonicity/src/controllers/view_all_search_artist_controller.dart';
-import 'package:sonicity/src/controllers/view_all_search_playlist_controller.dart';
-import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
 import 'package:sonicity/src/models/search_all.dart';
 import 'package:sonicity/src/services/search_all_api.dart';
 import 'package:sonicity/src/sprefs/search_history.dart';
@@ -28,7 +24,6 @@ class SearchViewController extends GetxController {
         loading.value = false;
         searching.value = false;
         searchAll.value.clear();
-        _deleteControllersIfExists();
       }
       update();
     });
@@ -38,21 +33,6 @@ class SearchViewController extends GetxController {
     historyList.value = await SearchHistorySprefs.load();
     update();
   }
-
-  void _deleteControllersIfExists() {
-  if (Get.isRegistered<ViewAllSearchSongsController>()) {
-    Get.delete<ViewAllSearchSongsController>();
-  }
-  if (Get.isRegistered<ViewAllSearchAlbumsController>()) {
-    Get.delete<ViewAllSearchAlbumsController>();
-  }
-  if (Get.isRegistered<ViewAllSearchArtistsController>()) {
-    Get.delete<ViewAllSearchArtistsController>();
-  }
-  if (Get.isRegistered<ViewAllSearchPlaylistsController>()) {
-    Get.delete<ViewAllSearchPlaylistsController>();
-  }
-}
 
   void _searchText(text) async {
     loading.value = true;
@@ -68,10 +48,6 @@ class SearchViewController extends GetxController {
   void searchSubmitted(String text) {
     searching.value = true;
     _searchText(text);
-    Get.put(ViewAllSearchSongsController(searchController.text));
-    Get.put(ViewAllSearchAlbumsController(searchController.text));
-    Get.put(ViewAllSearchArtistsController(searchController.text));
-    Get.put(ViewAllSearchPlaylistsController(searchController.text));
     if(historyList.contains(text)) {
       historyList.remove(text);
     }

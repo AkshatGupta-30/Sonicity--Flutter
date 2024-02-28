@@ -188,7 +188,7 @@ class SearchView extends StatelessWidget {
                   ViewAllSection(
                     title: "Songs", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
                     onPressed: () {
-                      Get.to(() => ViewAllSongsView());
+                      Get.to(() => ViewAllSongsView(searchText: searchViewCont.searchController.text));
                     },
                   ),
                   Container(

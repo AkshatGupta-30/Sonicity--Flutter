@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/services/artist_details_api.dart';
 
 class SearchSongsApi {
   static Future<Map> _apiCall(String text, int page, int limit) async {
@@ -13,10 +12,26 @@ class SearchSongsApi {
     return data;
   }
 
-  static Future<List<Map<String, dynamic>>> _getArtists(List<String> artistIds) async {
+  static List<Map<String, dynamic>> _getArtists(String primaryId, String primaryName, String featureId, String featureName) {
     List<Map<String, dynamic>> artistForData = [];
-    for(var id in artistIds) {
-      Artist artist = await ArtistDetailsApi.getName(id);
+    String allArtistIds = primaryId;
+    String allArtists = primaryName;
+    if(featureId.isNotEmpty) {
+      allArtistIds += ", $featureId";
+    }
+    if(featureName.isNotEmpty) {
+      allArtistIds += ", $featureName";
+    }
+    List<String> artistIds = allArtistIds.split(", ").toList().toSet().toList();
+    List<String> artists = allArtists.split(", ").toList().toSet().toList();
+    for(int i = 0; i<artistIds.length; i++) {
+      if(i == artistIds.length || i == artists.length) {
+        break;
+      }
+      Artist artist = Artist.name({
+        "id" : artistIds[i],
+        "name" : artists[i]
+      });
       Map<String, dynamic> artistMap = artist.toMap();
       artistForData.add(artistMap);
     }
@@ -24,20 +39,18 @@ class SearchSongsApi {
   }
 
   static Future<List<Song>> fetchData(String text, int page) async {
-    Map result = await _apiCall(text, page, 10);
+    Map result = await _apiCall(text, page, 5);
     if(result['data'] == null) {
       return [];
     }
     List<Song> songs = [];
     for (var element in result['data']['results']) {
-      String allArtistId = "${element['primaryArtistsId']}";
-      if(element['featuredArtistsId'].toString().isNotEmpty) {
-        allArtistId += ", ${element['featuredArtistsId']}";
-      }
-      List<String> artistIds = allArtistId.split(", ").toList().toSet().toList();
-      List<Map<String, dynamic>> artistForData = await _getArtists(artistIds);
+      List<Map<String, dynamic>> artistForData = _getArtists(
+        element['primaryArtistsId'], element['primaryArtists'],
+        element['featuredArtistsId'].toString(), element['featuredArtists'].toString()
+      );
       element['artists'] = artistForData;
-      songs.add(Song.detail(element));
+      songs.add(Song.forPlay(element));
     }
     return songs;
   }
