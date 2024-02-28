@@ -19,7 +19,7 @@ class Playlist {
     List<Song> songs = [];
     if(data['songs'] != null) {
       for (var music in data['songs']) {
-        songs.add(Song.detail(music));
+        songs.add(Song.forPlay(music));
       }
     }
     return Playlist(

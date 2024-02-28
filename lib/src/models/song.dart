@@ -44,6 +44,28 @@ class Song {
     );
   }
 
+  factory Song.forPlay(Map<String,dynamic> data) {
+    List<Artist> arts = [];
+    if(data['artists'] != null) {
+      for (var ar in data['artists']) {
+        arts.add(Artist.name(ar));
+      }
+    }
+    return Song(
+      id: data['id'],
+      name: data['name'] ?? data['title'],
+      image: ImageUrl.fromJson(data['image']),
+      downloadUrl: DownloadUrl.fromJson(data['downloadUrl']),
+      hasLyrics: (data['hasLyrics'] == 'true') ? true : false,
+      year: data['year'],
+      releaseDate: data['releaseDate'],
+      duration: data['duration'],
+      artists: arts,
+      album: Album.name(data['album']),
+      language: data['language'].toString().title()
+    );
+  }
+
   factory Song.empty() {
     return Song(id: "", name: "", image: ImageUrl.empty(), downloadUrl: DownloadUrl.empty(), hasLyrics: false);
   }

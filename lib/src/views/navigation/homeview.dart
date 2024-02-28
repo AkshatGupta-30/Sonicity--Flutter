@@ -75,14 +75,11 @@ class HomeView extends StatelessWidget{
   }
 
   SliverAppBar _appBar(Size media, EdgeInsets safeArea) {
-    List<String> concertLinkList = [ // TODO : From server
-      "assets/images/concert1.jpg",
+    List<String> concertLinkList = [
       "assets/images/concert2.jpg",
       "assets/images/concert3.jpg",
       "assets/images/concert6.jpg",
-      "assets/images/concert7.jpg",
       "assets/images/concert8.jpg",
-      "assets/images/concert9.jpg",
     ];
     return SliverAppBar(
       pinned: true,

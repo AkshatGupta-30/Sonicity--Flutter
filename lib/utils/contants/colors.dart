@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
 
 Color accentColor = Colors.accents[7];
-Color accentColorDark = Colors.accents[7].withOpacity(0.25);
+Color accentColorDark = const Color(0xFF0E4842);

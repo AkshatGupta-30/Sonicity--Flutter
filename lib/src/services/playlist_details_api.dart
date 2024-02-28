@@ -15,8 +15,7 @@ class PlaylistDetailsApi {
   }
 
   static Future<Playlist> get(String id) async {
-    Map<String, dynamic> data = await _apiCall(id);
-
+    final data = await _apiCall(id);
     return Playlist.detail(data);
   }
 }

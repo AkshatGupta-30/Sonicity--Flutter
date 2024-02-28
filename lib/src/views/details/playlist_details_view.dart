@@ -3,43 +3,42 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ant_design.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
-import 'package:iconify_flutter_plus/icons/ph.dart';
-import 'package:iconify_flutter_plus/icons/tabler.dart';
+import 'package:iconify_flutter_plus/icons/material_symbols.dart';
+import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sonicity/src/controllers/song_detail_controller.dart';
+import 'package:sonicity/src/controllers/playlist_detail_controller.dart';
+import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/colors.dart';
-import 'package:sonicity/utils/sections/album_section.dart';
-import 'package:sonicity/utils/sections/artist_section.dart';
-import 'package:sonicity/utils/sections/cover_image_section.dart';
-import 'package:sonicity/utils/sections/download_url_section.dart';
+import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
+import 'package:sonicity/utils/widgets/song_widget.dart';
 
-class SongDetailsView extends StatelessWidget {
-  SongDetailsView({super.key});
+class PlaylistDetailsView extends StatelessWidget {
+  PlaylistDetailsView({super.key});
 
-  final controller = Get.find<SongDetailController>();
-
+  final controller = Get.find<PlaylistDetailController>();
+  
   @override
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
-    EdgeInsets safeArea = MediaQuery.paddingOf(context);
     return PopScope(
       canPop: true,
       onPopInvoked: (didPop) {
         if(didPop) {
-          Get.delete<SongDetailController>();
+          Get.delete<PlaylistDetailController>();
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
         body: Container(
-          decoration: BoxDecoration(
+            decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [Colors.grey.shade900, Colors.black],
               begin: Alignment.topCenter,
@@ -50,8 +49,8 @@ class SongDetailsView extends StatelessWidget {
           ),
           child: Obx(
             () {
-              Song song = controller.song.value;
-              if(song.isEmpty()) {
+              Playlist playlist = controller.playlist.value;
+              if(playlist.isEmpty()) {
                 return Center(
                   child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
                 );
@@ -67,15 +66,15 @@ class SongDetailsView extends StatelessWidget {
                     flexibleSpace: FlexibleSpaceBar(
                       centerTitle: true, expandedTitleScale: 1.5,
                       stretchModes: [StretchMode.blurBackground],
-                      titlePadding: EdgeInsets.only(left: 10, top: safeArea.top, right: 10, bottom: 5),
+                      titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
                       title: Text(
-                        song.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+                        playlist.name, maxLines: 2, overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                       ),
                       background: Stack(
                         children: [
                           CachedNetworkImage(
-                            imageUrl: song.image.highQuality, fit: BoxFit.fill,
+                            imageUrl: playlist.image.highQuality, fit: BoxFit.fill,
                             width: 400, height: 400,
                             placeholder: (context, url) {
                               return Image.asset("assets/images/appLogo150x150.png", fit: BoxFit.fill);
@@ -96,42 +95,50 @@ class SongDetailsView extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _divide(),
-                          _head("Name"),
-                          _detail(song.name),
-                          _divide(),
-                          _head("From Album"),
-                          AlbumSection(album: song.album!),
-                          _divide(),
-                          _head("Contributed Artists"),
-                          ArtistSection(artists: song.artists!),
-                          _divide(),
-                          _head("Duration"),
-                          _detail("${song.duration} seconds"),
-                          _divide(),
-                          _head("Language"),
-                          _detail(song.language!.capitalizeFirst!),
-                          _divide(),
-                          _head("Release Date"),
-                          _detail(song.releaseDate!),
-                          _divide(),
-                          _head("Cover Image Url"),
-                          CoverImageSection(image: song.image),
-                          _divide(),
-                          _head("Download Song"),
-                          DownloadUrlSection(downloadUrl: song.downloadUrl),
-                          _divide(),
-                        ],
+                    actions: [
+                      PopupMenuButton(
+                        itemBuilder: (context) {
+                          return [
+                            PopupMenuItem(
+                              onTap: () {
+                                Get.to(() => ToDoView(text: "Sorting of songs"));
+                              },
+                              child: PopUpButtonRow(icon: Mdi.sort_alphabetical_ascending, label: "Name Asc")
+                            ),
+                            PopupMenuItem(
+                              child: PopUpButtonRow(icon: Mdi.sort_alphabetical_descending, label: "Name Desc")
+                            ),
+                            PopupMenuItem(
+                              child: PopUpButtonRow(icon: Mdi.sort_numeric_ascending, label: "Duration Asc")
+                            ),
+                            PopupMenuItem(
+                              child: PopUpButtonRow(icon: Mdi.sort_numeric_descending, label: "Duration Desc")
+                            ),
+                            PopupMenuItem(
+                              child: PopUpButtonRow(icon: Mdi.sort_calendar_ascending, label: "Year Asc")
+                            ),
+                            PopupMenuItem(
+                              child: PopUpButtonRow(icon: Mdi.sort_calendar_descending, label: "Year Desc")
+                            ),
+                          ];
+                        },
+                        icon: Iconify(MaterialSymbols.sort_rounded, color: Colors.white),
+                        position: PopupMenuPosition.under, color: Colors.grey.shade900,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
+                      Gap(10)
+                    ],
+                  ),
+                  SliverPadding(
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    sliver: SliverList.builder(
+                      itemCount: playlist.songs!.length,
+                      itemBuilder: (context, index) {
+                        Song song = playlist.songs![index];
+                        return SongsRow(song: song);
+                      },
                     ),
-                  )
+                  ),
                 ],
               );
             }
@@ -166,48 +173,31 @@ class SongDetailsView extends StatelessWidget {
           children: [
             FloatingActionButton(
               onPressed: () {
-                Get.to(() => ToDoView(text: "Add this song to playlist"));
+                Get.to(() => ToDoView(text: "Add this playlist to starred"));
               },
               tooltip: "Add to Playlist",
               backgroundColor: accentColorDark, shape: CircleBorder(),
-              child: Iconify(Tabler.playlist_add, color: accentColor, size: 40)
+              child: Iconify(MaterialSymbols.star_outline_rounded, color: accentColor, size: 40)
             ),
             FloatingActionButton(
               onPressed: () {
-                Get.to(() => ToDoView(text: "Play this song now"));
+                Get.to(() => ToDoView(text: "Play all songs"));
               },
               tooltip: "Play Now",
               backgroundColor: accentColorDark, shape: CircleBorder(),
-              child: Iconify(Ic.twotone_play_arrow, color: accentColor, size: 40)
+              child: Iconify(Ic.twotone_play_circle, color: accentColor, size: 40)
             ),
             FloatingActionButton(
               onPressed: () {
-                Get.to(() => ToDoView(text: "Add this song to queue"));
+                Get.to(() => ToDoView(text: "Add this playlist to library"));
               },
               tooltip: "Add to Queue",
               backgroundColor: accentColorDark, shape: CircleBorder(),
-              child: Iconify(Ph.queue_bold, color: accentColor, size: 40)
+              child: Iconify(MaterialSymbols.add, color: accentColor, size: 40)
             ),
           ],
         ),
       ),
     );
-  }
-
-  Divider _divide() {
-    return Divider(color: Colors.white30);
-  }
-
-  Text _head(String text) {
-    TextStyle style = TextStyle(color: Colors.grey.shade400, fontSize: 21);
-    return Text(text, style: style);
-  }
-
-  Widget _detail(String text, {bool isSelectable = false}) {
-    TextStyle style = TextStyle(color: Colors.white, fontSize: 25);
-    if(isSelectable) {
-      return SelectableText(text, style: style);
-    }
-    return Text(text, style: style);
   }
 }
