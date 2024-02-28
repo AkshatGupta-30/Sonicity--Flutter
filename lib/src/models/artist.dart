@@ -1,4 +1,5 @@
 import 'package:sonicity/src/models/image_url.dart';
+import 'package:super_string/super_string.dart';
 
 class Artist {
   final String id;
@@ -27,9 +28,9 @@ class Artist {
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
       role: data['role'],
-      description: data['description'],
-      dominantLanguage: data['dominantLanguage'],
-      dominantType: data['dominantType'],
+      description: data['description'].toString().title(),
+      dominantLanguage: data['dominantLanguage'].toString().title(),
+      dominantType: data['dominantType'].toString().title(),
       dob: data['dob'],
       fb: data['fb'],
       twitter: data['twitter'],

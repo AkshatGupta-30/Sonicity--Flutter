@@ -18,11 +18,13 @@ class AlbumDetailsApi {
 
   static Future<Album> get(String id) async {
     final data = await _apiCall(id);
-    Artist artist = await ArtistDetailsApi.getImage(data['primaryArtistsId']);
-    if(data['artists'] != null) {
-      data['artists'].clear();
+    List<String> artistIds = data['primaryArtistsId'].toString().split(", ").toList();
+    List<Map<String,dynamic>> artistMap = [];
+    for(var id in artistIds) {
+      Artist artist = await ArtistDetailsApi.getImage(id);
+      artistMap.add(artist.toMap());
     }
-    data['artists'].add(artist.toMap());
+    data['artists'] = artistMap;
     return Album.detail(data);
   }
 

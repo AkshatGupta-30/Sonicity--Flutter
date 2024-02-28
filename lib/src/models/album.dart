@@ -25,13 +25,13 @@ class Album {
     List<Artist> arts = [];
     if(data['artists'] != null) {
       for(var ar in data['artists']) {
-        arts.add(Artist.image(ar));
+        arts.add(Artist.detail(ar));
       }
     }
     List<Song> musics = [];
     if(data['songs'] != null) {
       for(var so in data['songs']) {
-        musics.add(Song.detail(so));
+        musics.add(Song.forPlay(so));
       }
     }
     return Album(
@@ -41,7 +41,7 @@ class Album {
       year: data['year'],
       releaseDate: data['releaseDate'],
       language: data['language'].toString().title(),
-      description: data['description'],
+      description: data['description'].toString().title(),
       songCount: data['songCount'],
       artists: arts,
       songs: musics

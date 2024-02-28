@@ -3,10 +3,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/views/details/album_details_view.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class AlbumCard extends StatelessWidget {
@@ -17,7 +19,9 @@ class AlbumCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return GestureDetector(
-      onTap: () {/* Open Album */},
+      onTap: () {
+        Get.to(() => AlbumDetailsView(album.id));
+      },
       child: Container(
         width: media.width/1.25, height: media.width/1.25,
         decoration: BoxDecoration(
@@ -106,45 +110,52 @@ class AlbumCard extends StatelessWidget {
 
 class AlbumCell extends StatelessWidget {
   final Album album;
-  AlbumCell({super.key, required this.album});
+  final String subtitle;
+  AlbumCell({super.key, required this.album, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 140,
-      margin: EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: CachedNetworkImage(
-              imageUrl: album.image!.standardQuality,
-              width: 140, height: 140, fit: BoxFit.fill,
-              placeholder: (context, url) {
-                return Image.asset(
-                  "assets/images/appLogo150x150.png",
-                  width: 140, height: 140, fit: BoxFit.fill,
-                );
-              },
-              errorWidget: (context, url, error) {
-                return Image.asset(
-                  "assets/images/appLogo150x150.png",
-                  width: 140, height: 140, fit: BoxFit.fill,
-                );
-              },
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => AlbumDetailsView(album.id));
+      },
+      child: Container(
+        width: 140,
+        margin: EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: CachedNetworkImage(
+                imageUrl: album.image!.standardQuality,
+                width: 140, height: 140, fit: BoxFit.fill,
+                placeholder: (context, url) {
+                  return Image.asset(
+                    "assets/images/appLogo150x150.png",
+                    width: 140, height: 140, fit: BoxFit.fill,
+                  );
+                },
+                errorWidget: (context, url, error) {
+                  return Image.asset(
+                    "assets/images/appLogo150x150.png",
+                    width: 140, height: 140, fit: BoxFit.fill,
+                  );
+                },
+              ),
             ),
-          ),
-          Gap(2),
-          Text(
-            album.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
-          ),
-          Text(
-            "${album.language}",
-            style: TextStyle(color: Colors.grey,  fontSize: 11),
-          )
-        ],
+            Gap(2),
+            Text(
+              album.name, maxLines: 1, overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+            if(subtitle.isNotEmpty)
+              Text(
+                subtitle,
+                style: TextStyle(color: Colors.grey,  fontSize: 11),
+              )
+          ],
+        ),
       ),
     );
   }
@@ -161,7 +172,9 @@ class AlbumRow extends StatelessWidget {
       height: 60, width: double.maxFinite,
       margin: EdgeInsets.only(bottom: 10),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Get.to(() => AlbumDetailsView(album.id));
+        },
         child: Row(
           children: [
             ClipRRect(

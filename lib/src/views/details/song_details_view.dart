@@ -14,13 +14,15 @@ import 'package:iconify_flutter_plus/icons/tabler.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/song_detail_controller.dart';
+import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/colors.dart';
-import 'package:sonicity/utils/sections/album_section.dart';
-import 'package:sonicity/utils/sections/artist_section.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:sonicity/utils/sections/download_url_section.dart';
+import 'package:sonicity/utils/widgets/album_widget.dart';
+import 'package:sonicity/utils/widgets/artist_widget.dart';
 import 'package:super_string/super_string.dart';
 
 class SongDetailsView extends StatelessWidget {
@@ -175,10 +177,10 @@ class SongDetailsView extends StatelessWidget {
                             _detail(song.name),
                             _divide(),
                             _head("From Album"),
-                            AlbumSection(album: song.album!),
+                            _albumSection(song.album!),
                             _divide(),
                             _head("Contributed Artists"),
-                            ArtistSection(artists: song.artists!),
+                            _artistSection(song.artists!),
                             _divide(),
                             _head("Duration"),
                             _detail("${song.duration} seconds"),
@@ -348,5 +350,23 @@ class SongDetailsView extends StatelessWidget {
       return SelectableText(text, style: style);
     }
     return Text(text, style: style);
+  }
+
+  Widget _albumSection(Album album) {
+    return AlbumCell(album: album, subtitle: "");
+  }
+
+  Widget _artistSection(List<Artist> artists) {
+    return SizedBox(
+      height: 180,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: artists.length,
+        itemBuilder: (context, index) {
+          Artist artist = artists[index];
+          return ArtistCell(artist: artist, subtitle: "");
+        }
+      ),
+    );
   }
 }
