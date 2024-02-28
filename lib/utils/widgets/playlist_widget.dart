@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
-import 'package:sonicity/src/controllers/playlist_detail_controller.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/views/details/playlist_details_view.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
@@ -20,8 +19,7 @@ class PlaylistCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.put(PlaylistDetailController(playlist.id));
-        Get.to(() => PlaylistDetailsView());
+        Get.to(() => PlaylistDetailsView(playlist.id));
       },
       child: Container(
         width: 140,
@@ -73,8 +71,7 @@ class PlaylistRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.put(PlaylistDetailController(playlist.id));
-        Get.to(() => PlaylistDetailsView());
+        Get.to(() => PlaylistDetailsView(playlist.id));
       },
       child: Container(
         height: 60, width: double.maxFinite,

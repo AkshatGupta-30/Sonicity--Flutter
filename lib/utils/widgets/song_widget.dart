@@ -9,7 +9,6 @@ import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
-import 'package:sonicity/src/controllers/song_detail_controller.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
 import 'package:sonicity/src/views/details/song_details_view.dart';
@@ -169,8 +168,7 @@ class SongPopUpMenu extends StatelessWidget {
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),
             onTap: () {
-              Get.put(SongDetailController(song.id));
-              Get.to(() => SongDetailsView());
+              Get.to(() => SongDetailsView(song.id));
             },
             child: PopUpButtonRow(icon: Entypo.info_with_circle, label: "Song Info"),
           )
