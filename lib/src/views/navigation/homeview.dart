@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -75,12 +74,6 @@ class HomeView extends StatelessWidget{
   }
 
   SliverAppBar _appBar(Size media, EdgeInsets safeArea) {
-    List<String> concertLinkList = [
-      "assets/images/concert2.jpg",
-      "assets/images/concert3.jpg",
-      "assets/images/concert6.jpg",
-      "assets/images/concert8.jpg",
-    ];
     return SliverAppBar(
       pinned: true,
       toolbarHeight: 75, backgroundColor: Colors.transparent,
@@ -101,7 +94,7 @@ class HomeView extends StatelessWidget{
         centerTitle: true, expandedTitleScale: 1.25,
         titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
         title: SearchContainer(media: media),
-        background: Image.asset(concertLinkList[Random().nextInt(concertLinkList.length)], fit: BoxFit.fill),
+        background: Image.asset("assets/images/concert.jpg", fit: BoxFit.fill, filterQuality: FilterQuality.low),
         stretchModes: [StretchMode.blurBackground],
       ),
     );

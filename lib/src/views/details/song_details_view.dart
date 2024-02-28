@@ -337,43 +337,6 @@ class SongDetailsView extends StatelessWidget {
     );
   }
 
-  Container _tabSection2() => Container();
-
-  Container _tabSection1(Song song) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-      child: ListView(
-        children: [
-          _divide(),
-          _head("Name"),
-          _detail(song.name),
-          _divide(),
-          _head("From Album"),
-          AlbumSection(album: song.album!),
-          _divide(),
-          _head("Contributed Artists"),
-          ArtistSection(artists: song.artists!),
-          _divide(),
-          _head("Duration"),
-          _detail("${song.duration} seconds"),
-          _divide(),
-          _head("Language"),
-          _detail(song.language!.capitalizeFirst!),
-          _divide(),
-          _head("Release Date"),
-          _detail(song.releaseDate!),
-          _divide(),
-          _head("Cover Image Url"),
-          CoverImageSection(image: song.image),
-          _divide(),
-          _head("Download Song"),
-          DownloadUrlSection(downloadUrl: song.downloadUrl),
-          _divide(),
-        ],
-      ),
-    );
-  }
-
   Divider _divide() {
     return Divider(color: Colors.white30);
   }

@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/codicon.dart';
+import 'package:iconify_flutter_plus/icons/fa6_solid.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/icomoon_free.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
-import 'package:iconify_flutter_plus/icons/pajamas.dart';
 import 'package:sonicity/src/controllers/navigation_controller.dart';
 import 'package:sonicity/src/views/navigation/homeview.dart';
 import 'package:sonicity/utils/contants/colors.dart';
@@ -66,8 +67,8 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
             onTap: (value) => navController.selectedTab.value = value,
             tabs: [
               Tabs(thisTab: 0, selectedTab: navController.selectedTab.value, icon: MaterialSymbols.queue_music_rounded, label: "Queue"),
-              Tabs(thisTab: 1, selectedTab: navController.selectedTab.value, icon: Ion.home_outline, label: "Home"),
-              Tabs(thisTab: 2, selectedTab: navController.selectedTab.value, icon: Ic.twotone_library_music, label: "Library"),
+              Tabs(thisTab: 1, selectedTab: navController.selectedTab.value, icon: Fa6Solid.house_chimney, label: "Home"),
+              Tabs(thisTab: 2, selectedTab: navController.selectedTab.value, icon: Ic.round_library_music, label: "Library"),
             ],
           ),
               );
@@ -122,8 +123,8 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
               onTap: () {
                 navController.closeDrawer();
               },
-              leading: Iconify(Pajamas.task_done, color: Colors.white,),
-              title: Text("Added", style: TextStyle(color: Colors.white)),
+              leading: Iconify(Codicon.repo_clone, color: Colors.white,),
+              title: Text("Cloned", style: TextStyle(color: Colors.white)),
             ),
             ListTile(
               onTap: () {
