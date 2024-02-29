@@ -1,9 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
-import 'dart:io';
-import 'dart:typed_data';
-
-import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,13 +11,12 @@ import 'package:iconify_flutter_plus/icons/icomoon_free.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
-import 'package:iconify_flutter_plus/icons/mdi.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/src/controllers/navigation_controller.dart';
 import 'package:sonicity/src/views/navigation/homeview.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/bottom_nab_bar_tab.dart';
 import 'package:sonicity/src/views/library/library_view.dart';
+import 'package:sonicity/utils/widgets/report_widget.dart';
 
 class NavigationView extends StatefulWidget {
   NavigationView({super.key});
@@ -54,7 +49,7 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
           LibraryView()
         ],
       ),
-      floatingActionButton: FeedbackSpider(),
+      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
       bottomNavigationBar: Obx(
         () {
           return BottomAppBar(
@@ -169,32 +164,5 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
         ),
       ),
     );
-  }
-}
-
-class FeedbackSpider extends StatelessWidget {
-  FeedbackSpider({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        BetterFeedback.of(context).show(
-          (feedback) async {
-            await writeImageToStorage(feedback.screenshot);
-          },
-        );
-      },
-      backgroundColor: Colors.red,
-      child: Iconify(Mdi.spider, color: Colors.white, size: 30),
-    );
-  }
-
-  Future<String> writeImageToStorage(Uint8List feedbackScreenshot) async {
-    final Directory output = await getTemporaryDirectory();
-    final String screenshotFilePath = '${output.path}/feedback.png';
-    final File screenshotFile = File(screenshotFilePath);
-    await screenshotFile.writeAsBytes(feedbackScreenshot);
-    return screenshotFilePath;
   }
 }

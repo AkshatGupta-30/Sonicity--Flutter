@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_artist_controller.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/utils/widgets/artist_widgte.dart';
+import 'package:sonicity/utils/widgets/report_widget.dart';
 
 class ViewAllArtistsView extends StatelessWidget {
   ViewAllArtistsView({super.key});
@@ -18,6 +19,7 @@ class ViewAllArtistsView extends StatelessWidget {
     var media = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: Colors.black,
+      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
       body: Container(
         height: media.height,
         decoration: BoxDecoration(

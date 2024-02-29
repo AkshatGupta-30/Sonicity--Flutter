@@ -10,6 +10,7 @@ import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 
 class ViewAllSongsView extends StatelessWidget {
@@ -32,6 +33,7 @@ class ViewAllSongsView extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
         body: GetBuilder(
           init: ViewAllSearchSongsController(searchText),
           builder: (controller) {

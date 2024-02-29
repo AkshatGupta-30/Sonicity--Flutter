@@ -17,6 +17,7 @@ import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/colors.dart';
+import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 
@@ -94,6 +95,8 @@ class PlaylistDetailsView extends StatelessWidget {
                         ),
                       ),
                       actions: [
+                        SpiderReport(color: Colors.redAccent),
+                        Gap(10),
                         PopupMenuButton(
                           itemBuilder: (context) {
                             return [

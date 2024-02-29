@@ -19,6 +19,7 @@ import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/sections/view_all_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/artist_widgte.dart';
+import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/widgets/search_history_cells.dart';
 import 'package:sonicity/utils/widgets/search_widgte.dart';
@@ -34,6 +35,7 @@ class SearchView extends StatelessWidget {
     var media = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: Colors.black,
+      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

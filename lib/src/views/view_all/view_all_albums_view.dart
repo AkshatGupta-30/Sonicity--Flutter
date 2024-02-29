@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_album_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
+import 'package:sonicity/utils/widgets/report_widget.dart';
 
 class ViewAllAlbumsView extends StatelessWidget {
   ViewAllAlbumsView({super.key});
@@ -18,6 +19,7 @@ class ViewAllAlbumsView extends StatelessWidget {
     var media = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: Colors.black,
+      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
       body: Container(
         height: media.height,
         decoration: BoxDecoration(
