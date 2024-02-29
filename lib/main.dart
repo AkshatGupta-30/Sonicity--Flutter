@@ -1,13 +1,19 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:feedback/feedback.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sonicity/firebase_options.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
 
-void main() {
+Future<void> main() async {
   // GoogleFonts.config.allowRuntimeFetching = false;
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: "lib/.env");
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MainApp());
 }
 

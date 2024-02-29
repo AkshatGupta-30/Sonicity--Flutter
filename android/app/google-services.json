@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "342358483556",
+    "project_id": "flutter-sonicity",
+    "storage_bucket": "flutter-sonicity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342358483556:android:d39c50a9b0f9934f777571",
+        "android_client_info": {
+          "package_name": "com.bytecraft.sonicity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFaY-Dp43-b4g0J6YDINJRQvK2yqeWwKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

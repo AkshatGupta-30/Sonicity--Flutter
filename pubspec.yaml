@@ -13,8 +13,10 @@ dependencies:
   feedback: ^3.0.1
   file_manager: ^1.0.2
   file_picker: ^6.1.1
+  firebase_core: ^2.24.2
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.1.0
   flutter_expandable_fab: ^2.0.0
   flutter_glow: ^0.3.0
   font_awesome_flutter: ^10.7.0
@@ -52,5 +54,6 @@ flutter:
       fonts:
         - asset: assets/fonts/lovelyMamma.ttf
   assets:
+    - lib/.env
     - assets/images/
     - assets/lottie/

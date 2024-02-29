@@ -41,6 +41,16 @@ class SongDetailsApi {
     return Song.detail(data);
   }
 
+  static Future<List<Map<String, dynamic>>> _getArtistsForPlay(List<String> artistIds) async {
+    List<Map<String, dynamic>> artistForData = [];
+    for(var id in artistIds) {
+      Artist artist = await ArtistDetailsApi.getName(id);
+      Map<String, dynamic> artistMap = artist.toMap();
+      artistForData.add(artistMap);
+    }
+    return artistForData;
+  }
+
   static Future<Song> forPlay(String id) async {
     Map<String, dynamic> data = await _apiCall(id);
     String allArtistId = "${data['primaryArtistsId']}";
@@ -48,7 +58,7 @@ class SongDetailsApi {
       allArtistId += ", ${data['featuredArtistsId']}";
     }
     List<String> artistIds = allArtistId.split(", ").toList().toSet().toList();
-    List<Map<String, dynamic>> artistForData = await _getArtists(artistIds);
+    List<Map<String, dynamic>> artistForData = await _getArtistsForPlay(artistIds);
     data['artists'] = artistForData;
 
     return Song.forPlay(data);
