@@ -121,24 +121,20 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                   style: TextStyle(color: Colors.grey, fontSize: 18),
                 ),
                 Gap(20),
-                Obx(
-                  () {
-                    return Wrap(
-                      spacing: 15, runSpacing: 15,
-                      children: List.generate(
-                        mediaDirectory.length,
-                        (index) {
-                          String title = mediaDirectory[index].path;
-                          return FolderTile(
-                            onTap: () async {},
-                            icon: Heroicons.device_phone_mobile_20_solid,
-                            title: title.substring(20, title.length).replaceAll("/", " > "),
-                          );
-                        }
-                      )
-                    );
-                  }
-                ),
+                Obx(() => Wrap(
+                  spacing: 15, runSpacing: 15,
+                  children: List.generate(
+                    mediaDirectory.length,
+                    (index) {
+                      String title = mediaDirectory[index].path;
+                      return FolderTile(
+                        onTap: () async {},
+                        icon: Heroicons.device_phone_mobile_20_solid,
+                        title: title.substring(20, title.length).replaceAll("/", " > "),
+                      );
+                    }
+                  )
+                )),
                 Gap(20),
                 Text(
                   'Select a folder from :',

@@ -39,36 +39,32 @@ class HomeView extends StatelessWidget{
             tileMode: TileMode.clamp,
           ),
         ),
-        child: Obx(
-          () {
-            return CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                _appBar(media, safeArea),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Gap(20),
-                        TrendingNowSection(media: media, homeController: controller),
-                        Gap(20),
-                        TopChartsSection(media: media, topCharts: controller.home.value.topCharts),
-                        Gap(20),
-                        if(controller.home.value.lastSession.isNotEmpty)
-                          LastSessionSection(media: media, homeController: controller),
-                        Gap(20),
-                        TopAlbumsSection(media: media, topAlbums: controller.home.value.topAlbums),
-                        Gap(20),
-                        HotPlaylistSection(media: media, hotPlaylists: controller.home.value.hotPlaylists),
-                      ]
-                    ),
-                  )
+        child: Obx(() => CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            _appBar(media, safeArea),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Gap(20),
+                    TrendingNowSection(media: media, homeController: controller),
+                    Gap(20),
+                    TopChartsSection(media: media, topCharts: controller.home.value.topCharts),
+                    Gap(20),
+                    if(controller.home.value.lastSession.isNotEmpty)
+                      LastSessionSection(media: media, homeController: controller),
+                    Gap(20),
+                    TopAlbumsSection(media: media, topAlbums: controller.home.value.topAlbums),
+                    Gap(20),
+                    HotPlaylistSection(media: media, hotPlaylists: controller.home.value.hotPlaylists),
+                  ]
                 ),
-              ],
-            );
-          }
-        ),
+              )
+            ),
+          ],
+        )),
       ),
     );
   }

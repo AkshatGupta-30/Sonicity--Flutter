@@ -43,22 +43,20 @@ class PlaylistDetailsView extends StatelessWidget {
         child: GetBuilder(
           init: PlaylistDetailController(Get.arguments),
           builder: (controller) {
-            return Obx(
-              () {
-                Playlist playlist = controller.playlist.value;
-                if(playlist.isEmpty()) {
-                  return Center(
-                    child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
-                  );
-                }
-                return CustomScrollView(
-                  slivers: [
-                    _appBar(media, playlist, controller),
-                    _playlistSongs(playlist),
-                  ],
+            return Obx(() {
+              Playlist playlist = controller.playlist.value;
+              if(playlist.isEmpty()) {
+                return Center(
+                  child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
                 );
               }
-            );
+              return CustomScrollView(
+                slivers: [
+                  _appBar(media, playlist, controller),
+                  _playlistSongs(playlist),
+                ],
+              );
+            });
           }
         ),
       ),

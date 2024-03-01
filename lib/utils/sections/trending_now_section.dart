@@ -23,114 +23,110 @@ class TrendingNowSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return Column(
-          children: [
-            TitleSection(title: "Trending Now", center: true),
-            TabBar(
-              controller: homeController.tabController,
-              indicatorColor: Colors.red,
-              dividerColor: Colors.red.withOpacity(0.5),
-              overlayColor: MaterialStatePropertyAll(Colors.transparent),
-              splashFactory: NoSplash.splashFactory,
-              isScrollable: false,
-              physics: NeverScrollableScrollPhysics(),
-              tabs: [
-                Tab(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Iconify(
-                        Ph.music_note_duotone, size: 25,
-                        color: (homeController.selectedTab.value == 0) ? accentColor : accentColorDark,
-                      ),
-                      Gap(8),
-                      Text(
-                        "Music",
-                        style: TextStyle(
-                          fontSize: 21,
-                          color: (homeController.selectedTab.value == 0) ? accentColor : accentColorDark
-                        )
-                      )
-                    ],
-                  ),
-                ),
-                Tab(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Iconify(
-                        Ic.twotone_album, size: 25,
-                        color: (homeController.selectedTab.value == 1) ? accentColor : accentColorDark,
-                      ),
-                      Gap(8),
-                      Text(
-                          "Album",
-                          style: TextStyle(
-                            fontSize: 21,
-                            color: (homeController.selectedTab.value == 1) ? accentColor : accentColorDark
-                        )
-                      ),
-                    ],
-                  ),
-                ),
-              ]
-            ),
-            Gap(20),
-            SizedBox(
-              height: media.width/1.25,
-              child: TabBarView(
-                controller: homeController.tabController,
-                physics: NeverScrollableScrollPhysics(),
+    return Obx(() => Column(
+      children: [
+        TitleSection(title: "Trending Now", center: true),
+        TabBar(
+          controller: homeController.tabController,
+          indicatorColor: Colors.red,
+          dividerColor: Colors.red.withOpacity(0.5),
+          overlayColor: MaterialStatePropertyAll(Colors.transparent),
+          splashFactory: NoSplash.splashFactory,
+          isScrollable: false,
+          physics: NeverScrollableScrollPhysics(),
+          tabs: [
+            Tab(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CarouselSlider.builder(
-                    itemCount: (homeController.home.value.trendingNow.songs.isEmpty)
-                      ? 1
-                      : homeController.home.value.trendingNow.songs.length,
-                    itemBuilder: (context, index, realIndex) {
-                      if(homeController.home.value.trendingNow.songs.isEmpty) {
-                        return ShimmerCard();
-                      } else if(homeController.home.value.trendingNow.songs.length == 1) {
-                        return SongCard(song: homeController.home.value.trendingNow.songs.first);
-                      }
-                      Song song = homeController.home.value.trendingNow.songs[index];
-                      return SongCard(song: song);
-                    },
-                    options: CarouselOptions(
-                      height: media.width/1.25,
-                      autoPlay: true, autoPlayAnimationDuration: Duration(milliseconds: 700),
-                      autoPlayInterval: Duration(seconds: 8),
-                      initialPage: 0, enlargeCenterPage: true,
-                      enableInfiniteScroll: (homeController.home.value.trendingNow.songs.length != 1)
-                    ),
+                  Iconify(
+                    Ph.music_note_duotone, size: 25,
+                    color: (homeController.selectedTab.value == 0) ? accentColor : accentColorDark,
                   ),
-                  CarouselSlider.builder(
-                      itemCount: (homeController.home.value.trendingNow.albums.isEmpty)
-                        ? 1
-                        : homeController.home.value.trendingNow.albums.length,
-                      itemBuilder: (context, index, realIndex) {
-                        if(homeController.home.value.trendingNow.albums.isEmpty) {
-                          return ShimmerCard();
-                        } else if(homeController.home.value.trendingNow.albums.length == 1) {
-                          return AlbumCard(album: homeController.home.value.trendingNow.albums.first);
-                        }
-                        Album album = homeController.home.value.trendingNow.albums[index];
-                        return AlbumCard(album: album);
-                      },
-                      options: CarouselOptions(
-                        height: media.width/1.25,
-                        autoPlay: true, autoPlayAnimationDuration: Duration(milliseconds: 700), autoPlayInterval: Duration(seconds: 8),
-                        initialPage: 0, enlargeCenterPage: true,
-                        enableInfiniteScroll: (homeController.home.value.trendingNow.albums.length != 1)
-                      ),
-                    ),
+                  Gap(8),
+                  Text(
+                    "Music",
+                    style: TextStyle(
+                      fontSize: 21,
+                      color: (homeController.selectedTab.value == 0) ? accentColor : accentColorDark
+                    )
+                  )
                 ],
               ),
             ),
-          ],
-        );
-      }
-    );
+            Tab(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Iconify(
+                    Ic.twotone_album, size: 25,
+                    color: (homeController.selectedTab.value == 1) ? accentColor : accentColorDark,
+                  ),
+                  Gap(8),
+                  Text(
+                      "Album",
+                      style: TextStyle(
+                        fontSize: 21,
+                        color: (homeController.selectedTab.value == 1) ? accentColor : accentColorDark
+                    )
+                  ),
+                ],
+              ),
+            ),
+          ]
+        ),
+        Gap(20),
+        SizedBox(
+          height: media.width/1.25,
+          child: TabBarView(
+            controller: homeController.tabController,
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+              CarouselSlider.builder(
+                itemCount: (homeController.home.value.trendingNow.songs.isEmpty)
+                  ? 1
+                  : homeController.home.value.trendingNow.songs.length,
+                itemBuilder: (context, index, realIndex) {
+                  if(homeController.home.value.trendingNow.songs.isEmpty) {
+                    return ShimmerCard();
+                  } else if(homeController.home.value.trendingNow.songs.length == 1) {
+                    return SongCard(song: homeController.home.value.trendingNow.songs.first);
+                  }
+                  Song song = homeController.home.value.trendingNow.songs[index];
+                  return SongCard(song: song);
+                },
+                options: CarouselOptions(
+                  height: media.width/1.25,
+                  autoPlay: true, autoPlayAnimationDuration: Duration(milliseconds: 700),
+                  autoPlayInterval: Duration(seconds: 8),
+                  initialPage: 0, enlargeCenterPage: true,
+                  enableInfiniteScroll: (homeController.home.value.trendingNow.songs.length != 1)
+                ),
+              ),
+              CarouselSlider.builder(
+                  itemCount: (homeController.home.value.trendingNow.albums.isEmpty)
+                    ? 1
+                    : homeController.home.value.trendingNow.albums.length,
+                  itemBuilder: (context, index, realIndex) {
+                    if(homeController.home.value.trendingNow.albums.isEmpty) {
+                      return ShimmerCard();
+                    } else if(homeController.home.value.trendingNow.albums.length == 1) {
+                      return AlbumCard(album: homeController.home.value.trendingNow.albums.first);
+                    }
+                    Album album = homeController.home.value.trendingNow.albums[index];
+                    return AlbumCard(album: album);
+                  },
+                  options: CarouselOptions(
+                    height: media.width/1.25,
+                    autoPlay: true, autoPlayAnimationDuration: Duration(milliseconds: 700), autoPlayInterval: Duration(seconds: 8),
+                    initialPage: 0, enlargeCenterPage: true,
+                    enableInfiniteScroll: (homeController.home.value.trendingNow.albums.length != 1)
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
+    ));
   }
 }

@@ -27,52 +27,50 @@ class LastSessionSection extends StatelessWidget {
           title: "Last Session", buttonTitle: "View All",
           size: 24, rightPadding: 0,
         ),
-        Obx(
-          () {
-            int listLength = (homeController.home.value.lastSession.length > 20) ? 20 : homeController.home.value.lastSession.length;
-            if(homeController.home.value.lastSession.isEmpty) {
-              return SizedBox(
-                height: (homeController.home.value.lastSession.length > 4) ? 4 * 70 : homeController.home.value.lastSession.length * 70,
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: (homeController.home.value.lastSession.length > 4) ? 4 : homeController.home.value.lastSession.length,
-                  itemBuilder: (context, index) {
-                    return ShimmerRow();
-                  },
-                ),
-              );
-            }
+        Obx(() {
+          int listLength = (homeController.home.value.lastSession.length > 20) ? 20 : homeController.home.value.lastSession.length;
+          if(homeController.home.value.lastSession.isEmpty) {
             return SizedBox(
-              height: (listLength < 4) ? listLength * 72 : 4 * 72,
+              height: (homeController.home.value.lastSession.length > 4) ? 4 * 70 : homeController.home.value.lastSession.length * 70,
               child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                physics: (listLength <= 4) ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: (homeController.home.value.lastSession.length / 4).ceil(),
-                itemBuilder: (context, outerIndex) {
-                  var currentRowIndex = outerIndex * 4;
-                  return SizedBox(
-                    width: (homeController.home.value.lastSession.length <= 4) ? media.width / 1.05 : media.width / 1.2,
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      itemCount: 4,
-                      itemBuilder: (context, innerIndex) {
-                        var currentItemIndex = currentRowIndex + innerIndex;
-                        if (currentItemIndex < homeController.home.value.lastSession.length) {
-                          Song song = homeController.home.value.lastSession[currentItemIndex];
-                          return SongsRow(song: song);
-                        } else {
-                          return SizedBox();
-                        }
-                      },
-                    ),
-                  );
+                padding: EdgeInsets.zero,
+                itemCount: (homeController.home.value.lastSession.length > 4) ? 4 : homeController.home.value.lastSession.length,
+                itemBuilder: (context, index) {
+                  return ShimmerRow();
                 },
               ),
             );
           }
-        )
+          return SizedBox(
+            height: (listLength < 4) ? listLength * 72 : 4 * 72,
+            child: ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              physics: (listLength <= 4) ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: (homeController.home.value.lastSession.length / 4).ceil(),
+              itemBuilder: (context, outerIndex) {
+                var currentRowIndex = outerIndex * 4;
+                return SizedBox(
+                  width: (homeController.home.value.lastSession.length <= 4) ? media.width / 1.05 : media.width / 1.2,
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.zero,
+                    itemCount: 4,
+                    itemBuilder: (context, innerIndex) {
+                      var currentItemIndex = currentRowIndex + innerIndex;
+                      if (currentItemIndex < homeController.home.value.lastSession.length) {
+                        Song song = homeController.home.value.lastSession[currentItemIndex];
+                        return SongsRow(song: song);
+                      } else {
+                        return SizedBox();
+                      }
+                    },
+                  ),
+                );
+              },
+            ),
+          );
+        })
       ],
     );
   }

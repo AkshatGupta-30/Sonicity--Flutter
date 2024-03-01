@@ -51,42 +51,56 @@ class ViewAllAlbumsView extends StatelessWidget {
   }
 
   Obx _displayAlbums(Size media, ViewAllSearchAlbumsController controller) {
-    return Obx(
-      () {
-        return SizedBox(
-          height: media.height - media.width/1.2,
-          child: ListView.builder(
-            padding: EdgeInsets.all(15),
-            controller: controller.scrollController,
-            itemCount: (controller.isLoadingMore.value)
-              ? controller.albums.length + 1
-              : controller.albums.length,
-            itemBuilder: (context, index) {
-              if(index < controller.albums.length) {
-                Album album = controller.albums[index];
-                return AlbumRow(album: album, subtitle: "${album.songCount!} Songs");
-              } else {
-                return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
-              }
-            },
-          ),
-        );
-      }
-    );
+    return Obx(() => SizedBox(
+      height: media.height - media.width/1.2,
+      child: ListView.builder(
+        padding: EdgeInsets.all(15),
+        controller: controller.scrollController,
+        itemCount: (controller.isLoadingMore.value)
+          ? controller.albums.length + 1
+          : controller.albums.length,
+        itemBuilder: (context, index) {
+          if(index < controller.albums.length) {
+            Album album = controller.albums[index];
+            return AlbumRow(album: album, subtitle: "${album.songCount!} Songs");
+          } else {
+            return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
+          }
+        },
+      ),
+    ));
   }
 
   Obx _coverImage(Size media, ViewAllSearchAlbumsController controller) {
-    return Obx(
-      () {
-        return SizedBox(
-          height: media.width/1.2, width: double.maxFinite,
-          child: Stack(
-            alignment: Alignment.bottomLeft,
-            children: [
-              (controller.albums.length < 4)
-              ? CachedNetworkImage(
-                imageUrl: controller.albums.first.image!.standardQuality,
-                fit: BoxFit.cover, height: media.width/1.2, width: media.width/2,
+    return Obx(() => SizedBox(
+      height: media.width/1.2, width: double.maxFinite,
+      child: Stack(
+        alignment: Alignment.bottomLeft,
+        children: [
+          (controller.albums.length < 4)
+          ? CachedNetworkImage(
+            imageUrl: controller.albums.first.image!.standardQuality,
+            fit: BoxFit.cover, height: media.width/1.2, width: media.width/2,
+            errorWidget: (context, url, error) {
+              return Image.asset(
+                "assets/images/appLogo50x50.png",
+                fit: BoxFit.cover, height: media.width/1.2, width: media.width/2
+              );
+            },
+            placeholder: (context, url) {
+              return Image.asset(
+                "assets/images/appLogo50x50.png",
+                fit: BoxFit.cover, height: media.width/1.2, width: media.width/2
+              );
+            },
+          )
+          : GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            itemCount: 4,
+            itemBuilder: (context, index) {
+              return CachedNetworkImage(
+                imageUrl: controller.albums[index].image!.standardQuality,
+                fit: BoxFit.cover,
                 errorWidget: (context, url, error) {
                   return Image.asset(
                     "assets/images/appLogo50x50.png",
@@ -99,60 +113,38 @@ class ViewAllAlbumsView extends StatelessWidget {
                     fit: BoxFit.cover, height: media.width/1.2, width: media.width/2
                   );
                 },
-              )
-              : GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return CachedNetworkImage(
-                    imageUrl: controller.albums[index].image!.standardQuality,
-                    fit: BoxFit.cover,
-                    errorWidget: (context, url, error) {
-                      return Image.asset(
-                        "assets/images/appLogo50x50.png",
-                        fit: BoxFit.cover, height: media.width/1.2, width: media.width/2
-                      );
-                    },
-                    placeholder: (context, url) {
-                      return Image.asset(
-                        "assets/images/appLogo50x50.png",
-                        fit: BoxFit.cover, height: media.width/1.2, width: media.width/2
-                      );
-                    },
-                  );
-                },
-              ),
-              Container(height: media.width/1.2, width: double.maxFinite, color: Colors.black.withOpacity(0.25)),
-              Positioned(
-                left: 10, top: 10,
-                child: SafeArea(
-                  child: CircleAvatar(
-                    backgroundColor: Colors.black.withOpacity(0.75),
-                    child: BackButton(color: Colors.white)
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.all(15),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Albums",
-                      style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "${controller.albumCount.value} Albums",
-                      style: TextStyle(color: Colors.grey.shade200, fontSize: 25),
-                    ),
-                  ],
-                ),
-              )
-            ],
+              );
+            },
           ),
-        );
-      }
-    );
+          Container(height: media.width/1.2, width: double.maxFinite, color: Colors.black.withOpacity(0.25)),
+          Positioned(
+            left: 10, top: 10,
+            child: SafeArea(
+              child: CircleAvatar(
+                backgroundColor: Colors.black.withOpacity(0.75),
+                child: BackButton(color: Colors.white)
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.all(15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Albums",
+                  style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "${controller.albumCount.value} Albums",
+                  style: TextStyle(color: Colors.grey.shade200, fontSize: 25),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    ));
   }
 }

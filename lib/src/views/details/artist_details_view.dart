@@ -46,70 +46,66 @@ class ArtistDetailsView extends StatelessWidget {
                 tileMode: TileMode.clamp,
               ),
             ),
-            child: Obx(
-              () {
-                int selectedTab = controller.selectedTab.value;
-                Artist artist = controller.artist.value;
-                if(artist.isEmpty()) {
-                  return Center(
-                    child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
-                  );
-                }
-                return NestedScrollView(
-                  controller: controller.scrollController,
-                  headerSliverBuilder: (context, innerBoxIsScrolled) {
-                    return [Obx(() => _appBar(selectedTab, media, artist, controller))];
-                  },
-                  body: TabBarView(
-                    controller: controller.tabController,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: [
-                      Obx(() => _songsTab(controller)),
-                      Obx(() => _albumsTab(controller)),
-                      _infoTab(artist),
-                    ],
-                  ),
+            child: Obx(() {
+              int selectedTab = controller.selectedTab.value;
+              Artist artist = controller.artist.value;
+              if(artist.isEmpty()) {
+                return Center(
+                  child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
                 );
               }
-            ),
-          ),
-          bottomNavigationBar: Obx(
-            () {
-              int selectedTab = controller.selectedTab.value;
-              return TabBar(
-                controller: controller.tabController,
-                indicatorColor: Colors.red, dividerColor: Colors.transparent,
-                overlayColor: MaterialStatePropertyAll(Colors.grey.shade700),
-                splashFactory: NoSplash.splashFactory,
-                labelColor: accentColor, labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                unselectedLabelColor: accentColorDark, unselectedLabelStyle: TextStyle(fontSize: 16),
-                isScrollable: false, physics: NeverScrollableScrollPhysics(),
-                tabs: [
-                  Tab(
-                    icon: Iconify(
-                      Ph.music_notes_simple_fill, size: 25,
-                      color: (selectedTab == 0 || selectedTab == 1) ? accentColor : accentColorDark,
-                    ),
-                    text: "Songs",
-                  ),
-                  Tab(
-                    icon: Iconify(
-                      Ic.sharp_album, size: 25,
-                      color: (controller.selectedTab.value == 1) ? accentColor : accentColorDark,
-                    ),
-                    text: "Albums",
-                  ),
-                  Tab(
-                    icon: Iconify(
-                      IconParkTwotone.doc_detail, size: 25,
-                      color: (controller.selectedTab.value == 2) ? accentColor : accentColorDark,
-                    ),
-                    text: "Info",
-                  ),
-                ]
+              return NestedScrollView(
+                controller: controller.scrollController,
+                headerSliverBuilder: (context, innerBoxIsScrolled) {
+                  return [_appBar(selectedTab, media, artist, controller)];
+                },
+                body: TabBarView(
+                  controller: controller.tabController,
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    _songsTab(controller),
+                    _albumsTab(controller),
+                    _infoTab(artist),
+                  ],
+                ),
               );
-            }
+            }),
           ),
+          bottomNavigationBar: Obx(() {
+            int selectedTab = controller.selectedTab.value;
+            return TabBar(
+              controller: controller.tabController,
+              indicatorColor: Colors.red, dividerColor: Colors.transparent,
+              overlayColor: MaterialStatePropertyAll(Colors.grey.shade700),
+              splashFactory: NoSplash.splashFactory,
+              labelColor: accentColor, labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              unselectedLabelColor: accentColorDark, unselectedLabelStyle: TextStyle(fontSize: 16),
+              isScrollable: false, physics: NeverScrollableScrollPhysics(),
+              tabs: [
+                Tab(
+                  icon: Iconify(
+                    Ph.music_notes_simple_fill, size: 25,
+                    color: (selectedTab == 0 || selectedTab == 1) ? accentColor : accentColorDark,
+                  ),
+                  text: "Songs",
+                ),
+                Tab(
+                  icon: Iconify(
+                    Ic.sharp_album, size: 25,
+                    color: (controller.selectedTab.value == 1) ? accentColor : accentColorDark,
+                  ),
+                  text: "Albums",
+                ),
+                Tab(
+                  icon: Iconify(
+                    IconParkTwotone.doc_detail, size: 25,
+                    color: (controller.selectedTab.value == 2) ? accentColor : accentColorDark,
+                  ),
+                  text: "Info",
+                ),
+              ]
+            );
+          }),
         );
       }
     );

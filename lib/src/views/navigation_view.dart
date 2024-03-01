@@ -50,32 +50,23 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
         ],
       ),
       floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
-      bottomNavigationBar: Obx(
-        () {
-          return BottomAppBar(
-            elevation: 1,
-            color: Colors.transparent,
-            shadowColor: Colors.transparent,
-            surfaceTintColor: Colors.transparent,
-            child: TabBar(
-            controller: tabController,
-            indicatorColor: Colors.transparent,
-            dividerHeight: 0,
-            overlayColor: MaterialStatePropertyAll(Colors.transparent),
-            labelColor: accentColor,
-            unselectedLabelColor: Colors.white,
-            isScrollable: false,
-            labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-            onTap: (value) => navController.selectedTab.value = value,
-            tabs: [
-              Tabs(thisTab: 0, selectedTab: navController.selectedTab.value, icon: MaterialSymbols.queue_music_rounded, label: "Queue"),
-              Tabs(thisTab: 1, selectedTab: navController.selectedTab.value, icon: Fa6Solid.house_chimney, label: "Home"),
-              Tabs(thisTab: 2, selectedTab: navController.selectedTab.value, icon: Ic.round_library_music, label: "Library"),
-            ],
-          ),
-              );
-        }
-      ),
+      bottomNavigationBar: Obx(() => BottomAppBar(
+        elevation: 1,
+        color: Colors.transparent, shadowColor: Colors.transparent, surfaceTintColor: Colors.transparent,
+        child: TabBar(
+        controller: tabController,
+        indicatorColor: Colors.transparent, dividerHeight: 0,
+        overlayColor: MaterialStatePropertyAll(Colors.transparent),
+        labelColor: accentColor, unselectedLabelColor: Colors.white,
+        isScrollable: false,
+        labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        onTap: (value) => navController.selectedTab.value = value,
+        tabs: [
+          Tabs(thisTab: 0, selectedTab: navController.selectedTab.value, icon: MaterialSymbols.queue_music_rounded, label: "Queue"),
+          Tabs(thisTab: 1, selectedTab: navController.selectedTab.value, icon: Fa6Solid.house_chimney, label: "Home"),
+          Tabs(thisTab: 2, selectedTab: navController.selectedTab.value, icon: Ic.round_library_music, label: "Library"),
+        ],
+      ))),
     );
   }
 

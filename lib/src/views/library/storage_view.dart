@@ -39,53 +39,49 @@ class _StorageViewState extends State<StorageView> {
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
     var safe = MediaQuery.of(context).padding;
-    return Obx(
-      () {
-        return PopScope(
-          canPop: (curDir.value.path == "storage/emulated/0/Music"),
-          onPopInvoked: (didPop) {
-            if(curDir.value.path != "storage/emulated/0/Music") {
-              curDir.value = curDir.value.parent;
-            }
-            updateAppBar();
-          },
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0.0, 1],
-                tileMode: TileMode.clamp,
-              ),
-            ),
-            child: Scaffold(
-              backgroundColor: Colors.transparent,
-              body: CustomScrollView(
-                slivers: [
-                  appBar(media, safe),
-                  SliverList.builder(
-                    itemCount: curDir.value.listSync().length,
-                    itemBuilder: (context, index) {
-                      FileSystemEntity entity = curDir.value.listSync()[index];
-                      String entityName = rootName(entity.path);
-                      if (entityName[0] == ".") return SizedBox();
-                      return StorageTile(
-                        entity: entity,
-                        onTap: () {
-                          curDir.value = Directory(entity.path);
-                          updateAppBar();
-                        },
-                      );
-                    },
-                  )
-                ],
-              ),
-            ),
+    return Obx(() => PopScope(
+      canPop: (curDir.value.path == "storage/emulated/0/Music"),
+      onPopInvoked: (didPop) {
+        if(curDir.value.path != "storage/emulated/0/Music") {
+          curDir.value = curDir.value.parent;
+        }
+        updateAppBar();
+      },
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.0, 1],
+            tileMode: TileMode.clamp,
           ),
-        );
-      }
-    );
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: CustomScrollView(
+            slivers: [
+              appBar(media, safe),
+              SliverList.builder(
+                itemCount: curDir.value.listSync().length,
+                itemBuilder: (context, index) {
+                  FileSystemEntity entity = curDir.value.listSync()[index];
+                  String entityName = rootName(entity.path);
+                  if (entityName[0] == ".") return SizedBox();
+                  return StorageTile(
+                    entity: entity,
+                    onTap: () {
+                      curDir.value = Directory(entity.path);
+                      updateAppBar();
+                    },
+                  );
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    ));
   }
 
   SliverAppBar appBar(Size media, EdgeInsets safe) {

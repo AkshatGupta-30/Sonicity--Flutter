@@ -48,42 +48,38 @@ class SearchView extends StatelessWidget {
               ),
             ),
             child: SafeArea(
-              child: Obx(
-                () {
-                  return Container(
-                    width: media.width, height: media.height,
-                    padding: EdgeInsets.all(15.0),
-                    child: CustomScrollView(
-                      physics: (controller.searching.value)
-                        ? AlwaysScrollableScrollPhysics()
-                        : NeverScrollableScrollPhysics(),
-                      slivers: [
-                        SliverAppBar(
-                          pinned: true,
-                          backgroundColor: Colors.transparent,
-                          leading: SizedBox(),
-                          flexibleSpace: SizedBox(
-                            height: 55,
-                            child: SearchBox(
-                              searchController: controller.searchController,
-                              onChanged: (text) => controller.searchChanged(text),
-                              onSubmitted: (text) => controller.searchSubmitted(text),
-                            )
-                          ),
-                        ),
-                        SliverToBoxAdapter(child: Gap(12)),
-                        SliverToBoxAdapter(
-                          child: (controller.loading.value)
-                            ? SearchShimmer()
-                            : (controller.searching.value)
-                              ? _searchResults(controller)
-                              : _searchHistory(controller),
+              child: Obx(() => Container(
+                width: media.width, height: media.height,
+                padding: EdgeInsets.all(15.0),
+                child: CustomScrollView(
+                  physics: (controller.searching.value)
+                    ? AlwaysScrollableScrollPhysics()
+                    : NeverScrollableScrollPhysics(),
+                  slivers: [
+                    SliverAppBar(
+                      pinned: true,
+                      backgroundColor: Colors.transparent,
+                      leading: SizedBox(),
+                      flexibleSpace: SizedBox(
+                        height: 55,
+                        child: SearchBox(
+                          searchController: controller.searchController,
+                          onChanged: (text) => controller.searchChanged(text),
+                          onSubmitted: (text) => controller.searchSubmitted(text),
                         )
-                      ],
+                      ),
                     ),
-                  );
-                }
-              ),
+                    SliverToBoxAdapter(child: Gap(12)),
+                    SliverToBoxAdapter(
+                      child: (controller.loading.value)
+                        ? SearchShimmer()
+                        : (controller.searching.value)
+                          ? _searchResults(controller)
+                          : _searchHistory(controller),
+                    )
+                  ],
+                ),
+              )),
             ),
           );
         }
@@ -92,211 +88,203 @@ class SearchView extends StatelessWidget {
   }
 
   Widget _searchHistory(SearchViewController controller) {
-    return Obx(
-      () {
-        if(controller.historyList.isEmpty) {
-          return SizedBox();
-        }
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(// * : Heading
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "History",
-                style: TextStyle(color: accentColor, fontWeight: FontWeight.bold, fontSize: 25, ),
-              ),
+    return Obx(() => (controller.historyList.isEmpty)
+      ? SizedBox()
+      : Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(// * : Heading
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "History",
+              style: TextStyle(color: accentColor, fontWeight: FontWeight.bold, fontSize: 25, ),
             ),
-            Wrap(// * : All History Chip
-              alignment: WrapAlignment.start,
-              children: controller.historyList.asMap().entries.map((entry) {
-                final int index = entry.key;
-                final String itemText = entry.value;
-                return SearchHistoryCell(
-                  itemText: itemText,
-                  onTap: () => controller.chipTapped(index),
-                  onRemove: () => controller.chipRemoved(index),
-                );
-              }).toList(),
-            ),
-          ],
-        );
-      }
+          ),
+          Wrap(// * : All History Chip
+            alignment: WrapAlignment.start,
+            children: controller.historyList.asMap().entries.map((entry) {
+              final int index = entry.key;
+              final String itemText = entry.value;
+              return SearchHistoryCell(
+                itemText: itemText,
+                onTap: () => controller.chipTapped(index),
+                onRemove: () => controller.chipRemoved(index),
+              );
+            }).toList(),
+          ),
+        ],
+      )
     );
   }
 
   Widget _searchResults(SearchViewController controller) {
-    return Obx(
-      () {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if(controller.searchAll.value.topQuery.isNotEmpty())
-              Column(// * : Top Results
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Gap(20),
-                  TitleSection(title: "Top Results", leftPadding: 0, size: 22),
-                  Gap(10),
-                  if(controller.searchAll.value.topQuery.songs.isNotEmpty) // * : Top songs
-                    SizedBox(
-                      height: 60.0 * controller.searchAll.value.topQuery.songs.length,
-                      child: ListView.builder(
-                        itemCount: controller.searchAll.value.topQuery.songs.length,
-                        itemBuilder: (context, index) {
-                          Song song = controller.searchAll.value.songs[index];
-                          return SongsRow(song: song, subtitle: "Song");
-                        },
-                      ),
-                    )
-                  else if(controller.searchAll.value.topQuery.albums.isNotEmpty) // * : Top albums
-                    SizedBox(
-                      height: 60.0 * controller.searchAll.value.topQuery.albums.length,
-                      child: ListView.builder(
-                        itemCount: controller.searchAll.value.topQuery.albums.length,
-                        itemBuilder: (context, index) {
-                          Album album = controller.searchAll.value.topQuery.albums[index];
-                          return AlbumRow(album: album, subtitle: "Album");
-                        },
-                      ),
-                    )
-                  else if(controller.searchAll.value.topQuery.artists.isNotEmpty) // * : Top artists
-                    SizedBox(
-                      height: 60.0 * controller.searchAll.value.topQuery.artists.length,
-                      child: ListView.builder(
-                        itemCount: controller.searchAll.value.topQuery.artists.length,
-                        itemBuilder: (context, index) {
-                          Artist artist = controller.searchAll.value.topQuery.artists[index];
-                          return ArtistRow(artist: artist, subtitle: "Artist");
-                        },
-                      ),
-                    )
-                  else if(controller.searchAll.value.topQuery.playlists.isNotEmpty) // * : Top playlists
-                    SizedBox(
-                      height: 60.0 * controller.searchAll.value.topQuery.playlists.length,
-                      child: ListView.builder(
-                        itemCount: controller.searchAll.value.topQuery.playlists.length,
-                        itemBuilder: (context, index) {
-                          Playlist playlist = controller.searchAll.value.topQuery.playlists[index];
-                          return PlaylistRow(playlist: playlist, subtitle: "Playlist");
-                        },
-                      ),
-                    )
-                ],
-              ),
-            if(controller.searchAll.value.songs.isNotEmpty) // * : Songs
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Gap(20),
-                  ViewAllSection(
-                    title: "Songs", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
-                    onPressed: () {
-                      Get.to(
-                        () => ViewAllSongsView(),
-                        arguments: controller.searchController.text
-                      );
+    return Obx(() => Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if(controller.searchAll.value.topQuery.isNotEmpty())
+          Column(// * : Top Results
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Gap(20),
+              TitleSection(title: "Top Results", leftPadding: 0, size: 22),
+              Gap(10),
+              if(controller.searchAll.value.topQuery.songs.isNotEmpty) // * : Top songs
+                SizedBox(
+                  height: 60.0 * controller.searchAll.value.topQuery.songs.length,
+                  child: ListView.builder(
+                    itemCount: controller.searchAll.value.topQuery.songs.length,
+                    itemBuilder: (context, index) {
+                      Song song = controller.searchAll.value.songs[index];
+                      return SongsRow(song: song, subtitle: "Song");
                     },
                   ),
-                  Container(
-                    color: Colors.transparent,
-                    height: 70.0 * controller.searchAll.value.songs.length,
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: controller.searchAll.value.songs.length,
-                      itemBuilder: (context, index) {
-                        Song song = controller.searchAll.value.songs[index];
-                        return SongsRow(song: song);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            if(controller.searchAll.value.albums.isNotEmpty) // * : Albums
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Gap(20),
-                  ViewAllSection(
-                    title: "Albums", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
-                    onPressed: () {
-                      Get.to(
-                        () => ViewAllAlbumsView(),
-                        arguments: controller.searchController.text
-                      );
+                )
+              else if(controller.searchAll.value.topQuery.albums.isNotEmpty) // * : Top albums
+                SizedBox(
+                  height: 60.0 * controller.searchAll.value.topQuery.albums.length,
+                  child: ListView.builder(
+                    itemCount: controller.searchAll.value.topQuery.albums.length,
+                    itemBuilder: (context, index) {
+                      Album album = controller.searchAll.value.topQuery.albums[index];
+                      return AlbumRow(album: album, subtitle: "Album");
                     },
                   ),
-                  Container(
-                    color: Colors.transparent,
-                    height: 70.0 * controller.searchAll.value.albums.length,
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: controller.searchAll.value.albums.length,
-                      itemBuilder: (context, index) {
-                        Album album = controller.searchAll.value.albums[index];
-                        return AlbumRow(album: album, subtitle: album.language!);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            if(controller.searchAll.value.artists.isNotEmpty) // * : Artists
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Gap(20),
-                  ViewAllSection(
-                    title: "Artists", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
-                    onPressed: () {
-                      Get.to(
-                        () => ViewAllArtistsView(),
-                        arguments: controller.searchController.text
-                      );
+                )
+              else if(controller.searchAll.value.topQuery.artists.isNotEmpty) // * : Top artists
+                SizedBox(
+                  height: 60.0 * controller.searchAll.value.topQuery.artists.length,
+                  child: ListView.builder(
+                    itemCount: controller.searchAll.value.topQuery.artists.length,
+                    itemBuilder: (context, index) {
+                      Artist artist = controller.searchAll.value.topQuery.artists[index];
+                      return ArtistRow(artist: artist, subtitle: "Artist");
                     },
                   ),
-                  Container(
-                    color: Colors.transparent,
-                    height: 70.0 * controller.searchAll.value.artists.length,
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: controller.searchAll.value.artists.length,
-                      itemBuilder: (context, index) {
-                        Artist artist = controller.searchAll.value.artists[index];
-                        return ArtistRow(artist: artist, subtitle: artist.description!);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            if(controller.searchAll.value.playlists.isNotEmpty) // * : Playlists
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Gap(20),
-                  ViewAllSection(
-                    title: "Playlists", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
-                    onPressed: () {
-                      Get.to(() => ViewAllPlaylistsView());
+                )
+              else if(controller.searchAll.value.topQuery.playlists.isNotEmpty) // * : Top playlists
+                SizedBox(
+                  height: 60.0 * controller.searchAll.value.topQuery.playlists.length,
+                  child: ListView.builder(
+                    itemCount: controller.searchAll.value.topQuery.playlists.length,
+                    itemBuilder: (context, index) {
+                      Playlist playlist = controller.searchAll.value.topQuery.playlists[index];
+                      return PlaylistRow(playlist: playlist, subtitle: "Playlist");
                     },
                   ),
-                  Container(
-                    color: Colors.transparent,
-                    height: 70.0 * controller.searchAll.value.playlists.length,
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: controller.searchAll.value.playlists.length,
-                      itemBuilder: (context, index) {
-                        Playlist playlist = controller.searchAll.value.playlists[index];
-                        return PlaylistRow(playlist: playlist, subtitle: playlist.language!.capitalizeFirst!);
-                      },
-                    ),
-                  ),
-                ],
+                )
+            ],
+          ),
+        if(controller.searchAll.value.songs.isNotEmpty) // * : Songs
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Gap(20),
+              ViewAllSection(
+                title: "Songs", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
+                onPressed: () {
+                  Get.to(
+                    () => ViewAllSongsView(),
+                    arguments: controller.searchController.text
+                  );
+                },
               ),
-          ]
-        );
-      }
-    );
+              Container(
+                color: Colors.transparent,
+                height: 70.0 * controller.searchAll.value.songs.length,
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: controller.searchAll.value.songs.length,
+                  itemBuilder: (context, index) {
+                    Song song = controller.searchAll.value.songs[index];
+                    return SongsRow(song: song);
+                  },
+                ),
+              ),
+            ],
+          ),
+        if(controller.searchAll.value.albums.isNotEmpty) // * : Albums
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Gap(20),
+              ViewAllSection(
+                title: "Albums", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
+                onPressed: () {
+                  Get.to(
+                    () => ViewAllAlbumsView(),
+                    arguments: controller.searchController.text
+                  );
+                },
+              ),
+              Container(
+                color: Colors.transparent,
+                height: 70.0 * controller.searchAll.value.albums.length,
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: controller.searchAll.value.albums.length,
+                  itemBuilder: (context, index) {
+                    Album album = controller.searchAll.value.albums[index];
+                    return AlbumRow(album: album, subtitle: album.language!);
+                  },
+                ),
+              ),
+            ],
+          ),
+        if(controller.searchAll.value.artists.isNotEmpty) // * : Artists
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Gap(20),
+              ViewAllSection(
+                title: "Artists", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
+                onPressed: () {
+                  Get.to(
+                    () => ViewAllArtistsView(),
+                    arguments: controller.searchController.text
+                  );
+                },
+              ),
+              Container(
+                color: Colors.transparent,
+                height: 70.0 * controller.searchAll.value.artists.length,
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: controller.searchAll.value.artists.length,
+                  itemBuilder: (context, index) {
+                    Artist artist = controller.searchAll.value.artists[index];
+                    return ArtistRow(artist: artist, subtitle: artist.description!);
+                  },
+                ),
+              ),
+            ],
+          ),
+        if(controller.searchAll.value.playlists.isNotEmpty) // * : Playlists
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Gap(20),
+              ViewAllSection(
+                title: "Playlists", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
+                onPressed: () {
+                  Get.to(() => ViewAllPlaylistsView());
+                },
+              ),
+              Container(
+                color: Colors.transparent,
+                height: 70.0 * controller.searchAll.value.playlists.length,
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: controller.searchAll.value.playlists.length,
+                  itemBuilder: (context, index) {
+                    Playlist playlist = controller.searchAll.value.playlists[index];
+                    return PlaylistRow(playlist: playlist, subtitle: playlist.language!.capitalizeFirst!);
+                  },
+                ),
+              ),
+            ],
+          ),
+      ]
+    ));
   }
 }

@@ -52,117 +52,109 @@ class ViewAllPlaylistsView extends StatelessWidget {
 
   Widget _cover(Size media, ViewAllSearchPlaylistsController controller) {
     double imageSize = 125;
-    return Obx(
-      () {
-        return SizedBox(
-          height: media.width / 1.2, width: media.width,
-          child: Stack(
-            alignment: Alignment.bottomLeft,
-            children: [
-              SizedBox(
-                height: media.width/1.2, width: double.maxFinite,
-                child: (controller.playlists.length < 6)
-                ? CachedNetworkImage(
-                  imageUrl: controller.playlists.first.image.highQuality, fit: BoxFit.cover,
-                  height: media.width/1.15, width: media.width/2,
-                  errorWidget: (context, url, error) {
-                    return Image.asset(
-                      "assets/images/appLogo50x50.png",
-                      fit: BoxFit.cover, height: media.width/1.15, width: media.width/2
-                    );
-                  },
-                  placeholder: (context, url) {
-                    return Image.asset(
-                      "assets/images/appLogo50x50.png",
-                      fit: BoxFit.cover, height: media.width/1.15, width: media.width/2
-                    );
-                  },
-                )
-                : SafeArea(
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: 10, right: 30,
-                        child: CoverImages(image: controller.playlists[1].image.standardQuality, size: imageSize)
-                      ),
-                      Positioned(
-                        right: 30, bottom: 10,
-                        child: CoverImages(image: controller.playlists[2].image.standardQuality, size: imageSize)
-                      ),
-                      Positioned(
-                        bottom: 10, left: 30,
-                        child: CoverImages(image: controller.playlists[3].image.standardQuality, size: imageSize)
-                      ),
-                      Positioned(
-                        top: 10, left: 30,
-                        child: CoverImages(image: controller.playlists[4].image.standardQuality, size: imageSize)
-                      ),
-                      Center(child: CoverImages(image: controller.playlists.first.image.standardQuality, size: imageSize)
-                      ),
-                    ],
+    return Obx(() => SizedBox(
+      height: media.width / 1.2, width: media.width,
+      child: Stack(
+        alignment: Alignment.bottomLeft,
+        children: [
+          SizedBox(
+            height: media.width/1.2, width: double.maxFinite,
+            child: (controller.playlists.length < 6)
+            ? CachedNetworkImage(
+              imageUrl: controller.playlists.first.image.highQuality, fit: BoxFit.cover,
+              height: media.width/1.15, width: media.width/2,
+              errorWidget: (context, url, error) {
+                return Image.asset(
+                  "assets/images/appLogo50x50.png",
+                  fit: BoxFit.cover, height: media.width/1.15, width: media.width/2
+                );
+              },
+              placeholder: (context, url) {
+                return Image.asset(
+                  "assets/images/appLogo50x50.png",
+                  fit: BoxFit.cover, height: media.width/1.15, width: media.width/2
+                );
+              },
+            )
+            : SafeArea(
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 10, right: 30,
+                    child: CoverImages(image: controller.playlists[1].image.standardQuality, size: imageSize)
                   ),
-                ),
-              ),
-              Container(height: media.width/1.15, width: double.maxFinite, color: Colors.black.withOpacity(0.25)),
-              Positioned(
-                left: 10, top: 10,
-                child: SafeArea(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.75),
-                      shape: BoxShape.circle
-                    ),
-                    child: BackButton(color: Colors.white)
+                  Positioned(
+                    right: 30, bottom: 10,
+                    child: CoverImages(image: controller.playlists[2].image.standardQuality, size: imageSize)
                   ),
-                ),
+                  Positioned(
+                    bottom: 10, left: 30,
+                    child: CoverImages(image: controller.playlists[3].image.standardQuality, size: imageSize)
+                  ),
+                  Positioned(
+                    top: 10, left: 30,
+                    child: CoverImages(image: controller.playlists[4].image.standardQuality, size: imageSize)
+                  ),
+                  Center(child: CoverImages(image: controller.playlists.first.image.standardQuality, size: imageSize)
+                  ),
+                ],
               ),
-              Container(
-                margin: EdgeInsets.all(15), alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Playlists",
-                      style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "${controller.playlistCount.value} Playlists",
-                      style: TextStyle(color: Colors.grey.shade300, fontSize: 25),
-                    ),
-                  ],
+            ),
+          ),
+          Container(height: media.width/1.15, width: double.maxFinite, color: Colors.black.withOpacity(0.25)),
+          Positioned(
+            left: 10, top: 10,
+            child: SafeArea(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.75),
+                  shape: BoxShape.circle
                 ),
-              )
-            ],
+                child: BackButton(color: Colors.white)
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.all(15), alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Playlists",
+                  style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "${controller.playlistCount.value} Playlists",
+                  style: TextStyle(color: Colors.grey.shade300, fontSize: 25),
+                ),
+              ],
+            ),
           )
-        );
-      }
-    );
+        ],
+      )
+    ));
   }
 
   Widget _displayPlaylists(Size media, ViewAllSearchPlaylistsController controller) {
-    return Obx(
-      () {
-        return SizedBox(
-          height: media.height - media.width/1.2,
-          child: ListView.builder(
-            padding: EdgeInsets.all(15),
-            controller: controller.scrollController,
-            itemCount: (controller.isLoadingMore.value)
-              ? controller.playlists.length + 1
-              : controller.playlists.length,
-            itemBuilder: (context, index) {
-              if(index < controller.playlists.length) {
-                Playlist playlist = controller.playlists[index];
-                return PlaylistRow(playlist: playlist, subtitle: "${playlist.songCount} Songs");
-              } else {
-                return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
-              }
-            },
-          ),
-        );
-      }
-    );
+    return Obx(() => SizedBox(
+      height: media.height - media.width/1.2,
+      child: ListView.builder(
+        padding: EdgeInsets.all(15),
+        controller: controller.scrollController,
+        itemCount: (controller.isLoadingMore.value)
+          ? controller.playlists.length + 1
+          : controller.playlists.length,
+        itemBuilder: (context, index) {
+          if(index < controller.playlists.length) {
+            Playlist playlist = controller.playlists[index];
+            return PlaylistRow(playlist: playlist, subtitle: "${playlist.songCount} Songs");
+          } else {
+            return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
+          }
+        },
+      ),
+    ));
   }
 }
 

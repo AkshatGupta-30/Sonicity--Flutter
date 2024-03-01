@@ -187,25 +187,21 @@ class ViewAllSongsView extends StatelessWidget {
   }
 
   Widget _displaySongs(ViewAllSearchSongsController controller) {
-    return Obx(
-      () {
-        return Expanded(
-          child: ListView.builder(
-            controller: controller.scrollController,
-            itemCount: (controller.isLoadingMore.value)
-              ? controller.songs.length + 1
-              : controller.songs.length,
-            itemBuilder: (context, index) {
-              if(index < controller.songs.length) {
-                Song song = controller.songs[index];
-                return SongsRow(song: song);
-              } else {
-                return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
-              }
-            },
-          ),
-        );
-      }
-    );
+    return Obx(() => Expanded(
+      child: ListView.builder(
+        controller: controller.scrollController,
+        itemCount: (controller.isLoadingMore.value)
+          ? controller.songs.length + 1
+          : controller.songs.length,
+        itemBuilder: (context, index) {
+          if(index < controller.songs.length) {
+            Song song = controller.songs[index];
+            return SongsRow(song: song);
+          } else {
+            return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
+          }
+        },
+      ),
+    ));
   }
 }

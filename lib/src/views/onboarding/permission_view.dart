@@ -59,44 +59,42 @@ class PermissionView extends StatelessWidget {
                   ),
                 ),
                 Gap(20),
-                Obx(
-                  () {
-                    permissionStatus();
-                    return (permission.value == false)
-                    ? ListTile(
-                      onTap: () async {
-                        permission.value = await requestPermission();
-                        if(permission.value) {
-                          Future.delayed(
-                            Duration(milliseconds: 750),
-                            () => pageController.nextPage(
-                              duration: Duration(milliseconds: 250),
-                              curve: Curves.easeInOut
-                            )
-                          );
-                        }
-                      },
-                      tileColor: Colors.cyanAccent,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      leading: Iconify(Pepicons.music_note_double, color: Colors.black),
-                      title: Text(
-                        "MUSIC AND AUDIO PERMISSION",
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                Obx(() {
+                  permissionStatus();
+                  return (permission.value == false)
+                  ? ListTile(
+                    onTap: () async {
+                      permission.value = await requestPermission();
+                      if(permission.value) {
+                        Future.delayed(
+                          Duration(milliseconds: 750),
+                          () => pageController.nextPage(
+                            duration: Duration(milliseconds: 250),
+                            curve: Curves.easeInOut
+                          )
+                        );
+                      }
+                    },
+                    tileColor: Colors.cyanAccent,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    leading: Iconify(Pepicons.music_note_double, color: Colors.black),
+                    title: Text(
+                      "MUSIC AND AUDIO PERMISSION",
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                  )
+                  : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Iconify(Ic.twotone_check_circle, color: Colors.cyanAccent),
+                      Gap(10),
+                      Text(
+                        "Premission is granted",
+                        style: TextStyle(color: Colors.cyanAccent, fontWeight: FontWeight.bold, fontSize: 20),
                       ),
-                    )
-                    : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Iconify(Ic.twotone_check_circle, color: Colors.cyanAccent),
-                        Gap(10),
-                        Text(
-                          "Premission is granted",
-                          style: TextStyle(color: Colors.cyanAccent, fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                      ]
-                    );
-                  }
-                )
+                    ]
+                  );
+                })
               ],
             ),
           ),
