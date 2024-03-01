@@ -7,8 +7,8 @@ import 'package:sonicity/src/sprefs/search_history.dart';
 class SearchViewController extends GetxController {
   final searchController = TextEditingController();
   final historyList = <String>[].obs;
-  final loading = false.obs;
-  final searching = false.obs;
+  final isLoading = false.obs;
+  final isSearching = false.obs;
   final searchAll = SearchAll(
     topQuery: TopQuery(songs: [], albums: [], artists: [], playlists: []),
     songs: [], albums: [], artists: [], playlists: []
@@ -21,8 +21,8 @@ class SearchViewController extends GetxController {
 
     searchController.addListener(() {
       if(searchController.text.isEmpty) {
-        loading.value = false;
-        searching.value = false;
+        isLoading.value = false;
+        isSearching.value = false;
         searchAll.value.clear();
       }
       update();
@@ -35,9 +35,9 @@ class SearchViewController extends GetxController {
   }
 
   void _searchText(text) async {
-    loading.value = true;
+    isLoading.value = true;
     SearchAll search = await SearchAllApi.searchAll(text);
-    loading.value = false;
+    isLoading.value = false;
     searchAll.value = search;
     update();
   }
@@ -46,7 +46,7 @@ class SearchViewController extends GetxController {
   }
 
   void searchSubmitted(String text) {
-    searching.value = true;
+    isSearching.value = true;
     _searchText(text);
     if(historyList.contains(text)) {
       historyList.remove(text);

@@ -30,70 +30,70 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.sizeOf(context);
+    var safeArea = MediaQuery.paddingOf(context);
     return Scaffold(
       backgroundColor: Colors.black,
       floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
-      body: GetBuilder(
-        init: SearchViewController(),
-        builder: (controller) {
-          return Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0, 1],
-                tileMode: TileMode.clamp,
-              ),
-            ),
-            child: SafeArea(
-              child: Obx(() => Container(
-                width: media.width, height: media.height,
-                padding: EdgeInsets.all(15.0),
-                child: CustomScrollView(
-                  physics: (controller.searching.value)
-                    ? AlwaysScrollableScrollPhysics()
-                    : NeverScrollableScrollPhysics(),
-                  slivers: [
-                    SliverAppBar(
-                      pinned: true,
-                      backgroundColor: Colors.transparent,
-                      leading: SizedBox(),
-                      flexibleSpace: SizedBox(
-                        height: 55,
-                        child: SearchBox(
-                          searchController: controller.searchController,
-                          onChanged: (text) => controller.searchChanged(text),
-                          onSubmitted: (text) => controller.searchSubmitted(text),
-                        )
-                      ),
-                    ),
-                    SliverToBoxAdapter(child: Gap(12)),
-                    SliverToBoxAdapter(
-                      child: (controller.loading.value)
-                        ? SearchShimmer()
-                        : (controller.searching.value)
-                          ? _searchResults(controller)
-                          : _searchHistory(controller),
-                    )
-                  ],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0, 1],
+            tileMode: TileMode.clamp,
+          ),
+        ),
+        child: GetBuilder(
+          init: SearchViewController(),
+          builder: (controller) {
+            return CustomScrollView(
+              physics: (controller.isSearching.value)
+                ? AlwaysScrollableScrollPhysics()
+                : NeverScrollableScrollPhysics(),
+              slivers: [
+                SliverAppBar(
+                  pinned: true, toolbarHeight: kToolbarHeight + safeArea.top/2,
+                  backgroundColor: Colors.grey.shade900, surfaceTintColor: Colors.transparent,
+                  leadingWidth: 0, titleSpacing: 0,
+                  title: SearchBox(
+                    searchController: controller.searchController,
+                    onChanged: (text) => controller.searchChanged(text),
+                    onSubmitted: (text) => controller.searchSubmitted(text),
+                  )
                 ),
-              )),
-            ),
-          );
-        }
+                SliverPadding(
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+                  sliver:  SliverToBoxAdapter(
+                    child: (controller.isLoading.value)
+                      ? SearchShimmer()
+                      : (controller.isSearching.value)
+                        ? _searchResults(controller)
+                        : _searchHistory(controller),
+                  ),
+                )
+                // SliverToBoxAdapter(
+                //   child: (controller.isLoading.value)
+                //     ? SearchShimmer()
+                //     : (controller.isSearching.value)
+                //       ? _searchResults(controller)
+                //       : _searchHistory(controller),
+                // )
+              ],
+            );
+          }
+        ),
       ),
     );
   }
 
   Widget _searchHistory(SearchViewController controller) {
-    return Obx(() => (controller.historyList.isEmpty)
+    return (controller.historyList.isEmpty)
       ? SizedBox()
       : Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(// * : Heading
+          Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
               "History",
@@ -112,13 +112,12 @@ class SearchView extends StatelessWidget {
               );
             }).toList(),
           ),
-        ],
-      )
-    );
+        ]
+      );
   }
 
   Widget _searchResults(SearchViewController controller) {
-    return Obx(() => Column(
+    return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -126,13 +125,12 @@ class SearchView extends StatelessWidget {
           Column(// * : Top Results
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Gap(20),
               TitleSection(title: "Top Results", leftPadding: 0, size: 22),
-              Gap(10),
               if(controller.searchAll.value.topQuery.songs.isNotEmpty) // * : Top songs
                 SizedBox(
-                  height: 60.0 * controller.searchAll.value.topQuery.songs.length,
+                  height: 76.0 * controller.searchAll.value.topQuery.songs.length,
                   child: ListView.builder(
+                    padding: EdgeInsets.only(top: 10),
                     itemCount: controller.searchAll.value.topQuery.songs.length,
                     itemBuilder: (context, index) {
                       Song song = controller.searchAll.value.songs[index];
@@ -142,8 +140,9 @@ class SearchView extends StatelessWidget {
                 )
               else if(controller.searchAll.value.topQuery.albums.isNotEmpty) // * : Top albums
                 SizedBox(
-                  height: 60.0 * controller.searchAll.value.topQuery.albums.length,
+                  height: 76.0 * controller.searchAll.value.topQuery.albums.length,
                   child: ListView.builder(
+                    padding: EdgeInsets.only(top: 10),
                     itemCount: controller.searchAll.value.topQuery.albums.length,
                     itemBuilder: (context, index) {
                       Album album = controller.searchAll.value.topQuery.albums[index];
@@ -153,8 +152,9 @@ class SearchView extends StatelessWidget {
                 )
               else if(controller.searchAll.value.topQuery.artists.isNotEmpty) // * : Top artists
                 SizedBox(
-                  height: 60.0 * controller.searchAll.value.topQuery.artists.length,
+                  height: 76.0 * controller.searchAll.value.topQuery.artists.length,
                   child: ListView.builder(
+                    padding: EdgeInsets.only(top: 10),
                     itemCount: controller.searchAll.value.topQuery.artists.length,
                     itemBuilder: (context, index) {
                       Artist artist = controller.searchAll.value.topQuery.artists[index];
@@ -164,8 +164,9 @@ class SearchView extends StatelessWidget {
                 )
               else if(controller.searchAll.value.topQuery.playlists.isNotEmpty) // * : Top playlists
                 SizedBox(
-                  height: 60.0 * controller.searchAll.value.topQuery.playlists.length,
+                  height: 76.0 * controller.searchAll.value.topQuery.playlists.length,
                   child: ListView.builder(
+                    padding: EdgeInsets.only(top: 10),
                     itemCount: controller.searchAll.value.topQuery.playlists.length,
                     itemBuilder: (context, index) {
                       Playlist playlist = controller.searchAll.value.topQuery.playlists[index];
@@ -191,8 +192,9 @@ class SearchView extends StatelessWidget {
               ),
               Container(
                 color: Colors.transparent,
-                height: 70.0 * controller.searchAll.value.songs.length,
+                height: 76.0 * controller.searchAll.value.songs.length,
                 child: ListView.builder(
+                  padding: EdgeInsets.only(top: 10),
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: controller.searchAll.value.songs.length,
                   itemBuilder: (context, index) {
@@ -219,8 +221,9 @@ class SearchView extends StatelessWidget {
               ),
               Container(
                 color: Colors.transparent,
-                height: 70.0 * controller.searchAll.value.albums.length,
+                height: 76.0 * controller.searchAll.value.albums.length,
                 child: ListView.builder(
+                  padding: EdgeInsets.only(top: 10),
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: controller.searchAll.value.albums.length,
                   itemBuilder: (context, index) {
@@ -247,8 +250,9 @@ class SearchView extends StatelessWidget {
               ),
               Container(
                 color: Colors.transparent,
-                height: 70.0 * controller.searchAll.value.artists.length,
+                height: 76.0 * controller.searchAll.value.artists.length,
                 child: ListView.builder(
+                  padding: EdgeInsets.only(top: 10),
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: controller.searchAll.value.artists.length,
                   itemBuilder: (context, index) {
@@ -275,8 +279,9 @@ class SearchView extends StatelessWidget {
               ),
               Container(
                 color: Colors.transparent,
-                height: 70.0 * controller.searchAll.value.playlists.length,
+                height: 76.0 * controller.searchAll.value.playlists.length,
                 child: ListView.builder(
+                  padding: EdgeInsets.only(top: 10),
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: controller.searchAll.value.playlists.length,
                   itemBuilder: (context, index) {
@@ -288,6 +293,6 @@ class SearchView extends StatelessWidget {
             ],
           ),
       ]
-    ));
+    );
   }
 }

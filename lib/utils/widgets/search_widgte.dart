@@ -79,36 +79,28 @@ class SearchBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 1,
-      color: Color(0xFF212121),
-      borderRadius: BorderRadius.circular(10),
-      shadowColor: Colors.white,
-      surfaceTintColor: Color(0xFF212121),
-      child: Container(
-        height: kBottomNavigationBarHeight,
-        alignment: Alignment.center,
-        child: TextField(
-          controller: searchController,
-          focusNode: focusNode,
-          maxLines: 1,
-          maxLength: 20,
-          textInputAction: TextInputAction.done,
-          keyboardType: TextInputType.text,
-          cursorColor: accentColor,
-          style: TextStyle(color: Colors.white),
-          onTapOutside: (event) => focusNode.unfocus(),
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: "Songs, albums or artists",
-            hintStyle: TextStyle(color: Colors.grey),
-            counterText: "",
-            prefixIcon: BackButton(color: Colors.white,),
-            suffixIcon: CloseButton(onPressed: () => searchController.clear(), color: Colors.white),
-          ),
-          onSubmitted: onSubmitted,
-          onChanged: onChanged,
+    return Container(
+      height: kToolbarHeight, alignment: Alignment.center,
+      child: TextField(
+        controller: searchController,
+        focusNode: focusNode,
+        maxLines: 1,
+        maxLength: 20,
+        textInputAction: TextInputAction.done,
+        keyboardType: TextInputType.text,
+        cursorColor: accentColor,
+        style: TextStyle(color: Colors.white),
+        onTapOutside: (event) => focusNode.unfocus(),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: "Songs, albums or artists",
+          hintStyle: TextStyle(color: Colors.grey),
+          counterText: "",
+          prefixIcon: BackButton(color: Colors.white),
+          suffixIcon: CloseButton(onPressed: () => searchController.clear(), color: Colors.white),
         ),
+        onSubmitted: onSubmitted,
+        onChanged: onChanged,
       ),
     );
   }
