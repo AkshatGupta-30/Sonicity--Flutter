@@ -90,10 +90,10 @@ class TrendingNowSection extends StatelessWidget {
                   if(homeController.home.value.trendingNow.songs.isEmpty) {
                     return ShimmerCard();
                   } else if(homeController.home.value.trendingNow.songs.length == 1) {
-                    return SongCard(song: homeController.home.value.trendingNow.songs.first);
+                    return SongCard(homeController.home.value.trendingNow.songs.first);
                   }
                   Song song = homeController.home.value.trendingNow.songs[index];
-                  return SongCard(song: song);
+                  return SongCard(song);
                 },
                 options: CarouselOptions(
                   height: media.width/1.25,
@@ -111,10 +111,10 @@ class TrendingNowSection extends StatelessWidget {
                     if(homeController.home.value.trendingNow.albums.isEmpty) {
                       return ShimmerCard();
                     } else if(homeController.home.value.trendingNow.albums.length == 1) {
-                      return AlbumCard(album: homeController.home.value.trendingNow.albums.first);
+                      return AlbumCard(homeController.home.value.trendingNow.albums.first);
                     }
                     Album album = homeController.home.value.trendingNow.albums[index];
-                    return AlbumCard(album: album);
+                    return AlbumCard(album);
                   },
                   options: CarouselOptions(
                     height: media.width/1.25,

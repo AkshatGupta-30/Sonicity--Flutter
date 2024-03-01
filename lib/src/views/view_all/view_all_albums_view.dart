@@ -176,7 +176,7 @@ class ViewAllAlbumsView extends StatelessWidget {
         itemBuilder: (context, index) {
           if(index < controller.albums.length) {
             Album album = controller.albums[index];
-            return AlbumRow(album: album, subtitle: "${album.songCount} Songs");
+            return AlbumTile(album, subtitle: "${album.songCount} Songs");
           } else {
             return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
           }

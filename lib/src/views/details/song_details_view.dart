@@ -349,7 +349,7 @@ class SongDetailsView extends StatelessWidget {
   }
 
   Widget _albumSection(Album album) {
-    return AlbumCell(album: album, subtitle: "");
+    return AlbumCell(album, subtitle: "");
   }
 
   Widget _artistSection(List<Artist> artists) {
@@ -360,7 +360,7 @@ class SongDetailsView extends StatelessWidget {
         itemCount: artists.length,
         itemBuilder: (context, index) {
           Artist artist = artists[index];
-          return ArtistCell(artist: artist, subtitle: "");
+          return ArtistCell(artist, subtitle: "");
         }
       ),
     );

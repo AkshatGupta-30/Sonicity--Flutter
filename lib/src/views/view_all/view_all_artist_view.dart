@@ -176,7 +176,7 @@ class ViewAllArtistsView extends StatelessWidget {
         itemBuilder: (context, index) {
           if(index < controller.artists.length) {
             Artist artist = controller.artists[index];
-            return ArtistRow(artist: artist, subtitle: artist.description!);
+            return ArtistTile(artist: artist, subtitle: artist.description!);
           } else {
             return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
           }

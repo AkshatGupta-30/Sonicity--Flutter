@@ -29,7 +29,7 @@ class TopAlbumsSection extends StatelessWidget {
                 return ShimmerCell(crossAxisAlignment: CrossAxisAlignment.start);
               }
               Album album = topAlbums.albums[index];
-              return AlbumCell(album: album, subtitle: album.language!);
+              return AlbumCell(album, subtitle: album.language!);
             },
           ),
         )

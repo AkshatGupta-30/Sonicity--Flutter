@@ -201,7 +201,7 @@ class PlaylistDetailsView extends StatelessWidget {
         itemCount: playlist.songs!.length,
         itemBuilder: (context, index) {
           Song song = playlist.songs![index];
-          return SongsRow(song: song);
+          return SongsTile(song);
         },
       ),
     );

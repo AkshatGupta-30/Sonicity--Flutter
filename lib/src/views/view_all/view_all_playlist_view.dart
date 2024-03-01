@@ -176,7 +176,7 @@ class ViewAllPlaylistsView extends StatelessWidget {
         itemBuilder: (context, index) {
           if(index < controller.playlists.length) {
             Playlist playlist = controller.playlists[index];
-            return PlaylistRow(playlist: playlist, subtitle: "${playlist.songCount} Songs");
+            return PlaylistTile(playlist, subtitle: "${playlist.songCount} Songs");
           } else {
             return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
           }

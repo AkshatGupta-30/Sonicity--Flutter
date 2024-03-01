@@ -13,7 +13,7 @@ import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class AlbumCard extends StatelessWidget {
   final Album album;
-  AlbumCard({super.key, required this.album});
+  AlbumCard(this.album, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +114,7 @@ class AlbumCard extends StatelessWidget {
 class AlbumCell extends StatelessWidget {
   final Album album;
   final String subtitle;
-  AlbumCell({super.key, required this.album, required this.subtitle});
+  AlbumCell(this.album, {super.key, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -167,90 +167,78 @@ class AlbumCell extends StatelessWidget {
   }
 }
 
-class AlbumRow extends StatelessWidget {
+class AlbumTile extends StatelessWidget {
   final Album album;
   final String subtitle;
-  AlbumRow({super.key,required this.album, required this.subtitle});
+  AlbumTile(this.album, {super.key, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ListTile(
       onTap: () {
         Get.to(
           () => AlbumDetailsView(),
           arguments: album.id
         );
       },
-      child: Container(
-        height: 60,
-        width: double.maxFinite,
-        margin: EdgeInsets.only(bottom: 10),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: CachedNetworkImage(
-                imageUrl: album.image!.lowQuality,
-                fit: BoxFit.cover, width: 60, height: 60,
-                errorWidget: (context, url, error) {
-                  return Image.asset(
-                    "assets/images/appLogo50x50.png",
-                    fit: BoxFit.cover, width: 60, height: 60
-                  );
-                },
-                placeholder: (context, url) {
-                  return Image.asset(
-                    "assets/images/appLogo50x50.png",
-                    fit: BoxFit.cover, width: 60, height: 60
-                  );
-                },
-              ),
-            ),
-            Gap(10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 26,
-                    child: Text(
-                      album.name,
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    )
-                  ),
-                  SizedBox(
-                    height: 20,
-                    child: Text(
-                      subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.grey, fontSize: 14),
-                    )
-                  ),
-                ],
-              ),
-            ),
-            PopupMenuButton(
-              itemBuilder: (context) {
-                return [
-                  PopupMenuItem(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: PopUpButtonRow(icon: Ic.round_cyclone, label: "Clone to Library"),
-                  ),
-                  PopupMenuItem(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: PopUpButtonRow(icon: Mi.favorite, label: "Add to Starred"),
-                  ),
-                ];
-              },
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              padding: EdgeInsets.zero,
-              position: PopupMenuPosition.under,
-              color: Colors.grey.shade900,
-              icon: Iconify(Ic.sharp_more_vert, color: Colors.grey.shade100, size: 32),
-            )
-          ]
+      contentPadding: EdgeInsets.zero,
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: CachedNetworkImage(
+          imageUrl: album.image!.lowQuality,
+          fit: BoxFit.cover, width: 60, height: 60,
+          errorWidget: (context, url, error) {
+            return Image.asset(
+              "assets/images/appLogo50x50.png",
+              fit: BoxFit.cover, width: 60, height: 60
+            );
+          },
+          placeholder: (context, url) {
+            return Image.asset(
+              "assets/images/appLogo50x50.png",
+              fit: BoxFit.cover, width: 60, height: 60
+            );
+          },
         ),
       ),
+      horizontalTitleGap: 10,
+      title: Text(
+        album.name, maxLines: 1, overflow: TextOverflow.ellipsis,
+        style: TextStyle(color: Colors.white, fontSize: 18),
+      ),
+      subtitle: Text(
+        subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
+        style: TextStyle(color: Colors.grey, fontSize: 14),
+      ),
+      trailing: AlbumPopUpMenu(album),
+    );
+  }
+}
+
+class AlbumPopUpMenu extends StatelessWidget {
+  final Album album;
+  const AlbumPopUpMenu(this.album, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: PopUpButtonRow(icon: Ic.round_cyclone, label: "Clone to Library"),
+          ),
+          PopupMenuItem(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: PopUpButtonRow(icon: Mi.favorite, label: "Add to Starred"),
+          ),
+        ];
+      },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      padding: EdgeInsets.zero,
+      position: PopupMenuPosition.under,
+      color: Colors.grey.shade900,
+      icon: Iconify(Ic.sharp_more_vert, color: Colors.grey.shade100, size: 32),
     );
   }
 }

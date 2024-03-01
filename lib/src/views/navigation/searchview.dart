@@ -2,6 +2,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/searchview_controller.dart';
@@ -22,7 +23,7 @@ import 'package:sonicity/utils/widgets/artist_widget.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/widgets/search_history_cells.dart';
-import 'package:sonicity/utils/widgets/search_widgte.dart';
+import 'package:sonicity/utils/widgets/search_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 
 class SearchView extends StatelessWidget {
@@ -134,7 +135,7 @@ class SearchView extends StatelessWidget {
                     itemCount: controller.searchAll.value.topQuery.songs.length,
                     itemBuilder: (context, index) {
                       Song song = controller.searchAll.value.songs[index];
-                      return SongsRow(song: song, subtitle: "Song");
+                      return SongsTile(song, subtitle: "Song");
                     },
                   ),
                 )
@@ -146,7 +147,7 @@ class SearchView extends StatelessWidget {
                     itemCount: controller.searchAll.value.topQuery.albums.length,
                     itemBuilder: (context, index) {
                       Album album = controller.searchAll.value.topQuery.albums[index];
-                      return AlbumRow(album: album, subtitle: "Album");
+                      return AlbumTile(album, subtitle: "Album");
                     },
                   ),
                 )
@@ -158,7 +159,7 @@ class SearchView extends StatelessWidget {
                     itemCount: controller.searchAll.value.topQuery.artists.length,
                     itemBuilder: (context, index) {
                       Artist artist = controller.searchAll.value.topQuery.artists[index];
-                      return ArtistRow(artist: artist, subtitle: "Artist");
+                      return ArtistTile(artist: artist, subtitle: "Artist");
                     },
                   ),
                 )
@@ -170,7 +171,7 @@ class SearchView extends StatelessWidget {
                     itemCount: controller.searchAll.value.topQuery.playlists.length,
                     itemBuilder: (context, index) {
                       Playlist playlist = controller.searchAll.value.topQuery.playlists[index];
-                      return PlaylistRow(playlist: playlist, subtitle: "Playlist");
+                      return PlaylistTile(playlist, subtitle: "Playlist");
                     },
                   ),
                 )
@@ -199,7 +200,7 @@ class SearchView extends StatelessWidget {
                   itemCount: controller.searchAll.value.songs.length,
                   itemBuilder: (context, index) {
                     Song song = controller.searchAll.value.songs[index];
-                    return SongsRow(song: song);
+                    return SongsTile(song);
                   },
                 ),
               ),
@@ -228,7 +229,7 @@ class SearchView extends StatelessWidget {
                   itemCount: controller.searchAll.value.albums.length,
                   itemBuilder: (context, index) {
                     Album album = controller.searchAll.value.albums[index];
-                    return AlbumRow(album: album, subtitle: album.language!);
+                    return AlbumTile(album, subtitle: album.language!);
                   },
                 ),
               ),
@@ -257,7 +258,7 @@ class SearchView extends StatelessWidget {
                   itemCount: controller.searchAll.value.artists.length,
                   itemBuilder: (context, index) {
                     Artist artist = controller.searchAll.value.artists[index];
-                    return ArtistRow(artist: artist, subtitle: artist.description!);
+                    return ArtistTile(artist: artist, subtitle: artist.description!);
                   },
                 ),
               ),
@@ -286,7 +287,7 @@ class SearchView extends StatelessWidget {
                   itemCount: controller.searchAll.value.playlists.length,
                   itemBuilder: (context, index) {
                     Playlist playlist = controller.searchAll.value.playlists[index];
-                    return PlaylistRow(playlist: playlist, subtitle: playlist.language!.capitalizeFirst!);
+                    return PlaylistTile(playlist, subtitle: playlist.language!.capitalizeFirst!);
                   },
                 ),
               ),

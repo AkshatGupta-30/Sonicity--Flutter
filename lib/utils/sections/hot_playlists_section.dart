@@ -29,7 +29,7 @@ class HotPlaylistSection extends StatelessWidget {
                 return ShimmerCell();
               }
               Playlist playlist = hotPlaylists.playlists[index];
-              return PlaylistCell(playlist: playlist, subtitle: '${playlist.songCount!} Songs');
+              return PlaylistCell(playlist, subtitle: '${playlist.songCount!} Songs');
             },
           ),
         )

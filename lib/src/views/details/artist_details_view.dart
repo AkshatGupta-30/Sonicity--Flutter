@@ -313,7 +313,7 @@ class ArtistDetailsView extends StatelessWidget {
       itemBuilder: (context, index)  {
         if(index < controller.songList.length) {
           Song song = controller.songList[index];
-          return SongsRow(song: song);
+          return SongsTile(song);
         } else {
           return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
         }
@@ -330,7 +330,7 @@ class ArtistDetailsView extends StatelessWidget {
       itemBuilder: (context, index)  {
         if(index < controller.albumList.length) {
           Album album = controller.albumList[index];
-          return AlbumRow(album: album, subtitle: "${album.songCount!} Songs");
+          return AlbumTile(album, subtitle: "${album.songCount!} Songs");
         } else {
           return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
         }

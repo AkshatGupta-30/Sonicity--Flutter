@@ -17,7 +17,7 @@ import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class SongCard extends StatelessWidget {
   final Song song;
-  SongCard({super.key, required this.song});
+  SongCard(this.song, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,7 @@ class SongCard extends StatelessWidget {
             ),
             Positioned(
               top: 0, right: 0,
-              child: SongPopUpMenu(song: song),
+              child: SongPopUpMenu(song),
             ),
           ],
         ),
@@ -95,10 +95,10 @@ class SongCard extends StatelessWidget {
   }
 }
 
-class SongsRow extends StatelessWidget {
+class SongsTile extends StatelessWidget {
   final Song song;
   final String subtitle;
-  SongsRow({super.key, required this.song, this.subtitle = ""});
+  SongsTile(this.song, {super.key, this.subtitle = ""});
 
   @override
   Widget build(BuildContext context) {
@@ -125,21 +125,21 @@ class SongsRow extends StatelessWidget {
       ),
       horizontalTitleGap: 10,
       title: Text(
-        song.title,
+        song.title, maxLines: 1, overflow: TextOverflow.ellipsis,
         style: TextStyle(color: Colors.white, fontSize: 18),
       ),
       subtitle: Text(
         (subtitle.isEmpty) ? song.subtitle : subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
         style: TextStyle(color: Colors.grey, fontSize: 14),
       ),
-      trailing:   SongPopUpMenu(song: song)
+      trailing:   SongPopUpMenu(song)
     );
   }
 }
 
 class SongPopUpMenu extends StatelessWidget {
   final Song song;
-  SongPopUpMenu({super.key, required this.song});
+  SongPopUpMenu(this.song, {super.key});
 
   @override
   Widget build(BuildContext context) {

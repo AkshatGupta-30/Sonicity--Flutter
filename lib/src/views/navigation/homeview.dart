@@ -13,7 +13,7 @@ import 'package:sonicity/utils/sections/last_session_section.dart';
 import 'package:sonicity/utils/sections/top_albums_section.dart';
 import 'package:sonicity/utils/sections/top_charts_section.dart';
 import 'package:sonicity/utils/sections/trending_now_section.dart';
-import 'package:sonicity/utils/widgets/search_widgte.dart';
+import 'package:sonicity/utils/widgets/search_widget.dart';
 
 class HomeView extends StatelessWidget{
   HomeView({super.key});

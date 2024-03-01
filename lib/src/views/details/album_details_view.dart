@@ -214,7 +214,7 @@ class AlbumDetailsView extends StatelessWidget {
                 itemCount: album.artists!.length,
                 itemBuilder: (context, index) {
                   Artist artist = album.artists![index];
-                  return ArtistCell(artist: artist, subtitle: "");
+                  return ArtistCell(artist, subtitle: "");
                 }
               ),
             ),
@@ -232,7 +232,7 @@ class AlbumDetailsView extends StatelessWidget {
         itemCount: album.songs!.length,
         itemBuilder: (context, index) {
           Song song = album.songs![index];
-          return SongsRow(song: song);
+          return SongsTile(song);
         },
       ),
     );

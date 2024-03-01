@@ -14,7 +14,7 @@ import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 class PlaylistCell extends StatelessWidget {
   final Playlist playlist;
   final String subtitle;
-  PlaylistCell({super.key, required this.playlist, required this.subtitle});
+  PlaylistCell(this.playlist, {super.key, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -67,91 +67,78 @@ class PlaylistCell extends StatelessWidget {
   }
 }
 
-class PlaylistRow extends StatelessWidget {
+class PlaylistTile extends StatelessWidget {
   final Playlist playlist;
   final String subtitle;
-  PlaylistRow({super.key,required this.playlist, required this.subtitle});
+  PlaylistTile(this.playlist, {super.key, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ListTile(
       onTap: () {
         Get.to(
           () => PlaylistDetailsView(),
           arguments: playlist.id
         );
       },
-      child: Container(
-        height: 60, width: double.maxFinite,
-        margin: EdgeInsets.only(bottom: 10),
-        child: GestureDetector(
-          onTap: () {},
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: CachedNetworkImage(
-                  imageUrl: playlist.image.lowQuality,
-                  fit: BoxFit.cover, width: 60, height: 60,
-                  errorWidget: (context, url, error) {
-                    return Image.asset(
-                      "assets/images/appLogo50x50.png",
-                      fit: BoxFit.cover, width: 60, height: 60
-                    );
-                  },
-                  placeholder: (context, url) {
-                    return Image.asset(
-                      "assets/images/appLogo50x50.png",
-                      fit: BoxFit.cover, width: 60, height: 60
-                    );
-                  },
-                ),
-              ),
-              Gap(10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 26,
-                      child: Text(
-                        playlist.name,
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      )
-                    ),
-                    SizedBox(
-                      height: 20,
-                      child: Text(
-                        subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.grey, fontSize: 14),
-                      )
-                    ),
-                  ],
-                ),
-              ),
-              PopupMenuButton(
-                itemBuilder: (context) {
-                  return [
-                    PopupMenuItem(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: PopUpButtonRow(icon: Ic.round_cyclone, label: "Clone to Library"),
-                    ),
-                    PopupMenuItem(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: PopUpButtonRow(icon: Mi.favorite, label: "Add to Starred"),
-                    ),
-                  ];
-                },
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                padding: EdgeInsets.zero,
-                position: PopupMenuPosition.under,
-                color: Colors.grey.shade900,
-                icon: Iconify(Ic.sharp_more_vert, color: Colors.grey.shade100, size: 32),
-              )
-            ]
-          ),
+      contentPadding: EdgeInsets.zero,
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: CachedNetworkImage(
+          imageUrl: playlist.image.lowQuality,
+          fit: BoxFit.cover, width: 60, height: 60,
+          errorWidget: (context, url, error) {
+            return Image.asset(
+              "assets/images/appLogo50x50.png",
+              fit: BoxFit.cover, width: 60, height: 60
+            );
+          },
+          placeholder: (context, url) {
+            return Image.asset(
+              "assets/images/appLogo50x50.png",
+              fit: BoxFit.cover, width: 60, height: 60
+            );
+          },
         ),
       ),
+      horizontalTitleGap: 10,
+      title: Text(
+        playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
+        style: TextStyle(color: Colors.white, fontSize: 18),
+      ),
+      subtitle: Text(
+        subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
+        style: TextStyle(color: Colors.grey, fontSize: 14),
+      ),
+      trailing: PlaylistPopUpMenu(playlist),
+    );
+  }
+}
+
+class PlaylistPopUpMenu extends StatelessWidget {
+  final Playlist playlist;
+  const PlaylistPopUpMenu(this.playlist, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: PopUpButtonRow(icon: Ic.round_cyclone, label: "Clone to Library"),
+          ),
+          PopupMenuItem(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: PopUpButtonRow(icon: Mi.favorite, label: "Add to Starred"),
+          ),
+        ];
+      },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      padding: EdgeInsets.zero,
+      position: PopupMenuPosition.under,
+      color: Colors.grey.shade900,
+      icon: Iconify(Ic.sharp_more_vert, color: Colors.grey.shade100, size: 32),
     );
   }
 }
