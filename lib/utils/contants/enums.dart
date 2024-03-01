@@ -1,3 +1,6 @@
+enum Sort {asc, dsc}
+enum SortType {name, year, songCount, duration}
+
 enum Routes {
   navigation, home, library, queue,
   searchAll, viewAllSearchSong, viewAllSearchAlbum, viewAllSearchArtist, viewAllSearchPlaylist,

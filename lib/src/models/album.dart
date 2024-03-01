@@ -81,6 +81,16 @@ class Album {
     );
   }
 
+  factory Album.year(Map<String,dynamic> data) {
+    return Album(
+      id: data['id'],
+      name: data['name'] ?? data['title'],
+      image: ImageUrl.fromJson(data['image']),
+      songCount: data['songCount'],
+      year: data['year']
+    );
+  }
+
   factory Album.empty() {
     return Album(id: "", name: "", image: ImageUrl.empty());
   }

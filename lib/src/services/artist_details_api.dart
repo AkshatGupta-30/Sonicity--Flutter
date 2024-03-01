@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/src/models/artist_song_album.dart';
 import 'package:sonicity/src/models/song.dart';
 
 class ArtistDetailsApi {
@@ -17,10 +16,8 @@ class ArtistDetailsApi {
     return data;
   }
 
-  static Future<Map<String, dynamic>> _albumsApiCall(String id, int page, Category category, Sort sort) async {
-    String cat = (category == Category.alphabetical) ? "alphabetical" : "latest";
-    String sortBy = (sort == Sort.asc) ? "asc" : "desc";
-    final uri = "https://saavn.dev/artists/$id/albums?page=$page&category=$cat&sort=$sortBy";
+  static Future<Map<String, dynamic>> _albumsApiCall(String id, int page) async {
+    final uri = "https://saavn.dev/artists/$id/albums?page=$page";
     final response = await http.get(Uri.parse(uri));
     if(response.statusCode != 200) {
       return {};
@@ -29,10 +26,8 @@ class ArtistDetailsApi {
     return data;
   }
 
-  static Future<Map<String, dynamic>> _songsApiCall(String id, int page, Category category, Sort sort) async {
-    String cat = (category == Category.alphabetical) ? "alphabetical" : "latest";
-    String sortBy = (sort == Sort.asc) ? "asc" : "desc";
-    final uri = "https://saavn.dev/artists/$id/songs?page=$page&category=$cat&sort=$sortBy";
+  static Future<Map<String, dynamic>> _songsApiCall(String id, int page) async {
+    final uri = "https://saavn.dev/artists/$id/songs?page=$page";
     final response = await http.get(Uri.parse(uri));
     if(response.statusCode != 200) {
       return {};
@@ -41,28 +36,28 @@ class ArtistDetailsApi {
     return data;
   }
 
-  static Future<List<Album>> getAlbums(String id, int page, Category category, Sort sort) async {
-    final data = await _albumsApiCall(id, page, category, sort);
+  static Future<List<Album>> getAlbums(String id, int page) async {
+    final data = await _albumsApiCall(id, page);
     if(data['results'] == null) {
       return [];
     }
     List<Album> albums = [];
     for (var element in data['results']) {
-      albums.add(Album.songCount(element));
+      albums.add(Album.year(element));
     }
     return albums;
   }
 
   static Future<int> getAlbumCount(String id) async {
-    final data = await _albumsApiCall(id, 1, Category.alphabetical, Sort.asc);
+    final data = await _albumsApiCall(id, 1);
     if(data['results'] == null) {
       return 0;
     }
     return int.parse(data['total'].toString());
   }
 
-  static Future<List<Song>> getSongs(String id, int page, Category category, Sort sort) async {
-    final data = await _songsApiCall(id, page, category, sort);
+  static Future<List<Song>> getSongs(String id, int page) async {
+    final data = await _songsApiCall(id, page);
     if(data['results'] == null) {
       return [];
     }
@@ -74,7 +69,7 @@ class ArtistDetailsApi {
   }
 
   static Future<int> getSongCount(String id) async {
-    final data = await _songsApiCall(id,  1, Category.alphabetical, Sort.asc);
+    final data = await _songsApiCall(id,  1);
     if(data['results'] == null) {
       return 0;
     }
