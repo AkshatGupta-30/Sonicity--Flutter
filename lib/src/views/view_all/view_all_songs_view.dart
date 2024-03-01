@@ -6,12 +6,17 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
+import 'package:iconify_flutter_plus/icons/material_symbols.dart';
+import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/utils/contants/enums.dart';
+import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
+import 'package:super_string/super_string.dart';
 
 class ViewAllSongsView extends StatelessWidget {
   ViewAllSongsView({super.key});
@@ -19,21 +24,20 @@ class ViewAllSongsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
-    return Container(
-      height: media.height,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.grey.shade800, Colors.black],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0.0, 1],
-          tileMode: TileMode.clamp,
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.grey.shade800, Colors.black],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.0, 1],
+            tileMode: TileMode.clamp,
+          ),
         ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
-        body: GetBuilder(
+        child: GetBuilder(
           init: ViewAllSearchSongsController(Get.arguments),
           builder: (controller) {
             if(controller.songs.isEmpty) {
@@ -41,32 +45,12 @@ class ViewAllSongsView extends StatelessWidget {
                 child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
               );
             }
-            return SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 15, top: 15),
-                    child: CircleAvatar(
-                      radius: 20, backgroundColor: Colors.black26,
-                      child: BackButton(color: Colors.white)
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _cover(media, controller),
-                          Gap(10),
-                          _displaySongs(controller),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            return CustomScrollView(
+              controller: controller.scrollController,
+              slivers: [
+                _appBar(media, controller),
+                _songList(controller)
+              ],
             );
           }
         ),
@@ -74,122 +58,175 @@ class ViewAllSongsView extends StatelessWidget {
     );
   }
 
-  Widget _cover(Size media, ViewAllSearchSongsController controller) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(10, 0 ,10, 10),
-      height: media.width / 2.5, width: double.maxFinite,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            height: media.width/2.5, width: media.width/2.5,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: (controller.songs.length < 4)
-                ? CachedNetworkImage(
-                imageUrl: controller.songs.first.image.standardQuality,
-                fit: BoxFit.cover, height: media.width/2.5, width: media.width/2.5,
-                errorWidget: (context, url, error) {
-                  return Image.asset(
-                    "assets/images/appLogo50x50.png",
-                    fit: BoxFit.cover, height: media.width/2.5, width: media.width/2.5,
-                  );
-                },
-                placeholder: (context, url) {
-                  return Image.asset(
-                    "assets/images/appLogo50x50.png",
-                    fit: BoxFit.cover, height: media.width/2.5, width: media.width/2.5,
-                  );
-                },
-              )
-              : GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  String image = controller.songs[index].image.standardQuality;
-                  return CachedNetworkImage(
-                    imageUrl: image, fit: BoxFit.cover,
-                    height: media.width/(2.6 * 2), width: media.width/(2.6 * 2),
+  SliverAppBar _appBar(Size media, ViewAllSearchSongsController controller) {
+    return SliverAppBar(
+      pinned: true, floating: true, snap:  true,
+      toolbarHeight: kToolbarHeight,
+      shadowColor: Colors.black87, surfaceTintColor: Colors.grey.shade900, backgroundColor: Colors.grey.shade900,
+      leading: BackButton(color: Colors.white),
+      centerTitle: true,
+      title: Text(
+        "Songs - ${Get.arguments}".title(), maxLines: 1, overflow: TextOverflow.ellipsis,
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+      ),
+      actions: [
+        PopupMenuButton(
+          itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                onTap: () => controller.sort(SortType.name, Sort.asc),
+                child: PopUpButtonRow(icon: Mdi.sort_alphabetical_ascending, label: "Name Asc")
+              ),
+              PopupMenuItem(
+                onTap: () => controller.sort(SortType.name, Sort.dsc),
+                child: PopUpButtonRow(icon: Mdi.sort_alphabetical_descending, label: "Name Desc")
+              ),
+              PopupMenuItem(
+                onTap: () => controller.sort(SortType.duration, Sort.asc),
+                child: PopUpButtonRow(icon: Mdi.sort_numeric_ascending, label: "Duration Asc")
+              ),
+              PopupMenuItem(
+                onTap: () => controller.sort(SortType.duration, Sort.dsc),
+                child: PopUpButtonRow(icon: Mdi.sort_numeric_descending, label: "Duration Desc")
+              ),
+              PopupMenuItem(
+                onTap: () => controller.sort(SortType.year, Sort.asc),
+                child: PopUpButtonRow(icon: Mdi.sort_calendar_ascending, label: "Year Asc")
+              ),
+              PopupMenuItem(
+                onTap: () => controller.sort(SortType.year, Sort.dsc),
+                child: PopUpButtonRow(icon: Mdi.sort_calendar_descending, label: "Year Desc")
+              ),
+            ];
+          },
+          icon: Iconify(MaterialSymbols.sort_rounded, color: Colors.white),
+          position: PopupMenuPosition.under, color: Colors.grey.shade900,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+        Gap(8)
+      ],
+      expandedHeight: 200 + kToolbarHeight,
+      flexibleSpace: FlexibleSpaceBar(
+        stretchModes: [StretchMode.blurBackground],
+        background: Container(
+          height: 200,
+          padding: EdgeInsets.only(top: kToolbarHeight), alignment: Alignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 160, width: 160,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: (controller.songs.length < 4)
+                    ? CachedNetworkImage(
+                    imageUrl: controller.songs.first.image.standardQuality,
+                    fit: BoxFit.cover, height: 160, width: 160,
                     errorWidget: (context, url, error) {
                       return Image.asset(
                         "assets/images/appLogo50x50.png",
-                        fit: BoxFit.cover, height: media.width/(2.6 * 2), width: media.width/(2.6 * 2),
+                        fit: BoxFit.cover, height: 160, width: 160,
                       );
                     },
                     placeholder: (context, url) {
                       return Image.asset(
                         "assets/images/appLogo50x50.png",
-                        fit: BoxFit.cover, height: media.width/(2.6 * 2), width: media.width/(2.6 * 2),
+                        fit: BoxFit.cover, height: 160, width: 160,
                       );
                     },
-                  );
-                },
-              ),
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Songs",
-                style: TextStyle(color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "${controller.songCount.value} Songs",
-                style: TextStyle(color: Colors.grey, fontSize: 15),
-              ),
-              Gap(12),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(// * : Play Button
-                    onTap: (){},
-                    borderRadius: BorderRadius.circular(15),
-                    child: Container(
-                      padding: EdgeInsets.only(left: 5, top: 10, right: 10, bottom: 10),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Colors.greenAccent, Colors.grey.shade200],
-                          begin: Alignment.topCenter, end: Alignment.bottomCenter,
-                          stops: [0.75, 1],
-                        ),
-                        borderRadius: BorderRadius.circular(15)
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Iconify(Ic.twotone_play_arrow, color: Colors.white, size: 30),
-                          Gap(3),
-                          Text("Play", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),)
-                        ],
-                      )
-                    ),
+                  )
+                  : GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                    itemCount: 4, shrinkWrap: true,
+                    padding: EdgeInsets.zero, physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      String image = controller.songs[index].image.standardQuality;
+                      return CachedNetworkImage(
+                        imageUrl: image, fit: BoxFit.cover,
+                        height: 40, width: 40,
+                        errorWidget: (context, url, error) {
+                          return Image.asset(
+                            "assets/images/appLogo50x50.png",
+                            fit: BoxFit.cover, height: 40, width: 40,
+                          );
+                        },
+                        placeholder: (context, url) {
+                          return Image.asset(
+                            "assets/images/appLogo50x50.png",
+                            fit: BoxFit.cover, height: 40, width: 40,
+                          );
+                        },
+                      );
+                    },
                   ),
-                  Gap(10),
-                  InkWell(
-                    onTap: (){},
-                    borderRadius: BorderRadius.circular(15),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.white)),
-                      child: Iconify(Ph.shuffle_duotone, color: Colors.white, size: 30)
-                    ),
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Songs",
+                    style: TextStyle(color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "${controller.songCount.value} Songs",
+                    style: TextStyle(color: Colors.grey, fontSize: 15),
+                  ),
+                  Gap(12),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(// * : Play Button
+                        onTap: (){},
+                        borderRadius: BorderRadius.circular(15),
+                        child: Container(
+                          padding: EdgeInsets.only(left: 5, top: 10, right: 10, bottom: 10),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [Colors.greenAccent, Colors.grey.shade200],
+                              begin: Alignment.topCenter, end: Alignment.bottomCenter,
+                              stops: [0.75, 1],
+                            ),
+                            borderRadius: BorderRadius.circular(15)
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Iconify(Ic.twotone_play_arrow, color: Colors.white, size: 30),
+                              Gap(3),
+                              Text("Play", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),)
+                            ],
+                          )
+                        ),
+                      ),
+                      Gap(10),
+                      InkWell(
+                        onTap: (){},
+                        borderRadius: BorderRadius.circular(15),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.white)),
+                          child: Iconify(Ph.shuffle_duotone, color: Colors.white, size: 30)
+                        ),
+                      ),
+                    ],
                   ),
                 ],
-              ),
+              )
             ],
-          )
-        ],
-      )
+          ),
+        ),
+      ),
     );
   }
 
-  Widget _displaySongs(ViewAllSearchSongsController controller) {
-    return Obx(() => Expanded(
-      child: ListView.builder(
-        controller: controller.scrollController,
+  SliverPadding _songList(ViewAllSearchSongsController controller) {
+    return SliverPadding(
+      padding: EdgeInsets.all(15),
+      sliver: SliverList.builder(
         itemCount: (controller.isLoadingMore.value)
           ? controller.songs.length + 1
           : controller.songs.length,
@@ -202,6 +239,6 @@ class ViewAllSongsView extends StatelessWidget {
           }
         },
       ),
-    ));
+    );
   }
 }
