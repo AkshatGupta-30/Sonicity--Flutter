@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/services/search_artist_api.dart';
+import 'package:sonicity/utils/contants/enums.dart';
 
 class ViewAllSearchArtistsController extends GetxController {
   final String searchText;
@@ -39,6 +40,19 @@ class ViewAllSearchArtistsController extends GetxController {
   Future<void> fetchArtists(String text, int page) async {
     List<Artist> fetchedList = await SearchArtistsApi.fetchData(text, page);
     artists.addAll(fetchedList);
+    update();
+  }
+
+  void sort(SortType sortType, Sort sortBy) {
+    if(sortType == SortType.name) {
+      (sortBy == Sort.asc)
+        ? artists.sort((a, b) => a.name.compareTo(b.name))
+        : artists.sort((a, b) => b.name.compareTo(a.name));
+    } else {
+      (sortBy == Sort.asc)
+        ? artists.sort((a, b) => a.description!.compareTo(b.description!))
+        : artists.sort((a, b) => b.description!.compareTo(a.description!));
+    }
     update();
   }
 
