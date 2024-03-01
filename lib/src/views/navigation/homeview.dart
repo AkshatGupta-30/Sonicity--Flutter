@@ -18,6 +18,7 @@ import 'package:sonicity/utils/widgets/search_widgte.dart';
 class HomeView extends StatelessWidget{
   HomeView({super.key});
 
+  final controller = Get.put(HomeViewController());
   final scrollController = ScrollController();
   final padding = 0.obs;
 
@@ -25,55 +26,50 @@ class HomeView extends StatelessWidget{
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     EdgeInsets safeArea = MediaQuery.paddingOf(context);
-    return GetBuilder(
-      init: HomeViewController(),
-      builder: (controller) {
-        return Scaffold(
-          backgroundColor: Colors.black,
-          drawer: Drawer(),
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0, 1],
-                tileMode: TileMode.clamp,
-              ),
-            ),
-            child: Obx(
-              () {
-                return CustomScrollView(
-                  controller: scrollController,
-                  slivers: [
-                    _appBar(media, safeArea),
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Gap(20),
-                            TrendingNowSection(media: media, homeController: controller),
-                            Gap(20),
-                            TopChartsSection(media: media, topCharts: controller.home.value.topCharts),
-                            Gap(20),
-                            if(controller.home.value.lastSession.isNotEmpty)
-                              LastSessionSection(media: media, homeController: controller),
-                            Gap(20),
-                            TopAlbumsSection(media: media, topAlbums: controller.home.value.topAlbums),
-                            Gap(20),
-                            HotPlaylistSection(media: media, hotPlaylists: controller.home.value.hotPlaylists),
-                          ]
-                        ),
-                      )
-                    ),
-                  ],
-                );
-              }
-            ),
+    return Scaffold(
+      backgroundColor: Colors.black,
+      drawer: Drawer(),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0, 1],
+            tileMode: TileMode.clamp,
           ),
-        );
-      }
+        ),
+        child: Obx(
+          () {
+            return CustomScrollView(
+              controller: scrollController,
+              slivers: [
+                _appBar(media, safeArea),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Gap(20),
+                        TrendingNowSection(media: media, homeController: controller),
+                        Gap(20),
+                        TopChartsSection(media: media, topCharts: controller.home.value.topCharts),
+                        Gap(20),
+                        if(controller.home.value.lastSession.isNotEmpty)
+                          LastSessionSection(media: media, homeController: controller),
+                        Gap(20),
+                        TopAlbumsSection(media: media, topAlbums: controller.home.value.topAlbums),
+                        Gap(20),
+                        HotPlaylistSection(media: media, hotPlaylists: controller.home.value.hotPlaylists),
+                      ]
+                    ),
+                  )
+                ),
+              ],
+            );
+          }
+        ),
+      ),
     );
   }
 

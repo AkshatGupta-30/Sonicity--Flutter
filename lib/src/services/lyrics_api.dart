@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sonicity/src/models/lyrics.dart';
 import 'package:sonicity/src/models/song.dart';
@@ -21,7 +20,6 @@ class LyricsApi {
       return Lyrics.empty();
     }
     final data = await _apiCall(song.id);
-    jsonEncode(data).toString().printInfo();
     return Lyrics.details(data);
   }
 }

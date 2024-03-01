@@ -53,8 +53,8 @@ class ArtistDetailsApi {
     return albums;
   }
 
-  static Future<int> getAlbumCount(String id, int page, Category category, Sort sort) async {
-    final data = await _albumsApiCall(id, page, category, sort);
+  static Future<int> getAlbumCount(String id) async {
+    final data = await _albumsApiCall(id, 1, Category.alphabetical, Sort.asc);
     if(data['results'] == null) {
       return 0;
     }
@@ -68,13 +68,13 @@ class ArtistDetailsApi {
     }
     List<Song> songs = [];
     for (var element in data['results']) {
-      songs.add(Song.detail(element));
+      songs.add(Song.forPlay(element));
     }
     return songs;
   }
 
-  static Future<int> getSongCount(String id, int page, Category category, Sort sort) async {
-    final data = await _songsApiCall(id, page, category, sort);
+  static Future<int> getSongCount(String id) async {
+    final data = await _songsApiCall(id,  1, Category.alphabetical, Sort.asc);
     if(data['results'] == null) {
       return 0;
     }

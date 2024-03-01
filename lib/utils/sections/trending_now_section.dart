@@ -102,7 +102,7 @@ class TrendingNowSection extends StatelessWidget {
                       autoPlay: true, autoPlayAnimationDuration: Duration(milliseconds: 700),
                       autoPlayInterval: Duration(seconds: 8),
                       initialPage: 0, enlargeCenterPage: true,
-                      enableInfiniteScroll: (homeController.home.value.trendingNow.songs.length > 2)
+                      enableInfiniteScroll: (homeController.home.value.trendingNow.songs.length != 1)
                     ),
                   ),
                   CarouselSlider.builder(

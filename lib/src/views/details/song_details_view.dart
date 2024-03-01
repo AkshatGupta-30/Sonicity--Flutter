@@ -22,7 +22,7 @@ import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:sonicity/utils/sections/download_url_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
-import 'package:sonicity/utils/widgets/artist_widgte.dart';
+import 'package:sonicity/utils/widgets/artist_widget.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:super_string/super_string.dart';
 
@@ -284,6 +284,7 @@ class SongDetailsView extends StatelessWidget {
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: ExpandableFab(
+        key: Key("Song_details_view_floating_button"),
         duration: Duration(milliseconds: 250),
         distance: 100.0,
         type: ExpandableFabType.fan,

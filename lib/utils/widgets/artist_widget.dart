@@ -8,7 +8,7 @@ import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/src/views/todo/todo_view.dart';
+import 'package:sonicity/src/views/details/artist_details_view.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class ArtistRow extends StatelessWidget {
@@ -20,7 +20,7 @@ class ArtistRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ToDoView(text: "Artist Details"));
+        Get.to(() => ArtistDetailsView(artist.id));
       },
       child: Container(
         height: 60, width: double.maxFinite,
@@ -105,39 +105,44 @@ class ArtistCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 160,
-      padding: EdgeInsets.symmetric(horizontal: 5),
-      child: Column(
-        children: [
-          ClipOval(
-            child: CachedNetworkImage(
-              imageUrl: artist.image!.standardQuality, fit: BoxFit.fill, height: 140, width: 140,
-              placeholder: (context, url) {
-                return Image.asset(
-                  "assets/images/appLogo150x150.png",
-                  fit: BoxFit.fill, height: 140, width: 140
-                );
-              },
-              errorWidget: (context, url, error) {
-                return Image.asset(
-                  "assets/images/appLogo150x150.png",
-                  fit: BoxFit.fill, height: 140, width: 140,
-                );
-              },
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => ArtistDetailsView(artist.id));
+      },
+      child: Container(
+        width: 160,
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        child: Column(
+          children: [
+            ClipOval(
+              child: CachedNetworkImage(
+                imageUrl: artist.image!.standardQuality, fit: BoxFit.fill, height: 140, width: 140,
+                placeholder: (context, url) {
+                  return Image.asset(
+                    "assets/images/appLogo150x150.png",
+                    fit: BoxFit.fill, height: 140, width: 140
+                  );
+                },
+                errorWidget: (context, url, error) {
+                  return Image.asset(
+                    "assets/images/appLogo150x150.png",
+                    fit: BoxFit.fill, height: 140, width: 140,
+                  );
+                },
+              ),
             ),
-          ),
-          Gap(2),
-          Text(
-            artist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.grey.shade50, fontSize: 16)
-          ),
-          if(subtitle.isNotEmpty)
+            Gap(2),
             Text(
-              subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.grey.shade400, fontSize: 12)
+              artist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: Colors.grey.shade50, fontSize: 16)
             ),
-        ],
+            if(subtitle.isNotEmpty)
+              Text(
+                subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: Colors.grey.shade400, fontSize: 12)
+              ),
+          ],
+        ),
       ),
     );
   }
