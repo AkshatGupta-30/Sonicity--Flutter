@@ -37,15 +37,23 @@ class ShimmerCard extends StatelessWidget {
             direction: ShimmerDirection.ltr,
             period: Duration(milliseconds: 750),
             child: Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, bottom: 20),
+              padding: EdgeInsets.only(left: 16, right: 0, bottom: 20),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end, crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(width: media.width/2, height: 20, color: Colors.black,),
+                  Gap(10),
+                  Row(children: [Spacer(), Iconify(Ic.sharp_more_vert, color: Colors.grey.shade100, size: 32), Gap(6)]),
+                  Spacer(),
+                  Container(
+                    width: media.width/2, height: 20,
+                    decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(20)),
+                  ),
                   Gap(5),
-                  Container(width: media.width/3, height: 14, color: Colors.black,),
+                  Container(
+                    width: media.width/3, height: 14,
+                    decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(20)),
+                  ),
                 ],
               ),
             ),

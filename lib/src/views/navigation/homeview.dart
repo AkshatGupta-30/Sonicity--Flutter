@@ -24,8 +24,7 @@ class HomeView extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.sizeOf(context);
-    EdgeInsets safeArea = MediaQuery.paddingOf(context);
+    Size media = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: Colors.black,
       drawer: Drawer(),
@@ -42,34 +41,15 @@ class HomeView extends StatelessWidget{
         child: Obx(() => CustomScrollView(
           controller: scrollController,
           slivers: [
-            _appBar(media, safeArea),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Gap(20),
-                    TrendingNowSection(media: media, homeController: controller),
-                    Gap(20),
-                    TopChartsSection(media: media, topCharts: controller.home.value.topCharts),
-                    Gap(20),
-                    if(controller.home.value.lastSession.isNotEmpty)
-                      LastSessionSection(media: media, homeController: controller),
-                    Gap(20),
-                    TopAlbumsSection(media: media, topAlbums: controller.home.value.topAlbums),
-                    Gap(20),
-                    HotPlaylistSection(media: media, hotPlaylists: controller.home.value.hotPlaylists),
-                  ]
-                ),
-              )
-            ),
+            _appBar(media),
+            _content(media),
           ],
         )),
       ),
     );
   }
 
-  SliverAppBar _appBar(Size media, EdgeInsets safeArea) {
+  SliverAppBar _appBar(Size media) {
     return SliverAppBar(
       pinned: true,
       toolbarHeight: 75, backgroundColor: Colors.grey.shade900,
@@ -93,6 +73,29 @@ class HomeView extends StatelessWidget{
         background: Image.asset("assets/images/concert.jpg", fit: BoxFit.fill, filterQuality: FilterQuality.low),
         stretchModes: [StretchMode.blurBackground],
       ),
+    );
+  }
+
+  SliverToBoxAdapter _content(Size media) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Gap(20),
+            TrendingNowSection(media: media, homeController: controller),
+            Gap(20),
+            TopChartsSection(media: media, topCharts: controller.home.value.topCharts),
+            Gap(20),
+            if(controller.home.value.lastSession.isNotEmpty)
+              LastSessionSection(media: media, homeController: controller),
+            Gap(20),
+            TopAlbumsSection(media: media, topAlbums: controller.home.value.topAlbums),
+            Gap(20),
+            HotPlaylistSection(media: media, hotPlaylists: controller.home.value.hotPlaylists),
+          ]
+        ),
+      )
     );
   }
 }
