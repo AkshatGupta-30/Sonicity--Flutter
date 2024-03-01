@@ -20,7 +20,10 @@ class PlaylistCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => PlaylistDetailsView(playlist.id));
+        Get.to(
+          () => PlaylistDetailsView(),
+          arguments: playlist.id
+        );
       },
       child: Container(
         width: 140,
@@ -73,7 +76,10 @@ class PlaylistRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => PlaylistDetailsView(playlist.id));
+        Get.to(
+          () => PlaylistDetailsView(),
+          arguments: playlist.id
+        );
       },
       child: Container(
         height: 60, width: double.maxFinite,

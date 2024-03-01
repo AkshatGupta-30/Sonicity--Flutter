@@ -22,14 +22,13 @@ import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 
 class ArtistDetailsView extends StatelessWidget {
-  final String artistId;
-  ArtistDetailsView(this.artistId, {super.key});
+  ArtistDetailsView({super.key});
 
   @override
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
     return GetBuilder(
-      init: ArtistDetailController(artistId),
+      init: ArtistDetailController(Get.arguments),
       builder: (controller) {
         return Scaffold(
           backgroundColor: Colors.black,

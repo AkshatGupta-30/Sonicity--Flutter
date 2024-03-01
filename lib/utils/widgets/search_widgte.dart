@@ -12,7 +12,7 @@ import 'package:sonicity/utils/contants/colors.dart';
 
 class SearchContainer extends StatelessWidget {
   final Size media;
-  const SearchContainer({super.key, required this.media});
+  SearchContainer({super.key, required this.media});
 
   @override
   Widget build(BuildContext context) {

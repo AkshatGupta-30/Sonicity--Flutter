@@ -22,8 +22,7 @@ import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 
 class PlaylistDetailsView extends StatelessWidget {
-  final String playlistId;
-  PlaylistDetailsView(this.playlistId, {super.key});
+  PlaylistDetailsView({super.key});
   
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,7 @@ class PlaylistDetailsView extends StatelessWidget {
           ),
         ),
         child: GetBuilder(
-          init: PlaylistDetailController(playlistId),
+          init: PlaylistDetailController(Get.arguments),
           builder: (controller) {
             return Obx(
               () {

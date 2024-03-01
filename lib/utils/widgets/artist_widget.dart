@@ -20,7 +20,10 @@ class ArtistRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ArtistDetailsView(artist.id));
+        Get.to(
+          () => ArtistDetailsView(),
+          arguments: artist.id
+        );
       },
       child: Container(
         height: 60, width: double.maxFinite,
@@ -107,7 +110,10 @@ class ArtistCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ArtistDetailsView(artist.id));
+        Get.to(
+          () => ArtistDetailsView(),
+          arguments: artist.id
+        );
       },
       child: Container(
         width: 160,

@@ -32,7 +32,7 @@ class ReportSheet extends StatelessWidget {
                     style: TextStyle(fontSize: 16),
                   ),
                   TextField(
-                    key: const Key('text_input_field'),
+                    key: Key('text_input_field'),
                     controller: textController,
                     textInputAction: TextInputAction.done,
                     style: TextStyle(color: Colors.grey.shade300),
@@ -41,19 +41,19 @@ class ReportSheet extends StatelessWidget {
                 ],
               ),
               if (scrollController != null)
-                const FeedbackSheetDragHandle(),
+                FeedbackSheetDragHandle(),
             ],
           ),
         ),
         TextButton(
-          key: const Key('submit_feedback_button'),
+          key: Key('submit_feedback_button'),
           child: Text(
             "Submit",
             style: TextStyle(color: Colors.blue, fontSize: 15),
           ),
           onPressed: () => onSubmit(textController.text),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: 8),
       ],
     );
   }
@@ -72,10 +72,10 @@ class SpiderReport extends StatelessWidget {
           BetterFeedback.of(context).show(
             (feedback) async {
               final storageMethods = Get.find<StorageMethods>();
-              String downloadUrl = await storageMethods.uploadReportScreenshot(feedback.screenshot, Views.navigation);
+              String downloadUrl = await storageMethods.uploadReportScreenshot(feedback.screenshot, Routes.navigation);
               final databaseMethods = Get.find<DatabaseMethods>();
               Report report = Report.fromJson(downlodUrl: downloadUrl, message: feedback.text);
-              databaseMethods.uploadReport(report: report, views: Views.navigation).then(
+              databaseMethods.uploadReport(report: report, views: Routes.navigation).then(
                 (_) => Get.snackbar(
                   "", "", snackPosition: SnackPosition.BOTTOM,
                   backgroundColor: Colors.grey.shade800,

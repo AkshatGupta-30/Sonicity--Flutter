@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -8,7 +8,7 @@ import 'package:iconify_flutter_plus/icons/ri.dart';
 class SearchHistoryCell extends StatelessWidget {
   final String itemText;
   final VoidCallback onTap, onRemove;
-  const SearchHistoryCell({super.key, required this.itemText, required this.onTap, required this.onRemove});
+  SearchHistoryCell({super.key, required this.itemText, required this.onTap, required this.onRemove});
 
   @override
   Widget build(BuildContext context) {

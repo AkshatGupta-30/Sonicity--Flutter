@@ -13,14 +13,17 @@ import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class AlbumCard extends StatelessWidget {
   final Album album;
-  const AlbumCard({super.key, required this.album});
+  AlbumCard({super.key, required this.album});
 
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return GestureDetector(
       onTap: () {
-        Get.to(() => AlbumDetailsView(album.id));
+        Get.to(
+          () => AlbumDetailsView(),
+          arguments: album.id
+        );
       },
       child: Container(
         width: media.width/1.25, height: media.width/1.25,
@@ -117,7 +120,10 @@ class AlbumCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => AlbumDetailsView(album.id));
+        Get.to(
+          () => AlbumDetailsView(),
+          arguments: album.id
+        );
       },
       child: Container(
         width: 140,
@@ -168,13 +174,17 @@ class AlbumRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60, width: double.maxFinite,
-      margin: EdgeInsets.only(bottom: 10),
-      child: GestureDetector(
-        onTap: () {
-          Get.to(() => AlbumDetailsView(album.id));
-        },
+    return GestureDetector(
+      onTap: () {
+        Get.to(
+          () => AlbumDetailsView(),
+          arguments: album.id
+        );
+      },
+      child: Container(
+        height: 60,
+        width: double.maxFinite,
+        margin: EdgeInsets.only(bottom: 10),
         child: Row(
           children: [
             ClipRRect(

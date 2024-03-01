@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ import 'package:sonicity/utils/sections/title_section.dart';
 class TrendingNowSection extends StatelessWidget {
   final Size media;
   final HomeViewController homeController;
-  const TrendingNowSection({super.key, required this.media, required this.homeController});
+  TrendingNowSection({super.key, required this.media, required this.homeController});
 
   @override
   Widget build(BuildContext context) {

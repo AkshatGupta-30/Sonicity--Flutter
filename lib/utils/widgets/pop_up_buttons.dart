@@ -1,11 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 
 class PopUpButtonRow extends StatelessWidget {
-  const PopUpButtonRow({
+  PopUpButtonRow({
     super.key,
     required this.icon,
     required this.label,

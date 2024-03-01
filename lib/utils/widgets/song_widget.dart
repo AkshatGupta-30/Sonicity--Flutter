@@ -11,6 +11,7 @@ import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
+import 'package:sonicity/src/views/details/album_details_view.dart';
 import 'package:sonicity/src/views/details/song_details_view.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
@@ -138,7 +139,7 @@ class SongsRow extends StatelessWidget {
 
 class SongPopUpMenu extends StatelessWidget {
   final Song song;
-  const SongPopUpMenu({super.key, required this.song});
+  SongPopUpMenu({super.key, required this.song});
 
   @override
   Widget build(BuildContext context) {
@@ -163,12 +164,21 @@ class SongPopUpMenu extends StatelessWidget {
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),
+            onTap: () {
+              Get.to(
+                () => AlbumDetailsView(),
+                arguments: song.album!.id
+              );
+            },
             child: PopUpButtonRow(icon: MaterialSymbols.album, label: "View Album"),
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),
             onTap: () {
-              Get.to(() => SongDetailsView(song.id));
+              Get.to(
+                () => SongDetailsView(),
+                arguments: song.id
+              );
             },
             child: PopUpButtonRow(icon: Entypo.info_with_circle, label: "Song Info"),
           )

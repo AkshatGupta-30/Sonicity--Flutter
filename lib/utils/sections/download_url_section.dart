@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +10,7 @@ import 'package:sonicity/src/views/todo/todo_view.dart';
 
 class DownloadUrlSection extends StatelessWidget {
   final DownloadUrl downloadUrl;
-  const DownloadUrlSection({super.key, required this.downloadUrl});
+  DownloadUrlSection({super.key, required this.downloadUrl});
 
   @override
   Widget build(BuildContext context) {

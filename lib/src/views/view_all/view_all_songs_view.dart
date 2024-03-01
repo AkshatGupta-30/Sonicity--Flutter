@@ -14,8 +14,7 @@ import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 
 class ViewAllSongsView extends StatelessWidget {
-  final String searchText;
-  ViewAllSongsView({super.key, required this.searchText});
+  ViewAllSongsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class ViewAllSongsView extends StatelessWidget {
           colors: [Colors.grey.shade800, Colors.black],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          stops: const [0.0, 1],
+          stops: [0.0, 1],
           tileMode: TileMode.clamp,
         ),
       ),
@@ -35,7 +34,7 @@ class ViewAllSongsView extends StatelessWidget {
         backgroundColor: Colors.transparent,
         floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
         body: GetBuilder(
-          init: ViewAllSearchSongsController(searchText),
+          init: ViewAllSearchSongsController(Get.arguments),
           builder: (controller) {
             if(controller.songs.isEmpty) {
               return Center(

@@ -8,7 +8,7 @@ class StorageMethods extends GetxController {
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   // * : Adding feedback screenshot to firebase Storage
-  Future<String> uploadReportScreenshot(Uint8List file, Views views) async {
+  Future<String> uploadReportScreenshot(Uint8List file, Routes views) async {
     Reference ref = _storage.ref().child(StorageCollections.report.toText).child(views.toText).child(DateTime.now().toString());
     UploadTask uploadTask = ref.putData(file);
 

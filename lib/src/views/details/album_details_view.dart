@@ -24,8 +24,7 @@ import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 
 class AlbumDetailsView extends StatelessWidget {
-  final String albumId;
-  AlbumDetailsView(this.albumId, {super.key});
+  AlbumDetailsView({super.key});
   
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class AlbumDetailsView extends StatelessWidget {
           ),
         ),
         child: GetBuilder(
-          init: AlbumDetailController(albumId),
+          init: AlbumDetailController(Get.arguments),
           builder: (controller) {
             return Obx(
               () {

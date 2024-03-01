@@ -5,7 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sonicity/firebase_options.dart';
 import 'package:sonicity/src/firebase/database_methods.dart';
 import 'package:sonicity/src/firebase/storage_methods.dart';
@@ -23,24 +22,8 @@ Future<void> main() async {
   runApp(MainApp());
 }
 
-class MainApp extends StatefulWidget {
+class MainApp extends StatelessWidget {
   MainApp({super.key});
-
-  @override
-  State<MainApp> createState() => _MainAppState();
-}
-
-class _MainAppState extends State<MainApp> {
-  @override
-  void initState() {
-    requestPermission();
-    super.initState();
-  }
-
-  void requestPermission() async {
-    await Permission.storage.request();
-    await Permission.manageExternalStorage.request();
-  }
 
   @override
   Widget build(BuildContext context) {

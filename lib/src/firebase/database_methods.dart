@@ -4,7 +4,7 @@ import 'package:sonicity/src/models/report.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 
 class DatabaseMethods extends GetxController{
-  Future<void> uploadReport({required Report report, required Views views}) async {
+  Future<void> uploadReport({required Report report, required Routes views}) async {
     await FirebaseFirestore.instance
     .collection(FirebaseCollections.report.toText)
     .doc(DateTime.now().toString())

@@ -27,7 +27,7 @@ class WelcomeView extends StatelessWidget {
         body: SafeArea(
           child: Container(
             width: media.width, height: media.height,
-            padding: const EdgeInsets.all(25),
+            padding: EdgeInsets.all(25),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

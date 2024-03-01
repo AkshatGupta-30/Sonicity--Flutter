@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -12,37 +12,45 @@ import 'package:sonicity/utils/widgets/report_widget.dart';
 class ViewAllArtistsView extends StatelessWidget {
   ViewAllArtistsView({super.key});
 
-  final viewAllController = Get.find<ViewAllSearchArtistsController>();
-
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: Colors.black,
       floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
-      body: Container(
-        height: media.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0, 1],
-            tileMode: TileMode.clamp,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _cover(media),
-            _displayArtists(media)
-          ],
-        ),
+      body: GetBuilder(
+        init: ViewAllSearchArtistsController(Get.arguments),
+        builder: (controller) {
+          if(controller.artists.isEmpty) {
+            return Center(
+              child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+            );
+          }
+          return Container(
+            height: media.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0, 1],
+                tileMode: TileMode.clamp,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _cover(media, controller),
+                _displayArtists(media, controller)
+              ],
+            ),
+          );
+        }
       ),
     );
   }
 
-  Widget _cover(Size media) {
+  Widget _cover(Size media, ViewAllSearchArtistsController controller) {
     double imageSize = 100;
     return Obx(
       () {
@@ -53,9 +61,9 @@ class ViewAllArtistsView extends StatelessWidget {
             children: [
               SizedBox(
                 height: media.width/1.2, width: double.maxFinite,
-                child: (viewAllController.artists.length < 6)
+                child: (controller.artists.length < 6)
                 ? CachedNetworkImage(
-                  imageUrl: viewAllController.artists.first.image!.highQuality, fit: BoxFit.cover,
+                  imageUrl: controller.artists.first.image!.highQuality, fit: BoxFit.cover,
                   height: media.width/1.15, width: media.width/2,
                   errorWidget: (context, url, error) {
                     return Image.network("https://images.pexels.com/photos/1389429/pexels-photo-1389429.jpeg", fit: BoxFit.cover, height: media.width/1.15, width: media.width/2,);
@@ -69,27 +77,27 @@ class ViewAllArtistsView extends StatelessWidget {
                     children: [
                       Positioned(
                         top: media.width/10, left: 20,
-                        child: CoverImages(image: viewAllController.artists[0].image!.standardQuality, size: imageSize)
+                        child: CoverImages(image: controller.artists[0].image!.standardQuality, size: imageSize)
                       ),
                       Positioned(
                         top: 10, left: media.width/2 - imageSize/2,
-                        child: CoverImages(image: viewAllController.artists[1].image!.standardQuality, size: imageSize)
+                        child: CoverImages(image: controller.artists[1].image!.standardQuality, size: imageSize)
                       ),
                       Positioned(
                         top: media.width/10, right: 20,
-                        child: CoverImages(image: viewAllController.artists[2].image!.standardQuality, size: imageSize)
+                        child: CoverImages(image: controller.artists[2].image!.standardQuality, size: imageSize)
                       ),
                       Positioned(
                         bottom: media.width/10, left: 20,
-                        child: CoverImages(image: viewAllController.artists[3].image!.standardQuality, size: imageSize)
+                        child: CoverImages(image: controller.artists[3].image!.standardQuality, size: imageSize)
                       ),
                       Positioned(
                         bottom: 10, left: media.width/2 - imageSize/2,
-                        child: CoverImages(image: viewAllController.artists[4].image!.standardQuality, size: imageSize)
+                        child: CoverImages(image: controller.artists[4].image!.standardQuality, size: imageSize)
                       ),
                       Positioned(
                         bottom: media.width/10, right: 20,
-                        child: CoverImages(image: viewAllController.artists[5].image!.standardQuality, size: imageSize)
+                        child: CoverImages(image: controller.artists[5].image!.standardQuality, size: imageSize)
                       ),
                     ],
                   ),
@@ -119,7 +127,7 @@ class ViewAllArtistsView extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "${viewAllController.artistCount.value} Artists",
+                      "${controller.artistCount.value} Artists",
                       style: TextStyle(color: Colors.grey.shade300, fontSize: 25),
                     ),
                   ],
@@ -132,20 +140,20 @@ class ViewAllArtistsView extends StatelessWidget {
     );
   }
 
-  Widget _displayArtists(Size media) {
+  Widget _displayArtists(Size media, ViewAllSearchArtistsController controller) {
     return Obx(
       () {
         return SizedBox(
           height: media.height - media.width/1.2,
           child: ListView.builder(
             padding: EdgeInsets.all(15),
-            controller: viewAllController.scrollController,
-            itemCount: (viewAllController.isLoadingMore.value)
-              ? viewAllController.artists.length + 1
-              : viewAllController.artists.length,
+            controller: controller.scrollController,
+            itemCount: (controller.isLoadingMore.value)
+              ? controller.artists.length + 1
+              : controller.artists.length,
             itemBuilder: (context, index) {
-              if(index < viewAllController.artists.length) {
-                Artist artist = viewAllController.artists[index];
+              if(index < controller.artists.length) {
+                Artist artist = controller.artists[index];
                 return ArtistRow(artist: artist, subtitle: artist.description!);
               } else {
                 return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
@@ -161,7 +169,7 @@ class ViewAllArtistsView extends StatelessWidget {
 class CoverImages extends StatelessWidget {
   final String image;
   final double size;
-  const CoverImages({super.key, required this.image, required this.size});
+  CoverImages({super.key, required this.image, required this.size});
 
 
   @override

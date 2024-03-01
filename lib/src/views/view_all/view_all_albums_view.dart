@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -12,37 +12,70 @@ import 'package:sonicity/utils/widgets/report_widget.dart';
 class ViewAllAlbumsView extends StatelessWidget {
   ViewAllAlbumsView({super.key});
 
-  final viewAllController = Get.find<ViewAllSearchAlbumsController>();
-
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: Colors.black,
       floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
-      body: Container(
-        height: media.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0, 1],
-            tileMode: TileMode.clamp,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _cover(media),
-            _displayAlbums(media)
-          ],
-        ),
+      body: GetBuilder(
+        init: ViewAllSearchAlbumsController(Get.arguments),
+        builder: (controller) {
+          if(controller.albums.isEmpty) {
+            return Center(
+              child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+            );
+          }
+          return Container(
+            height: media.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0, 1],
+                tileMode: TileMode.clamp,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _coverImage(media, controller),
+                _displayAlbums(media, controller)
+              ],
+            ),
+          );
+        }
       ),
     );
   }
 
-  Widget _cover(Size media) {
+  Obx _displayAlbums(Size media, ViewAllSearchAlbumsController controller) {
+    return Obx(
+      () {
+        return SizedBox(
+          height: media.height - media.width/1.2,
+          child: ListView.builder(
+            padding: EdgeInsets.all(15),
+            controller: controller.scrollController,
+            itemCount: (controller.isLoadingMore.value)
+              ? controller.albums.length + 1
+              : controller.albums.length,
+            itemBuilder: (context, index) {
+              if(index < controller.albums.length) {
+                Album album = controller.albums[index];
+                return AlbumRow(album: album, subtitle: "${album.songCount!} Songs");
+              } else {
+                return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
+              }
+            },
+          ),
+        );
+      }
+    );
+  }
+
+  Obx _coverImage(Size media, ViewAllSearchAlbumsController controller) {
     return Obx(
       () {
         return SizedBox(
@@ -50,9 +83,9 @@ class ViewAllAlbumsView extends StatelessWidget {
           child: Stack(
             alignment: Alignment.bottomLeft,
             children: [
-              (viewAllController.albums.length < 4)
+              (controller.albums.length < 4)
               ? CachedNetworkImage(
-                imageUrl: viewAllController.albums.first.image!.standardQuality,
+                imageUrl: controller.albums.first.image!.standardQuality,
                 fit: BoxFit.cover, height: media.width/1.2, width: media.width/2,
                 errorWidget: (context, url, error) {
                   return Image.asset(
@@ -72,7 +105,7 @@ class ViewAllAlbumsView extends StatelessWidget {
                 itemCount: 4,
                 itemBuilder: (context, index) {
                   return CachedNetworkImage(
-                    imageUrl: viewAllController.albums[index].image!.standardQuality,
+                    imageUrl: controller.albums[index].image!.standardQuality,
                     fit: BoxFit.cover,
                     errorWidget: (context, url, error) {
                       return Image.asset(
@@ -110,38 +143,13 @@ class ViewAllAlbumsView extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "${viewAllController.albumCount.value} Albums",
+                      "${controller.albumCount.value} Albums",
                       style: TextStyle(color: Colors.grey.shade200, fontSize: 25),
                     ),
                   ],
                 ),
               )
             ],
-          ),
-        );
-      }
-    );
-  }
-
-  Widget _displayAlbums(Size media) {
-    return Obx(
-      () {
-        return SizedBox(
-          height: media.height - media.width/1.2,
-          child: ListView.builder(
-            padding: EdgeInsets.all(15),
-            controller: viewAllController.scrollController,
-            itemCount: (viewAllController.isLoadingMore.value)
-              ? viewAllController.albums.length + 1
-              : viewAllController.albums.length,
-            itemBuilder: (context, index) {
-              if(index < viewAllController.albums.length) {
-                Album album = viewAllController.albums[index];
-                return AlbumRow(album: album, subtitle: "${album.songCount!} Songs");
-              } else {
-                return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
-              }
-            },
           ),
         );
       }

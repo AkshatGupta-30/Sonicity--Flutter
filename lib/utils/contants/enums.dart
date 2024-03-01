@@ -1,4 +1,4 @@
-enum Views {
+enum Routes {
   navigation, home, library, queue,
   searchAll, viewAllSearchSong, viewAllSearchAlbum, viewAllSearchArtist, viewAllSearchPlaylist,
   songDetails, albumDetails, artistDetails, playlistDetails,
@@ -6,28 +6,28 @@ enum Views {
 
   String get toText {
     switch(this) {
-      case Views.navigation: return "Navigation";
-      case Views.home: return "HomeView";
-      case Views.library: return "LibraryView";
-      case Views.queue: return "QueueView";
-      case Views.searchAll: return "SearchAllView";
-      case Views.viewAllSearchSong: return "ViewAllSearchSongView";
-      case Views.viewAllSearchAlbum: return "ViewAllSearchAlbumView";
-      case Views.viewAllSearchArtist: return "ViewAllSearchArtistView";
-      case Views.viewAllSearchPlaylist: return "ViewAllSearch PlaylistView";
-      case Views.songDetails: return "Song DetailsView";
-      case Views.albumDetails: return "Album DetailsView";
-      case Views.artistDetails: return "Artist DetailsView";
-      case Views.playlistDetails: return "Playlist DetailsView";
-      case Views.allSongs: return "AllSongsView";
-      case Views.recentsSongs: return "RecentsSongsView";
-      case Views.starred: return "StarredView";
-      case Views.myStorage: return "MyStorageView";
-      case Views.allPlaylists: return "All PlaylistsView";
-      case Views.allAlbums: return "AllAlbumsView";
-      case Views.allArtists: return "AllArtistsView";
-      case Views.stats: return "StatsView";
-      default: return "ToDoView";
+      case Routes.navigation: return "/Navigation";
+      case Routes.home: return "/HomeView";
+      case Routes.library: return "/LibraryView";
+      case Routes.queue: return "/QueueView";
+      case Routes.searchAll: return "/SearchAllView";
+      case Routes.viewAllSearchSong: return "/ViewAllSearchSongView";
+      case Routes.viewAllSearchAlbum: return "/ViewAllSearchAlbumView";
+      case Routes.viewAllSearchArtist: return "/ViewAllSearchArtistView";
+      case Routes.viewAllSearchPlaylist: return "/ViewAllSearch PlaylistView";
+      case Routes.songDetails: return "/Song DetailsView";
+      case Routes.albumDetails: return "/Album DetailsView";
+      case Routes.artistDetails: return "/Artist DetailsView";
+      case Routes.playlistDetails: return "/Playlist DetailsView";
+      case Routes.allSongs: return "/AllSongsView";
+      case Routes.recentsSongs: return "/RecentsSongsView";
+      case Routes.starred: return "/StarredView";
+      case Routes.myStorage: return "/MyStorageView";
+      case Routes.allPlaylists: return "/All PlaylistsView";
+      case Routes.allAlbums: return "/AllAlbumsView";
+      case Routes.allArtists: return "/AllArtistsView";
+      case Routes.stats: return "/StatsView";
+      default: return "/ToDoView";
     }
   }
 }

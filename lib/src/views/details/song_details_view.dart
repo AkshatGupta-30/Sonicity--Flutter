@@ -27,8 +27,7 @@ import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:super_string/super_string.dart';
 
 class SongDetailsView extends StatelessWidget {
-  final String songId;
-  SongDetailsView(this.songId, {super.key});
+  SongDetailsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class SongDetailsView extends StatelessWidget {
           ),
         ),
         child: GetBuilder<SongDetailController>(
-          init: SongDetailController(songId),
+          init: SongDetailController(Get.arguments),
           builder: (controller) {
             return Obx(
               () {
@@ -284,7 +283,6 @@ class SongDetailsView extends StatelessWidget {
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: ExpandableFab(
-        key: Key("Song_details_view_floating_button"),
         duration: Duration(milliseconds: 250),
         distance: 100.0,
         type: ExpandableFabType.fan,
