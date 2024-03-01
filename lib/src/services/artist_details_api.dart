@@ -48,7 +48,7 @@ class ArtistDetailsApi {
     }
     List<Album> albums = [];
     for (var element in data['results']) {
-      albums.add(Album.image(element));
+      albums.add(Album.songCount(element));
     }
     return albums;
   }

@@ -11,11 +11,13 @@ import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/artist_detail_controller.dart';
+import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
+import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 
@@ -43,6 +45,7 @@ class ArtistDetailsView extends StatelessWidget {
             ),
             child: Obx(
               () {
+                int selectedTab = controller.selectedTab.value;
                 Artist artist = controller.artist.value;
                 if(artist.isEmpty()) {
                   return Center(
@@ -60,11 +63,11 @@ class ArtistDetailsView extends StatelessWidget {
                             toolbarHeight: kBottomNavigationBarHeight,
                             shadowColor: Colors.black87, surfaceTintColor: Colors.black87, backgroundColor: Colors.grey.shade900,
                             leading: BackButton(color: Colors.white),
-                            expandedHeight: (controller.selectedTab.value == 0) ? 390 : 360,
+                            expandedHeight: (selectedTab == 0 || selectedTab == 1) ? 390 : 360,
                             flexibleSpace: FlexibleSpaceBar(
                               centerTitle: true, expandedTitleScale: 1.5,
                               stretchModes: [StretchMode.blurBackground],
-                              titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: (controller.selectedTab.value == 0) ? 70 : 40),
+                              titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: (selectedTab == 0 || selectedTab == 1) ? 70 : 40),
                               title: SizedBox(
                                 width: media.width/1.4,
                                 child: Text(
@@ -107,7 +110,7 @@ class ArtistDetailsView extends StatelessWidget {
                               ),
                               Gap(8)
                             ],
-                            bottom: (controller.selectedTab.value == 0)
+                            bottom: (selectedTab == 0 || selectedTab == 1)
                               ? PreferredSize(
                                 preferredSize: Size(double.maxFinite, kTextTabBarHeight),
                                 child: Container(
@@ -115,47 +118,57 @@ class ArtistDetailsView extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Divider(color: Colors.white24, height: 1),
-                                      Row( 
-                                        children: [
-                                          Gap(20),
-                                            Text(
-                                            "${controller.songCount} Songs",
+                                      if(selectedTab == 0)
+                                        Row( 
+                                          children: [
+                                            Gap(20),
+                                              Text(
+                                              "${controller.songCount} Songs",
+                                              style: TextStyle(color: Colors.white, fontSize: 21),
+                                            ),
+                                            Spacer(),
+                                            Container(
+                                              height: kBottomNavigationBarHeight, alignment: Alignment.center,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        "Shuffle",
+                                                        style: TextStyle(color: Colors.grey.shade300, fontSize: 21),
+                                                      ),
+                                                      Iconify(Ic.twotone_shuffle, color: Colors.grey.shade300, size: 25),
+                                                    ],
+                                                  ),
+                                                  Gap(5),
+                                                  Container(height: 30, width: 1, color: Colors.white38),
+                                                  Gap(5),
+                                                  Container(
+                                                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(color: Colors.grey.shade300),
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    ),
+                                                    child: Iconify(Ic.twotone_play_arrow, color: Colors.grey.shade300, size: 27),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Gap(10)
+                                          ],
+                                        ),
+                                      if(selectedTab == 1)
+                                        Container(
+                                          width: double.maxFinite, height: kBottomNavigationBarHeight, alignment: Alignment.centerLeft,
+                                          padding: EdgeInsets.only(left: 20),
+                                          child: Text(
+                                            "${controller.albumCount} Albums",
                                             style: TextStyle(color: Colors.white, fontSize: 21),
                                           ),
-                                          Spacer(),
-                                          Container(
-                                            height: kBottomNavigationBarHeight, alignment: Alignment.center,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      "Shuffle",
-                                                      style: TextStyle(color: Colors.grey.shade300, fontSize: 21),
-                                                    ),
-                                                    Iconify(Ic.twotone_shuffle, color: Colors.grey.shade300, size: 25),
-                                                  ],
-                                                ),
-                                                Gap(5),
-                                                Container(height: 30, width: 1, color: Colors.white38),
-                                                Gap(5),
-                                                Container(
-                                                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(color: Colors.grey.shade300),
-                                                    borderRadius: BorderRadius.circular(8),
-                                                  ),
-                                                  child: Iconify(Ic.twotone_play_arrow, color: Colors.grey.shade300, size: 27),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Gap(10)
-                                        ],
-                                      ),
+                                        ),
                                       Divider(color: Colors.white24, height: 1)
                                     ],
                                   ),
@@ -172,7 +185,7 @@ class ArtistDetailsView extends StatelessWidget {
                     physics: NeverScrollableScrollPhysics(),
                     children: [
                       _songsTab(controller),
-                      Container(),
+                      _albumsTab(controller),
                       _infoTab(artist),
                     ],
                   ),
@@ -180,37 +193,42 @@ class ArtistDetailsView extends StatelessWidget {
               }
             ),
           ),
-          bottomNavigationBar: TabBar(
-            controller: controller.tabController,
-            indicatorColor: Colors.red, dividerColor: Colors.transparent,
-            overlayColor: MaterialStatePropertyAll(Colors.grey.shade700),
-            splashFactory: NoSplash.splashFactory,
-            labelColor: accentColor, labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            unselectedLabelColor: accentColorDark, unselectedLabelStyle: TextStyle(fontSize: 16),
-            isScrollable: false, physics: NeverScrollableScrollPhysics(),
-            tabs: [
-              Tab(
-                icon: Iconify(
-                  Ph.music_notes_simple_fill, size: 25,
-                  color: (controller.selectedTab.value == 0) ? accentColor : accentColorDark,
-                ),
-                text: "Songs",
-              ),
-              Tab(
-                icon: Iconify(
-                  Ic.sharp_album, size: 25,
-                  color: (controller.selectedTab.value == 1) ? accentColor : accentColorDark,
-                ),
-                text: "Albums",
-              ),
-              Tab(
-                icon: Iconify(
-                  IconParkTwotone.doc_detail, size: 25,
-                  color: (controller.selectedTab.value == 2) ? accentColor : accentColorDark,
-                ),
-                text: "Info",
-              ),
-            ]
+          bottomNavigationBar: Obx(
+            () {
+              int selectedTab = controller.selectedTab.value;
+              return TabBar(
+                controller: controller.tabController,
+                indicatorColor: Colors.red, dividerColor: Colors.transparent,
+                overlayColor: MaterialStatePropertyAll(Colors.grey.shade700),
+                splashFactory: NoSplash.splashFactory,
+                labelColor: accentColor, labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                unselectedLabelColor: accentColorDark, unselectedLabelStyle: TextStyle(fontSize: 16),
+                isScrollable: false, physics: NeverScrollableScrollPhysics(),
+                tabs: [
+                  Tab(
+                    icon: Iconify(
+                      Ph.music_notes_simple_fill, size: 25,
+                      color: (selectedTab == 0 || selectedTab == 1) ? accentColor : accentColorDark,
+                    ),
+                    text: "Songs",
+                  ),
+                  Tab(
+                    icon: Iconify(
+                      Ic.sharp_album, size: 25,
+                      color: (controller.selectedTab.value == 1) ? accentColor : accentColorDark,
+                    ),
+                    text: "Albums",
+                  ),
+                  Tab(
+                    icon: Iconify(
+                      IconParkTwotone.doc_detail, size: 25,
+                      color: (controller.selectedTab.value == 2) ? accentColor : accentColorDark,
+                    ),
+                    text: "Info",
+                  ),
+                ]
+              );
+            }
           ),
         );
       }
@@ -220,7 +238,7 @@ class ArtistDetailsView extends StatelessWidget {
   ListView _songsTab(ArtistDetailController controller) {
     return ListView.builder(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      itemCount: (controller.songsIsLoading.value)
+      itemCount: (controller.songsIsLoading.value && controller.songCount.value != controller.songList.length)
         ? controller.songList.length + 1
         : controller.songList.length,
       itemBuilder: (context, index)  {
@@ -234,9 +252,26 @@ class ArtistDetailsView extends StatelessWidget {
     );
   }
 
+  ListView _albumsTab(ArtistDetailController controller) {
+    return ListView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      itemCount: (controller.albumsIsLoading.value && controller.albumCount.value != controller.albumList.length)
+        ? controller.albumList.length + 1
+        : controller.albumList.length,
+      itemBuilder: (context, index)  {
+        if(index < controller.albumList.length) {
+          Album album = controller.albumList[index];
+          return AlbumRow(album: album, subtitle: "${album.songCount!} Songs");
+        } else {
+          return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
+        }
+      }
+    );
+  }
+
   Container _infoTab(Artist artist) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
       child: ListView(
         children: [
           _divide(),
