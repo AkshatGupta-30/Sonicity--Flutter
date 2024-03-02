@@ -38,7 +38,18 @@ class MainApp extends StatelessWidget {
             elevation: 2,
             shadowColor: Colors.white60,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            width: Get.size.width/1.25,
+            width: MediaQuery.sizeOf(context).width/1.25,
+          );
+    var listTileThemeData = ListTileThemeData(
+            dense: true,
+            titleTextStyle: TextStyle(color: Colors.white, fontSize: 18, fontFamily: Fonts.lovelyMamma),
+            subtitleTextStyle: TextStyle(color: Colors.grey, fontSize: 14, fontFamily: Fonts.lovelyMamma),
+          );
+    var popupMenuThemeData = PopupMenuThemeData(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            position: PopupMenuPosition.under,
+            color: Colors.grey.shade900,
+            labelTextStyle: MaterialStatePropertyAll(TextStyle(color: Colors.grey.shade100, fontSize: 18, fontFamily: Fonts.lovelyMamma)),
           );
     return BetterFeedback(
       mode: FeedbackMode.draw, themeMode: ThemeMode.system,
@@ -65,6 +76,8 @@ class MainApp extends StatelessWidget {
           elevatedButtonTheme: elevatedButtonThemeData,
           dividerTheme: dividerThemeData,
           drawerTheme: drawerThemeData,
+          listTileTheme: listTileThemeData,
+          popupMenuTheme: popupMenuThemeData,
         ),
       ),
     );
@@ -73,7 +86,7 @@ class MainApp extends StatelessWidget {
 
 final dividerThemeData = DividerThemeData(
   color: Colors.white12,
-  thickness: 1
+  thickness: 1, space: 1
 );
 
 final elevatedButtonThemeData = ElevatedButtonThemeData(
@@ -128,6 +141,6 @@ final bottomNavBarThemeData = BottomNavigationBarThemeData(
   unselectedIconTheme: IconThemeData(color: Colors.white, size: 30),
   showSelectedLabels: true, showUnselectedLabels: true,
   type: BottomNavigationBarType.fixed,
-  selectedLabelStyle: TextStyle(fontFamily: 'LovelyMamma', fontSize: 18),
-  unselectedLabelStyle: TextStyle(fontFamily: 'LovelyMamma', fontSize: 18),
+  selectedLabelStyle: TextStyle(fontFamily: Fonts.lovelyMamma, fontSize: 18),
+  unselectedLabelStyle: TextStyle(fontFamily: Fonts.lovelyMamma, fontSize: 18),
 );

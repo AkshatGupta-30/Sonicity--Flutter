@@ -108,17 +108,17 @@ class SongsTile extends StatelessWidget {
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: CachedNetworkImage(
-          imageUrl: song.image.lowQuality, fit: BoxFit.cover, width: 60, height: 60,
+          imageUrl: song.image.lowQuality, fit: BoxFit.cover, width: 50, height: 50,
           errorWidget: (context, url, error) {
             return Image.asset(
               "assets/images/appLogo50x50.png",
-              fit: BoxFit.cover, width: 60, height: 60
+              fit: BoxFit.cover, width: 50, height: 50
             );
           },
           placeholder: (context, url) {
             return Image.asset(
               "assets/images/appLogo50x50.png",
-              fit: BoxFit.cover, width: 60, height: 60
+              fit: BoxFit.cover, width: 50, height: 50
             );
           },
         ),
@@ -126,11 +126,9 @@ class SongsTile extends StatelessWidget {
       horizontalTitleGap: 10,
       title: Text(
         song.title, maxLines: 1, overflow: TextOverflow.ellipsis,
-        style: TextStyle(color: Colors.white, fontSize: 18),
       ),
       subtitle: Text(
         (subtitle.isEmpty) ? song.subtitle : subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-        style: TextStyle(color: Colors.grey, fontSize: 14),
       ),
       trailing:   SongPopUpMenu(song)
     );
@@ -184,10 +182,7 @@ class SongPopUpMenu extends StatelessWidget {
           )
         ];
       },
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       padding: EdgeInsets.zero,
-      position: PopupMenuPosition.under,
-      color: Colors.grey.shade900,
       icon: Iconify(Ic.sharp_more_vert, color: Colors.grey.shade100, size: 32),
     );
   }

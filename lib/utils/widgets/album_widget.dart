@@ -186,17 +186,17 @@ class AlbumTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         child: CachedNetworkImage(
           imageUrl: album.image!.lowQuality,
-          fit: BoxFit.cover, width: 60, height: 60,
+          fit: BoxFit.cover, width: 50, height: 50,
           errorWidget: (context, url, error) {
             return Image.asset(
               "assets/images/appLogo50x50.png",
-              fit: BoxFit.cover, width: 60, height: 60
+              fit: BoxFit.cover, width: 50, height: 50
             );
           },
           placeholder: (context, url) {
             return Image.asset(
               "assets/images/appLogo50x50.png",
-              fit: BoxFit.cover, width: 60, height: 60
+              fit: BoxFit.cover, width: 50, height: 50
             );
           },
         ),
@@ -204,11 +204,9 @@ class AlbumTile extends StatelessWidget {
       horizontalTitleGap: 10,
       title: Text(
         album.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-        style: TextStyle(color: Colors.white, fontSize: 18),
       ),
       subtitle: Text(
-        subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-        style: TextStyle(color: Colors.grey, fontSize: 14),
+        subtitle, maxLines: 1, overflow: TextOverflow.ellipsis
       ),
       trailing: AlbumPopUpMenu(album),
     );
@@ -234,10 +232,7 @@ class AlbumPopUpMenu extends StatelessWidget {
           ),
         ];
       },
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       padding: EdgeInsets.zero,
-      position: PopupMenuPosition.under,
-      color: Colors.grey.shade900,
       icon: Iconify(Ic.sharp_more_vert, color: Colors.grey.shade100, size: 32),
     );
   }

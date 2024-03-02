@@ -20,10 +20,7 @@ class PopUpButtonRow extends StatelessWidget {
       children: [
         Iconify(icon, color: Colors.grey.shade100, size: 22),
         Gap(10),
-        Text(
-          label,
-          style: TextStyle(color: Colors.grey.shade100, fontSize: 18),
-        ),
+        Text(label),
       ],
     );
   }

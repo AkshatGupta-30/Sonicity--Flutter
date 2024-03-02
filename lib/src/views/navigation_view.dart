@@ -134,7 +134,7 @@ class NavigationView extends StatelessWidget {
                 controller.closeDrawer();
               },
               leading: Iconify(IcomoonFree.info, color: Colors.white),
-              title: Text("About", style: TextStyle(color: Colors.white)),
+              title: Text("About"),
             ),
             Spacer(),
             RichText(

@@ -162,6 +162,7 @@ class ArtistDetailsView extends StatelessWidget {
           preferredSize: Size(double.maxFinite, kToolbarHeight),
           child: Container(
             height: kToolbarHeight, color: Colors.grey.shade900,
+            padding: EdgeInsets.zero,
             child: Column(
               children: [
                 Divider(),
@@ -336,16 +337,16 @@ class ArtistDetailsView extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
       children: [
-        _divide(),
+        Divider(),
         _head("Name"),
         _detail(artist.name),
-        _divide(),
+        Divider(),
         _head("Dominant Language"),
         _detail(artist.dominantLanguage!),
-        _divide(),
+        Divider(),
         _head("Dominant Type"),
         _detail(artist.dominantType!),
-        _divide(),
+        Divider(),
         if(artist.dob != null && artist.dob!.isNotEmpty)
           _dobSection(artist.dob!),
         if(artist.fb != null && artist.fb!.isNotEmpty)
@@ -356,13 +357,9 @@ class ArtistDetailsView extends StatelessWidget {
           _wikiSection(artist.wiki!),
         _head("Cover Image Url"),
         CoverImageSection(image: artist.image!),
-        _divide(),
+        Divider(),
       ],
     );
-  }
-
-  Divider _divide() {
-    return Divider();
   }
 
   Text _head(String text) {
@@ -384,7 +381,7 @@ class ArtistDetailsView extends StatelessWidget {
       children: [
         _head("Date of birth"),
         _detail(dob),
-        _divide(),
+        Divider(),
       ],
     );
   }
@@ -395,7 +392,7 @@ class ArtistDetailsView extends StatelessWidget {
       children: [
         _head("Facebook"),
         _detail(fb),
-        _divide(),
+        Divider(),
       ],
     );
   }
@@ -406,7 +403,7 @@ class ArtistDetailsView extends StatelessWidget {
       children: [
         _head("Twitter"),
         _detail(twit),
-        _divide(),
+        Divider(),
       ],
     );
   }

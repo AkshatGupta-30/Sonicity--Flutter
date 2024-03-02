@@ -26,7 +26,6 @@ class HomeView extends StatelessWidget{
     Size media = MediaQuery.sizeOf(context);
     EdgeInsets padding = MediaQuery.paddingOf(context);
     return Scaffold(
-      drawer: Drawer(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
