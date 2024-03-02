@@ -213,7 +213,7 @@ class AlbumDetailsView extends StatelessWidget {
                 }
               ),
             ),
-            Divider(color: Colors.white24)
+            Divider()
           ]
         ),
       )

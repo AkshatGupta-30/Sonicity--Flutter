@@ -32,6 +32,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var drawerThemeData = DrawerThemeData(
+            scrimColor: Colors.black45,
+            backgroundColor: Colors.transparent,
+            elevation: 2,
+            shadowColor: Colors.white60,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            width: Get.size.width/1.25,
+          );
     return BetterFeedback(
       mode: FeedbackMode.draw, themeMode: ThemeMode.system,
       feedbackBuilder: (BuildContext context, OnSubmit onSubmit, ScrollController? scrollController) {
@@ -54,12 +62,19 @@ class MainApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.black,
           actionIconTheme: actionIconThemeData,
           appBarTheme: appBarThemeData,
-          elevatedButtonTheme: elevatedButtonThemeData
+          elevatedButtonTheme: elevatedButtonThemeData,
+          dividerTheme: dividerThemeData,
+          drawerTheme: drawerThemeData,
         ),
       ),
     );
   }
 }
+
+final dividerThemeData = DividerThemeData(
+  color: Colors.white12,
+  thickness: 1
+);
 
 final elevatedButtonThemeData = ElevatedButtonThemeData(
   style: ButtonStyle(

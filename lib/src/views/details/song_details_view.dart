@@ -340,7 +340,7 @@ class SongDetailsView extends StatelessWidget {
   }
 
   Divider _divide() {
-    return Divider(color: Colors.white30);
+    return Divider();
   }
 
   Text _head(String text) {

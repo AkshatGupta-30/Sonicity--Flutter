@@ -123,7 +123,7 @@ class _StorageViewState extends State<StorageView> {
                 ],
               ),
               Gap(5),
-              Divider(color: Colors.white.withOpacity(0.25)),
+              Divider(),
             ],
           ),
         ),

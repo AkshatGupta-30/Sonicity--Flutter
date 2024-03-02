@@ -164,7 +164,7 @@ class ArtistDetailsView extends StatelessWidget {
             height: kToolbarHeight, color: Colors.grey.shade900,
             child: Column(
               children: [
-                Divider(color: Colors.white24, height: 1),
+                Divider(),
                 Spacer(),
                 if(selectedTab == 0)
                   Row( 
@@ -362,7 +362,7 @@ class ArtistDetailsView extends StatelessWidget {
   }
 
   Divider _divide() {
-    return Divider(color: Colors.white30);
+    return Divider();
   }
 
   Text _head(String text) {
