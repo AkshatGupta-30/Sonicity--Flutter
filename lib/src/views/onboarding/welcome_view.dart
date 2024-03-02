@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class WelcomeView extends StatelessWidget {
   WelcomeView({super.key});
@@ -13,16 +14,7 @@ class WelcomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.0, 1],
-            tileMode: TileMode.clamp,
-          ),
-        ),
+      body: BackgroundGradientDecorator(
         child: SafeArea(
           child: Container(
             width: media.width, height: media.height,

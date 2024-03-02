@@ -25,6 +25,7 @@ import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/widgets/search_history_cells.dart';
 import 'package:sonicity/utils/widgets/search_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class SearchView extends StatelessWidget {
   SearchView({super.key});
@@ -33,16 +34,7 @@ class SearchView extends StatelessWidget {
   Widget build(BuildContext context) {
     var safeArea = MediaQuery.paddingOf(context);
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0, 1],
-            tileMode: TileMode.clamp,
-          ),
-        ),
+      body: BackgroundGradientDecorator(
         child: GetBuilder(
           init: SearchViewController(),
           builder: (controller) {

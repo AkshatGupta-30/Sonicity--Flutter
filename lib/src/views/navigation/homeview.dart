@@ -13,6 +13,7 @@ import 'package:sonicity/utils/sections/top_albums_section.dart';
 import 'package:sonicity/utils/sections/top_charts_section.dart';
 import 'package:sonicity/utils/sections/trending_now_section.dart';
 import 'package:sonicity/utils/widgets/search_widget.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class HomeView extends StatelessWidget{
   HomeView({super.key});
@@ -26,16 +27,7 @@ class HomeView extends StatelessWidget{
     Size media = MediaQuery.sizeOf(context);
     EdgeInsets padding = MediaQuery.paddingOf(context);
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0, 1],
-            tileMode: TileMode.clamp,
-          ),
-        ),
+      body: BackgroundGradientDecorator(
         child: Obx(() => CustomScrollView(
           controller: scrollController,
           slivers: [

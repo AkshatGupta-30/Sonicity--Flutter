@@ -21,6 +21,7 @@ import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class PlaylistDetailsView extends StatelessWidget {
   PlaylistDetailsView({super.key});
@@ -29,16 +30,7 @@ class PlaylistDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Container(
-          decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.grey.shade900, Colors.black],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.5, 1],
-            tileMode: TileMode.clamp,
-          ),
-        ),
+      body: BackgroundGradientDecorator(
         child: GetBuilder(
           init: PlaylistDetailController(Get.arguments),
           builder: (controller) {

@@ -16,6 +16,7 @@ import 'package:sonicity/src/views/library/library_view.dart';
 import 'package:sonicity/src/views/navigation/homeview.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class NavigationView extends StatelessWidget {
   NavigationView({super.key});
@@ -71,83 +72,76 @@ class NavigationView extends StatelessWidget {
       backgroundColor: Colors.transparent,
       child: Container(
         padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.grey.shade900, Colors.black],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.0, 1],
-            tileMode: TileMode.clamp,
-          ),
-        ),
-        child: Column(
-          children: [
-            DrawerHeader(
-              child: Center(
-                child: Text(
-                  "Sonicity",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 50,
-                    color: Colors.white
+        child: BackgroundGradientDecorator(
+          child: Column(
+            children: [
+              DrawerHeader(
+                child: Center(
+                  child: Text(
+                    "Sonicity",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 50,
+                      color: Colors.white
+                    ),
                   ),
                 ),
               ),
-            ),
-            ListTile(
-              onTap: () {
-                controller.closeDrawer();
-              },
-              leading: Iconify(Ion.home_outline, color: accentColor),
-              title: Text("Home", style: TextStyle(color: accentColor)),
-            ),
-            ListTile(
-              onTap: () {
-                controller.closeDrawer();
-              },
-              leading: Iconify(IconParkTwotone.folder_music, color: Colors.white,),
-              title: Text("My Music", style: TextStyle(color: Colors.white)),
-            ),
-            ListTile(
-              onTap: () {
-                controller.closeDrawer();
-              },
-              leading: Iconify(Codicon.repo_clone, color: Colors.white,),
-              title: Text("Cloned", style: TextStyle(color: Colors.white)),
-            ),
-            ListTile(
-              onTap: () {
-                controller.closeDrawer();
-              },
-              leading: Iconify(Ic.sharp_playlist_play, color: Colors.white),
-              title: Text("Playlists", style: TextStyle(color: Colors.white)),
-            ),
-            ListTile(
-              onTap: () {
-                controller.closeDrawer();
-              },
-              leading: Iconify(Ion.settings_sharp, color: Colors.white),
-              title: Text("Settings", style: TextStyle(color: Colors.white)),
-            ),
-            ListTile(
-              onTap: () {
-                controller.closeDrawer();
-              },
-              leading: Iconify(IcomoonFree.info, color: Colors.white),
-              title: Text("About"),
-            ),
-            Spacer(),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                children: <WidgetSpan>[
-                  WidgetSpan(child: Text("Made with ", style: GoogleFonts.arbutus(color: Colors.white))),
-                  WidgetSpan(child: Iconify(MaterialSymbols.favorite_rounded, color: Colors.red)),
-                  WidgetSpan(child: Text(" by Akshat Gupta", style: GoogleFonts.arbutus(color: Colors.white))),
-                ],
-              )
-            ),
-          ],
+              ListTile(
+                onTap: () {
+                  controller.closeDrawer();
+                },
+                leading: Iconify(Ion.home_outline, color: accentColor),
+                title: Text("Home", style: TextStyle(color: accentColor)),
+              ),
+              ListTile(
+                onTap: () {
+                  controller.closeDrawer();
+                },
+                leading: Iconify(IconParkTwotone.folder_music, color: Colors.white,),
+                title: Text("My Music", style: TextStyle(color: Colors.white)),
+              ),
+              ListTile(
+                onTap: () {
+                  controller.closeDrawer();
+                },
+                leading: Iconify(Codicon.repo_clone, color: Colors.white,),
+                title: Text("Cloned", style: TextStyle(color: Colors.white)),
+              ),
+              ListTile(
+                onTap: () {
+                  controller.closeDrawer();
+                },
+                leading: Iconify(Ic.sharp_playlist_play, color: Colors.white),
+                title: Text("Playlists", style: TextStyle(color: Colors.white)),
+              ),
+              ListTile(
+                onTap: () {
+                  controller.closeDrawer();
+                },
+                leading: Iconify(Ion.settings_sharp, color: Colors.white),
+                title: Text("Settings", style: TextStyle(color: Colors.white)),
+              ),
+              ListTile(
+                onTap: () {
+                  controller.closeDrawer();
+                },
+                leading: Iconify(IcomoonFree.info, color: Colors.white),
+                title: Text("About"),
+              ),
+              Spacer(),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: <WidgetSpan>[
+                    WidgetSpan(child: Text("Made with ", style: GoogleFonts.arbutus(color: Colors.white))),
+                    WidgetSpan(child: Iconify(MaterialSymbols.favorite_rounded, color: Colors.red)),
+                    WidgetSpan(child: Text(" by Akshat Gupta", style: GoogleFonts.arbutus(color: Colors.white))),
+                  ],
+                )
+              ),
+            ],
+          ),
         ),
       ),
     );

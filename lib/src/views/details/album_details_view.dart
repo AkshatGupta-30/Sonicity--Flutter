@@ -23,6 +23,7 @@ import 'package:sonicity/utils/widgets/artist_widget.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class AlbumDetailsView extends StatelessWidget {
   AlbumDetailsView({super.key});
@@ -31,16 +32,7 @@ class AlbumDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Container(
-          decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.grey.shade900, Colors.black],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.5, 1],
-            tileMode: TileMode.clamp,
-          ),
-        ),
+      body: BackgroundGradientDecorator(
         child: GetBuilder(
           init: AlbumDetailController(Get.arguments),
           builder: (controller) {

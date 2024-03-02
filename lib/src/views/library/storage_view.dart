@@ -9,6 +9,7 @@ import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ri.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sonicity/utils/widgets/storage_tile.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class StorageView extends StatefulWidget {
   StorageView({super.key});
@@ -48,16 +49,7 @@ class _StorageViewState extends State<StorageView> {
         updateAppBar();
       },
       child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0.0, 1],
-              tileMode: TileMode.clamp,
-            ),
-          ),
+        body: BackgroundGradientDecorator(
           child: CustomScrollView(
             slivers: [
               appBar(media, safe),

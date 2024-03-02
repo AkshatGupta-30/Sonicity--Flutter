@@ -15,6 +15,7 @@ import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 import 'package:super_string/super_string.dart';
 
 class ViewAllAlbumsView extends StatelessWidget {
@@ -23,16 +24,7 @@ class ViewAllAlbumsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0, 1],
-            tileMode: TileMode.clamp,
-          ),
-        ),
+      body: BackgroundGradientDecorator(
         child: GetBuilder(
           init: ViewAllSearchAlbumsController(Get.arguments),
           builder: (controller) {

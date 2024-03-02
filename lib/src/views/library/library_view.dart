@@ -14,6 +14,7 @@ import 'package:iconify_flutter_plus/icons/raphael.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:iconify_flutter_plus/icons/wpf.dart';
 import 'package:sonicity/src/views/library/storage_view.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class LibraryView extends StatefulWidget {
   LibraryView({super.key});
@@ -43,16 +44,7 @@ class _LibraryViewState extends State<LibraryView> {
         title: Text("Library"),
       ),
       drawer: Drawer(),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.0, 1],
-            tileMode: TileMode.clamp,
-          ),
-        ),
+      body: BackgroundGradientDecorator(
         child: ListView(
           padding: EdgeInsets.all(15),
           physics: NeverScrollableScrollPhysics(),

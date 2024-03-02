@@ -24,6 +24,7 @@ import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class ArtistDetailsView extends StatelessWidget {
   ArtistDetailsView({super.key});
@@ -35,16 +36,7 @@ class ArtistDetailsView extends StatelessWidget {
       init: ArtistDetailController(Get.arguments),
       builder: (controller) {
         return Scaffold(
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.grey.shade900, Colors.black],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0.5, 1],
-                tileMode: TileMode.clamp,
-              ),
-            ),
+          body: BackgroundGradientDecorator(
             child: Obx(() {
               int selectedTab = controller.selectedTab.value;
               Artist artist = controller.artist.value;

@@ -16,6 +16,7 @@ import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 import 'package:super_string/super_string.dart';
 
 class ViewAllSongsView extends StatelessWidget {
@@ -178,21 +179,15 @@ class ViewAllSongsView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                         child: Container(
                           padding: EdgeInsets.only(left: 5, top: 10, right: 10, bottom: 10),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Colors.greenAccent, Colors.grey.shade200],
-                              begin: Alignment.topCenter, end: Alignment.bottomCenter,
-                              stops: [0.75, 1],
+                          child: BackgroundGradientDecorator(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Iconify(Ic.twotone_play_arrow, color: Colors.white, size: 30),
+                                Gap(3),
+                                Text("Play", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),)
+                              ],
                             ),
-                            borderRadius: BorderRadius.circular(15)
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Iconify(Ic.twotone_play_arrow, color: Colors.white, size: 30),
-                              Gap(3),
-                              Text("Play", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),)
-                            ],
                           )
                         ),
                       ),

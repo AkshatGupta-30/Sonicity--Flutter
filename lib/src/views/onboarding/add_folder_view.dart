@@ -10,6 +10,7 @@ import 'package:iconify_flutter_plus/icons/ant_design.dart';
 import 'package:iconify_flutter_plus/icons/heroicons.dart';
 import 'package:sonicity/src/persistence/shared_preference/allowed_directories.dart';
 import 'package:sonicity/utils/widgets/folder_tile.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class AddFolderView extends StatelessWidget {
   AddFolderView({super.key});
@@ -18,16 +19,7 @@ class AddFolderView extends StatelessWidget {
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0, 1],
-            tileMode: TileMode.clamp,
-          ),
-        ),
+      body: BackgroundGradientDecorator(
         child: SafeArea(
           child: Container(
             width: media.width, height: media.height,
