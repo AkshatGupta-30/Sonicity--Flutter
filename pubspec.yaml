@@ -53,11 +53,53 @@ flutter_launcher_icons:
 
 flutter:
   uses-material-design: true
-  fonts:
-    - family: LovelyMamma
-      fonts:
-        - asset: assets/fonts/lovelyMamma.ttf
   assets:
     - lib/.env
     - assets/images/
     - assets/lottie/
+  fonts:
+    - family: Blkchcry
+      fonts:
+        - asset: assets/fonts/Blkchcry.ttf
+    - family: CarnevaleeFreakshow
+      fonts:
+        - asset: assets/fonts/CarnevaleeFreakshow.ttf
+    - family: Cornerita
+      fonts:
+        - asset: assets/fonts/Cornerita.ttf
+    - family: GrenzeGotisch
+      fonts:
+        - asset: assets/fonts/GrenzeGotisch.ttf
+    - family: LovelyMamma
+      fonts:
+        - asset: assets/fonts/lovelyMamma.ttf
+    - family: MouldyCheese
+      fonts:
+        - asset: assets/fonts/MouldyCheese.ttf
+    - family: NotoSerifDisplay
+      fonts:
+        - asset: assets/fonts/NotoSerifDisplay.ttf
+    - family: Platypi
+      fonts:
+        - asset: assets/fonts/Platypi.ttf
+    - family: PlayfairDisplay
+      fonts:
+        - asset: assets/fonts/PlayfairDisplay.ttf
+    - family: PlaypenSans
+      fonts:
+        - asset: assets/fonts/PlaypenSans.ttf
+    - family: Podkova
+      fonts:
+        - asset: assets/fonts/Podkova.ttf
+    - family: RedRose
+      fonts:
+        - asset: assets/fonts/RedRose.ttf
+    - family: SparkyStones
+      fonts:
+        - asset: assets/fonts/SparkyStones.ttf
+    - family: SplineSansMono
+      fonts:
+        - asset: assets/fonts/SplineSansMono.ttf
+    - family: Texturina
+      fonts:
+        - asset: assets/fonts/Texturina.ttf

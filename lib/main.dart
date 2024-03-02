@@ -10,6 +10,7 @@ import 'package:sonicity/src/firebase/database_methods.dart';
 import 'package:sonicity/src/firebase/storage_methods.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
 import 'package:sonicity/utils/contants/colors.dart';
+import 'package:sonicity/utils/contants/fonts.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 
 Future<void> main() async {
@@ -40,19 +41,18 @@ class MainApp extends StatelessWidget {
       },
       darkTheme: FeedbackThemeData.dark(),
       child: GetMaterialApp(
-        themeMode: ThemeMode.dark,
+        // themeMode: ThemeMode.dark,
         title: 'Sonicity',
         debugShowCheckedModeBanner: false,
-        theme: themeData,
         home: NavigationView(),
+        theme: ThemeData(
+          fontFamily: Fonts.lovelyMamma,
+          bottomNavigationBarTheme: bottomNavBarThemeData,
+        ),
       ),
     );
   }
 }
-
-final themeData = ThemeData(
-  bottomNavigationBarTheme: bottomNavBarThemeData,
-);
 
 final bottomNavBarThemeData = BottomNavigationBarThemeData(
   elevation: 2,
