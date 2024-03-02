@@ -62,7 +62,7 @@ class ViewAllSongsView extends StatelessWidget {
       pinned: true, floating: true, snap:  true,
       toolbarHeight: kToolbarHeight,
       shadowColor: Colors.black87, surfaceTintColor: Colors.grey.shade900, backgroundColor: Colors.grey.shade900,
-      leading: BackButton(color: Colors.white),
+      leading: BackButton(),
       centerTitle: true,
       title: Text(
         "Songs - ${Get.arguments}".title(), maxLines: 1, overflow: TextOverflow.ellipsis,

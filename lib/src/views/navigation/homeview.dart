@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:sonicity/src/controllers/homeview_controller.dart';
-import 'package:sonicity/src/controllers/navigation_controller.dart';
 import 'package:sonicity/utils/sections/hot_playlists_section.dart';
 import 'package:sonicity/utils/sections/last_session_section.dart';
 import 'package:sonicity/utils/sections/top_albums_section.dart';
@@ -53,10 +52,7 @@ class HomeView extends StatelessWidget{
       pinned: true,
       toolbarHeight: 75, backgroundColor: Colors.grey.shade900,
       shadowColor: Colors.black87, surfaceTintColor: Colors.black87,
-      leading: GestureDetector(
-        onTap: () => Get.find<NavigationController>().openDrawer(),
-        child: Icon(Icons.line_weight, color: Colors.white)
-      ),
+      leading: DrawerButton(),
       actions: [
         GestureDetector(
           onTap: () {},

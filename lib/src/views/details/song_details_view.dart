@@ -60,7 +60,7 @@ class SongDetailsView extends StatelessWidget {
                       pinned: true, floating: false, snap: false,
                       toolbarHeight: kBottomNavigationBarHeight,
                       shadowColor: Colors.black87, surfaceTintColor: Colors.black87, backgroundColor: Colors.grey.shade900,
-                      leading: BackButton(color: Colors.white),
+                      leading: BackButton(),
                       expandedHeight: 360,
                       flexibleSpace: FlexibleSpaceBar(
                         centerTitle: true, expandedTitleScale: 1.5,

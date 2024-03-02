@@ -115,7 +115,7 @@ class ArtistDetailsView extends StatelessWidget {
       pinned: true, floating: false, snap: false,
       toolbarHeight: kBottomNavigationBarHeight,
       shadowColor: Colors.black87, surfaceTintColor: Colors.black87, backgroundColor: Colors.grey.shade900,
-      leading: BackButton(color: Colors.white),
+      leading: BackButton(),
       expandedHeight: (selectedTab == 0 || selectedTab == 1) ? 390 : 360,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true, expandedTitleScale: 1.5,

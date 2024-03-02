@@ -87,7 +87,6 @@ class _StorageViewState extends State<StorageView> {
     return SliverAppBar(
       backgroundColor: Colors.transparent,
       leading: BackButton(
-        color: Colors.white,
         onPressed: () {
           if(curDir.value.path != "storage/emulated/0/Music") {
             curDir.value = curDir.value.parent;

@@ -13,7 +13,6 @@ import 'package:iconify_flutter_plus/icons/pepicons.dart';
 import 'package:iconify_flutter_plus/icons/raphael.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:iconify_flutter_plus/icons/wpf.dart';
-import 'package:sonicity/src/controllers/navigation_controller.dart';
 import 'package:sonicity/src/views/library/storage_view.dart';
 
 class LibraryView extends StatefulWidget {
@@ -44,10 +43,7 @@ class _LibraryViewState extends State<LibraryView> {
         shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        leading: GestureDetector(
-          onTap: () => Get.find<NavigationController>().openDrawer(),
-          child: Icon(Icons.line_weight, color: Colors.white)
-        ),
+        leading: DrawerButton(),
         centerTitle: true,
         title: Text("Library"),
         titleTextStyle: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
