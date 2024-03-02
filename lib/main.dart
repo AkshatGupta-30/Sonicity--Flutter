@@ -9,6 +9,7 @@ import 'package:sonicity/firebase_options.dart';
 import 'package:sonicity/src/firebase/database_methods.dart';
 import 'package:sonicity/src/firebase/storage_methods.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
+import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 
 Future<void> main() async {
@@ -42,12 +43,26 @@ class MainApp extends StatelessWidget {
         themeMode: ThemeMode.dark,
         title: 'Sonicity',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: "LovelyMamma",
-          scaffoldBackgroundColor: Colors.black,
-        ),
+        theme: themeData,
         home: NavigationView(),
       ),
     );
   }
 }
+
+final themeData = ThemeData(
+  bottomNavigationBarTheme: bottomNavBarThemeData,
+);
+
+final bottomNavBarThemeData = BottomNavigationBarThemeData(
+  elevation: 2,
+  backgroundColor: Colors.black,
+  selectedItemColor: accentColor,
+  unselectedItemColor: Colors.white,
+  selectedIconTheme: IconThemeData(color: accentColor, size: 30),
+  unselectedIconTheme: IconThemeData(color: Colors.white, size: 30),
+  showSelectedLabels: true, showUnselectedLabels: true,
+  type: BottomNavigationBarType.fixed,
+  selectedLabelStyle: TextStyle(fontFamily: 'LovelyMamma', fontSize: 18),
+  unselectedLabelStyle: TextStyle(fontFamily: 'LovelyMamma', fontSize: 18),
+);

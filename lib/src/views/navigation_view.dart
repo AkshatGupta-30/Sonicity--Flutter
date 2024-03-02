@@ -12,65 +12,62 @@ import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:sonicity/src/controllers/navigation_controller.dart';
+import 'package:sonicity/src/views/library/library_view.dart';
 import 'package:sonicity/src/views/navigation/homeview.dart';
 import 'package:sonicity/utils/contants/colors.dart';
-import 'package:sonicity/utils/widgets/bottom_nab_bar_tab.dart';
-import 'package:sonicity/src/views/library/library_view.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 
-class NavigationView extends StatefulWidget {
+class NavigationView extends StatelessWidget {
   NavigationView({super.key});
 
-  @override
-  State<NavigationView> createState() => _NavigationViewState();
-}
-
-class _NavigationViewState extends State<NavigationView> with SingleTickerProviderStateMixin {
-  late TabController tabController;
-  final navController = Get.put(NavigationController());
-
-  @override
-  void initState() {
-    tabController = TabController(length: 3, vsync: this, initialIndex: navController.selectedTab.value);
-    super.initState();
-  }
+  final controller = Get.put(NavigationController());
+  final navTabs = [
+    Center(child: Text("Queue", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))),
+    HomeView(),
+    LibraryView()
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: navController.scaffoldKey,
-      drawer: _drawer(navController),
-      body: TabBarView(
-        controller: tabController,
-        physics: NeverScrollableScrollPhysics(),
-        children: [
-          Center(child: Text("Queue", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))),
-          HomeView(),
-          LibraryView()
-        ],
-      ),
+    return Obx(() => Scaffold(
+      key: controller.scaffoldKey,
+      backgroundColor: Colors.black,
+      drawer: _drawer(controller),
+      body: navTabs[controller.selectedIndex.value],
       floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
-      bottomNavigationBar: Obx(() => BottomAppBar(
-        elevation: 1,
-        color: Colors.transparent, shadowColor: Colors.transparent, surfaceTintColor: Colors.transparent,
-        child: TabBar(
-        controller: tabController,
-        indicatorColor: Colors.transparent, dividerHeight: 0,
-        overlayColor: MaterialStatePropertyAll(Colors.transparent),
-        labelColor: accentColor, unselectedLabelColor: Colors.white,
-        isScrollable: false,
-        labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-        onTap: (value) => navController.selectedTab.value = value,
-        tabs: [
-          Tabs(thisTab: 0, selectedTab: navController.selectedTab.value, icon: MaterialSymbols.queue_music_rounded, label: "Queue"),
-          Tabs(thisTab: 1, selectedTab: navController.selectedTab.value, icon: Fa6Solid.house_chimney, label: "Home"),
-          Tabs(thisTab: 2, selectedTab: navController.selectedTab.value, icon: Ic.round_library_music, label: "Library"),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: controller.selectedIndex.value,
+        items: [
+          BottomNavigationBarItem(
+            icon: Iconify(
+              MaterialSymbols.queue_music_rounded,
+              color: (controller.selectedIndex.value == 0) ? accentColor : Colors.white
+            ),
+            label: "Queue"
+          ),
+          BottomNavigationBarItem(
+            icon: Iconify(
+              Fa6Solid.house_chimney,
+              color: (controller.selectedIndex.value == 1) ? accentColor : Colors.white
+            ),
+            label: "Home"
+          ),
+          BottomNavigationBarItem(
+            icon: Iconify(
+              Ic.round_library_music,
+              color: (controller.selectedIndex.value == 2) ? accentColor : Colors.white
+            ),
+            label: "Library"
+          ),
         ],
-      ))),
-    );
+        onTap: (index) {
+          controller.selectedIndex.value = index;
+        },
+      ),
+    ));
   }
 
-  Drawer _drawer(NavigationController navController) {
+  Drawer _drawer(NavigationController controller) {
     return Drawer(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -100,42 +97,42 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
             ),
             ListTile(
               onTap: () {
-                navController.closeDrawer();
+                controller.closeDrawer();
               },
               leading: Iconify(Ion.home_outline, color: accentColor),
               title: Text("Home", style: TextStyle(color: accentColor)),
             ),
             ListTile(
               onTap: () {
-                navController.closeDrawer();
+                controller.closeDrawer();
               },
               leading: Iconify(IconParkTwotone.folder_music, color: Colors.white,),
               title: Text("My Music", style: TextStyle(color: Colors.white)),
             ),
             ListTile(
               onTap: () {
-                navController.closeDrawer();
+                controller.closeDrawer();
               },
               leading: Iconify(Codicon.repo_clone, color: Colors.white,),
               title: Text("Cloned", style: TextStyle(color: Colors.white)),
             ),
             ListTile(
               onTap: () {
-                navController.closeDrawer();
+                controller.closeDrawer();
               },
               leading: Iconify(Ic.sharp_playlist_play, color: Colors.white),
               title: Text("Playlists", style: TextStyle(color: Colors.white)),
             ),
             ListTile(
               onTap: () {
-                navController.closeDrawer();
+                controller.closeDrawer();
               },
               leading: Iconify(Ion.settings_sharp, color: Colors.white),
               title: Text("Settings", style: TextStyle(color: Colors.white)),
             ),
             ListTile(
               onTap: () {
-                navController.closeDrawer();
+                controller.closeDrawer();
               },
               leading: Iconify(IcomoonFree.info, color: Colors.white),
               title: Text("About", style: TextStyle(color: Colors.white)),
@@ -150,7 +147,7 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
                   WidgetSpan(child: Text(" by Akshat Gupta", style: GoogleFonts.arbutus(color: Colors.white))),
                 ],
               )
-            )
+            ),
           ],
         ),
       ),
