@@ -19,7 +19,7 @@ class SearchContainer extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.to(() => SearchView()),
       child: Container(
-        width: media.width/1.4, height: kBottomNavigationBarHeight,
+        width: media.width/1.4, height: kToolbarHeight,
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: Color(0xFF151515),

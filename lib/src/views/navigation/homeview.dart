@@ -24,6 +24,7 @@ class HomeView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
+    EdgeInsets padding = MediaQuery.paddingOf(context);
     return Scaffold(
       drawer: Drawer(),
       body: Container(
@@ -39,7 +40,7 @@ class HomeView extends StatelessWidget{
         child: Obx(() => CustomScrollView(
           controller: scrollController,
           slivers: [
-            _appBar(media),
+            _appBar(media, padding),
             _content(media),
           ],
         )),
@@ -47,9 +48,10 @@ class HomeView extends StatelessWidget{
     );
   }
 
-  SliverAppBar _appBar(Size media) {
+  SliverAppBar _appBar(Size media, EdgeInsets padding) {
+    
     return SliverAppBar(
-      pinned: true,
+      pinned: true, toolbarHeight: kToolbarHeight + padding.top/2,
       leading: DrawerButton(),
       actions: [
         GestureDetector(
@@ -62,7 +64,7 @@ class HomeView extends StatelessWidget{
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true, expandedTitleScale: 1.25,
         titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-        title: SearchContainer(media: media),
+        title: SafeArea(child: SearchContainer(media: media)),
         background: Image.asset("assets/images/concert.jpg", fit: BoxFit.fill, filterQuality: FilterQuality.low),
         stretchModes: [StretchMode.blurBackground],
       ),

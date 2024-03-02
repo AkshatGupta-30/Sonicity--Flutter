@@ -26,13 +26,6 @@ class ViewAllSection extends StatelessWidget {
           Spacer(),
           ElevatedButton(
             onPressed: onPressed,
-            style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(Colors.transparent),
-              shadowColor: MaterialStatePropertyAll(Colors.transparent),
-              surfaceTintColor: MaterialStatePropertyAll(Colors.transparent),
-              overlayColor: MaterialStatePropertyAll(Colors.grey.shade900),
-              padding: MaterialStatePropertyAll(EdgeInsets.only(left: 10)),
-            ),
             child: Row(
               children: [
                 Text(
