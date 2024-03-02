@@ -67,7 +67,7 @@ class _LibraryViewState extends State<LibraryView> {
         body: ListView(
           padding: EdgeInsets.all(15),
           physics: NeverScrollableScrollPhysics(),
-          children: [
+          children: <Tile>[
             Tile(// * : All Songs
               onPressed: () {},
               icon: Pepicons.music_note_single,

@@ -29,7 +29,7 @@ class SearchContainer extends StatelessWidget {
         child: RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
-            children: [
+            children: <WidgetSpan>[
               WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
                 child: GlowText(

@@ -121,29 +121,29 @@ class SearchShimmer extends StatelessWidget {
 
   ListTile _listTile() {
     return ListTile(
-          contentPadding: EdgeInsets.zero,
-          leading: Container(
-            height: 60, width: 60,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12)
-            )
-          ),
-          title: Container(
-            height: 18, margin: EdgeInsets.only(right: 40),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12)
-            )
-          ),
-          subtitle: Container(
-            height: 14, margin: EdgeInsets.only(right: 90),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12)
-            )
-          ),
-          trailing: Iconify(Ic.sharp_more_vert, size: 30),
-        );
+      contentPadding: EdgeInsets.zero,
+      leading: Container(
+        height: 60, width: 60,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12)
+        )
+      ),
+      title: Container(
+        height: 18, margin: EdgeInsets.only(right: 40),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12)
+        )
+      ),
+      subtitle: Container(
+        height: 14, margin: EdgeInsets.only(right: 90),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12)
+        )
+      ),
+      trailing: Iconify(Ic.sharp_more_vert, size: 30),
+    );
   }
 }

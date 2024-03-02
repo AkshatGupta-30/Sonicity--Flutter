@@ -22,7 +22,7 @@ class CoverImageSection extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        children: <Container>[
           _column(
             Quality.high, image.highQuality,
             () {
@@ -87,11 +87,11 @@ class CoverImageSection extends StatelessWidget {
     );
   }
 
-  Widget _column(Quality q, String url, VoidCallback onTap) {
+  Container _column(Quality q, String url, VoidCallback onTap) {
     String quality = (q == Quality.high)
       ? "High Quality"
       : ((q == Quality.med) ? "Medium Quality" : "Low Quality");
-    return Padding(
+    return Container(
       padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Column(
         children: [

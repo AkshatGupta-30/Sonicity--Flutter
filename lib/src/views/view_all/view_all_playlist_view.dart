@@ -97,9 +97,9 @@ class ViewAllPlaylistsView extends StatelessWidget {
       expandedHeight: 320,
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
-          children: [
-            SizedBox(
-              height: 360, width: double.maxFinite,
+          children: <Container>[
+            Container(
+              height: 360, width: double.maxFinite, decoration: BoxDecoration(),
               child: (controller.playlists.length == 1)
               ? CachedNetworkImage(
                 imageUrl: controller.playlists.first.image.highQuality, fit: BoxFit.cover,
@@ -148,7 +148,7 @@ class ViewAllPlaylistsView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: <Text>[
                   Text(
                     "Playlists",
                     style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),

@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
@@ -97,9 +98,9 @@ class ViewAllAlbumsView extends StatelessWidget {
       expandedHeight: 320,
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
-          children: [
-            SizedBox(
-              height: 360, width: double.maxFinite,
+          children: <Container>[
+            Container(
+              height: 360, width: double.maxFinite, decoration: BoxDecoration(),
               child: (controller.albums.length == 1)
               ? CachedNetworkImage(
                 imageUrl: controller.albums.first.image!.highQuality, fit: BoxFit.cover,
@@ -148,7 +149,7 @@ class ViewAllAlbumsView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: <Text>[
                   Text(
                     "Albums",
                     style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),

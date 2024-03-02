@@ -26,7 +26,7 @@ class ReportSheet extends StatelessWidget {
               ListView(
                 controller: scrollController,
                 padding: EdgeInsets.fromLTRB(16, scrollController != null ? 20 : 16, 16, 0),
-                children: <Widget>[
+                children: [
                   Text(
                     "Write your feedback here (Optional) -",
                     style: TextStyle(fontSize: 16),

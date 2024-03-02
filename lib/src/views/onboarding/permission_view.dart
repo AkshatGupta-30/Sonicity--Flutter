@@ -42,7 +42,7 @@ class PermissionView extends StatelessWidget {
                   textAlign: TextAlign.center,
                   text: TextSpan(
                     style: TextStyle(fontFamily: "LovelyMamma", fontSize: 18),
-                    children: [
+                    children: <TextSpan>[
                       TextSpan(
                         text: "Sonicity requires ",
                         style: TextStyle(color: Colors.grey)

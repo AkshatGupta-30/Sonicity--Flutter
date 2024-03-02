@@ -57,7 +57,7 @@ class SongDetailsView extends StatelessWidget {
               return NestedScrollView(
                 headerSliverBuilder: (context, innerBoxIsScrolled) {
                   return [
-                    Obx(() => SliverAppBar(
+                    SliverAppBar(
                       pinned: true, floating: false, snap: false,
                       toolbarHeight: kBottomNavigationBarHeight,
                       shadowColor: Colors.black87, surfaceTintColor: Colors.black87, backgroundColor: Colors.grey.shade900,
@@ -158,13 +158,13 @@ class SongDetailsView extends StatelessWidget {
                           ),
                         ]
                       ),
-                    )),
+                    ),
                   ];
                 },
                 body: TabBarView(
                   controller: controller.tabController,
                   physics: NeverScrollableScrollPhysics(),
-                  children: [
+                  children: <Container>[
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                       child: ListView(
@@ -246,7 +246,7 @@ class SongDetailsView extends StatelessWidget {
                                   },
                                   child: RichText(
                                     text: TextSpan(
-                                      children: [
+                                      children: <InlineSpan>[
                                         WidgetSpan(child: Iconify(Ic.twotone_copyright, color: Colors.blue, size: 21)),
                                         TextSpan(
                                           text: " Copyright",
@@ -301,7 +301,7 @@ class SongDetailsView extends StatelessWidget {
           },
         ),
         overlayStyle: ExpandableFabOverlayStyle(blur: 5),
-        children: [
+        children: <FloatingActionButton>[
           FloatingActionButton(
             onPressed: () {
               Get.to(() => ToDoView(text: "Add this song to playlist"));
@@ -348,11 +348,11 @@ class SongDetailsView extends StatelessWidget {
     return Text(text, style: style);
   }
 
-  Widget _albumSection(Album album) {
+  AlbumCell _albumSection(Album album) {
     return AlbumCell(album, subtitle: "");
   }
 
-  Widget _artistSection(List<Artist> artists) {
+  SizedBox _artistSection(List<Artist> artists) {
     return SizedBox(
       height: 180,
       child: ListView.builder(

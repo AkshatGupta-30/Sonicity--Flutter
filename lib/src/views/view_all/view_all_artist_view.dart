@@ -69,7 +69,7 @@ class ViewAllArtistsView extends StatelessWidget {
       actions: [
         PopupMenuButton(
           itemBuilder: (context) {
-            return [
+            return <PopupMenuItem>[
               PopupMenuItem(
                 onTap: () => controller.sort(SortType.name, Sort.asc),
                 child: PopUpButtonRow(icon: Mdi.sort_alphabetical_ascending, label: "Name Asc")
@@ -97,9 +97,9 @@ class ViewAllArtistsView extends StatelessWidget {
       expandedHeight: 320,
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
-          children: [
-            SizedBox(
-              height: 360, width: double.maxFinite,
+          children: <Container>[
+            Container(
+              height: 360, width: double.maxFinite, decoration: BoxDecoration(),
               child: (controller.artists.length == 1)
               ? CachedNetworkImage(
                 imageUrl: controller.artists.first.image!.highQuality, fit: BoxFit.cover,
@@ -148,7 +148,7 @@ class ViewAllArtistsView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: <Text>[
                   Text(
                     "Artists",
                     style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),

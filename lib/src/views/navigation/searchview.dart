@@ -117,11 +117,11 @@ class SearchView extends StatelessWidget {
       );
   }
 
-  Widget _searchResults(SearchViewController controller) {
+  Column _searchResults(SearchViewController controller) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Column>[
         if(controller.searchAll.value.topQuery.isNotEmpty())
           Column(// * : Top Results
             crossAxisAlignment: CrossAxisAlignment.start,

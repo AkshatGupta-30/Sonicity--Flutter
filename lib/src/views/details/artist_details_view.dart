@@ -62,7 +62,7 @@ class ArtistDetailsView extends StatelessWidget {
                 body: TabBarView(
                   controller: controller.tabController,
                   physics: NeverScrollableScrollPhysics(),
-                  children: [
+                  children: <ListView>[
                     _songsTab(controller),
                     _albumsTab(controller),
                     _infoTab(artist),
@@ -176,7 +176,7 @@ class ArtistDetailsView extends StatelessWidget {
                   Row( 
                     children: [
                       Gap(20),
-                        Text(
+                      Text(
                         "${controller.songCount} Songs",
                         style: TextStyle(color: Colors.white, fontSize: 21),
                       ),
@@ -338,35 +338,32 @@ class ArtistDetailsView extends StatelessWidget {
     );
   }
 
-  Container _infoTab(Artist artist) {
-    return Container(
+  ListView _infoTab(Artist artist) {
+    return ListView(
       padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
-      child: ListView(
-        
-        children: [
-          _divide(),
-          _head("Name"),
-          _detail(artist.name),
-          _divide(),
-          _head("Dominant Language"),
-          _detail(artist.dominantLanguage!),
-          _divide(),
-          _head("Dominant Type"),
-          _detail(artist.dominantType!),
-          _divide(),
-          if(artist.dob != null && artist.dob!.isNotEmpty)
-            _dobSection(artist.dob!),
-          if(artist.fb != null && artist.fb!.isNotEmpty)
-            _fbSection(artist.fb!),
-          if(artist.twitter != null && artist.twitter!.isNotEmpty)
-            _twitterSection(artist.twitter!),
-          if(artist.wiki != null && artist.wiki!.isNotEmpty)
-            _wikiSection(artist.wiki!),
-          _head("Cover Image Url"),
-          CoverImageSection(image: artist.image!),
-          _divide(),
-        ],
-      ),
+      children: [
+        _divide(),
+        _head("Name"),
+        _detail(artist.name),
+        _divide(),
+        _head("Dominant Language"),
+        _detail(artist.dominantLanguage!),
+        _divide(),
+        _head("Dominant Type"),
+        _detail(artist.dominantType!),
+        _divide(),
+        if(artist.dob != null && artist.dob!.isNotEmpty)
+          _dobSection(artist.dob!),
+        if(artist.fb != null && artist.fb!.isNotEmpty)
+          _fbSection(artist.fb!),
+        if(artist.twitter != null && artist.twitter!.isNotEmpty)
+          _twitterSection(artist.twitter!),
+        if(artist.wiki != null && artist.wiki!.isNotEmpty)
+          _wikiSection(artist.wiki!),
+        _head("Cover Image Url"),
+        CoverImageSection(image: artist.image!),
+        _divide(),
+      ],
     );
   }
 
@@ -387,7 +384,7 @@ class ArtistDetailsView extends StatelessWidget {
     return Text(text, style: style);
   }
 
-  Widget _dobSection(String dob) {
+  Column _dobSection(String dob) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -398,7 +395,7 @@ class ArtistDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _fbSection(String fb) {
+  Column _fbSection(String fb) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -409,7 +406,7 @@ class ArtistDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _twitterSection(String twit) {
+  Column _twitterSection(String twit) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -420,7 +417,7 @@ class ArtistDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _wikiSection(String wiki) {
+  Column _wikiSection(String wiki) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -49,7 +49,7 @@ class WelcomeView extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       style: TextStyle(fontFamily: "LovelyMamma", fontSize: 18),
-                      children: [
+                      children: <TextSpan>[
                         TextSpan(
                           text: "Welcome to Sonicity!",
                           style: TextStyle(color: Colors.cyanAccent, fontWeight: FontWeight.bold)

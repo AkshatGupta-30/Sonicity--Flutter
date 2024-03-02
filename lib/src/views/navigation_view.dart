@@ -144,7 +144,7 @@ class _NavigationViewState extends State<NavigationView> with SingleTickerProvid
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
-                children: [
+                children: <WidgetSpan>[
                   WidgetSpan(child: Text("Made with ", style: GoogleFonts.arbutus(color: Colors.white))),
                   WidgetSpan(child: Iconify(MaterialSymbols.favorite_rounded, color: Colors.red)),
                   WidgetSpan(child: Text(" by Akshat Gupta", style: GoogleFonts.arbutus(color: Colors.white))),

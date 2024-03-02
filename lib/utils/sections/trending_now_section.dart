@@ -81,7 +81,7 @@ class TrendingNowSection extends StatelessWidget {
           child: TabBarView(
             controller: homeController.tabController,
             physics: NeverScrollableScrollPhysics(),
-            children: [
+            children: <CarouselSlider>[
               CarouselSlider.builder(
                 itemCount: (homeController.home.value.trendingNow.songs.isEmpty)
                   ? 1

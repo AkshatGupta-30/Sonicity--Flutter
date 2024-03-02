@@ -70,7 +70,7 @@ class AlbumCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children:<Text> [
                   Text(
                     album.name, maxLines: 1, overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: Colors.white, fontSize: 24),

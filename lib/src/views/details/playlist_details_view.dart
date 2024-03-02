@@ -43,20 +43,18 @@ class PlaylistDetailsView extends StatelessWidget {
         child: GetBuilder(
           init: PlaylistDetailController(Get.arguments),
           builder: (controller) {
-            return Obx(() {
-              Playlist playlist = controller.playlist.value;
-              if(playlist.isEmpty()) {
-                return Center(
-                  child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
-                );
-              }
-              return CustomScrollView(
-                slivers: [
-                  _appBar(media, playlist, controller),
-                  _playlistSongs(playlist),
-                ],
+            Playlist playlist = controller.playlist.value;
+            if(playlist.isEmpty()) {
+              return Center(
+                child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
               );
-            });
+            }
+            return CustomScrollView(
+              slivers: [
+                _appBar(media, playlist, controller),
+                _playlistSongs(playlist),
+              ],
+            );
           }
         ),
       ),
@@ -118,7 +116,7 @@ class PlaylistDetailsView extends StatelessWidget {
           child: Row( 
             children: [
               Gap(20),
-                Text(
+              Text(
                 "${playlist.songs!.length} Songs",
                 style: TextStyle(color: Colors.white, fontSize: 21),
               ),
@@ -233,7 +231,7 @@ class PlaylistDetailsView extends StatelessWidget {
         },
       ),
       overlayStyle: ExpandableFabOverlayStyle(blur: 5),
-      children: [
+      children: <FloatingActionButton>[
         FloatingActionButton(
           onPressed: () {
             Get.to(() => ToDoView(text: "Add this playlist to starred"));
