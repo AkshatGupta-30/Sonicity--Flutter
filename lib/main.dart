@@ -52,12 +52,24 @@ class MainApp extends StatelessWidget {
           fontFamily: Fonts.lovelyMamma,
           bottomNavigationBarTheme: bottomNavBarThemeData,
           scaffoldBackgroundColor: Colors.black,
-          actionIconTheme: actionIconThemeData
+          actionIconTheme: actionIconThemeData,
+          appBarTheme: appBarThemeData,
         ),
       ),
     );
   }
 }
+
+final appBarThemeData = AppBarTheme(
+  elevation: 2, toolbarHeight: kToolbarHeight,
+  backgroundColor: Colors.grey.shade900,
+  shadowColor: Colors.white,
+  surfaceTintColor: Colors.grey.shade900,
+  centerTitle: true,
+  foregroundColor: Colors.white,
+  titleTextStyle: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
+  actionsIconTheme: IconThemeData(color: Colors.grey.shade200),
+);
 
 final actionIconThemeData = ActionIconThemeData(
   backButtonIconBuilder: (context) {

@@ -85,7 +85,6 @@ class _StorageViewState extends State<StorageView> {
 
   SliverAppBar appBar(Size media, EdgeInsets safe) {
     return SliverAppBar(
-      backgroundColor: Colors.transparent,
       leading: BackButton(
         onPressed: () {
           if(curDir.value.path != "storage/emulated/0/Music") {
@@ -96,11 +95,7 @@ class _StorageViewState extends State<StorageView> {
           updateAppBar();
         },
       ),
-      title: Text(
-        rootName(curDir.value.path),
-        style: TextStyle(color: Colors.white, fontSize: 30),
-      ),
-      toolbarHeight: kBottomNavigationBarHeight,
+      title: Text(rootName(curDir.value.path)),
       bottom: PreferredSize(
         preferredSize: Size(media.width, kBottomNavigationBarHeight + safe.top),
         child: Container(

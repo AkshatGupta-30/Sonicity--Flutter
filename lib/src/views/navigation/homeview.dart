@@ -50,8 +50,6 @@ class HomeView extends StatelessWidget{
   SliverAppBar _appBar(Size media) {
     return SliverAppBar(
       pinned: true,
-      toolbarHeight: 75, backgroundColor: Colors.grey.shade900,
-      shadowColor: Colors.black87, surfaceTintColor: Colors.black87,
       leading: DrawerButton(),
       actions: [
         GestureDetector(

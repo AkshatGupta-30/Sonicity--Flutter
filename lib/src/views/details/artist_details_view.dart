@@ -113,20 +113,14 @@ class ArtistDetailsView extends StatelessWidget {
   SliverAppBar _appBar(int selectedTab, Size media, Artist artist, ArtistDetailController controller) {
     return SliverAppBar(
       pinned: true, floating: false, snap: false,
-      toolbarHeight: kBottomNavigationBarHeight,
-      shadowColor: Colors.black87, surfaceTintColor: Colors.black87, backgroundColor: Colors.grey.shade900,
       leading: BackButton(),
       expandedHeight: (selectedTab == 0 || selectedTab == 1) ? 390 : 360,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true, expandedTitleScale: 1.5,
         stretchModes: [StretchMode.blurBackground],
-        titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: (selectedTab == 0 || selectedTab == 1) ? 70 : 40),
-        title: SizedBox(
-          width: media.width/1.4,
-          child: Text(
-            artist.name, maxLines: 1, overflow: TextOverflow.ellipsis,  textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
-          ),
+        titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: (selectedTab == 0 || selectedTab == 1) ? 70 : 14),
+        title: FittedBox(
+          child: Text(artist.name, maxLines: 1, overflow: TextOverflow.ellipsis,  textAlign: TextAlign.center),
         ),
         background: Stack(
           children: [
@@ -165,23 +159,24 @@ class ArtistDetailsView extends StatelessWidget {
       ],
       bottom: (selectedTab == 0 || selectedTab == 1)
         ? PreferredSize(
-          preferredSize: Size(double.maxFinite, kTextTabBarHeight),
+          preferredSize: Size(double.maxFinite, kToolbarHeight),
           child: Container(
-            height: 60, color: Colors.grey.shade900,
+            height: kToolbarHeight, color: Colors.grey.shade900,
             child: Column(
               children: [
                 Divider(color: Colors.white24, height: 1),
+                Spacer(),
                 if(selectedTab == 0)
                   Row( 
                     children: [
                       Gap(20),
                       Text(
                         "${controller.songCount} Songs",
-                        style: TextStyle(color: Colors.white, fontSize: 21),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       Spacer(),
                       Container(
-                        height: kBottomNavigationBarHeight, alignment: Alignment.center,
+                        alignment: Alignment.center,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -248,7 +243,7 @@ class ArtistDetailsView extends StatelessWidget {
                   ),
                 if(selectedTab == 1)
                   Container(
-                    width: double.maxFinite, height: kBottomNavigationBarHeight, alignment: Alignment.centerLeft,
+                    width: double.maxFinite, alignment: Alignment.centerLeft,
                     padding: EdgeInsets.only(left: 20),
                     child: Row(
                       children: [
@@ -294,7 +289,7 @@ class ArtistDetailsView extends StatelessWidget {
                       ],
                     ),
                   ),
-                Divider(color: Colors.white24, height: 1)
+                Spacer()
               ],
             ),
           ),

@@ -61,13 +61,8 @@ class ViewAllSongsView extends StatelessWidget {
     return SliverAppBar(
       pinned: true, floating: true, snap:  true,
       toolbarHeight: kToolbarHeight,
-      shadowColor: Colors.black87, surfaceTintColor: Colors.grey.shade900, backgroundColor: Colors.grey.shade900,
       leading: BackButton(),
-      centerTitle: true,
-      title: Text(
-        "Songs - ${Get.arguments}".title(), maxLines: 1, overflow: TextOverflow.ellipsis,
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
-      ),
+      title: Text("Songs - ${Get.arguments}".title(), maxLines: 1, overflow: TextOverflow.ellipsis),
       actions: [
         PopupMenuButton(
           itemBuilder: (context) {
@@ -98,7 +93,7 @@ class ViewAllSongsView extends StatelessWidget {
               ),
             ];
           },
-          icon: Iconify(MaterialSymbols.sort_rounded, color: Colors.white),
+          icon: Iconify(MaterialSymbols.sort_rounded, color: Get.theme.appBarTheme.actionsIconTheme!.color),
           position: PopupMenuPosition.under, color: Colors.grey.shade900,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),

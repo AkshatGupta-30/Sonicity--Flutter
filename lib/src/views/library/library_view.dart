@@ -39,14 +39,8 @@ class _LibraryViewState extends State<LibraryView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
         leading: DrawerButton(),
-        centerTitle: true,
         title: Text("Library"),
-        titleTextStyle: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
       ),
       drawer: Drawer(),
       body: Container(

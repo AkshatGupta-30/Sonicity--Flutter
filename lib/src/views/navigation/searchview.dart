@@ -53,7 +53,6 @@ class SearchView extends StatelessWidget {
               slivers: [
                 SliverAppBar(
                   pinned: true, toolbarHeight: kToolbarHeight + safeArea.top/2,
-                  backgroundColor: Colors.grey.shade900, surfaceTintColor: Colors.transparent,
                   leadingWidth: 0, titleSpacing: 0,
                   title: SearchBox(
                     searchController: controller.searchController,
@@ -71,13 +70,6 @@ class SearchView extends StatelessWidget {
                         : _searchHistory(controller),
                   ),
                 )
-                // SliverToBoxAdapter(
-                //   child: (controller.isLoading.value)
-                //     ? SearchShimmer()
-                //     : (controller.isSearching.value)
-                //       ? _searchResults(controller)
-                //       : _searchHistory(controller),
-                // )
               ],
             );
           }

@@ -65,8 +65,6 @@ class PlaylistDetailsView extends StatelessWidget {
   SliverAppBar _appBar(Size media, Playlist playlist, PlaylistDetailController controller) {
     return SliverAppBar(
       pinned: true, floating: false, snap: false,
-      toolbarHeight: kBottomNavigationBarHeight,
-      shadowColor: Colors.black87, surfaceTintColor: Colors.black87, backgroundColor: Colors.grey.shade900,
       leading: BackButton(),
       expandedHeight: 400,
       flexibleSpace: FlexibleSpaceBar(
