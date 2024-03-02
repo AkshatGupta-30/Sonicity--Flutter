@@ -29,7 +29,6 @@ class PlaylistDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: Colors.transparent,
       body: Container(
           decoration: BoxDecoration(
           gradient: LinearGradient(

@@ -38,33 +38,32 @@ class _LibraryViewState extends State<LibraryView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0.0, 1],
-          tileMode: TileMode.clamp,
-        ),
-      ),
-      child: Scaffold(
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-          surfaceTintColor: Colors.transparent,
-          elevation: 0,
-          leading: GestureDetector(
-            onTap: () => Get.find<NavigationController>().openDrawer(),
-            child: Icon(Icons.line_weight, color: Colors.white)
-          ),
-          centerTitle: true,
-          title: Text("Library"),
-          titleTextStyle: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        leading: GestureDetector(
+          onTap: () => Get.find<NavigationController>().openDrawer(),
+          child: Icon(Icons.line_weight, color: Colors.white)
         ),
-        drawer: Drawer(),
-        body: ListView(
+        centerTitle: true,
+        title: Text("Library"),
+        titleTextStyle: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+      ),
+      drawer: Drawer(),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.0, 1],
+            tileMode: TileMode.clamp,
+          ),
+        ),
+        child: ListView(
           padding: EdgeInsets.all(15),
           physics: NeverScrollableScrollPhysics(),
           children: <Tile>[

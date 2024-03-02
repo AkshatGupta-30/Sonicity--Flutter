@@ -31,7 +31,6 @@ class NavigationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
       key: controller.scaffoldKey,
-      backgroundColor: Colors.black,
       drawer: _drawer(controller),
       body: navTabs[controller.selectedIndex.value],
       floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),

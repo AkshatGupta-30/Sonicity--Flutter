@@ -9,7 +9,6 @@ class ToDoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Center(
         child: Text(text, style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 30)),
       ),

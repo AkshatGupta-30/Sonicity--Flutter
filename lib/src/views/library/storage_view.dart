@@ -47,19 +47,18 @@ class _StorageViewState extends State<StorageView> {
         }
         updateAppBar();
       },
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.0, 1],
-            tileMode: TileMode.clamp,
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.0, 1],
+              tileMode: TileMode.clamp,
+            ),
           ),
-        ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: CustomScrollView(
+          child: CustomScrollView(
             slivers: [
               appBar(media, safe),
               SliverList.builder(

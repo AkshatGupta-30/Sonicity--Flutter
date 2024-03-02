@@ -48,6 +48,7 @@ class MainApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: Fonts.lovelyMamma,
           bottomNavigationBarTheme: bottomNavBarThemeData,
+          scaffoldBackgroundColor: Colors.black,
         ),
       ),
     );

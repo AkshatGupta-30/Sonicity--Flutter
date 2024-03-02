@@ -33,7 +33,6 @@ class SongDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

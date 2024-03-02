@@ -22,8 +22,6 @@ class ViewAllPlaylistsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -52,6 +50,7 @@ class ViewAllPlaylistsView extends StatelessWidget {
           }
         ),
       ),
+      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
     );
   }
 

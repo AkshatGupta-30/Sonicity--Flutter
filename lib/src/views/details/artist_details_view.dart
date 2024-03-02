@@ -35,7 +35,6 @@ class ArtistDetailsView extends StatelessWidget {
       init: ArtistDetailController(Get.arguments),
       builder: (controller) {
         return Scaffold(
-          backgroundColor: Colors.black,
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(

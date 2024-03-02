@@ -25,8 +25,6 @@ class ViewAllSongsView extends StatelessWidget {
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -55,6 +53,7 @@ class ViewAllSongsView extends StatelessWidget {
           }
         ),
       ),
+      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
     );
   }
 

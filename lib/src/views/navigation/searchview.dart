@@ -33,8 +33,6 @@ class SearchView extends StatelessWidget {
   Widget build(BuildContext context) {
     var safeArea = MediaQuery.paddingOf(context);
     return Scaffold(
-      backgroundColor: Colors.black,
-      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -85,6 +83,7 @@ class SearchView extends StatelessWidget {
           }
         ),
       ),
+      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
     );
   }
 
