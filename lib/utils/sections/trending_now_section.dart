@@ -28,10 +28,6 @@ class TrendingNowSection extends StatelessWidget {
         TitleSection(title: "Trending Now", center: true),
         TabBar(
           controller: homeController.tabController,
-          indicatorColor: Colors.red,
-          dividerColor: Colors.red.withOpacity(0.5),
-          overlayColor: MaterialStatePropertyAll(Colors.transparent),
-          splashFactory: NoSplash.splashFactory,
           isScrollable: false,
           physics: NeverScrollableScrollPhysics(),
           tabs: [

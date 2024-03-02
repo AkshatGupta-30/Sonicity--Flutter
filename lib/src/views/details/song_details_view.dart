@@ -121,10 +121,6 @@ class SongDetailsView extends StatelessWidget {
       ],
       bottom: TabBar(
         controller: controller.tabController,
-        indicatorColor: Colors.red,
-        dividerColor: Colors.red.withOpacity(0.5),
-        overlayColor: MaterialStatePropertyAll(Colors.transparent),
-        splashFactory: NoSplash.splashFactory,
         isScrollable: false,
         physics: NeverScrollableScrollPhysics(),
         tabs: [

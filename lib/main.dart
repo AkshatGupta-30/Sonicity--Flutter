@@ -51,6 +51,24 @@ class MainApp extends StatelessWidget {
             color: Colors.grey.shade900,
             labelTextStyle: MaterialStatePropertyAll(TextStyle(color: Colors.grey.shade100, fontSize: 18, fontFamily: Fonts.lovelyMamma)),
           );
+    var tabBarTheme = TabBarTheme(
+            indicatorColor: Colors.red,
+            dividerColor: Colors.red.withOpacity(0.5),
+            overlayColor: MaterialStatePropertyAll(Colors.transparent),
+            splashFactory: NoSplash.splashFactory,
+            labelColor: accentColor, labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
+            unselectedLabelColor: accentColorDark, unselectedLabelStyle: TextStyle(fontSize: 16, fontFamily: Fonts.lovelyMamma),
+          );
+    var tooltipThemeData = TooltipThemeData(
+            preferBelow: false,
+            waitDuration: Duration(milliseconds: 500),
+            showDuration: Duration(seconds: 2),
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade800,
+              borderRadius: BorderRadius.circular(5),
+            ),
+          );
     return BetterFeedback(
       mode: FeedbackMode.draw, themeMode: ThemeMode.system,
       feedbackBuilder: (BuildContext context, OnSubmit onSubmit, ScrollController? scrollController) {
@@ -78,6 +96,9 @@ class MainApp extends StatelessWidget {
           drawerTheme: drawerThemeData,
           listTileTheme: listTileThemeData,
           popupMenuTheme: popupMenuThemeData,
+          tabBarTheme: tabBarTheme,
+          useMaterial3: true,
+          tooltipTheme: tooltipThemeData
         ),
       ),
     );

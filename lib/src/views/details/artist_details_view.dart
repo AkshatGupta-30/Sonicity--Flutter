@@ -74,11 +74,7 @@ class ArtistDetailsView extends StatelessWidget {
             int selectedTab = controller.selectedTab.value;
             return TabBar(
               controller: controller.tabController,
-              indicatorColor: Colors.red, dividerColor: Colors.transparent,
-              overlayColor: MaterialStatePropertyAll(Colors.grey.shade700),
-              splashFactory: NoSplash.splashFactory,
-              labelColor: accentColor, labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              unselectedLabelColor: accentColorDark, unselectedLabelStyle: TextStyle(fontSize: 16),
+              dividerColor: Colors.transparent,
               isScrollable: false, physics: NeverScrollableScrollPhysics(),
               tabs: [
                 Tab(
