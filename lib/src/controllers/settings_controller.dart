@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sonicity/utils/contants/colors.dart';
+import 'package:sonicity/utils/contants/prefs_keys.dart';
 
 class SettingsController extends GetxController {
   final _themeModeSaved = ThemeMode.system.obs;
@@ -23,7 +24,7 @@ class SettingsController extends GetxController {
 
   _initThemeMode() async {
     final prefs = await SharedPreferences.getInstance();
-    String selection = prefs.getString('theme-mode') ?? "System";
+    String selection = prefs.getString(PrefsKey.themeMode) ?? "System";
     if(selection == "System") {setThemeMode = ThemeMode.system;}
     else if(selection == "Light Mode") {setThemeMode = ThemeMode.light;}
     else {setThemeMode = ThemeMode.dark;}
@@ -31,7 +32,7 @@ class SettingsController extends GetxController {
 
   _initAccent() async {
     final prefs = await SharedPreferences.getInstance();
-    int index = prefs.getInt('accent-index') ?? 0;
+    int index = prefs.getInt(PrefsKey.accentIndex) ?? 0;
     _accentIndex.value = index;
   }
 }

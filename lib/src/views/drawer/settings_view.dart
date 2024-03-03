@@ -11,6 +11,7 @@ import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/utils/contants/colors.dart';
+import 'package:sonicity/utils/contants/prefs_keys.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
@@ -18,9 +19,6 @@ class SettingsView extends StatelessWidget {
   SettingsView({super.key});
 
   final controller = Get.find<SettingsController>();
-
-  final keyThemeMode = 'theme-mode';
-  final keyAccent = 'accent';
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +72,7 @@ class SettingsView extends StatelessWidget {
           dropDownValue.value = newValue!;
           
           final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('theme-mode', dropDownValue.value);
+          await prefs.setString(PrefsKey.themeMode, dropDownValue.value);
         },
         icon: Iconify(
           Ic.twotone_arrow_drop_down_circle,
@@ -117,7 +115,7 @@ class SettingsView extends StatelessWidget {
                         onTap: () async {
                           controller.setAccentIndex = index;
                           final prefs = await SharedPreferences.getInstance();
-                          await prefs.setInt('accent-index', index);
+                          await prefs.setInt(PrefsKey.accentIndex, index);
                           Navigator.pop(context);
                         },
                         child: Container(
