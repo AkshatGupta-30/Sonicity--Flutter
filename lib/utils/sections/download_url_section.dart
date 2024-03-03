@@ -29,13 +29,7 @@ class DownloadUrlSection extends StatelessWidget {
                   child: Iconify(Ic.twotone_cloud_download, size: 50, color: Colors.white)
                 ),
               ),
-              Text(
-                "320kbps",
-                style: TextStyle(
-                  color: Colors.grey.shade50, fontSize: 20,
-                  decoration: TextDecoration.underline, decorationColor: Colors.grey.shade200
-                )
-              ),
+              Text("320kbps", style: Get.textTheme.labelMedium),
             ],
           ),
           Column(
@@ -49,13 +43,7 @@ class DownloadUrlSection extends StatelessWidget {
                   child: Iconify(Ic.round_download, size: 50, color: Colors.white)
                 ),
               ),
-              Text(
-                "160kbps",
-                style: TextStyle(
-                  color: Colors.grey.shade50, fontSize: 20,
-                  decoration: TextDecoration.underline, decorationColor: Colors.grey.shade200
-                )
-              ),
+              Text("160kbps", style: Get.textTheme.labelMedium),
             ],
           ),
           Column(
@@ -69,13 +57,7 @@ class DownloadUrlSection extends StatelessWidget {
                   child: Iconify(MaterialSymbols.download_rounded, size: 50, color: Colors.white)
                 ),
               ),
-              Text(
-                "96kbps",
-                style: TextStyle(
-                  color: Colors.grey.shade50, fontSize: 20,
-                  decoration: TextDecoration.underline, decorationColor: Colors.grey.shade200
-                )
-              ),
+              Text("96kbps", style: Get.textTheme.labelMedium),
             ],
           ),
         ],

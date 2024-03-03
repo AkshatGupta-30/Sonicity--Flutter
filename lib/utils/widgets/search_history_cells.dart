@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ri.dart';
 
@@ -27,7 +28,7 @@ class SearchHistoryCell extends StatelessWidget {
               onTap: onTap,
               child: Text(
                 itemText,
-                style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.normal, ),
+                style: Get.textTheme.labelSmall!.copyWith(color: Colors.white),
               ),
             ),
             Gap(8),

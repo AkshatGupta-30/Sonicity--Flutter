@@ -73,11 +73,11 @@ class AlbumCard extends StatelessWidget {
                 children:<Text> [
                   Text(
                     album.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.white, fontSize: 24),
+                    style: Get.textTheme.labelLarge,
                   ),
                   Text(
                     "${album.songCount!} Songs", maxLines: 1, overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.grey.shade400, fontSize: 16),
+                    style: Get.textTheme.labelSmall,
                   ),
                 ],
               ),
@@ -153,12 +153,12 @@ class AlbumCell extends StatelessWidget {
             Gap(2),
             Text(
               album.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+              style: Get.textTheme.bodyLarge!.copyWith(fontSize: 14),
             ),
             if(subtitle.isNotEmpty)
               Text(
                 subtitle,
-                style: TextStyle(color: Colors.grey,  fontSize: 11),
+                style: Get.textTheme.bodySmall!.copyWith(fontSize: 11),
               )
           ],
         ),

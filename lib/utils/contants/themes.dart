@@ -123,6 +123,27 @@ class MyTheme {
       selectedLabelStyle: TextStyle(fontFamily: Fonts.lovelyMamma, fontSize: 18),
       unselectedLabelStyle: TextStyle(fontFamily: Fonts.lovelyMamma, fontSize: 18),
     ),
+    textTheme: TextTheme(
+      displayLarge: TextStyle(color: Colors.white, fontSize: 72, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
+      displayMedium: TextStyle(color: Colors.grey.shade300, fontSize: 56, fontWeight: FontWeight.w300, fontFamily: Fonts.lovelyMamma),
+      displaySmall: TextStyle(color: Colors.grey, fontSize: 42, fontWeight: FontWeight.normal, fontFamily: Fonts.lovelyMamma),
+
+      headlineLarge: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
+      headlineMedium: TextStyle(color: Colors.grey.shade300, fontSize: 36, fontWeight: FontWeight.w300, fontFamily: Fonts.lovelyMamma),
+      headlineSmall: TextStyle(color: Colors.grey, fontSize: 30, fontWeight: FontWeight.normal, fontFamily: Fonts.lovelyMamma),
+
+      titleLarge: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
+      titleMedium: TextStyle(color: Colors.grey.shade300, fontSize: 24, fontWeight: FontWeight.w300, letterSpacing: 0.15, fontFamily: Fonts.lovelyMamma),
+      titleSmall: TextStyle(color: Colors.grey, fontSize: 20, fontWeight: FontWeight.normal, letterSpacing: 0.1, fontFamily: Fonts.lovelyMamma),
+
+      labelLarge: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold, letterSpacing: 0.1, fontFamily: Fonts.lovelyMamma),
+      labelMedium: TextStyle(color: Colors.grey.shade300, fontSize: 20, fontWeight: FontWeight.w300, letterSpacing: 0.5, fontFamily: Fonts.lovelyMamma),
+      labelSmall: TextStyle(color: Colors.grey, fontSize: 15, fontWeight: FontWeight.normal, letterSpacing: 0.5, fontFamily: Fonts.lovelyMamma),
+
+      bodyLarge: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold, letterSpacing: 0.15, fontFamily: Fonts.lovelyMamma),
+      bodyMedium: TextStyle(color: Colors.grey.shade300, fontSize: 15, fontWeight: FontWeight.w300, letterSpacing: 0.25, fontFamily: Fonts.lovelyMamma),
+      bodySmall: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.normal, letterSpacing: 0.4, fontFamily: Fonts.lovelyMamma),
+    ),
   );
 
   static final lightTheme = ThemeData(
@@ -221,6 +242,27 @@ class MyTheme {
       type: BottomNavigationBarType.fixed,
       selectedLabelStyle: TextStyle(fontFamily: Fonts.lovelyMamma, fontSize: 18),
       unselectedLabelStyle: TextStyle(fontFamily: Fonts.lovelyMamma, fontSize: 18),
+    ),
+    textTheme: TextTheme(
+      displayLarge: TextStyle(color: Colors.black, fontSize: 72, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
+      displayMedium: TextStyle(color: Colors.grey.shade700, fontSize: 56, fontWeight: FontWeight.w300, fontFamily: Fonts.lovelyMamma),
+      displaySmall: TextStyle(color: Colors.grey, fontSize: 42, fontWeight: FontWeight.normal, fontFamily: Fonts.lovelyMamma),
+
+      headlineLarge: TextStyle(color: Colors.black, fontSize: 48, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
+      headlineMedium: TextStyle(color: Colors.grey.shade700, fontSize: 36, fontWeight: FontWeight.w300, fontFamily: Fonts.lovelyMamma),
+      headlineSmall: TextStyle(color: Colors.grey, fontSize: 30, fontWeight: FontWeight.normal, fontFamily: Fonts.lovelyMamma),
+
+      titleLarge: TextStyle(color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
+      titleMedium: TextStyle(color: Colors.grey.shade700, fontSize: 24, fontWeight: FontWeight.w300, letterSpacing: 0.15, fontFamily: Fonts.lovelyMamma),
+      titleSmall: TextStyle(color: Colors.grey, fontSize: 20, fontWeight: FontWeight.normal, letterSpacing: 0.1, fontFamily: Fonts.lovelyMamma),
+
+      labelLarge: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold, letterSpacing: 0.1, fontFamily: Fonts.lovelyMamma),
+      labelMedium: TextStyle(color: Colors.grey.shade700, fontSize: 20, fontWeight: FontWeight.w300, letterSpacing: 0.5, fontFamily: Fonts.lovelyMamma),
+      labelSmall: TextStyle(color: Colors.grey, fontSize: 15, fontWeight: FontWeight.normal, letterSpacing: 0.5, fontFamily: Fonts.lovelyMamma),
+
+      bodyLarge: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold, letterSpacing: 0.15, fontFamily: Fonts.lovelyMamma),
+      bodyMedium: TextStyle(color: Colors.grey.shade700, fontSize: 15, fontWeight: FontWeight.w300, letterSpacing: 0.25, fontFamily: Fonts.lovelyMamma),
+      bodySmall: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.normal, letterSpacing: 0.4, fontFamily: Fonts.lovelyMamma),
     ),
   );
 

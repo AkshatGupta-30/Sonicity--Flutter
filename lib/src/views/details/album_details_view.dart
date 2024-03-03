@@ -70,7 +70,7 @@ class AlbumDetailsView extends StatelessWidget {
           width: media.width/1.4,
           child: Text(
             album.name, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+            style: Get.textTheme.titleLarge
           ),
         ),
         background: Stack(
@@ -108,10 +108,7 @@ class AlbumDetailsView extends StatelessWidget {
           child: Row( 
             children: [
               Gap(20),
-              Text(
-                "${album.songs!.length} Songs",
-                style: TextStyle(color: Colors.white, fontSize: 21),
-              ),
+              Text("${album.songs!.length} Songs", style: Get.textTheme.bodyLarge),
               Spacer(),
               Container(
                 height: kBottomNavigationBarHeight, alignment: Alignment.center,

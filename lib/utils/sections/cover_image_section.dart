@@ -95,7 +95,7 @@ class CoverImageSection extends StatelessWidget {
       padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Column(
         children: [
-          Text(quality, style: TextStyle(color: Colors.white, fontSize: 16)),
+          Text(quality, style: Get.textTheme.bodyMedium),
           Gap(4),
           GestureDetector(
             onTap: onTap,

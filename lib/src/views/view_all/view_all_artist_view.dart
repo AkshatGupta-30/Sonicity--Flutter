@@ -134,14 +134,8 @@ class ViewAllArtistsView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Text>[
-                  Text(
-                    "Artists",
-                    style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "${controller.artistCount.value} Artists",
-                    style: TextStyle(color: Colors.grey.shade300, fontSize: 25),
-                  ),
+                  Text("Artists", style: Get.textTheme.displayMedium!.copyWith(fontWeight: FontWeight.bold)),
+                  Text("${controller.artistCount.value} Artists", style: Get.textTheme.headlineSmall),
                 ],
               ),
             )

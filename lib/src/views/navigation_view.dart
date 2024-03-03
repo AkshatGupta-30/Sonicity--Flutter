@@ -49,14 +49,18 @@ class NavigationView extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Iconify(
               Fa6Solid.house_chimney,
-              color: (controller.selectedIndex.value == 1) ? Get.find<SettingsController>().getAccent : Colors.white
+              color: (controller.selectedIndex.value == 1)
+                ? Get.find<SettingsController>().getAccent
+                : Colors.white
             ),
             label: "Home"
           ),
           BottomNavigationBarItem(
             icon: Iconify(
               Ic.round_library_music,
-              color: (controller.selectedIndex.value == 2) ? Get.find<SettingsController>().getAccent : Colors.white
+              color: (controller.selectedIndex.value == 2)
+                ? Get.find<SettingsController>().getAccent
+                : Colors.white
             ),
             label: "Library"
           ),
@@ -75,57 +79,34 @@ class NavigationView extends StatelessWidget {
           padding: EdgeInsets.all(8),
           child: Column(
             children: [
-              DrawerHeader(
-                child: Center(
-                  child: Text(
-                    "Sonicity",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 50,
-                      color: Colors.white
-                    ),
-                  ),
-                ),
-              ),
+              DrawerHeader(child: Center(child: Text("Sonicity", style: Get.textTheme.displayLarge))),
               ListTile(
-                onTap: () {
-                  controller.closeDrawer();
-                },
+                onTap: () => controller.closeDrawer(),
                 leading: Obx(() => Iconify(Ion.home_outline, color: Get.find<SettingsController>().getAccent)),
                 title: Obx(() => Text("Home", style: TextStyle(color: Get.find<SettingsController>().getAccent))),
               ),
               ListTile(
-                onTap: () {
-                  controller.closeDrawer();
-                },
+                onTap: () => controller.closeDrawer(),
                 leading: Iconify(IconParkTwotone.folder_music, color: Colors.white,),
-                title: Text("My Music", style: TextStyle(color: Colors.white)),
+                title: Text("My Music"),
               ),
               ListTile(
-                onTap: () {
-                  controller.closeDrawer();
-                },
+                onTap: () => controller.closeDrawer(),
                 leading: Iconify(Codicon.repo_clone, color: Colors.white,),
-                title: Text("Cloned", style: TextStyle(color: Colors.white)),
+                title: Text("Cloned"),
               ),
               ListTile(
-                onTap: () {
-                  controller.closeDrawer();
-                },
+                onTap: () => controller.closeDrawer(),
                 leading: Iconify(Ic.sharp_playlist_play, color: Colors.white),
-                title: Text("Playlists", style: TextStyle(color: Colors.white)),
+                title: Text("Playlists"),
               ),
               ListTile(
-                onTap: () {
-                  Get.to(() => SettingsView());
-                },
+                onTap: () => Get.to(() => SettingsView()),
                 leading: Iconify(Ion.settings_sharp, color: Colors.white),
-                title: Text("Settings", style: TextStyle(color: Colors.white)),
+                title: Text("Settings"),
               ),
               ListTile(
-                onTap: () {
-                  controller.closeDrawer();
-                },
+                onTap: () => controller.closeDrawer(),
                 leading: Iconify(IcomoonFree.info, color: Colors.white),
                 title: Text("About"),
               ),

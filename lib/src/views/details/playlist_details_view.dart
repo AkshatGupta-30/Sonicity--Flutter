@@ -67,7 +67,7 @@ class PlaylistDetailsView extends StatelessWidget {
           width: media.width/1.4,
           child: Text(
             playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+            style: Get.textTheme.titleLarge,
           ),
         ),
         background: Stack(
@@ -105,10 +105,7 @@ class PlaylistDetailsView extends StatelessWidget {
           child: Row( 
             children: [
               Gap(20),
-              Text(
-                "${playlist.songs!.length} Songs",
-                style: TextStyle(color: Colors.white, fontSize: 21),
-              ),
+              Text("${playlist.songs!.length} Songs", style: Get.textTheme.bodyLarge),
               Spacer(),
               Container(
                 height: kBottomNavigationBarHeight, alignment: Alignment.center,
@@ -119,10 +116,7 @@ class PlaylistDetailsView extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          "Shuffle",
-                          style: TextStyle(color: Colors.grey.shade300, fontSize: 21),
-                        ),
+                        Text("Shuffle", style: Get.textTheme.labelMedium),
                         Iconify(Ic.twotone_shuffle, color: Colors.grey.shade300, size: 25),
                       ],
                     ),

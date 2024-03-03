@@ -10,13 +10,13 @@ import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
-import 'package:sonicity/utils/widgets/style_widget.dart';
 import 'package:super_string/super_string.dart';
 
 class ViewAllSongsView extends StatelessWidget {
@@ -131,29 +131,29 @@ class ViewAllSongsView extends StatelessWidget {
                       );
                     },
                   )
-                  : GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                    itemCount: 4, shrinkWrap: true,
-                    padding: EdgeInsets.zero, physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      String image = controller.songs[index].image.standardQuality;
-                      return CachedNetworkImage(
-                        imageUrl: image, fit: BoxFit.cover,
-                        height: 40, width: 40,
-                        errorWidget: (context, url, error) {
-                          return Image.asset(
-                            "assets/images/appLogo50x50.png",
-                            fit: BoxFit.cover, height: 40, width: 40,
-                          );
-                        },
-                        placeholder: (context, url) {
-                          return Image.asset(
-                            "assets/images/appLogo50x50.png",
-                            fit: BoxFit.cover, height: 40, width: 40,
-                          );
-                        },
-                      );
-                    },
+                    : GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                      itemCount: 4, shrinkWrap: true,
+                      padding: EdgeInsets.zero, physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        String image = controller.songs[index].image.standardQuality;
+                        return CachedNetworkImage(
+                          imageUrl: image, fit: BoxFit.cover,
+                          height: 40, width: 40,
+                          errorWidget: (context, url, error) {
+                            return Image.asset(
+                              "assets/images/appLogo50x50.png",
+                              fit: BoxFit.cover, height: 40, width: 40,
+                            );
+                          },
+                          placeholder: (context, url) {
+                            return Image.asset(
+                              "assets/images/appLogo50x50.png",
+                              fit: BoxFit.cover, height: 40, width: 40,
+                            );
+                          },
+                        );
+                      },
                   ),
                 ),
               ),
@@ -161,14 +161,8 @@ class ViewAllSongsView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Songs",
-                    style: TextStyle(color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "${controller.songCount.value} Songs",
-                    style: TextStyle(color: Colors.grey, fontSize: 15),
-                  ),
+                  Text("Songs", style: Get.textTheme.headlineLarge),
+                  Text("${controller.songCount.value} Songs", style: Get.textTheme.titleMedium!.copyWith(color: Colors.grey)),
                   Gap(12),
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -177,18 +171,32 @@ class ViewAllSongsView extends StatelessWidget {
                       InkWell(// * : Play Button
                         onTap: (){},
                         borderRadius: BorderRadius.circular(15),
-                        child: Container(
-                          padding: EdgeInsets.only(left: 5, top: 10, right: 10, bottom: 10),
-                          child: BackgroundGradientDecorator(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Iconify(Ic.twotone_play_arrow, color: Colors.white, size: 30),
-                                Gap(3),
-                                Text("Play", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),)
-                              ],
-                            ),
-                          )
+                        child: Obx(
+                          () {
+                            final settings = Get.find<SettingsController>();
+                            return Container(
+                              padding: EdgeInsets.only(left: 5, top: 10, right: 10, bottom: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(18),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    settings.getAccent,
+                                    (settings.getThemeMode == ThemeMode.light) ? Colors.black : Colors.white
+                                  ],
+                                  begin: Alignment.center, end: Alignment.bottomCenter,
+                                  stops: [0.25, 1], tileMode: TileMode.clamp
+                                )
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Iconify(Ic.twotone_play_arrow, color: Colors.white, size: 30),
+                                  Gap(3),
+                                  Text("Play", style: Get.textTheme.titleMedium)
+                                ],
+                              )
+                            );
+                          }
                         ),
                       ),
                       Gap(10),

@@ -80,7 +80,7 @@ class SearchView extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             child: Obx(() => Text(
               "History",
-              style: TextStyle(color: Get.find<SettingsController>().getAccent, fontWeight: FontWeight.bold, fontSize: 25, ),
+              style: Get.textTheme.titleLarge!.copyWith(color: Get.find<SettingsController>().getAccent),
             )),
           ),
           Wrap(// * : All History Chip

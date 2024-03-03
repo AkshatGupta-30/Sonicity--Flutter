@@ -75,11 +75,11 @@ class SongCard extends StatelessWidget {
                 children: <Text>[
                   Text(
                     song.title, maxLines: 1, overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: Get.textTheme.bodyLarge!.copyWith(fontSize: 14),
                   ),
                   Text(
                     song.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
+                    style: Get.textTheme.bodySmall!.copyWith(fontSize: 11),
                   ),
                 ],
               ),

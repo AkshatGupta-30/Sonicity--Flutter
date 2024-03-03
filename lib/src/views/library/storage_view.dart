@@ -105,12 +105,12 @@ class _StorageViewState extends State<StorageView> {
                 children: [
                   Text(
                     "${songCounts.value} Songs\t\t\t", textAlign: TextAlign.start,
-                    style: TextStyle(color: Colors.grey.shade300, fontSize: 18),
+                    style: Get.textTheme.labelMedium,
                   ),
                   Iconify(Ri.timer_flash_line, color: Colors.grey.shade300, size: 18),
                   Text(
                     " 0 Minutes", textAlign: TextAlign.start,
-                    style: TextStyle(color: Colors.grey.shade300, fontSize: 18),
+                    style: Get.textTheme.labelMedium,
                   ),
                 ],
               ),

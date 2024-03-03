@@ -7,6 +7,7 @@ import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/pepicons.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class PermissionView extends StatelessWidget {
@@ -69,10 +70,7 @@ class PermissionView extends StatelessWidget {
                     tileColor: Colors.cyanAccent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     leading: Iconify(Pepicons.music_note_double, color: Colors.black),
-                    title: Text(
-                      "MUSIC AND AUDIO PERMISSION",
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
+                    title: Text("MUSIC AND AUDIO PERMISSION", style: Get.textTheme.labelLarge),
                   )
                   : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +79,7 @@ class PermissionView extends StatelessWidget {
                       Gap(10),
                       Text(
                         "Premission is granted",
-                        style: TextStyle(color: Colors.cyanAccent, fontWeight: FontWeight.bold, fontSize: 20),
+                        style: Get.textTheme.bodyLarge!.copyWith(color: Get.find<SettingsController>().getAccent)
                       ),
                     ]
                   );

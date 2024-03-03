@@ -114,7 +114,10 @@ class ArtistDetailsView extends StatelessWidget {
         stretchModes: [StretchMode.blurBackground],
         titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: (selectedTab == 0 || selectedTab == 1) ? 70 : 14),
         title: FittedBox(
-          child: Text(artist.name, maxLines: 1, overflow: TextOverflow.ellipsis,  textAlign: TextAlign.center),
+          child: Text(
+            artist.name, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,
+            style: Get.textTheme.titleLarge,
+          ),
         ),
         background: Stack(
           children: [
@@ -165,10 +168,7 @@ class ArtistDetailsView extends StatelessWidget {
                   Row( 
                     children: [
                       Gap(20),
-                      Text(
-                        "${controller.songCount} Songs",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
+                      Text("${controller.songCount} Songs", style: Get.textTheme.bodyLarge),
                       Spacer(),
                       Container(
                         alignment: Alignment.center,
@@ -179,11 +179,8 @@ class ArtistDetailsView extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  "Shuffle",
-                                  style: TextStyle(color: Colors.grey.shade300, fontSize: 21),
-                                ),
-                                Iconify(Ic.twotone_shuffle, color: Colors.grey.shade300, size: 25),
+                                Text("Shuffle", style: Get.textTheme.labelMedium),
+                                Iconify(Ic.twotone_shuffle, color: Colors.white, size: 25),
                               ],
                             ),
                             Gap(5),
@@ -242,10 +239,7 @@ class ArtistDetailsView extends StatelessWidget {
                     padding: EdgeInsets.only(left: 20),
                     child: Row(
                       children: [
-                        Text(
-                          "${controller.albumCount} Albums",
-                          style: TextStyle(color: Colors.white, fontSize: 21),
-                        ),
+                        Text("${controller.albumCount} Albums", style: Get.textTheme.bodyLarge),
                         Spacer(),
                         PopupMenuButton(
                           itemBuilder: (context) {
@@ -357,16 +351,14 @@ class ArtistDetailsView extends StatelessWidget {
   }
 
   Text _head(String text) {
-    TextStyle style = TextStyle(color: Colors.grey.shade400, fontSize: 21);
-    return Text(text, style: style);
+    return Text(text, style: Get.textTheme.titleSmall);
   }
 
   Widget _detail(String text, {bool isSelectable = false}) {
-    TextStyle style = TextStyle(color: Colors.white, fontSize: 25);
     if(isSelectable) {
-      return SelectableText(text, style: style);
+      return SelectableText(text, style: Get.textTheme.labelLarge);
     }
-    return Text(text, style: style);
+    return Text(text, style: Get.textTheme.labelLarge);
   }
 
   Column _dobSection(String dob) {

@@ -134,14 +134,8 @@ class ViewAllAlbumsView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Text>[
-                  Text(
-                    "Albums",
-                    style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "${controller.albumCount.value} Albums",
-                    style: TextStyle(color: Colors.grey.shade300, fontSize: 25),
-                  ),
+                  Text("Albums", style: Get.textTheme.displayMedium!.copyWith(fontWeight: FontWeight.bold)),
+                  Text("${controller.albumCount.value} Albums", style: Get.textTheme.headlineSmall),
                 ],
               ),
             )

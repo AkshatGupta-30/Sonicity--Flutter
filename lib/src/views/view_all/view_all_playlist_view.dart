@@ -135,14 +135,8 @@ class ViewAllPlaylistsView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Text>[
-                  Text(
-                    "Playlists",
-                    style: TextStyle(color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "${controller.playlistCount.value} Playlists",
-                    style: TextStyle(color: Colors.grey.shade300, fontSize: 25),
-                  ),
+                  Text("Playlists", style: Get.textTheme.displayMedium!.copyWith(fontWeight: FontWeight.bold)),
+                  Text("${controller.playlistCount.value} Playlists", style: Get.textTheme.headlineSmall),
                 ],
               ),
             )

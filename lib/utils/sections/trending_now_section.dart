@@ -44,12 +44,11 @@ class TrendingNowSection extends StatelessWidget {
                   Gap(8),
                   Obx(() => Text(
                     "Music",
-                    style: TextStyle(
-                      fontSize: 21,
+                    style: Get.textTheme.labelLarge!.copyWith(
                       color: (homeController.selectedTab.value == 0)
                         ? Get.find<SettingsController>().getAccent
                         : Get.find<SettingsController>().getAccentDark
-                    ))
+                    )),
                   )
                 ],
               ),
@@ -66,13 +65,12 @@ class TrendingNowSection extends StatelessWidget {
                   )),
                   Gap(8),
                   Obx(() => Text(
-                      "Album",
-                      style: TextStyle(
-                        fontSize: 21,
-                        color: (homeController.selectedTab.value == 1)
-                          ? Get.find<SettingsController>().getAccent
-                          : Get.find<SettingsController>().getAccentDark
-                    ))
+                    "Album",
+                    style: Get.textTheme.labelLarge!.copyWith(
+                      color: (homeController.selectedTab.value == 1)
+                        ? Get.find<SettingsController>().getAccent
+                        : Get.find<SettingsController>().getAccentDark
+                    )),
                   ),
                 ],
               ),

@@ -26,24 +26,20 @@ class HomeView extends StatelessWidget{
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
     EdgeInsets padding = MediaQuery.paddingOf(context);
-    return Scaffold(
-      body: BackgroundGradientDecorator(
-        child: Obx(() => CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            _appBar(media, padding),
-            _content(media),
-          ],
-        )),
-      ),
+    return BackgroundGradientDecorator(
+      child: Obx(() => CustomScrollView(
+        controller: scrollController,
+        slivers: [
+          _appBar(media, padding),
+          _content(media),
+        ],
+      )),
     );
   }
 
   SliverAppBar _appBar(Size media, EdgeInsets padding) {
-    
     return SliverAppBar(
       pinned: true, toolbarHeight: kToolbarHeight + padding.top/2,
-      leading: DrawerButton(),
       actions: [
         GestureDetector(
           onTap: () {},

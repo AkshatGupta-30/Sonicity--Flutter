@@ -29,12 +29,12 @@ class AddFolderView extends StatelessWidget {
               children: [
                 Text(
                   "Folders to scan",
-                  style: TextStyle(color: Colors.grey.shade300, fontSize: 40),
+                  style: Get.textTheme.headlineMedium,
                 ),
                 Gap(12),
                 Text(
                   "Select the folders where you keep your audio files.",
-                  style: TextStyle(color: Colors.grey.shade400, fontSize: 16),
+                  style: Get.textTheme.labelSmall,
                 ),
                 Gap(15),
                 FolderTile(
@@ -99,7 +99,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
         children: [
           Text(
             'Select a folder',
-            style: TextStyle(color: Colors.grey.shade200, fontSize: 20),
+            style: Get.textTheme.labelMedium,
           ),
           Gap(20),
           Container(
@@ -109,7 +109,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
               children: [
                 Text(
                   'Folders with full access :',
-                  style: TextStyle(color: Colors.grey, fontSize: 18),
+                  style: Get.textTheme.labelSmall,
                 ),
                 Gap(20),
                 Obx(() => Wrap(
@@ -129,7 +129,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                 Gap(20),
                 Text(
                   'Select a folder from :',
-                  style: TextStyle(color: Colors.grey, fontSize: 18),
+                  style: Get.textTheme.labelSmall,
                 ),
                 Gap(20),
                 FolderTile(

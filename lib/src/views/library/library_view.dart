@@ -39,11 +39,7 @@ class _LibraryViewState extends State<LibraryView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: DrawerButton(),
-        title: Text("Library"),
-      ),
-      drawer: Drawer(),
+      appBar: AppBar(title: Text("Library")),
       body: BackgroundGradientDecorator(
         child: ListView(
           padding: EdgeInsets.all(15),
