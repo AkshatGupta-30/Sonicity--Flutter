@@ -12,6 +12,7 @@ import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:sonicity/src/controllers/navigation_controller.dart';
+import 'package:sonicity/src/views/drawer/settings_view.dart';
 import 'package:sonicity/src/views/library/library_view.dart';
 import 'package:sonicity/src/views/navigation/homeview.dart';
 import 'package:sonicity/utils/contants/colors.dart';
@@ -117,7 +118,7 @@ class NavigationView extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  controller.closeDrawer();
+                  Get.to(() => SettingsView());
                 },
                 leading: Iconify(Ion.settings_sharp, color: Colors.white),
                 title: Text("Settings", style: TextStyle(color: Colors.white)),

@@ -8,7 +8,8 @@ class BackgroundGradientDecorator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
+    return Container(
+      height: double.maxFinite, width: double.maxFinite,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],

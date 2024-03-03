@@ -4,6 +4,7 @@ Color accentColor = Colors.accents[7];
 Color accentColorDark = const Color(0xFF0F5F57);
 
 final List<Color> lightColorList = [
+    const Color(0xFF18FFFF),
     const Color(0xff65ffa0),
     const Color(0xffff5252),
     const Color(0xffd50000),
@@ -31,6 +32,7 @@ final List<Color> lightColorList = [
 ];
 
 final List<Color> darkColorList = [
+  const Color(0xFF0F5F57),
   const Color(0xff00643c),
   const Color(0xff5c1f1f),
   const Color(0xff670000),
