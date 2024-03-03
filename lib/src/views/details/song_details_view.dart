@@ -13,12 +13,12 @@ import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/controllers/song_detail_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
-import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:sonicity/utils/sections/download_url_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
@@ -120,18 +120,22 @@ class SongDetailsView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Iconify(
+                Obx(() => Iconify(
                   IconParkTwotone.doc_detail, size: 25,
-                  color: (controller.selectedTab.value == 0) ? accentColor : accentColorDark,
-                ),
+                  color: (controller.selectedTab.value == 0)
+                    ? Get.find<SettingsController>().getAccent
+                    : Get.find<SettingsController>().getAccentDark,
+                )),
                 Gap(8),
-                Text(
+                Obx(() => Text(
                   "Details",
                   style: TextStyle(
                     fontSize: 21,
-                    color: (controller.selectedTab.value == 0) ? accentColor : accentColorDark
+                    color: (controller.selectedTab.value == 0)
+                      ? Get.find<SettingsController>().getAccent
+                      : Get.find<SettingsController>().getAccentDark
                   )
-                )
+                ))
               ],
             ),
           ),
@@ -139,18 +143,22 @@ class SongDetailsView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Iconify(
+                Obx(() => Iconify(
                   Ic.twotone_lyrics, size: 25,
-                  color: (controller.selectedTab.value == 1) ? accentColor : accentColorDark,
-                ),
+                  color: (controller.selectedTab.value == 1)
+                    ? Get.find<SettingsController>().getAccent
+                    : Get.find<SettingsController>().getAccentDark,
+                )),
                 Gap(8),
-                Text(
+                Obx(() => Text(
                   "Lyrics",
                   style: TextStyle(
                     fontSize: 21,
-                    color: (controller.selectedTab.value == 1) ? accentColor : accentColorDark
+                    color: (controller.selectedTab.value == 1)
+                      ? Get.find<SettingsController>().getAccent
+                      : Get.find<SettingsController>().getAccentDark
                   )
-                ),
+                )),
               ],
             ),
           ),
@@ -272,8 +280,8 @@ class SongDetailsView extends StatelessWidget {
     );
   }
 
-  ExpandableFab _floatingActionButton() {
-    return ExpandableFab(
+  Obx _floatingActionButton() {
+    return Obx(() => ExpandableFab(
       duration: Duration(milliseconds: 250),
       distance: 100.0,
       type: ExpandableFabType.fan,
@@ -281,10 +289,10 @@ class SongDetailsView extends StatelessWidget {
       childrenOffset: Offset(0,0),
       fanAngle: 90,
       openButtonBuilder: RotateFloatingActionButtonBuilder(
-        child: Iconify(IconParkTwotone.more_four, color: accentColor),
+        child: Iconify(IconParkTwotone.more_four, color: Get.find<SettingsController>().getAccent),
         fabSize: ExpandableFabSize.regular,
-        foregroundColor: accentColor,
-        backgroundColor: accentColorDark,
+        foregroundColor: Get.find<SettingsController>().getAccent,
+        backgroundColor: Get.find<SettingsController>().getAccentDark,
         shape: CircleBorder(),
         angle: 3.14 * 2,
       ),
@@ -293,38 +301,38 @@ class SongDetailsView extends StatelessWidget {
         builder: (BuildContext context, void Function()? onPressed, Animation<double> progress) {
           return IconButton(
             onPressed: onPressed,
-            icon: Iconify(AntDesign.close_circle_twotone, size: 40, color: accentColor),
+            icon: Iconify(AntDesign.close_circle_twotone, size: 40, color: Get.find<SettingsController>().getAccent),
           );
         },
       ),
       overlayStyle: ExpandableFabOverlayStyle(blur: 5),
-      children: <FloatingActionButton>[
-        FloatingActionButton(
+      children: <Obx>[
+        Obx(() => FloatingActionButton(
           onPressed: () {
             Get.to(() => ToDoView(text: "Add this song to playlist"));
           },
           tooltip: "Add to Playlist",
-          backgroundColor: accentColorDark, shape: CircleBorder(),
-          child: Iconify(Tabler.playlist_add, color: accentColor, size: 40)
-        ),
-        FloatingActionButton(
+          backgroundColor: Get.find<SettingsController>().getAccentDark, shape: CircleBorder(),
+          child: Iconify(Tabler.playlist_add, color: Get.find<SettingsController>().getAccent, size: 40)
+        )),
+        Obx(() => FloatingActionButton(
           onPressed: () {
             Get.to(() => ToDoView(text: "Play this song now"));
           },
           tooltip: "Play Now",
-          backgroundColor: accentColorDark, shape: CircleBorder(),
-          child: Iconify(Ic.twotone_play_arrow, color: accentColor, size: 40)
-        ),
-        FloatingActionButton(
+          backgroundColor: Get.find<SettingsController>().getAccentDark, shape: CircleBorder(),
+          child: Iconify(Ic.twotone_play_arrow, color: Get.find<SettingsController>().getAccent, size: 40)
+        )),
+        Obx(() => FloatingActionButton(
           onPressed: () {
             Get.to(() => ToDoView(text: "Add this song to queue"));
           },
           tooltip: "Add to Queue",
-          backgroundColor: accentColorDark, shape: CircleBorder(),
-          child: Iconify(Ph.queue_bold, color: accentColor, size: 40)
-        ),
+          backgroundColor: Get.find<SettingsController>().getAccentDark, shape: CircleBorder(),
+          child: Iconify(Ph.queue_bold, color: Get.find<SettingsController>().getAccent, size: 40)
+        )),
       ],
-    );
+    ));
   }
 
   Divider _divide() {

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:sonicity/src/controllers/navigation_controller.dart';
-import 'package:sonicity/utils/contants/colors.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/utils/contants/fonts.dart';
 
 class Themes extends GetxController {
@@ -73,8 +73,8 @@ class MyTheme {
       dividerColor: Colors.red.withOpacity(0.5),
       overlayColor: MaterialStatePropertyAll(Colors.transparent),
       splashFactory: NoSplash.splashFactory,
-      labelColor: accentColor, labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
-      unselectedLabelColor: accentColorDark, unselectedLabelStyle: TextStyle(fontSize: 16, fontFamily: Fonts.lovelyMamma),
+      labelColor: Get.find<SettingsController>().getAccent, labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
+      unselectedLabelColor: Get.find<SettingsController>().getAccentDark, unselectedLabelStyle: TextStyle(fontSize: 16, fontFamily: Fonts.lovelyMamma),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
@@ -114,9 +114,9 @@ class MyTheme {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 2,
       backgroundColor: Colors.black,
-      selectedItemColor: accentColor,
+      selectedItemColor: Get.find<SettingsController>().getAccent,
       unselectedItemColor: Colors.white,
-      selectedIconTheme: IconThemeData(color: accentColor, size: 30),
+      selectedIconTheme: IconThemeData(color: Get.find<SettingsController>().getAccent, size: 30),
       unselectedIconTheme: IconThemeData(color: Colors.white, size: 30),
       showSelectedLabels: true, showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
@@ -172,8 +172,8 @@ class MyTheme {
       dividerColor: Colors.red.withOpacity(0.5),
       overlayColor: MaterialStatePropertyAll(Colors.transparent),
       splashFactory: NoSplash.splashFactory,
-      labelColor: accentColor, labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
-      unselectedLabelColor: accentColorDark, unselectedLabelStyle: TextStyle(fontSize: 16, fontFamily: Fonts.lovelyMamma),
+      labelColor: Get.find<SettingsController>().getAccent, labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
+      unselectedLabelColor: Get.find<SettingsController>().getAccentDark, unselectedLabelStyle: TextStyle(fontSize: 16, fontFamily: Fonts.lovelyMamma),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
@@ -213,9 +213,9 @@ class MyTheme {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 2,
       backgroundColor: Colors.black,
-      selectedItemColor: accentColor,
+      selectedItemColor: Get.find<SettingsController>().getAccent,
       unselectedItemColor: Colors.white,
-      selectedIconTheme: IconThemeData(color: accentColor, size: 30),
+      selectedIconTheme: IconThemeData(color: Get.find<SettingsController>().getAccent, size: 30),
       unselectedIconTheme: IconThemeData(color: Colors.white, size: 30),
       showSelectedLabels: true, showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
@@ -251,8 +251,8 @@ class MyTheme {
     dividerColor: Colors.red.withOpacity(0.5),
     overlayColor: MaterialStatePropertyAll(Colors.transparent),
     splashFactory: NoSplash.splashFactory,
-    labelColor: accentColor, labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
-    unselectedLabelColor: accentColorDark, unselectedLabelStyle: TextStyle(fontSize: 16, fontFamily: Fonts.lovelyMamma),
+    labelColor: Get.find<SettingsController>().getAccent, labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
+    unselectedLabelColor: Get.find<SettingsController>().getAccentDark, unselectedLabelStyle: TextStyle(fontSize: 16, fontFamily: Fonts.lovelyMamma),
   );
 
   static final tooltipThemeData = TooltipThemeData(
@@ -317,9 +317,9 @@ class MyTheme {
   static final bottomNavBarThemeData = BottomNavigationBarThemeData(
     elevation: 2,
     backgroundColor: Colors.black,
-    selectedItemColor: accentColor,
+    selectedItemColor: Get.find<SettingsController>().getAccent,
     unselectedItemColor: Colors.white,
-    selectedIconTheme: IconThemeData(color: accentColor, size: 30),
+    selectedIconTheme: IconThemeData(color: Get.find<SettingsController>().getAccent, size: 30),
     unselectedIconTheme: IconThemeData(color: Colors.white, size: 30),
     showSelectedLabels: true, showUnselectedLabels: true,
     type: BottomNavigationBarType.fixed,

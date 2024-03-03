@@ -12,10 +12,10 @@ import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:sonicity/src/controllers/navigation_controller.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/views/drawer/settings_view.dart';
 import 'package:sonicity/src/views/library/library_view.dart';
 import 'package:sonicity/src/views/navigation/homeview.dart';
-import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
@@ -42,21 +42,21 @@ class NavigationView extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Iconify(
               MaterialSymbols.queue_music_rounded,
-              color: (controller.selectedIndex.value == 0) ? accentColor : Colors.white
+              color: (controller.selectedIndex.value == 0) ? Get.find<SettingsController>().getAccent : Colors.white
             ),
             label: "Queue"
           ),
           BottomNavigationBarItem(
             icon: Iconify(
               Fa6Solid.house_chimney,
-              color: (controller.selectedIndex.value == 1) ? accentColor : Colors.white
+              color: (controller.selectedIndex.value == 1) ? Get.find<SettingsController>().getAccent : Colors.white
             ),
             label: "Home"
           ),
           BottomNavigationBarItem(
             icon: Iconify(
               Ic.round_library_music,
-              color: (controller.selectedIndex.value == 2) ? accentColor : Colors.white
+              color: (controller.selectedIndex.value == 2) ? Get.find<SettingsController>().getAccent : Colors.white
             ),
             label: "Library"
           ),
@@ -92,8 +92,8 @@ class NavigationView extends StatelessWidget {
                 onTap: () {
                   controller.closeDrawer();
                 },
-                leading: Iconify(Ion.home_outline, color: accentColor),
-                title: Text("Home", style: TextStyle(color: accentColor)),
+                leading: Obx(() => Iconify(Ion.home_outline, color: Get.find<SettingsController>().getAccent)),
+                title: Obx(() => Text("Home", style: TextStyle(color: Get.find<SettingsController>().getAccent))),
               ),
               ListTile(
                 onTap: () {

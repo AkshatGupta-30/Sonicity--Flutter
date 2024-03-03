@@ -3,14 +3,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:sonicity/src/controllers/homeview_controller.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
@@ -35,17 +35,21 @@ class TrendingNowSection extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Iconify(
+                  Obx(() => Iconify(
                     Ph.music_note_duotone, size: 25,
-                    color: (homeController.selectedTab.value == 0) ? accentColor : accentColorDark,
-                  ),
+                    color: (homeController.selectedTab.value == 0)
+                      ? Get.find<SettingsController>().getAccent
+                      : Get.find<SettingsController>().getAccentDark,
+                  )),
                   Gap(8),
-                  Text(
+                  Obx(() => Text(
                     "Music",
                     style: TextStyle(
                       fontSize: 21,
-                      color: (homeController.selectedTab.value == 0) ? accentColor : accentColorDark
-                    )
+                      color: (homeController.selectedTab.value == 0)
+                        ? Get.find<SettingsController>().getAccent
+                        : Get.find<SettingsController>().getAccentDark
+                    ))
                   )
                 ],
               ),
@@ -54,17 +58,21 @@ class TrendingNowSection extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Iconify(
+                  Obx(() => Iconify(
                     Ic.twotone_album, size: 25,
-                    color: (homeController.selectedTab.value == 1) ? accentColor : accentColorDark,
-                  ),
+                    color: (homeController.selectedTab.value == 1)
+                      ? Get.find<SettingsController>().getAccent
+                      : Get.find<SettingsController>().getAccentDark,
+                  )),
                   Gap(8),
-                  Text(
+                  Obx(() => Text(
                       "Album",
                       style: TextStyle(
                         fontSize: 21,
-                        color: (homeController.selectedTab.value == 1) ? accentColor : accentColorDark
-                    )
+                        color: (homeController.selectedTab.value == 1)
+                          ? Get.find<SettingsController>().getAccent
+                          : Get.find<SettingsController>().getAccentDark
+                    ))
                   ),
                 ],
               ),

@@ -13,11 +13,11 @@ import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/artist_detail_controller.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
-import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
@@ -70,24 +70,30 @@ class ArtistDetailsView extends StatelessWidget {
               isScrollable: false, physics: NeverScrollableScrollPhysics(),
               tabs: [
                 Tab(
-                  icon: Iconify(
+                  icon: Obx(() => Iconify(
                     Ph.music_notes_simple_fill, size: 25,
-                    color: (selectedTab == 0 || selectedTab == 1) ? accentColor : accentColorDark,
-                  ),
+                    color: (selectedTab == 0 || selectedTab == 1)
+                      ? Get.find<SettingsController>().getAccent
+                      : Get.find<SettingsController>().getAccentDark,
+                  )),
                   text: "Songs",
                 ),
                 Tab(
-                  icon: Iconify(
+                  icon: Obx(() => Iconify(
                     Ic.sharp_album, size: 25,
-                    color: (controller.selectedTab.value == 1) ? accentColor : accentColorDark,
-                  ),
+                    color: (controller.selectedTab.value == 1)
+                      ? Get.find<SettingsController>().getAccent
+                      : Get.find<SettingsController>().getAccentDark,
+                  )),
                   text: "Albums",
                 ),
                 Tab(
-                  icon: Iconify(
+                  icon: Obx(() => Iconify(
                     IconParkTwotone.doc_detail, size: 25,
-                    color: (controller.selectedTab.value == 2) ? accentColor : accentColorDark,
-                  ),
+                    color: (controller.selectedTab.value == 2)
+                      ? Get.find<SettingsController>().getAccent
+                      : Get.find<SettingsController>().getAccentDark,
+                  )),
                   text: "Info",
                 ),
               ]

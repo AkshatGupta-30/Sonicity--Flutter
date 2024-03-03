@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_settings_screen_ex/flutter_settings_screen_ex.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/ion.dart';
+import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
+import 'package:sonicity/utils/contants/colors.dart';
 
 class SettingsView extends StatelessWidget {
   SettingsView({super.key});
@@ -19,18 +23,19 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ListView(
+        child: Obx(() => ListView(
           children: [
             SettingsGroup(
               title: "Theme",
-              titleTextStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 21),
+              titleTextStyle: TextStyle(color: controller.getAccent, fontWeight: FontWeight.bold, fontSize: 21),
               children: [
                 _buildTheme(),
+                _buildAccent(),
               ],
             )
           ],
         ),
-      ),
+      )),
     );
   }
 
@@ -47,5 +52,51 @@ class SettingsView extends StatelessWidget {
         else {controller.setThemeMode = ThemeMode.dark;}
       },
     );
+  }
+
+  _buildAccent() {
+    return Obx(() {
+      Color accent = controller.getAccent;
+      return ListTile(
+        leading: Iconify(Ion.color_palette, color: accent),
+        title: Text("Accent Color"),
+        subtitle: Text("Red - ${accent.red} | Green - ${accent.green} | Blue - ${accent.blue}"),
+        trailing: CircleAvatar(radius: 16, backgroundColor: accent),
+        onTap: () => Get.dialog(
+          Dialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            child: SizedBox(
+              height: 650,
+              child: Scaffold(
+                appBar: AppBar(title: Text("Pick Color")),
+                body: Obx(() => ListView(
+                  children: [
+                    Wrap(
+                      children: List.generate(lightColorList.length, (index) => GestureDetector(
+                        onTap: () async {
+                          controller.setAccentIndex = index;
+                          final prefs = await SharedPreferences.getInstance();
+                          await prefs.setInt('accent-index', index);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.all(9),
+                          child: CircleAvatar(
+                            radius: 30,
+                            backgroundColor: lightColorList[index].withOpacity((controller.getAccentIndex == index) ? 0.9 : 1),
+                            child: (controller.getAccentIndex == index)
+                              ? Iconify(MaterialSymbols.done_rounded, size: 40, color: Colors.white)
+                              : null,
+                          ),
+                        ),
+                      )),
+                    )
+                  ],
+                )),
+              ),
+            ),
+          )
+        ),
+      );
+    });
   }
 }

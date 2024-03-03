@@ -7,8 +7,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/image_url.dart';
-import 'package:sonicity/utils/contants/colors.dart';
 
 enum Quality {low, med, high}
 
@@ -30,10 +30,10 @@ class CoverImageSection extends StatelessWidget {
                 (value) => Get.showSnackbar(GetSnackBar(
                   messageText: Row(
                     children: [
-                      Text(
+                      Obx(() => Text(
                         "Copied cover image high quality url",
-                        style: TextStyle(color: accentColor, fontSize: 18),
-                      ),
+                        style: TextStyle(color: Get.find<SettingsController>().getAccent, fontSize: 18),
+                      )),
                       Iconify(MaterialSymbols.done, color: Colors.greenAccent, size: 25),
                     ],
                   ),
@@ -50,10 +50,10 @@ class CoverImageSection extends StatelessWidget {
                 (value) => Get.showSnackbar(GetSnackBar(
                   messageText: Row(
                     children: [
-                      Text(
+                      Obx(() => Text(
                         "Copied cover image medium quality url",
-                        style: TextStyle(color: accentColor, fontSize: 18),
-                      ),
+                        style: TextStyle(color: Get.find<SettingsController>().getAccent, fontSize: 18),
+                      )),
                       Iconify(MaterialSymbols.done, color: Colors.greenAccent, size: 25),
                     ],
                   ),
@@ -70,10 +70,10 @@ class CoverImageSection extends StatelessWidget {
                 (value) => Get.showSnackbar(GetSnackBar(
                   messageText: Row(
                     children: [
-                      Text(
+                      Obx(() => Text(
                         "Copied cover image low quality url",
-                        style: TextStyle(color: accentColor, fontSize: 18),
-                      ),
+                        style: TextStyle(color: Get.find<SettingsController>().getAccent, fontSize: 18),
+                      )),
                       Iconify(MaterialSymbols.done, color: Colors.greenAccent, size: 25),
                     ],
                   ),

@@ -2,10 +2,10 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/searchview_controller.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/playlist.dart';
@@ -14,7 +14,6 @@ import 'package:sonicity/src/views/view_all/view_all_albums_view.dart';
 import 'package:sonicity/src/views/view_all/view_all_artist_view.dart';
 import 'package:sonicity/src/views/view_all/view_all_playlist_view.dart';
 import 'package:sonicity/src/views/view_all/view_all_songs_view.dart';
-import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/sections/search_shimmer.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/sections/view_all_section.dart';
@@ -79,10 +78,10 @@ class SearchView extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text(
+            child: Obx(() => Text(
               "History",
-              style: TextStyle(color: accentColor, fontWeight: FontWeight.bold, fontSize: 25, ),
-            ),
+              style: TextStyle(color: Get.find<SettingsController>().getAccent, fontWeight: FontWeight.bold, fontSize: 25, ),
+            )),
           ),
           Wrap(// * : All History Chip
             alignment: WrapAlignment.start,

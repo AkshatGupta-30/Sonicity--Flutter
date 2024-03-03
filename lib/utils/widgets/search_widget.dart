@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/views/navigation/searchview.dart';
-import 'package:sonicity/utils/contants/colors.dart';
 
 class SearchContainer extends StatelessWidget {
   final Size media;
@@ -18,12 +18,12 @@ class SearchContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Get.to(() => SearchView()),
-      child: Container(
+      child: Obx(() => Container(
         width: media.width/1.4, height: kToolbarHeight,
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: Color(0xFF151515),
-          border: Border.all(color: accentColor.withOpacity(0.4), width: 2),
+          border: Border.all(color: Get.find<SettingsController>().getAccent.withOpacity(0.4), width: 2),
           borderRadius: BorderRadius.circular(50)
         ),
         child: RichText(
@@ -37,7 +37,7 @@ class SearchContainer extends StatelessWidget {
                   style: GoogleFonts.audiowide(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: accentColor, letterSpacing: 10,
+                    color: Get.find<SettingsController>().getAccent, letterSpacing: 10,
                   )
                 )
               ),
@@ -47,7 +47,7 @@ class SearchContainer extends StatelessWidget {
                   blurRadius: 25,
                   child: Iconify(
                     IconParkTwotone.search,
-                    color: accentColor, size: 32,
+                    color: Get.find<SettingsController>().getAccent, size: 32,
                   )
                 )
               ),
@@ -58,7 +58,7 @@ class SearchContainer extends StatelessWidget {
                   style: GoogleFonts.audiowide(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: accentColor, letterSpacing: 10,
+                    color: Get.find<SettingsController>().getAccent, letterSpacing: 10,
                   )
                 )
               )
@@ -66,7 +66,7 @@ class SearchContainer extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }
 
@@ -88,7 +88,7 @@ class SearchBox extends StatelessWidget {
         maxLength: 20,
         textInputAction: TextInputAction.done,
         keyboardType: TextInputType.text,
-        cursorColor: accentColor,
+        cursorColor: Get.find<SettingsController>().getAccent,
         style: TextStyle(color: Colors.white),
         onTapOutside: (event) => focusNode.unfocus(),
         decoration: InputDecoration(
