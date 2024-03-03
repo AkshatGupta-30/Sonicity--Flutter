@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_settings_screen_ex/flutter_settings_screen_ex.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sonicity/utils/contants/colors.dart';
@@ -22,10 +21,11 @@ class SettingsController extends GetxController {
     _initAccent();
   }
 
-  _initThemeMode() {
-    final selection = Settings.getValue<int>('theme-mode');
-    if(selection == 1) {setThemeMode = ThemeMode.system;}
-    else if(selection == 2) {setThemeMode = ThemeMode.light;}
+  _initThemeMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    String selection = prefs.getString('theme-mode') ?? "System";
+    if(selection == "System") {setThemeMode = ThemeMode.system;}
+    else if(selection == "Light Mode") {setThemeMode = ThemeMode.light;}
     else {setThemeMode = ThemeMode.dark;}
   }
 

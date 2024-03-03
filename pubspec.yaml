@@ -22,7 +22,6 @@ dependencies:
   flutter_dotenv: ^5.1.0
   flutter_expandable_fab: ^2.0.0
   flutter_glow: ^0.3.0
-  flutter_settings_screen_ex: ^0.0.1+5
   font_awesome_flutter: ^10.7.0
   gap: ^3.0.1
   get: ^4.6.6

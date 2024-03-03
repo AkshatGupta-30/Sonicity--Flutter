@@ -152,21 +152,21 @@ class MyTheme {
     fontFamily: Fonts.lovelyMamma,
     actionIconTheme: ActionIconThemeData(
       backButtonIconBuilder: (context) {
-        return Iconify(MaterialSymbols.arrow_back_rounded, color: Colors.grey.shade800);
+        return Iconify(MaterialSymbols.arrow_back_rounded, color: Colors.grey.shade200);
       },
       closeButtonIconBuilder: (context) {
-        return Iconify(MaterialSymbols.close_rounded, color: Colors.grey.shade800);
+        return Iconify(MaterialSymbols.close_rounded, color: Colors.grey.shade200);
       },
       drawerButtonIconBuilder: (context) {
         return GestureDetector(
           onTap: () => Get.find<NavigationController>().openDrawer(),
-          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade800)
+          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
         );
       },
       endDrawerButtonIconBuilder: (context) {
         return GestureDetector(
           onTap: () => Get.find<NavigationController>().openDrawer(),
-          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade800)
+          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
         );
       },
     ),
@@ -174,19 +174,19 @@ class MyTheme {
       scrimColor: Colors.white38,
       backgroundColor: Colors.white,
       elevation: 2,
-      shadowColor: Colors.white60,
+      shadowColor: Colors.black54,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       width: 300,
     ),
     appBarTheme: AppBarTheme(
       elevation: 2, toolbarHeight: kToolbarHeight,
-      backgroundColor: Colors.grey.shade900,
-      shadowColor: Colors.white,
-      surfaceTintColor: Colors.grey.shade900,
+      backgroundColor: Colors.grey.shade100,
+      shadowColor: Colors.black,
+      surfaceTintColor: Colors.grey.shade100,
       centerTitle: true,
-      foregroundColor: Colors.white,
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
-      actionsIconTheme: IconThemeData(color: Colors.grey.shade200),
+      foregroundColor: Colors.black,
+      titleTextStyle: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold, fontFamily: Fonts.lovelyMamma),
+      actionsIconTheme: IconThemeData(color: Colors.grey.shade800),
     ),
     tabBarTheme: TabBarTheme(
       indicatorColor: Colors.red,
@@ -201,24 +201,24 @@ class MyTheme {
         backgroundColor: MaterialStatePropertyAll(Colors.transparent),
         shadowColor: MaterialStatePropertyAll(Colors.transparent),
         surfaceTintColor: MaterialStatePropertyAll(Colors.transparent),
-        overlayColor: MaterialStatePropertyAll(Colors.grey.shade900),
+        overlayColor: MaterialStatePropertyAll(Colors.grey.shade100),
         padding: MaterialStatePropertyAll(EdgeInsets.only(left: 10)),
         splashFactory: InkRipple.splashFactory
       ),
     ),
     dividerTheme: DividerThemeData(
-      color: Colors.white12,
+      color: Colors.black12,
       thickness: 1, space: 1
     ),
     listTileTheme: ListTileThemeData(
       dense: false,
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 18, fontFamily: Fonts.lovelyMamma),
+      titleTextStyle: TextStyle(color: Colors.black, fontSize: 18, fontFamily: Fonts.lovelyMamma),
       subtitleTextStyle: TextStyle(color: Colors.grey, fontSize: 14, fontFamily: Fonts.lovelyMamma),
     ),
     popupMenuTheme: PopupMenuThemeData(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       position: PopupMenuPosition.under,
-      color: Colors.grey.shade900,
+      color: Colors.grey.shade100,
       labelTextStyle: MaterialStatePropertyAll(TextStyle(color: Colors.grey.shade100, fontSize: 18, fontFamily: Fonts.lovelyMamma)),
     ),
     tooltipTheme: TooltipThemeData(
@@ -227,17 +227,17 @@ class MyTheme {
       showDuration: Duration(seconds: 2),
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.grey.shade800,
+        color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(5),
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 2,
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       selectedItemColor: Get.find<SettingsController>().getAccent,
-      unselectedItemColor: Colors.white,
+      unselectedItemColor: Colors.black,
       selectedIconTheme: IconThemeData(color: Get.find<SettingsController>().getAccent, size: 30),
-      unselectedIconTheme: IconThemeData(color: Colors.white, size: 30),
+      unselectedIconTheme: IconThemeData(color: Colors.black, size: 30),
       showSelectedLabels: true, showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
       selectedLabelStyle: TextStyle(fontFamily: Fonts.lovelyMamma, fontSize: 18),

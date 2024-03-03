@@ -4,7 +4,6 @@ import 'package:feedback/feedback.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_settings_screen_ex/flutter_settings_screen_ex.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/firebase_options.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
@@ -15,7 +14,6 @@ import 'package:sonicity/utils/contants/themes.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 
 Future<void> main() async {
-  await Settings.init(cacheProvider: SharePreferenceCache());
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: "lib/.env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -49,8 +47,6 @@ class MainApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: NavigationView(),
           themeMode: settingsController.getThemeMode,
-          // themeMode: ThemeMode.dark,
-          // themeMode: ThemeMode.light,
           theme: MyTheme.lightTheme,
           darkTheme: MyTheme.darkTheme,
         ),
