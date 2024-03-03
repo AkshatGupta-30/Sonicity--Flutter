@@ -11,6 +11,7 @@ import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/firebase/database_methods.dart';
 import 'package:sonicity/src/firebase/storage_methods.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
+import 'package:sonicity/utils/contants/themes.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 
 Future<void> main() async {
@@ -48,10 +49,10 @@ class MainApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: NavigationView(),
           themeMode: settingsController.getThemeMode,
-          theme: ThemeData.light(),
-          darkTheme: ThemeData.dark(),
-          // theme: MyTheme.darkTheme,
-          // darkTheme: MyTheme.darkTheme,
+          // themeMode: ThemeMode.dark,
+          // themeMode: ThemeMode.light,
+          theme: MyTheme.lightTheme,
+          darkTheme: MyTheme.darkTheme,
         ),
     ));
   }

@@ -52,7 +52,7 @@ class MyTheme {
     ),
     drawerTheme: DrawerThemeData(
       scrimColor: Colors.black45,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.black,
       elevation: 2,
       shadowColor: Colors.white60,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -126,32 +126,32 @@ class MyTheme {
   );
 
   static final lightTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.black,
-    brightness: Brightness.dark,
+    scaffoldBackgroundColor: Colors.white,
+    brightness: Brightness.light,
     fontFamily: Fonts.lovelyMamma,
     actionIconTheme: ActionIconThemeData(
       backButtonIconBuilder: (context) {
-        return Iconify(MaterialSymbols.arrow_back_rounded, color: Colors.grey.shade200);
+        return Iconify(MaterialSymbols.arrow_back_rounded, color: Colors.grey.shade800);
       },
       closeButtonIconBuilder: (context) {
-        return Iconify(MaterialSymbols.close_rounded, color: Colors.grey.shade200);
+        return Iconify(MaterialSymbols.close_rounded, color: Colors.grey.shade800);
       },
       drawerButtonIconBuilder: (context) {
         return GestureDetector(
           onTap: () => Get.find<NavigationController>().openDrawer(),
-          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
+          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade800)
         );
       },
       endDrawerButtonIconBuilder: (context) {
         return GestureDetector(
           onTap: () => Get.find<NavigationController>().openDrawer(),
-          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
+          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade800)
         );
       },
     ),
     drawerTheme: DrawerThemeData(
-      scrimColor: Colors.black45,
-      backgroundColor: Colors.transparent,
+      scrimColor: Colors.white38,
+      backgroundColor: Colors.white,
       elevation: 2,
       shadowColor: Colors.white60,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

@@ -70,10 +70,9 @@ class NavigationView extends StatelessWidget {
 
   Drawer _drawer(NavigationController controller) {
     return Drawer(
-      backgroundColor: Colors.transparent,
-      child: Container(
-        padding: EdgeInsets.all(8),
-        child: BackgroundGradientDecorator(
+      child: BackgroundGradientDecorator(
+        child: Container(
+          padding: EdgeInsets.all(8),
           child: Column(
             children: [
               DrawerHeader(
