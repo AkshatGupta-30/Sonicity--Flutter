@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/firebase_options.dart';
+import 'package:sonicity/setup_locator.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/firebase/database_methods.dart';
 import 'package:sonicity/src/firebase/storage_methods.dart';
@@ -17,11 +18,13 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: "lib/.env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  // (await SharedPreferences.getInstance()).clear();
+  
+  // * : GetX Controllers
   Get.put(SettingsController());
   Get.put(StorageMethods());
   Get.put(DatabaseMethods());
+  
+  setupLocator();
   runApp(MainApp());
 }
 

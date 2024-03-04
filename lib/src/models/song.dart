@@ -90,6 +90,18 @@ class Song {
     };
   }
 
+  Map<String, dynamic> toDbMap() {
+    return {
+      "song_id" : id,
+      "name" : name,
+      "hasLyrics" : (hasLyrics) ? 1 : 0,
+      "year" : year,
+      "releaseDate" : releaseDate,
+      "duration" : duration,
+      "language" : language,
+    };
+  }
+
   bool isEmpty() {
     return id.isEmpty;
   }

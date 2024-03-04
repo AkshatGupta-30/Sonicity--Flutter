@@ -3,11 +3,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 import 'package:iconify_flutter_plus/icons/entypo.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
+import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
 import 'package:sonicity/src/views/details/album_details_view.dart';
@@ -23,9 +25,11 @@ class SongCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return GestureDetector(
-      onTap: () {
-        /* Play Button Pressed */
+      onTap: () async {
         LastSessionSprefs.add(song.id);
+        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+        int res = await recents.insert(song);
+        "Insert : $res".printInfo();
       },
       child: Container(
         width: media.width/1.25, height: media.width/1.25,

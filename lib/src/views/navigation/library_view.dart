@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 import 'package:iconify_flutter_plus/icons/bx.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
@@ -12,6 +14,7 @@ import 'package:iconify_flutter_plus/icons/pepicons.dart';
 import 'package:iconify_flutter_plus/icons/raphael.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:iconify_flutter_plus/icons/wpf.dart';
+import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/views/library/storage_view.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
@@ -51,7 +54,10 @@ class _LibraryViewState extends State<LibraryView> {
               title: "All Songs",
             ),
             Tile(// * : Recents
-              onPressed: () {},
+              onPressed: () async {
+                RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+                jsonEncode(await recents.getAll()).toString().printInfo();
+              },
               icon: Raphael.history,
               title: "Recents",
             ),
