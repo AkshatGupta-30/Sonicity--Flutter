@@ -15,6 +15,7 @@ class SettingsController extends GetxController {
     _initBackGround();
     _initDensePlayer();
     _initMusicLang();
+    _initMusicQuality();
   }
 
   final _themeModeSaved = ThemeMode.system.obs;
@@ -77,4 +78,18 @@ class SettingsController extends GetxController {
     }
     musicLang.value = selection;
   }
+
+  final _musicQuality = "96kbps".obs;
+  String get getMusicQuality => _musicQuality.value;
+  set setMusicQuality(String newQuality) => _musicQuality.value = newQuality;
+  void _initMusicQuality() async {
+    final qualities = ["12kbps" , "48kbps", "96kbps", "160kbps", "320kbps"];
+    final prefs = await SharedPreferences.getInstance();
+    String selection = prefs.getString(PrefsKey.musicQuality) ?? "96kbps";
+    setMusicQuality = qualities[qualities.indexOf(selection)];
+    // if(selection == "System") {setMusicQuality = ThemeMode.system;}
+    // else if(selection == "Light Mode") {setMusicQuality = ThemeMode.light;}
+    // else {setMusicQuality = ThemeMode.dark;}
+  }
+
 }

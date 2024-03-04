@@ -13,6 +13,7 @@ import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:iconify_flutter_plus/icons/radix_icons.dart';
+import 'package:iconify_flutter_plus/icons/simple_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
@@ -54,7 +55,9 @@ class SettingsView extends StatelessWidget {
               Gap(20),
               TitleSection(title: "Music & Playback"),
               Gap(5),
-              _buildMusicLanguage(context)
+              _buildMusicLanguage(context),
+              Gap(10),
+              _buildMusicQualitySettings(context),
             ],
           ),
         ),
@@ -62,55 +65,52 @@ class SettingsView extends StatelessWidget {
     );
   }
 
-  final dropDownValue = "System".obs;
   Obx _buildTheme(BuildContext context) {
     return Obx(() {
-      dropDownValue.value = (controller.getThemeMode == ThemeMode.system) 
-        ? "System"
-        : (controller.getThemeMode == ThemeMode.light) ? "Light Mode" : "Dark Mode";
       ThemeData theme = Theme.of(context);
       return ListTile(
-      leading: Iconify(
-        (controller.getThemeMode == ThemeMode.system)
-          ? Mdi.theme_light_dark
-          : (controller.getThemeMode == ThemeMode.light)
-            ? Ic.twotone_wb_sunny
-            : Ph.moon_stars_duotone,
-        color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white
-      ),
-      title: Text(
-        "Theme Mode",
-        style: theme.textTheme.labelMedium!.copyWith(
-          color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
-        ),
-      ),
-      trailing: DropdownButton(
-        value: dropDownValue.value,
-        items: ["System" , "Light Mode", "Dark Mode"].map(
-          (item) => DropdownMenuItem(value: item, child: Text(item))
-        ).toList(),
-        onChanged: (newValue) async {
-          if(newValue == "System") {controller.setThemeMode = ThemeMode.system;}
-          else if(newValue == "Light Mode") {controller.setThemeMode = ThemeMode.light;}
-          else {controller.setThemeMode = ThemeMode.dark;}
-          dropDownValue.value = newValue!;
-          
-          final prefs = await SharedPreferences.getInstance();
-          await prefs.setString(PrefsKey.themeMode, dropDownValue.value);
-        },
-        icon: Iconify(
-          Ic.twotone_arrow_drop_down_circle,
-          color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
-        ),
-        padding: EdgeInsets.zero,
-        underline: SizedBox(),
-        borderRadius: BorderRadius.circular(12),
-        dropdownColor: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
-        style: theme.textTheme.labelMedium!.copyWith(
+        leading: Iconify(
+          (controller.getThemeMode == ThemeMode.system)
+            ? Mdi.theme_light_dark
+            : (controller.getThemeMode == ThemeMode.light)
+              ? Ic.twotone_wb_sunny
+              : Ph.moon_stars_duotone,
           color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white
         ),
-      ),
-    );
+        title: Text(
+          "Theme Mode",
+          style: theme.textTheme.labelMedium!.copyWith(
+            color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
+          ),
+        ),
+        trailing: DropdownButton(
+          value: (controller.getThemeMode == ThemeMode.system) ? "System" : (controller.getThemeMode == ThemeMode.light) ? "Light Mode" : "Dark Mode",
+          items: ["System" , "Light Mode", "Dark Mode"].map(
+            (item) => DropdownMenuItem(value: item, child: Text(item))
+          ).toList(),
+          onChanged: (newValue) async {
+            if(newValue == "System") {controller.setThemeMode = ThemeMode.system;}
+            else if(newValue == "Light Mode") {controller.setThemeMode = ThemeMode.light;}
+            else {controller.setThemeMode = ThemeMode.dark;}
+
+            String theme = (controller.getThemeMode == ThemeMode.system)
+              ? "System" : (controller.getThemeMode == ThemeMode.light) ? "Light Mode" : "Dark Mode";
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString(PrefsKey.themeMode, theme);
+          },
+          icon: Iconify(
+            Ic.twotone_arrow_drop_down_circle,
+            color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
+          ),
+          padding: EdgeInsets.zero,
+          underline: SizedBox(),
+          borderRadius: BorderRadius.circular(12),
+          dropdownColor: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+          style: theme.textTheme.labelMedium!.copyWith(
+            color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white
+          ),
+        ),
+      );
     });
   }
 
@@ -290,11 +290,12 @@ class SettingsView extends StatelessWidget {
       leading: Iconify(Entypo.language, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
       title: Text("Music Language"),
       subtitle: Text("To display songs on home screen"),
-      // trailing: Text(controller.getMusicLang, maxLines: 1, overflow: TextOverflow.ellipsis,),
+      trailing: Text(controller.getMusicLang.replaceAll(",", ", ").title(), maxLines: 1, overflow: TextOverflow.ellipsis,),
       onTap: () =>  Get.bottomSheet(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         Container(
-          height: 600, width: double.maxFinite, color: Colors.grey.shade900,
+          height: 600, width: double.maxFinite,
+          color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
           child: Column(
             children: [
               AppBar(title: Text("Select atleast one language"),),
@@ -337,6 +338,37 @@ class SettingsView extends StatelessWidget {
           ),
         )
       ),
+    );
+  }
+
+  final qualities = ["12kbps" , "48kbps", "96kbps", "160kbps", "320kbps"];
+  _buildMusicQualitySettings(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return ListTile(
+      leading: Iconify(SimpleIcons.audiomack, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
+      title: Text("Music Quality"),
+      subtitle: Text("Customize Your Music Quality"),
+      trailing: Obx(() => DropdownButton(
+          value: controller.getMusicQuality,
+          items: qualities.map((item) => DropdownMenuItem(value: item, child: Text(item))).toList(),
+          onChanged: (newValue) async {
+            controller.setMusicQuality = qualities[qualities.indexOf(newValue!)];
+            controller.setMusicQuality = newValue;
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString(PrefsKey.musicQuality, controller.getMusicQuality);
+          },
+          icon: Iconify(
+            MaterialSymbols.arrow_drop_down_rounded,
+            color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
+          ),
+          padding: EdgeInsets.zero,
+          underline: SizedBox(),
+          borderRadius: BorderRadius.circular(12),
+          dropdownColor: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+          style: theme.textTheme.labelMedium!.copyWith(
+            color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white
+          ),
+        )),
     );
   }
 }

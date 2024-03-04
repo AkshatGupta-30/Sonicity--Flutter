@@ -7,4 +7,5 @@ class PrefsKey {
   static String get useDensePlayer => "use-dense-mini-player";
 
   static String get musicLanguage => "music-language";
+  static String get musicQuality => "music-quality";
 }

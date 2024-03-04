@@ -101,7 +101,10 @@ class NavigationView extends StatelessWidget {
                 title: Text("Playlists"),
               ),
               ListTile(
-                onTap: () => Get.to(() => SettingsView()),
+                onTap: () {
+                  Get.to(() => SettingsView());
+                  controller.closeDrawer();
+                },
                 leading: Iconify(Ion.settings_sharp, color: Colors.white),
                 title: Text("Settings"),
               ),

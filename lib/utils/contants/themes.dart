@@ -136,21 +136,21 @@ class MyTheme {
     fontFamily: Get.find<SettingsController>().fontFamily.value,
     actionIconTheme: ActionIconThemeData(
       backButtonIconBuilder: (context) {
-        return Iconify(MaterialSymbols.arrow_back_rounded, color: Colors.grey.shade200);
+        return Iconify(MaterialSymbols.arrow_back_rounded, color: Colors.grey.shade800);
       },
       closeButtonIconBuilder: (context) {
-        return Iconify(MaterialSymbols.close_rounded, color: Colors.grey.shade200);
+        return Iconify(MaterialSymbols.close_rounded, color: Colors.grey.shade800);
       },
       drawerButtonIconBuilder: (context) {
         return GestureDetector(
           onTap: () => Get.find<NavigationController>().openDrawer(),
-          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
+          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade800)
         );
       },
       endDrawerButtonIconBuilder: (context) {
         return GestureDetector(
           onTap: () => Get.find<NavigationController>().openDrawer(),
-          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
+          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade800)
         );
       },
     ),
