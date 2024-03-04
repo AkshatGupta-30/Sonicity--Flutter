@@ -14,6 +14,7 @@ class SettingsController extends GetxController {
     _initFontFamily();
     _initBackGround();
     _initDensePlayer();
+    _initMusicLang();
   }
 
   final _themeModeSaved = ThemeMode.system.obs;
@@ -62,5 +63,18 @@ class SettingsController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     bool selection = prefs.getBool(PrefsKey.useDensePlayer) ?? false;
     setDensePlayer = selection;
+  }
+
+  List<String> availableLang = ["hindi", "english", "punjabi", "tamil", "telugu", "marathi", "gujarati", "bengali", "kannada", "bhojpuri", "malayalam", "urdu", "haryanvi", "rajasthani", "odia", "assamese"];
+  final musicLang = "".obs;
+  String get getMusicLang => musicLang.value;
+  set setMusicLang(String newLang) => musicLang.value = newLang;
+  void _initMusicLang() async {
+    final prefs = await SharedPreferences.getInstance();
+    String selection = prefs.getString(PrefsKey.musicLanguage) ?? "";
+    if(selection.isNotEmpty && selection[selection.length-2] == ",") {
+      selection = selection.substring(0, selection.length-2);
+    }
+    musicLang.value = selection;
   }
 }

@@ -5,4 +5,6 @@ class PrefsKey {
   static String get backGradient => "back-gradient";
 
   static String get useDensePlayer => "use-dense-mini-player";
+
+  static String get musicLanguage => "music-language";
 }

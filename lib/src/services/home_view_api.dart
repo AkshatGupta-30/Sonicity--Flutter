@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/home.dart';
 import 'package:sonicity/src/models/hot_playlists.dart';
@@ -14,7 +16,7 @@ import 'package:http/http.dart' as http;
 
 class HomeViewApi {
   static Future<Map<String, dynamic>> _apiCall() async {
-    const uri = "https://saavn.dev/modules?language=hindi,english";
+    final uri = "https://saavn.dev/modules?language=${Get.find<SettingsController>().getMusicLang}";
     final response = await http.get(Uri.parse(uri));
     final json = jsonDecode(response.body);
     return json['data'];

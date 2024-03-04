@@ -18,6 +18,7 @@ Future<void> main() async {
   await dotenv.load(fileName: "lib/.env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
+  // (await SharedPreferences.getInstance()).clear();
   Get.put(SettingsController());
   Get.put(StorageMethods());
   Get.put(DatabaseMethods());

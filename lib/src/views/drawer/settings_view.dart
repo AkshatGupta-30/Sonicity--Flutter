@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/carbon.dart';
+import 'package:iconify_flutter_plus/icons/entypo.dart';
 import 'package:iconify_flutter_plus/icons/fe.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
@@ -20,6 +21,7 @@ import 'package:sonicity/utils/contants/fonts.dart';
 import 'package:sonicity/utils/contants/prefs_keys.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
+import 'package:super_string/super_string.dart';
 
 class SettingsView extends StatelessWidget {
   SettingsView({super.key});
@@ -49,6 +51,10 @@ class SettingsView extends StatelessWidget {
               _buildPlayerBackground(context),
               Gap(10),
               _buildDenseMiniPlayer(context),
+              Gap(20),
+              TitleSection(title: "Music & Playback"),
+              Gap(5),
+              _buildMusicLanguage(context)
             ],
           ),
         ),
@@ -165,7 +171,13 @@ class SettingsView extends StatelessWidget {
       title: Text("Font Family"),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [Text("Abc"), Iconify(MaterialSymbols.arrow_right_rounded, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white)]
+        children: [
+          Text(controller.fontFamily.value),
+          Iconify(
+            MaterialSymbols.arrow_right_rounded,
+            color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white
+          )
+        ]
       ),
       onTap: () => showDialog(
         context: context,
@@ -270,5 +282,61 @@ class SettingsView extends StatelessWidget {
         inactiveThumbColor: Colors.grey.shade300,
       ),
     ));
+  }
+
+  ListTile _buildMusicLanguage(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return ListTile(
+      leading: Iconify(Entypo.language, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
+      title: Text("Music Language"),
+      subtitle: Text("To display songs on home screen"),
+      // trailing: Text(controller.getMusicLang, maxLines: 1, overflow: TextOverflow.ellipsis,),
+      onTap: () =>  Get.bottomSheet(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        Container(
+          height: 600, width: double.maxFinite, color: Colors.grey.shade900,
+          child: Column(
+            children: [
+              AppBar(title: Text("Select atleast one language"),),
+              SizedBox(
+                height: 475 - kToolbarHeight, width: double.maxFinite,
+                child: GridView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 4),
+                  itemCount: int.parse((controller.availableLang.length / 1).floor().toString()),
+                  itemBuilder: (context, index) {
+                    String lang = controller.availableLang[index];
+                    return ListTile(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 5),
+                      title: Text(lang.title(), style: Get.textTheme.labelMedium, maxLines: 1, overflow: TextOverflow.ellipsis,),
+                      trailing: Obx(() => Checkbox(
+                        value: controller.musicLang.value.contains(lang),
+                        onChanged: (value) async {
+                          if(value!) {
+                            if (!controller.musicLang.value.contains(lang)) {
+                              (controller.musicLang.value.isEmpty)
+                                ? controller.musicLang.value += lang
+                                : controller.musicLang.value += ",$lang";
+                            }
+                          } else {
+                            if (controller.musicLang.value.contains(lang)) {
+                              controller.musicLang.value = controller.musicLang.value.replaceAll("$lang,", "");
+                              controller.musicLang.value = controller.musicLang.value.replaceAll(lang, "");
+                            }
+                          }
+                          final prefs = await SharedPreferences.getInstance();
+                          await prefs.setString(PrefsKey.musicLanguage, controller.musicLang.value);
+                        },
+                        activeColor: controller.getAccent,
+                      )),
+                    );
+                  },
+                ),
+              ),
+            ]
+          ),
+        )
+      ),
+    );
   }
 }
