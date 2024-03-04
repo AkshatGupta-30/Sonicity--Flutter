@@ -13,7 +13,7 @@ import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:sonicity/src/controllers/navigation_controller.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/views/drawer/settings_view.dart';
-import 'package:sonicity/src/views/library/library_view.dart';
+import 'package:sonicity/src/views/navigation/library_view.dart';
 import 'package:sonicity/src/views/navigation/homeview.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';

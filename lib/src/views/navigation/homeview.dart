@@ -40,6 +40,7 @@ class HomeView extends StatelessWidget{
   SliverAppBar _appBar(BuildContext context, Size media, EdgeInsets padding) {
     return SliverAppBar(
       pinned: true, toolbarHeight: kToolbarHeight + padding.top/2,
+      leading: DrawerButton().build(context),
       actions: [
         GestureDetector(
           onTap: () {},

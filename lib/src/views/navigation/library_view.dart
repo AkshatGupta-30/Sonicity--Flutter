@@ -39,7 +39,7 @@ class _LibraryViewState extends State<LibraryView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Library")),
+      appBar: AppBar(leading: DrawerButton().build(context), title: Text("Library")),
       body: BackgroundGradientDecorator(
         child: ListView(
           padding: EdgeInsets.all(15),
@@ -61,7 +61,7 @@ class _LibraryViewState extends State<LibraryView> {
               title: "Starred",
             ),
             Tile(// * : My Storage
-              onPressed: () => Get.to(StorageView()),
+              onPressed: () => Get.to(() => StorageView()),
               icon: MaterialSymbols.home_storage_rounded,
               title: "My Storage",
             ),
