@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:sqflite/sqflite.dart';
 
 class RecentsDatabase {
@@ -31,6 +32,9 @@ class RecentsDatabase {
   }
 
   static const tbSongDetail = 'song_details';
+  static const tbSongLowImgs = 'song_low_img';
+  static const tbSongMedImgs = 'song_med_img';
+  static const tbSongHighImgs = 'song_high_img';
 
   static const colId = 'id';
   static const colSongId = 'song_id';
@@ -40,6 +44,7 @@ class RecentsDatabase {
   static const colReleaseDate = 'releaseDate';
   static const colDuration = 'duration';
   static const colLanguage = 'language';
+  static const colImgLink = 'link';
   Future _onCreate(Database db, int version) async {
     await db.execute(
       '''
@@ -55,17 +60,23 @@ class RecentsDatabase {
         )
       '''
     );
+    await db.execute("CREATE TABLE $tbSongLowImgs ($colSongId TEXT NOT NULL, $colImgLink TEXT NOT NULL)");
+    await db.execute("CREATE TABLE $tbSongMedImgs ($colSongId TEXT NOT NULL, $colImgLink TEXT NOT NULL)");
+    await db.execute("CREATE TABLE $tbSongHighImgs ($colSongId TEXT NOT NULL, $colImgLink TEXT NOT NULL)");
   }
 
   Future<int> insert(Song song) async {
     Database db = await _instance.database;
-    jsonEncode(song.toDbMap()).toString().printInfo();
-    return await db.insert(tbSongDetail, song.toDbMap());
+    jsonEncode(song.toDbDetailsMap()).toString().printInfo();
+    await db.insert(tbSongLowImgs, song.toDbImgsMap(ImgQuality.low));
+    await db.insert(tbSongMedImgs, song.toDbImgsMap(ImgQuality.med));
+    await db.insert(tbSongHighImgs, song.toDbImgsMap(ImgQuality.high));
+    return await db.insert(tbSongDetail, song.toDbDetailsMap());
   }
 
   Future<List<Map<String, dynamic>>> getAll() async {
     Database db = await _instance.database;
-    return await db.query(tbSongDetail);
+    return await db.query(tbSongHighImgs);
   }
 
   Future<int> count() async {

@@ -10,7 +10,7 @@ import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 
-enum Quality {low, med, high}
+enum ImgQuality {low, med, high}
 
 class CoverImageSection extends StatelessWidget {
   final ImageUrl image;
@@ -24,7 +24,7 @@ class CoverImageSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Container>[
           _column(
-            context, q: Quality.high, url: image.highQuality,
+            context, q: ImgQuality.high, url: image.highQuality,
             onTap: () {
               FlutterClipboard.copy(image.highQuality).then(
                 (value) => Get.showSnackbar(GetSnackBar(
@@ -47,7 +47,7 @@ class CoverImageSection extends StatelessWidget {
           ),
           Container(width: 0.5, height: 150, color: Colors.white38),
           _column(context,
-            q: Quality.med, url: image.highQuality,
+            q: ImgQuality.med, url: image.highQuality,
             onTap: () {
               FlutterClipboard.copy(image.standardQuality).then(
                 (value) => Get.showSnackbar(GetSnackBar(
@@ -70,7 +70,7 @@ class CoverImageSection extends StatelessWidget {
           ),
           Container(width: 0.5, height: 150, color: Colors.white38),
           _column(context,
-            q: Quality.low, url: image.highQuality,
+            q: ImgQuality.low, url: image.highQuality,
             onTap: () {
               FlutterClipboard.copy(image.lowQuality).then(
                 (value) => Get.showSnackbar(GetSnackBar(
@@ -96,10 +96,10 @@ class CoverImageSection extends StatelessWidget {
     );
   }
 
-  Container _column(BuildContext context, {required Quality q, required String url, required VoidCallback onTap}) {
-    String quality = (q == Quality.high)
+  Container _column(BuildContext context, {required ImgQuality q, required String url, required VoidCallback onTap}) {
+    String quality = (q == ImgQuality.high)
       ? "High Quality"
-      : ((q == Quality.med) ? "Medium Quality" : "Low Quality");
+      : ((q == ImgQuality.med) ? "Medium Quality" : "Low Quality");
     return Container(
       padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Column(

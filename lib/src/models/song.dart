@@ -2,6 +2,7 @@ import 'package:sonicity/src/models/download_url.dart';
 import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
+import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:super_string/super_string.dart';
 
 class Song {
@@ -90,7 +91,7 @@ class Song {
     };
   }
 
-  Map<String, dynamic> toDbMap() {
+  Map<String, dynamic> toDbDetailsMap() {
     return {
       "song_id" : id,
       "name" : name,
@@ -100,6 +101,26 @@ class Song {
       "duration" : duration,
       "language" : language,
     };
+  }
+
+  Map<String, dynamic> toDbImgsMap(ImgQuality quality) {
+    if(quality == ImgQuality.low) {
+      return {"song_id" : id, "link" : image.lowQuality};
+    } else if(quality == ImgQuality.med) {
+      return {"song_id" : id, "link" : image.standardQuality};
+    } else {
+      return {"song_id" : id, "link" : image.highQuality};
+    }
+  }
+
+  Map<String, dynamic> toDbDloadsMap(ImgQuality quality) {
+    if(quality == ImgQuality.low) {
+      return {"song_id" : id, "link" : image.lowQuality};
+    } else if(quality == ImgQuality.med) {
+      return {"song_id" : id, "link" : image.standardQuality};
+    } else {
+      return {"song_id" : id, "link" : image.highQuality};
+    }
   }
 
   bool isEmpty() {
