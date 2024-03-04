@@ -23,7 +23,8 @@ class ShimmerCard extends StatelessWidget {
           Shimmer.fromColors(
             direction: ShimmerDirection.ltr,
             period: Duration(milliseconds: 1000),
-            baseColor: Colors.grey.shade500, highlightColor: Colors.grey.shade400,
+            baseColor: Colors.grey,
+            highlightColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade600 :  Colors.grey.shade400,
             child: Container(
               width: media.width/1.25, height: media.width/1.25,
               decoration: BoxDecoration(
@@ -33,7 +34,8 @@ class ShimmerCard extends StatelessWidget {
             ),
           ),
           Shimmer.fromColors(
-            baseColor: Colors.grey.shade300, highlightColor: Colors.grey.shade50,
+            baseColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+            highlightColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
             direction: ShimmerDirection.ltr,
             period: Duration(milliseconds: 750),
             child: Padding(
@@ -88,7 +90,8 @@ class ShimmerCell extends StatelessWidget {
             child: Shimmer.fromColors(
               direction: ShimmerDirection.ltr,
               period: Duration(milliseconds: 1000),
-              baseColor: Colors.grey.shade500, highlightColor: Colors.grey.shade100,
+              baseColor: Colors.grey,
+              highlightColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
               child: Container(
                 width: 140, height: 140,
                 decoration: BoxDecoration(
@@ -102,7 +105,8 @@ class ShimmerCell extends StatelessWidget {
           Shimmer.fromColors(
             direction: ShimmerDirection.ltr,
             period: Duration(milliseconds: 1000),
-            baseColor: Colors.grey.shade500, highlightColor: Colors.grey.shade100,
+            baseColor: Colors.grey,
+            highlightColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 8),
               child: Column(
@@ -130,8 +134,8 @@ class ShimmerRow extends StatelessWidget {
       height: 60, width: double.maxFinite,
       margin: EdgeInsets.only(bottom: 10),
       child: Shimmer.fromColors(
-        baseColor: Colors.grey.shade500,
-        highlightColor: Colors.grey.shade100,
+        baseColor: Colors.grey,
+        highlightColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
