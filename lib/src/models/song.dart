@@ -111,6 +111,14 @@ class Song {
       "releaseDate" : releaseDate,
       "duration" : duration,
       "language" : language,
+      "img_low" : image.lowQuality,
+      "img_med" : image.standardQuality,
+      "img_high" : image.highQuality,
+      "download_12kbps" : downloadUrl.q12kbps,
+      "download_48kbps" : downloadUrl.q48kbps,
+      "download_96kbps" : downloadUrl.q96kbps,
+      "download_160kbps" : downloadUrl.q160kbps,
+      "download_320kbps" : downloadUrl.q320kbps,
     };
   }
 

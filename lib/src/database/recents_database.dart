@@ -53,6 +53,14 @@ class RecentsDatabase {
   static const colReleaseDate = 'releaseDate';
   static const colDuration = 'duration';
   static const colLanguage = 'language';
+  static const colImgLow = 'img_low';
+  static const colImgMed = 'img_med';
+  static const colImgHigh = 'img_high';
+  static const colDownload12kbps = 'download_12kbps';
+  static const colDownload48kbps = 'download_48kbps';
+  static const colDownload96kbps = 'download_96kbps';
+  static const colDownload160kbps = 'download_160kbps';
+  static const colDownload320kbps = 'download_320kbps';
   static const colLink = 'link';
   Future _onCreate(Database db, int version) async {
     await db.execute(
@@ -69,7 +77,15 @@ class RecentsDatabase {
           $colYear TEXT,
           $colReleaseDate TEXT,
           $colDuration TEXT,
-          $colLanguage TEXT
+          $colLanguage TEXT,
+          $colImgLow TEXT,
+          $colImgMed TEXT,
+          $colImgHigh TEXT,
+          $colDownload12kbps TEXT,
+          $colDownload48kbps TEXT,
+          $colDownload96kbps TEXT,
+          $colDownload160kbps TEXT,
+          $colDownload320kbps TEXT
         )
       '''
     );
