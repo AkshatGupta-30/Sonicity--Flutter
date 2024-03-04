@@ -31,6 +31,7 @@ class RecentsDatabase {
   }
 
   static const tbSongDetail = 'song_details';
+  static const tbSongArtists = 'song_artists';
   static const tbSongLowImgs = 'song_low_img';
   static const tbSongMedImgs = 'song_med_img';
   static const tbSongHighImgs = 'song_high_img';
@@ -43,6 +44,10 @@ class RecentsDatabase {
   static const colId = 'id';
   static const colSongId = 'song_id';
   static const colName = 'name';
+  static const colAlbumId = 'album_id';
+  static const colAlbumName = 'album_name';
+  static const colArtistIds = 'artist_ids';
+  static const colArtistNames = 'artist_names';
   static const colHasLyrics = 'hasLyrics';
   static const colYear = 'year';
   static const colReleaseDate = 'releaseDate';
@@ -56,6 +61,10 @@ class RecentsDatabase {
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colSongId TEXT NOT NULL,
           $colName TEXT NOT NULL,
+          $colAlbumId TEXT,
+          $colAlbumName TEXT,
+          $colArtistIds TEXT,
+          $colArtistNames TEXT,
           $colHasLyrics INTEGER,
           $colYear TEXT,
           $colReleaseDate TEXT,
@@ -95,7 +104,7 @@ class RecentsDatabase {
 
   Future<List<Map<String, dynamic>>> getAll() async {
     Database db = await _instance.database;
-    return await db.query(tbSongQ320kbpsDownloadQuality);
+    return await db.query(tbSongDetail);
   }
 
   Future<int> count() async {

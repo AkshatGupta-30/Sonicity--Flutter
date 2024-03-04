@@ -93,9 +93,19 @@ class Song {
   }
 
   Map<String, dynamic> toDbDetailsMap() {
+    List<String> artistsIds = [];
+    List<String> artistsNames = [];
+    for(Artist artist in artists!) {
+      artistsIds.add(artist.id);
+      artistsNames.add(artist.name);
+    }
     return {
       "song_id" : id,
       "name" : name,
+      "album_id" : album!.id,
+      "album_name" : album!.name,
+      "artist_ids" : artistsIds.join(","),
+      "artist_names" : artistsNames.join(","),
       "hasLyrics" : (hasLyrics) ? 1 : 0,
       "year" : year,
       "releaseDate" : releaseDate,
