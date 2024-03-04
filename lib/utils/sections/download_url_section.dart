@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:sonicity/src/models/download_url.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 
 class DownloadUrlSection extends StatelessWidget {
   final DownloadUrl downloadUrl;
@@ -26,7 +26,7 @@ class DownloadUrlSection extends StatelessWidget {
                 },
                 icon: CircleAvatar(
                   backgroundColor: Colors.grey.shade800, radius: 40,
-                  child: Iconify(Ic.twotone_cloud_download, size: 50, color: Colors.white)
+                  child: Iconify(Ic.twotone_cloud_download, size: 50,)
                 ),
               ),
               Text("320kbps", style: Get.textTheme.labelMedium),
@@ -40,7 +40,7 @@ class DownloadUrlSection extends StatelessWidget {
                 },
                 icon: CircleAvatar(
                   backgroundColor: Colors.grey.shade800, radius: 40,
-                  child: Iconify(Ic.round_download, size: 50, color: Colors.white)
+                  child: Iconify(Ic.round_download, size: 50,)
                 ),
               ),
               Text("160kbps", style: Get.textTheme.labelMedium),
@@ -54,7 +54,7 @@ class DownloadUrlSection extends StatelessWidget {
                 },
                 icon: CircleAvatar(
                   backgroundColor: Colors.grey.shade800, radius: 40,
-                  child: Iconify(MaterialSymbols.download_rounded, size: 50, color: Colors.white)
+                  child: Iconify(MaterialSymbols.download_rounded, size: 50,)
                 ),
               ),
               Text("96kbps", style: Get.textTheme.labelMedium),

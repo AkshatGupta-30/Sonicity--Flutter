@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ant_design.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
@@ -20,6 +19,7 @@ import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/artist_widget.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
@@ -44,7 +44,7 @@ class AlbumDetailsView extends StatelessWidget {
             }
             return CustomScrollView(
               slivers: [
-                _appBar(media, album, controller),
+                _appBar(context, media, album, controller),
                 _albumArtists(album),
                 _albumSongs(album),
               ],
@@ -57,7 +57,7 @@ class AlbumDetailsView extends StatelessWidget {
     );
   }
 
-  SliverAppBar _appBar(Size media, Album album, AlbumDetailController controller) {
+  SliverAppBar _appBar(BuildContext context, Size media, Album album, AlbumDetailController controller,) {
     return SliverAppBar(
       pinned: true, floating: false, snap: false,
       leading: BackButton(),
@@ -123,7 +123,9 @@ class AlbumDetailsView extends StatelessWidget {
                           "Shuffle",
                           style: TextStyle(color: Colors.grey.shade300, fontSize: 21),
                         ),
-                        Iconify(Ic.twotone_shuffle, color: Colors.grey.shade300, size: 25),
+                        Iconify(
+                          Ic.twotone_shuffle, size: 25,
+                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,),
                       ],
                     ),
                     Gap(5),
@@ -135,7 +137,10 @@ class AlbumDetailsView extends StatelessWidget {
                         border: Border.all(color: Colors.grey.shade300),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Iconify(Ic.twotone_play_arrow, color: Colors.grey.shade300, size: 27),
+                      child: Iconify(
+                        Ic.twotone_play_arrow, size: 27,
+                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+                      ),
                     ),
                     PopupMenuButton(
                       itemBuilder: (context) {
@@ -166,8 +171,9 @@ class AlbumDetailsView extends StatelessWidget {
                           ),
                         ];
                       },
-                      icon: Iconify(MaterialSymbols.sort_rounded, color: Colors.white),
-                      position: PopupMenuPosition.under, color: Colors.grey.shade900,
+                      icon: Iconify(MaterialSymbols.sort_rounded,),
+                      position: PopupMenuPosition.under,
+                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
                   ],

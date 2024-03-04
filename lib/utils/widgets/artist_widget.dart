@@ -4,11 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/views/details/artist_details_view.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class ArtistTile extends StatelessWidget {
@@ -77,7 +77,10 @@ class ArtistPopUpMenu extends StatelessWidget {
         ];
       },
       padding: EdgeInsets.zero,
-      icon: Iconify(Ic.sharp_more_vert, color: Colors.grey.shade100, size: 32),
+      icon: Iconify(
+        Ic.sharp_more_vert, size: 32,
+        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+      ),
     );
   }
 }

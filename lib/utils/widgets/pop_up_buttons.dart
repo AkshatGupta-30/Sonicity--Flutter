@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 
 class PopUpButtonRow extends StatelessWidget {
   PopUpButtonRow({
@@ -18,7 +18,10 @@ class PopUpButtonRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Iconify(icon, color: Colors.grey.shade100, size: 22),
+        Iconify(
+          icon, size: 22,
+          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+        ),
         Gap(10),
         Text(label),
       ],

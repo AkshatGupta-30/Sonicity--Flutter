@@ -1,9 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/carbon.dart';
 import 'package:iconify_flutter_plus/icons/entypo.dart';
 import 'package:iconify_flutter_plus/icons/fe.dart';
@@ -21,6 +20,7 @@ import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/contants/fonts.dart';
 import 'package:sonicity/utils/contants/prefs_keys.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 import 'package:super_string/super_string.dart';
 
@@ -75,7 +75,6 @@ class SettingsView extends StatelessWidget {
             : (controller.getThemeMode == ThemeMode.light)
               ? Ic.twotone_wb_sunny
               : Ph.moon_stars_duotone,
-          color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white
         ),
         title: Text(
           "Theme Mode",
@@ -98,10 +97,7 @@ class SettingsView extends StatelessWidget {
             final prefs = await SharedPreferences.getInstance();
             await prefs.setString(PrefsKey.themeMode, theme);
           },
-          icon: Iconify(
-            Ic.twotone_arrow_drop_down_circle,
-            color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
-          ),
+          icon: Iconify(Ic.twotone_arrow_drop_down_circle,),
           padding: EdgeInsets.zero,
           underline: SizedBox(),
           borderRadius: BorderRadius.circular(12),
@@ -148,7 +144,7 @@ class SettingsView extends StatelessWidget {
                             radius: 30,
                             backgroundColor: lightColorList[index].withOpacity((controller.getAccentIndex == index) ? 0.9 : 1),
                             child: (controller.getAccentIndex == index)
-                              ? Iconify(MaterialSymbols.done_rounded, size: 40, color: Colors.white)
+                              ? Iconify(MaterialSymbols.done_rounded, size: 40,)
                               : null,
                           ),
                         ),
@@ -167,16 +163,13 @@ class SettingsView extends StatelessWidget {
   ListTile _buildFont(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return ListTile(
-      leading: Iconify(RadixIcons.font_family, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white),
+      leading: Iconify(RadixIcons.font_family,),
       title: Text("Font Family"),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(controller.fontFamily.value),
-          Iconify(
-            MaterialSymbols.arrow_right_rounded,
-            color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white
-          )
+          Iconify(MaterialSymbols.arrow_right_rounded,)
         ]
       ),
       onTap: () => showDialog(
@@ -246,15 +239,14 @@ class SettingsView extends StatelessWidget {
     return ListTile(
       leading: Iconify(Ph.selection_background_duotone, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
       title: Text("Background"),
-      trailing: Iconify(Ic.round_arrow_right, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
+      trailing: Iconify(Ic.round_arrow_right,),
       onTap: () => ToDoView(text: "Background")
     );
   }
 
   _buildPlayerBackground(BuildContext context) {
-    ThemeData theme = Theme.of(context);
     return ListTile(
-      leading: Iconify(Carbon.gradient, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
+      leading: Iconify(Carbon.gradient,),
       title: Text("Main Player Background"),
       trailing: Container(
         height: 32, width: 32,
@@ -265,9 +257,8 @@ class SettingsView extends StatelessWidget {
   }
 
   _buildDenseMiniPlayer(BuildContext context) {
-    ThemeData theme = Theme.of(context);
     return ListTile(
-      leading: Iconify(Fe.tiled, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
+      leading: Iconify(Fe.tiled,),
       title: Text("Use dense mini player"),
       trailing: Obx(() => Switch(
         value: controller.getDensePlayer,
@@ -287,7 +278,7 @@ class SettingsView extends StatelessWidget {
   ListTile _buildMusicLanguage(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return ListTile(
-      leading: Iconify(Entypo.language, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
+      leading: Iconify(Entypo.language,),
       title: Text("Music Language"),
       subtitle: Text("To display songs on home screen"),
       trailing: Text(controller.getMusicLang.replaceAll(",", ", ").title(), maxLines: 1, overflow: TextOverflow.ellipsis,),
@@ -345,7 +336,7 @@ class SettingsView extends StatelessWidget {
   _buildMusicQualitySettings(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return ListTile(
-      leading: Iconify(SimpleIcons.audiomack, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
+      leading: Iconify(SimpleIcons.audiomack,),
       title: Text("Music Quality"),
       subtitle: Text("Customize Your Music Quality"),
       trailing: Obx(() => DropdownButton(
@@ -357,10 +348,7 @@ class SettingsView extends StatelessWidget {
             final prefs = await SharedPreferences.getInstance();
             await prefs.setString(PrefsKey.musicQuality, controller.getMusicQuality);
           },
-          icon: Iconify(
-            MaterialSymbols.arrow_drop_down_rounded,
-            color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
-          ),
+          icon: Iconify(MaterialSymbols.arrow_drop_down_rounded,),
           padding: EdgeInsets.zero,
           underline: SizedBox(),
           borderRadius: BorderRadius.circular(12),

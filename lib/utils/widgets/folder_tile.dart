@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 
 class FolderTile extends StatelessWidget {
   final VoidCallback onTap;

@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 
 class ShimmerCard extends StatelessWidget {
   ShimmerCard({super.key});
@@ -43,7 +43,15 @@ class ShimmerCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end, crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Gap(10),
-                  Row(children: [Spacer(), Iconify(Ic.sharp_more_vert, color: Colors.grey.shade100, size: 32), Gap(6)]),
+                  Row(children: [
+                    Spacer(),
+                    Iconify(
+                      Ic.sharp_more_vert, size: 32,
+                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+                    ),
+                    Gap(6)
+                    ]
+                  ),
                   Spacer(),
                   Container(
                     width: media.width/2, height: 20,

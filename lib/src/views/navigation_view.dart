@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/codicon.dart';
 import 'package:iconify_flutter_plus/icons/fa6_solid.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
@@ -16,6 +15,7 @@ import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/views/drawer/settings_view.dart';
 import 'package:sonicity/src/views/library/library_view.dart';
 import 'package:sonicity/src/views/navigation/homeview.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
@@ -42,7 +42,7 @@ class NavigationView extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Iconify(
               MaterialSymbols.queue_music_rounded,
-              color: (controller.selectedIndex.value == 0) ? Get.find<SettingsController>().getAccent : Colors.white
+              color: (controller.selectedIndex.value == 0) ? Get.find<SettingsController>().getAccent : null
             ),
             label: "Queue"
           ),
@@ -50,8 +50,7 @@ class NavigationView extends StatelessWidget {
             icon: Iconify(
               Fa6Solid.house_chimney,
               color: (controller.selectedIndex.value == 1)
-                ? Get.find<SettingsController>().getAccent
-                : Colors.white
+                ? Get.find<SettingsController>().getAccent : null
             ),
             label: "Home"
           ),
@@ -59,8 +58,7 @@ class NavigationView extends StatelessWidget {
             icon: Iconify(
               Ic.round_library_music,
               color: (controller.selectedIndex.value == 2)
-                ? Get.find<SettingsController>().getAccent
-                : Colors.white
+                ? Get.find<SettingsController>().getAccent : null
             ),
             label: "Library"
           ),
@@ -87,17 +85,17 @@ class NavigationView extends StatelessWidget {
               ),
               ListTile(
                 onTap: () => controller.closeDrawer(),
-                leading: Iconify(IconParkTwotone.folder_music, color: Colors.white,),
+                leading: Iconify(IconParkTwotone.folder_music,),
                 title: Text("My Music"),
               ),
               ListTile(
                 onTap: () => controller.closeDrawer(),
-                leading: Iconify(Codicon.repo_clone, color: Colors.white,),
+                leading: Iconify(Codicon.repo_clone,),
                 title: Text("Cloned"),
               ),
               ListTile(
                 onTap: () => controller.closeDrawer(),
-                leading: Iconify(Ic.sharp_playlist_play, color: Colors.white),
+                leading: Iconify(Ic.sharp_playlist_play,),
                 title: Text("Playlists"),
               ),
               ListTile(
@@ -105,12 +103,12 @@ class NavigationView extends StatelessWidget {
                   Get.to(() => SettingsView());
                   controller.closeDrawer();
                 },
-                leading: Iconify(Ion.settings_sharp, color: Colors.white),
+                leading: Iconify(Ion.settings_sharp,),
                 title: Text("Settings"),
               ),
               ListTile(
                 onTap: () => controller.closeDrawer(),
-                leading: Iconify(IcomoonFree.info, color: Colors.white),
+                leading: Iconify(IcomoonFree.info,),
                 title: Text("About"),
               ),
               Spacer(),

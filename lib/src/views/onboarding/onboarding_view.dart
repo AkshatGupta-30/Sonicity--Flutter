@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -11,6 +10,7 @@ import 'package:sonicity/src/views/navigation_view.dart';
 import 'package:sonicity/src/views/onboarding/add_folder_view.dart';
 import 'package:sonicity/src/views/onboarding/permission_view.dart';
 import 'package:sonicity/src/views/onboarding/welcome_view.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 
 class OnBoardingView extends StatelessWidget {
   OnBoardingView({super.key});
@@ -58,7 +58,7 @@ class OnBoardingView extends StatelessWidget {
                   },
                   child: CircleAvatar(
                     radius: 25, backgroundColor: Colors.grey.shade800,
-                    child: Iconify(Ic.round_keyboard_arrow_left, color: Colors.white, size: 30),
+                    child: Iconify(Ic.round_keyboard_arrow_left, size: 30),
                   ),
                 ),
               SmoothPageIndicator(

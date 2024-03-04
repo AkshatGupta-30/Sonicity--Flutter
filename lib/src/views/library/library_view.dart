@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/bx.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
@@ -14,6 +13,7 @@ import 'package:iconify_flutter_plus/icons/raphael.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:iconify_flutter_plus/icons/wpf.dart';
 import 'package:sonicity/src/views/library/storage_view.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class LibraryView extends StatefulWidget {
@@ -105,7 +105,10 @@ class Tile extends StatelessWidget {
       onTap: onPressed,
       contentPadding: EdgeInsets.all(5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      leading: Iconify(icon, size: 30, color: Colors.grey.shade100),
+      leading: Iconify(
+        icon, size: 30,
+        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+      ),
       horizontalTitleGap: 30,
       title: Text(title),
       titleTextStyle: TextStyle(fontSize: 20),

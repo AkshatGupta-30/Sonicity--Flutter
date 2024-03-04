@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 
 class SearchShimmer extends StatelessWidget {
   SearchShimmer({super.key});

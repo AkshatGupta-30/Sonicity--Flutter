@@ -4,9 +4,9 @@ import 'dart:io';
 
 import 'package:file_manager/file_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 
 class StorageTile extends StatelessWidget {
   final FileSystemEntity entity;
@@ -18,8 +18,8 @@ class StorageTile extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       leading: FileManager.isFile(entity)
-        ? Iconify(Ic.twotone_audio_file, color: Colors.white,)
-        : Iconify(IconParkTwotone.folder_music, color: Colors.white),
+        ? Iconify(Ic.twotone_audio_file,)
+        : Iconify(IconParkTwotone.folder_music,),
       title: Text(
         FileManager.basename(
           entity,

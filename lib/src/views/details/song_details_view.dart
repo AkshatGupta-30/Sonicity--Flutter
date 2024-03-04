@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ant_design.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
@@ -23,6 +22,7 @@ import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:sonicity/utils/sections/download_url_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/artist_widget.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 import 'package:super_string/super_string.dart';
@@ -47,9 +47,9 @@ class SongDetailsView extends StatelessWidget {
               }
               return NestedScrollView(
                 headerSliverBuilder: (context, innerBoxIsScrolled) {
-                  return [_appBar(media, song, controller),];
+                  return [_appBar(context, media, song, controller),];
                 },
-                body: _info(controller, song),
+                body: _info(context, controller, song),
               );
             });
           }
@@ -60,7 +60,7 @@ class SongDetailsView extends StatelessWidget {
     );
   }
 
-  SliverAppBar _appBar(Size media, Song song, SongDetailController controller) {
+  SliverAppBar _appBar(BuildContext context, Size media, Song song, SongDetailController controller) {
     return SliverAppBar(
       pinned: true, floating: false, snap: false,
       leading: BackButton(),
@@ -107,7 +107,10 @@ class SongDetailsView extends StatelessWidget {
           onTap: () {
             Get.to(() => ToDoView(text: "Song in starred"));
           },
-          child: Iconify(Uis.favorite, size: 30, color: Colors.yellowAccent)
+          child: Iconify(
+            Uis.favorite, size: 30,
+            color: (Theme.of(context).brightness == Brightness.light) ? Colors.yellow : Colors.yellowAccent
+          )
         ),
         Gap(8)
       ],
@@ -166,7 +169,7 @@ class SongDetailsView extends StatelessWidget {
   }
 
   
-  TabBarView _info(SongDetailController controller, Song song) {
+  TabBarView _info(BuildContext context, SongDetailController controller, Song song) {
     return TabBarView(
       controller: controller.tabController,
       physics: NeverScrollableScrollPhysics(),
@@ -217,7 +220,10 @@ class SongDetailsView extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Iconify(Ic.twotone_error, color: Colors.redAccent, size: 50),
+                      Iconify(
+                        Ic.twotone_error, size: 50,
+                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.red : Colors.redAccent,
+                      ),
                       Text(
                         "This song doesn't have any available lyrics.", textAlign: TextAlign.center,
                         style: Get.textTheme.headlineSmall!.copyWith(color: Colors.redAccent),

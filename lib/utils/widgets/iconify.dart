@@ -12,7 +12,11 @@ class Iconify extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.string(
       icon,
-      colorFilter: color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null,
+      colorFilter: (color != null)
+        ? ColorFilter.mode(color!, BlendMode.srcIn)
+        : (Theme.of(context).brightness == Brightness.light)
+          ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
+          : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
       width: size, height: size, alignment: Alignment.center,
     );
   }

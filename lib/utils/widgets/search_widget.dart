@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/views/navigation/searchview.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 
 class SearchContainer extends StatelessWidget {
   final Size media;
@@ -46,8 +46,8 @@ class SearchContainer extends StatelessWidget {
                 child: GlowContainer(
                   blurRadius: 25,
                   child: Iconify(
-                    IconParkTwotone.search,
-                    color: Get.find<SettingsController>().getAccent, size: 32,
+                    IconParkTwotone.search, size: 32,
+                    color: Get.find<SettingsController>().getAccent,
                   )
                 )
               ),

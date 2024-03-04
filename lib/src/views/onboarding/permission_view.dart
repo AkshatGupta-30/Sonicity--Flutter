@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/pepicons.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class PermissionView extends StatelessWidget {
@@ -28,7 +28,7 @@ class PermissionView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Iconify(Ic.twotone_music_note, color: Colors.white, size: 50),
+                Iconify(Ic.twotone_music_note, size: 50),
                 Gap(20),
                 RichText(
                   textAlign: TextAlign.center,

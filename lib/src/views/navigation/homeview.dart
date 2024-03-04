@@ -4,7 +4,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:sonicity/src/controllers/homeview_controller.dart';
 import 'package:sonicity/utils/sections/hot_playlists_section.dart';
@@ -12,6 +11,7 @@ import 'package:sonicity/utils/sections/last_session_section.dart';
 import 'package:sonicity/utils/sections/top_albums_section.dart';
 import 'package:sonicity/utils/sections/top_charts_section.dart';
 import 'package:sonicity/utils/sections/trending_now_section.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/search_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
@@ -30,20 +30,23 @@ class HomeView extends StatelessWidget{
       child: Obx(() => CustomScrollView(
         controller: scrollController,
         slivers: [
-          _appBar(media, padding),
+          _appBar(context, media, padding),
           _content(media),
         ],
       )),
     );
   }
 
-  SliverAppBar _appBar(Size media, EdgeInsets padding) {
+  SliverAppBar _appBar(BuildContext context, Size media, EdgeInsets padding) {
     return SliverAppBar(
       pinned: true, toolbarHeight: kToolbarHeight + padding.top/2,
       actions: [
         GestureDetector(
           onTap: () {},
-          child: Iconify(Uis.favorite, size: 30, color: Colors.yellowAccent)
+          child: Iconify(
+            Uis.favorite, size: 30,
+            color: (Theme.of(context).brightness == Brightness.light) ? Colors.yellow : Colors.yellowAccent
+          )
         ),
         Gap(12)
       ],

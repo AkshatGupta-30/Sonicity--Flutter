@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
@@ -21,6 +20,7 @@ import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
@@ -48,7 +48,7 @@ class ArtistDetailsView extends StatelessWidget {
               return NestedScrollView(
                 controller: controller.scrollController,
                 headerSliverBuilder: (context, innerBoxIsScrolled) {
-                  return [_appBar(selectedTab, media, artist, controller)];
+                  return [_appBar(context, selectedTab, media, artist, controller)];
                 },
                 body: TabBarView(
                   controller: controller.tabController,
@@ -104,7 +104,7 @@ class ArtistDetailsView extends StatelessWidget {
     );
   }
 
-  SliverAppBar _appBar(int selectedTab, Size media, Artist artist, ArtistDetailController controller) {
+  SliverAppBar _appBar(BuildContext context, int selectedTab, Size media, Artist artist, ArtistDetailController controller) {
     return SliverAppBar(
       pinned: true, floating: false, snap: false,
       leading: BackButton(),
@@ -150,7 +150,10 @@ class ArtistDetailsView extends StatelessWidget {
           onTap: () {
             Get.to(() => ToDoView(text: "Song in starred"));
           },
-          child: Iconify(Uis.favorite, size: 30, color: Colors.yellowAccent)
+          child: Iconify(
+            Uis.favorite, size: 30,
+            color: (Theme.of(context).brightness == Brightness.light) ? Colors.yellow : Colors.yellowAccent,
+          )
         ),
         Gap(8)
       ],
@@ -180,7 +183,7 @@ class ArtistDetailsView extends StatelessWidget {
                             Row(
                               children: [
                                 Text("Shuffle", style: Get.textTheme.labelMedium),
-                                Iconify(Ic.twotone_shuffle, color: Colors.white, size: 25),
+                                Iconify(Ic.twotone_shuffle, size: 25),
                               ],
                             ),
                             Gap(5),
@@ -192,7 +195,10 @@ class ArtistDetailsView extends StatelessWidget {
                                 border: Border.all(color: Colors.grey.shade300),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: Iconify(Ic.twotone_play_arrow, color: Colors.grey.shade300, size: 27),
+                              child: Iconify(
+                                Ic.twotone_play_arrow, size: 27,
+                                color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+                              ),
                             ),
                             PopupMenuButton(
                               itemBuilder: (context) {
@@ -223,8 +229,9 @@ class ArtistDetailsView extends StatelessWidget {
                                   ),
                                 ];
                               },
-                              icon: Iconify(MaterialSymbols.sort_rounded, color: Colors.white),
-                              position: PopupMenuPosition.under, color: Colors.grey.shade900,
+                              icon: Iconify(MaterialSymbols.sort_rounded,),
+                              position: PopupMenuPosition.under,
+                              color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                             ),
                           ],
@@ -270,8 +277,9 @@ class ArtistDetailsView extends StatelessWidget {
                               ),
                             ];
                           },
-                          icon: Iconify(MaterialSymbols.sort_rounded, color: Colors.white),
-                          position: PopupMenuPosition.under, color: Colors.grey.shade900,
+                          icon: Iconify(MaterialSymbols.sort_rounded,),
+                          position: PopupMenuPosition.under,
+                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         Gap(10)

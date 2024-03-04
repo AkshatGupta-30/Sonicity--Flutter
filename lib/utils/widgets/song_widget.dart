@@ -3,7 +3,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/entypo.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
@@ -13,6 +12,7 @@ import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
 import 'package:sonicity/src/views/details/album_details_view.dart';
 import 'package:sonicity/src/views/details/song_details_view.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
 class SongCard extends StatelessWidget {
@@ -183,7 +183,10 @@ class SongPopUpMenu extends StatelessWidget {
         ];
       },
       padding: EdgeInsets.zero,
-      icon: Iconify(Ic.sharp_more_vert, color: Colors.grey.shade100, size: 32),
+      icon: Iconify(
+        Ic.sharp_more_vert, size: 32,
+        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+      ),
     );
   }
 }

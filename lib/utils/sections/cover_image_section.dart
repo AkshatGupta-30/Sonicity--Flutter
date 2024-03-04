@@ -5,10 +5,10 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/image_url.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 
 enum Quality {low, med, high}
 
@@ -34,7 +34,10 @@ class CoverImageSection extends StatelessWidget {
                         "Copied cover image high quality url",
                         style: TextStyle(color: Get.find<SettingsController>().getAccent, fontSize: 18),
                       )),
-                      Iconify(MaterialSymbols.done, color: Colors.greenAccent, size: 25),
+                      Iconify(
+                        MaterialSymbols.done, size: 25,
+                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.green : Colors.greenAccent,
+                      ),
                     ],
                   ),
                   duration: Duration(seconds: 2),
@@ -54,7 +57,10 @@ class CoverImageSection extends StatelessWidget {
                         "Copied cover image medium quality url",
                         style: TextStyle(color: Get.find<SettingsController>().getAccent, fontSize: 18),
                       )),
-                      Iconify(MaterialSymbols.done, color: Colors.greenAccent, size: 25),
+                      Iconify(
+                        MaterialSymbols.done, size: 25,
+                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.green : Colors.greenAccent,
+                      ),
                     ],
                   ),
                   duration: Duration(seconds: 2),
@@ -74,7 +80,10 @@ class CoverImageSection extends StatelessWidget {
                         "Copied cover image low quality url",
                         style: TextStyle(color: Get.find<SettingsController>().getAccent, fontSize: 18),
                       )),
-                      Iconify(MaterialSymbols.done, color: Colors.greenAccent, size: 25),
+                      Iconify(
+                        MaterialSymbols.done, size: 25,
+                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.green : Colors.greenAccent,
+                      ),
                     ],
                   ),
                   duration: Duration(seconds: 2),
