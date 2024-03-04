@@ -13,6 +13,7 @@ class SettingsController extends GetxController {
     _initAccent();
     _initFontFamily();
     _initBackGround();
+    _initDensePlayer();
   }
 
   final _themeModeSaved = ThemeMode.system.obs;
@@ -46,11 +47,20 @@ class SettingsController extends GetxController {
   }
 
   final _backGround = 0.obs;
-  int get backGround => _backGround.value;
+  int get getBackGround => _backGround.value;
   set setBackground(int index) => _backGround.value = index;
   void _initBackGround() async {
     final prefs = await SharedPreferences.getInstance();
     int selection = prefs.getInt(PrefsKey.backGradient) ?? 0;
     setBackground = selection;
+  }
+
+  final _useDensePlayer = false.obs;
+  bool get getDensePlayer => _useDensePlayer.value;
+  set setDensePlayer(bool value) => _useDensePlayer.value = value;
+  void _initDensePlayer() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool selection = prefs.getBool(PrefsKey.useDensePlayer) ?? false;
+    setDensePlayer = selection;
   }
 }

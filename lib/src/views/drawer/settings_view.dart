@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/carbon.dart';
+import 'package:iconify_flutter_plus/icons/fe.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
@@ -47,6 +48,7 @@ class SettingsView extends StatelessWidget {
               Gap(5),
               _buildPlayerBackground(context),
               Gap(10),
+              _buildDenseMiniPlayer(context),
             ],
           ),
         ),
@@ -156,7 +158,6 @@ class SettingsView extends StatelessWidget {
     });
   }
 
-  final fontChange = false.obs;
   ListTile _buildFont(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return ListTile(
@@ -182,15 +183,18 @@ class SettingsView extends StatelessWidget {
                   String font  = Fonts.fontList[index];
                   return Obx(() => TextButton(
                     onPressed: () async {
-                      if(controller.fontFamily.value == font) {
+                      if(controller.fontFamily.value != font) {
                         final prefs = await SharedPreferences.getInstance();
                         await prefs.setString(PrefsKey.fontFamily, font);
                         controller.setFontfamily = font;
+                        Get.showSnackbar(
+                          GetSnackBar(
+                            title: "Info", message: "New setting will be applied on app restart",
+                            duration: Duration(seconds: 2),
+                          )
+                        );
                       }
                       Navigator.pop(context);
-                      Get.showSnackbar(
-                        GetSnackBar(title: "Info", message: "New setting will be applied on app restart", duration: Duration(seconds: 2),)
-                      );
                     },
                     style: ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.all(10))),
                     child: (controller.fontFamily.value == font)
@@ -246,5 +250,25 @@ class SettingsView extends StatelessWidget {
       ),
       onTap: () => ToDoView(text: "Background")
     );
+  }
+
+  _buildDenseMiniPlayer(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return ListTile(
+      leading: Iconify(Fe.tiled, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
+      title: Text("Use dense mini player"),
+      trailing: Obx(() => Switch(
+        value: controller.getDensePlayer,
+        onChanged: (newValue) async {
+          controller.setDensePlayer = newValue;
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setBool(PrefsKey.useDensePlayer, newValue);
+        },
+        activeTrackColor: controller.getAccentDark,
+        activeColor: controller.getAccent,
+        inactiveTrackColor: Colors.grey,
+        inactiveThumbColor: Colors.grey.shade300,
+      ),
+    ));
   }
 }
