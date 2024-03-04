@@ -47,6 +47,7 @@ class SearchView extends StatelessWidget {
                   leadingWidth: 0, titleSpacing: 0,
                   title: SearchBox(
                     searchController: controller.searchController,
+                    focusNode: controller.focusNode,
                     onChanged: (text) => controller.searchChanged(text),
                     onSubmitted: (text) => controller.searchSubmitted(text),
                   )
@@ -58,7 +59,7 @@ class SearchView extends StatelessWidget {
                       ? SearchShimmer()
                       : (controller.isSearching.value)
                         ? _searchResults(controller)
-                        : _searchHistory(controller),
+                        : _searchHistory(context, controller),
                   ),
                 )
               ],
@@ -70,7 +71,7 @@ class SearchView extends StatelessWidget {
     );
   }
 
-  Widget _searchHistory(SearchViewController controller) {
+  Widget _searchHistory(BuildContext context, SearchViewController controller) {
     return (controller.historyList.isEmpty)
       ? SizedBox()
       : Column(
@@ -80,7 +81,7 @@ class SearchView extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             child: Obx(() => Text(
               "History",
-              style: Get.textTheme.titleLarge!.copyWith(color: Get.find<SettingsController>().getAccent),
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Get.find<SettingsController>().getAccent),
             )),
           ),
           Wrap(// * : All History Chip

@@ -6,6 +6,7 @@ import 'package:sonicity/src/sprefs/search_history.dart';
 
 class SearchViewController extends GetxController {
   final searchController = TextEditingController();
+  final focusNode = FocusNode();
   final historyList = <String>[].obs;
   final isLoading = false.obs;
   final isSearching = false.obs;
@@ -46,6 +47,7 @@ class SearchViewController extends GetxController {
   }
 
   void searchSubmitted(String text) {
+    focusNode.unfocus();
     isSearching.value = true;
     _searchText(text);
     if(historyList.contains(text)) {

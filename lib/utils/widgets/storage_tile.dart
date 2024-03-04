@@ -25,7 +25,7 @@ class StorageTile extends StatelessWidget {
           entity,
           showFileExtension: true,
         ),
-        style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
       subtitle: FutureBuilder<FileStat>(
         future: entity.stat(),
@@ -35,17 +35,17 @@ class StorageTile extends StatelessWidget {
               int size = snapshot.data!.size;
               return Text(
                 FileManager.formatBytes(size),
-                style: TextStyle(color: Colors.grey.shade300),
+                style: Theme.of(context).textTheme.bodyMedium,
               );
             }
             return Text(
               "${snapshot.data!.modified}".substring(0, 10),
-              style: TextStyle(color: Colors.grey.shade300),
+              style: Theme.of(context).textTheme.bodyMedium,
             );
           } else {
             return Text(
               "error",
-              style: TextStyle(color: Colors.grey.shade300),
+              style: Theme.of(context).textTheme.bodyMedium,
             );
           }
         },

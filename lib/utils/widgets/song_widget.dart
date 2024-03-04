@@ -60,8 +60,11 @@ class SongCard extends StatelessWidget {
                 width: media.width/1.25, height: media.width/1.25,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.black.withOpacity(0.25), Colors.black],
+                    colors: (Theme.of(context).brightness == Brightness.light)
+                      ? [Colors.white.withOpacity(0.25), Colors.grey.shade200]
+                      : [Colors.black.withOpacity(0.25), Colors.black],
                     begin: Alignment.center, end: Alignment.bottomCenter,
+                    stops: [0.4, 1]
                   )
                 ),
               )
@@ -75,11 +78,13 @@ class SongCard extends StatelessWidget {
                 children: <Text>[
                   Text(
                     song.title, maxLines: 1, overflow: TextOverflow.ellipsis,
-                    style: Get.textTheme.bodyLarge!.copyWith(fontSize: 14),
+                    style: Theme.of(context).textTheme.labelLarge!,
                   ),
                   Text(
                     song.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-                    style: Get.textTheme.bodySmall!.copyWith(fontSize: 11),
+                    style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade800 : null
+                    ),
                   ),
                 ],
               ),

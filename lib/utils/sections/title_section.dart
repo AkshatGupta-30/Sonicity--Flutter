@@ -21,7 +21,7 @@ class TitleSection extends StatelessWidget {
     return Obx(() => Container(
       alignment: (center) ? Alignment.center : Alignment.centerLeft,
       padding: EdgeInsets.only(left: (center) ? 0 : leftPadding),
-      child: Text(title, style: Get.textTheme.titleLarge!.copyWith(color: Get.find<SettingsController>().getAccent, fontSize: size)),
+      child: Text(title, style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Get.find<SettingsController>().getAccent, fontSize: size)),
     ));
   }
 }

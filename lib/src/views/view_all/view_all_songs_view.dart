@@ -29,7 +29,9 @@ class ViewAllSongsView extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.grey.shade800, Colors.black],
+            colors: (Theme.of(context).brightness == Brightness.light)
+              ? [Colors.grey.shade200, Colors.white]
+              : [Colors.grey.shade800, Colors.black],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             stops: [0.0, 1],
@@ -47,7 +49,7 @@ class ViewAllSongsView extends StatelessWidget {
             return CustomScrollView(
               controller: controller.scrollController,
               slivers: [
-                _appBar(media, controller),
+                _appBar(context, media, controller),
                 _songList(controller)
               ],
             );
@@ -58,7 +60,7 @@ class ViewAllSongsView extends StatelessWidget {
     );
   }
 
-  SliverAppBar _appBar(Size media, ViewAllSearchSongsController controller) {
+  SliverAppBar _appBar(BuildContext context, Size media, ViewAllSearchSongsController controller) {
     return SliverAppBar(
       pinned: true, floating: true, snap:  true,
       toolbarHeight: kToolbarHeight,
@@ -94,7 +96,7 @@ class ViewAllSongsView extends StatelessWidget {
               ),
             ];
           },
-          icon: Iconify(MaterialSymbols.sort_rounded, color: Get.theme.appBarTheme.actionsIconTheme!.color),
+          icon: Iconify(MaterialSymbols.sort_rounded, color: Theme.of(context).appBarTheme.actionsIconTheme!.color),
           position: PopupMenuPosition.under, color: Colors.grey.shade900,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
@@ -161,8 +163,8 @@ class ViewAllSongsView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Songs", style: Get.textTheme.headlineLarge),
-                  Text("${controller.songCount.value} Songs", style: Get.textTheme.titleMedium!.copyWith(color: Colors.grey)),
+                  Text("Songs", style: Theme.of(context).textTheme.headlineLarge),
+                  Text("${controller.songCount.value} Songs", style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.grey)),
                   Gap(12),
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -181,7 +183,7 @@ class ViewAllSongsView extends StatelessWidget {
                                 gradient: LinearGradient(
                                   colors: [
                                     settings.getAccent,
-                                    (settings.getThemeMode == ThemeMode.light) ? Colors.black : Colors.white
+                                    (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
                                   ],
                                   begin: Alignment.center, end: Alignment.bottomCenter,
                                   stops: [0.25, 1], tileMode: TileMode.clamp
@@ -192,7 +194,12 @@ class ViewAllSongsView extends StatelessWidget {
                                 children: [
                                   Iconify(Ic.twotone_play_arrow, size: 30),
                                   Gap(3),
-                                  Text("Play", style: Get.textTheme.titleMedium)
+                                  Text(
+                                    "Play",
+                                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
+                                    )
+                                  )
                                 ],
                               )
                             );
@@ -205,7 +212,13 @@ class ViewAllSongsView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                         child: Container(
                           padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.white)),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: (Theme.of(context).brightness == Brightness.light) ?Colors.black : Colors.white,
+                              width: 2
+                            ),
+                          ),
                           child: Iconify(Ph.shuffle_duotone, size: 30)
                         ),
                       ),

@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/ri.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 
@@ -18,7 +17,7 @@ class SearchHistoryCell extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: Color(0xFF3d3d3d),
+          color: (Theme.of(context).brightness == Brightness.light) ? Color(0xFFC2C2C2) : Color(0xFF3d3d3d),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
@@ -28,7 +27,9 @@ class SearchHistoryCell extends StatelessWidget {
               onTap: onTap,
               child: Text(
                 itemText,
-                style: Get.textTheme.labelSmall!.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
+                ),
               ),
             ),
             Gap(8),

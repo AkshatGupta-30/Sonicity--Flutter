@@ -72,10 +72,9 @@ class SearchContainer extends StatelessWidget {
 
 class SearchBox extends StatelessWidget {
   final TextEditingController searchController;
+  final FocusNode focusNode;
   final Function(String) onSubmitted, onChanged;
-  SearchBox({super.key, required this.onSubmitted, required this.onChanged, required this.searchController});
-
-  final FocusNode focusNode = FocusNode();
+  SearchBox({super.key, required this.onSubmitted, required this.onChanged, required this.searchController, required this.focusNode});
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +88,7 @@ class SearchBox extends StatelessWidget {
         textInputAction: TextInputAction.done,
         keyboardType: TextInputType.text,
         cursorColor: Get.find<SettingsController>().getAccent,
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white),
         onTapOutside: (event) => focusNode.unfocus(),
         decoration: InputDecoration(
           border: InputBorder.none,

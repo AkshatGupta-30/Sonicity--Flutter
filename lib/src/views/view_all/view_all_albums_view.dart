@@ -35,7 +35,7 @@ class ViewAllAlbumsView extends StatelessWidget {
             return CustomScrollView(
               controller: controller.scrollController,
               slivers: [
-                _appBar(controller),
+                _appBar(context, controller),
                 _albumList(controller)
               ],
             );
@@ -46,7 +46,7 @@ class ViewAllAlbumsView extends StatelessWidget {
     );
   }
 
-  SliverAppBar _appBar(ViewAllSearchAlbumsController controller) {
+  SliverAppBar _appBar(BuildContext context, ViewAllSearchAlbumsController controller) {
     return SliverAppBar(
       pinned: true, floating: true, snap:  true,
       leading: BackButton(),
@@ -73,7 +73,7 @@ class ViewAllAlbumsView extends StatelessWidget {
               ),
             ];
           },
-          icon: Iconify(MaterialSymbols.sort_rounded, color: Get.theme.appBarTheme.actionsIconTheme!.color),
+          icon: Iconify(MaterialSymbols.sort_rounded, color: Theme.of(context).appBarTheme.actionsIconTheme!.color),
           position: PopupMenuPosition.under, color: Colors.grey.shade900,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
@@ -127,15 +127,29 @@ class ViewAllAlbumsView extends StatelessWidget {
                 },
               ),
             ),
-            Container(height: 360, width: double.maxFinite, color: Colors.black.withOpacity(0.45)),
+            Container(
+              height: 360, width: double.maxFinite,
+              color: (Theme.of(context).brightness == Brightness.light) ? Colors.white.withOpacity(0.45) : Colors.black.withOpacity(0.45)
+            ),
             Container(
               margin: EdgeInsets.only(top: kToolbarHeight), alignment: Alignment.center,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Text>[
-                  Text("Albums", style: Get.textTheme.displayMedium!.copyWith(fontWeight: FontWeight.bold)),
-                  Text("${controller.albumCount.value} Albums", style: Get.textTheme.headlineSmall),
+                  Text(
+                    "Albums",
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
+                    )
+                  ),
+                  Text(
+                    "${controller.albumCount.value} Albums",
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300
+                    )
+                  ),
                 ],
               ),
             )

@@ -124,12 +124,12 @@ class ArtistCell extends StatelessWidget {
             Gap(2),
             Text(
               artist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: Get.textTheme.bodyMedium!.copyWith(color: Colors.white)
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white)
             ),
             if(subtitle.isNotEmpty)
               Text(
                 subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-                style: Get.textTheme.bodySmall
+                style: Theme.of(context).textTheme.bodySmall
               ),
           ],
         ),

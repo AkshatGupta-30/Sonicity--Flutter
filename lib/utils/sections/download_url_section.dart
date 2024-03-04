@@ -25,11 +25,12 @@ class DownloadUrlSection extends StatelessWidget {
                   Get.to(() => ToDoView(text: "Donwload this song on high quality"));
                 },
                 icon: CircleAvatar(
-                  backgroundColor: Colors.grey.shade800, radius: 40,
+                  backgroundColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
+                  radius: 40,
                   child: Iconify(Ic.twotone_cloud_download, size: 50,)
                 ),
               ),
-              Text("320kbps", style: Get.textTheme.labelMedium),
+              Text("320kbps", style: Theme.of(context).textTheme.labelMedium),
             ],
           ),
           Column(
@@ -39,11 +40,12 @@ class DownloadUrlSection extends StatelessWidget {
                   Get.to(() => ToDoView(text: "Donwload this song on medium quality"));
                 },
                 icon: CircleAvatar(
-                  backgroundColor: Colors.grey.shade800, radius: 40,
+                  backgroundColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
+                  radius: 40,
                   child: Iconify(Ic.round_download, size: 50,)
                 ),
               ),
-              Text("160kbps", style: Get.textTheme.labelMedium),
+              Text("160kbps", style: Theme.of(context).textTheme.labelMedium),
             ],
           ),
           Column(
@@ -53,11 +55,12 @@ class DownloadUrlSection extends StatelessWidget {
                   Get.to(() => ToDoView(text: "Donwload this song on low quality"));
                 },
                 icon: CircleAvatar(
-                  backgroundColor: Colors.grey.shade800, radius: 40,
+                  backgroundColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
+                  radius: 40,
                   child: Iconify(MaterialSymbols.download_rounded, size: 50,)
                 ),
               ),
-              Text("96kbps", style: Get.textTheme.labelMedium),
+              Text("96kbps", style: Theme.of(context).textTheme.labelMedium),
             ],
           ),
         ],

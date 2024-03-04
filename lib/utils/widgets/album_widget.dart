@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -58,8 +58,11 @@ class AlbumCard extends StatelessWidget {
                 width: media.width/1.25, height: media.width/1.25,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.black.withOpacity(0.25), Colors.black],
+                    colors: (Theme.of(context).brightness == Brightness.light)
+                      ? [Colors.white.withOpacity(0.25), Colors.grey.shade200]
+                      : [Colors.black.withOpacity(0.25), Colors.black],
                     begin: Alignment.center, end: Alignment.bottomCenter,
+                    stops: [0.4, 1]
                   )
                 ),
               )
@@ -73,11 +76,13 @@ class AlbumCard extends StatelessWidget {
                 children:<Text> [
                   Text(
                     album.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-                    style: Get.textTheme.labelLarge,
+                    style: Theme.of(context).textTheme.labelLarge,
                   ),
                   Text(
                     "${album.songCount!} Songs", maxLines: 1, overflow: TextOverflow.ellipsis,
-                    style: Get.textTheme.labelSmall,
+                    style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade800 : null
+                    ),
                   ),
                 ],
               ),
@@ -156,12 +161,12 @@ class AlbumCell extends StatelessWidget {
             Gap(2),
             Text(
               album.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: Get.textTheme.bodyLarge!.copyWith(fontSize: 14),
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 14),
             ),
             if(subtitle.isNotEmpty)
               Text(
                 subtitle,
-                style: Get.textTheme.bodySmall!.copyWith(fontSize: 11),
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 11),
               )
           ],
         ),

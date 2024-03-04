@@ -56,7 +56,7 @@ class ArtistDetailsView extends StatelessWidget {
                   children: <ListView>[
                     _songsTab(controller),
                     _albumsTab(controller),
-                    _infoTab(artist),
+                    _infoTab(context, artist),
                   ],
                 ),
               );
@@ -116,7 +116,7 @@ class ArtistDetailsView extends StatelessWidget {
         title: FittedBox(
           child: Text(
             artist.name, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,
-            style: Get.textTheme.titleLarge,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
         background: Stack(
@@ -135,7 +135,9 @@ class ArtistDetailsView extends StatelessWidget {
               width: media.width, height: 390,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.black.withOpacity(0), Colors.black.withOpacity(0.75)],
+                  colors: (Theme.of(context).brightness == Brightness.light)
+                    ? [Colors.white.withOpacity(0), Colors.white.withOpacity(0.75)]
+                    : [Colors.black.withOpacity(0), Colors.black.withOpacity(0.75)],
                   begin: Alignment.center, end: Alignment.bottomCenter,
                 )
               ),
@@ -171,7 +173,7 @@ class ArtistDetailsView extends StatelessWidget {
                   Row( 
                     children: [
                       Gap(20),
-                      Text("${controller.songCount} Songs", style: Get.textTheme.bodyLarge),
+                      Text("${controller.songCount} Songs", style: Theme.of(context).textTheme.bodyLarge),
                       Spacer(),
                       Container(
                         alignment: Alignment.center,
@@ -182,7 +184,7 @@ class ArtistDetailsView extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Text("Shuffle", style: Get.textTheme.labelMedium),
+                                Text("Shuffle", style: Theme.of(context).textTheme.labelMedium),
                                 Iconify(Ic.twotone_shuffle, size: 25),
                               ],
                             ),
@@ -246,7 +248,7 @@ class ArtistDetailsView extends StatelessWidget {
                     padding: EdgeInsets.only(left: 20),
                     child: Row(
                       children: [
-                        Text("${controller.albumCount} Albums", style: Get.textTheme.bodyLarge),
+                        Text("${controller.albumCount} Albums", style: Theme.of(context).textTheme.bodyLarge),
                         Spacer(),
                         PopupMenuButton(
                           itemBuilder: (context) {
@@ -329,85 +331,85 @@ class ArtistDetailsView extends StatelessWidget {
     );
   }
 
-  ListView _infoTab(Artist artist) {
+  ListView _infoTab(BuildContext context, Artist artist) {
     return ListView(
       padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
       children: [
         Divider(),
-        _head("Name"),
-        _detail(artist.name),
+        _head(context, "Name"),
+        _detail(context, artist.name),
         Divider(),
-        _head("Dominant Language"),
-        _detail(artist.dominantLanguage!),
+        _head(context, "Dominant Language"),
+        _detail(context, artist.dominantLanguage!),
         Divider(),
-        _head("Dominant Type"),
-        _detail(artist.dominantType!),
+        _head(context, "Dominant Type"),
+        _detail(context, artist.dominantType!),
         Divider(),
         if(artist.dob != null && artist.dob!.isNotEmpty)
-          _dobSection(artist.dob!),
+          _dobSection(context, artist.dob!),
         if(artist.fb != null && artist.fb!.isNotEmpty)
-          _fbSection(artist.fb!),
+          _fbSection(context, artist.fb!),
         if(artist.twitter != null && artist.twitter!.isNotEmpty)
-          _twitterSection(artist.twitter!),
+          _twitterSection(context, artist.twitter!),
         if(artist.wiki != null && artist.wiki!.isNotEmpty)
-          _wikiSection(artist.wiki!),
-        _head("Cover Image Url"),
+          _wikiSection(context, artist.wiki!),
+        _head(context, "Cover Image Url"),
         CoverImageSection(image: artist.image!),
         Divider(),
       ],
     );
   }
 
-  Text _head(String text) {
-    return Text(text, style: Get.textTheme.titleSmall);
+  Text _head(BuildContext context, String text) {
+    return Text(text, style: Theme.of(context).textTheme.titleSmall);
   }
 
-  Widget _detail(String text, {bool isSelectable = false}) {
+  Widget _detail(BuildContext context, String text, {bool isSelectable = false}) {
     if(isSelectable) {
-      return SelectableText(text, style: Get.textTheme.labelLarge);
+      return SelectableText(text, style: Theme.of(context).textTheme.labelLarge);
     }
-    return Text(text, style: Get.textTheme.labelLarge);
+    return Text(text, style: Theme.of(context).textTheme.labelLarge);
   }
 
-  Column _dobSection(String dob) {
+  Column _dobSection(BuildContext context, String dob) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _head("Date of birth"),
-        _detail(dob),
+        _head(context, "Date of birth"),
+        _detail(context, dob),
         Divider(),
       ],
     );
   }
 
-  Column _fbSection(String fb) {
+  Column _fbSection(BuildContext context, String fb) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _head("Facebook"),
-        _detail(fb),
+        _head(context, "Facebook"),
+        _detail(context, fb),
         Divider(),
       ],
     );
   }
 
-  Column _twitterSection(String twit) {
+  Column _twitterSection(BuildContext context, String twit) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _head("Twitter"),
-        _detail(twit),
+        _head(context, "Twitter"),
+        _detail(context, twit),
         Divider(),
       ],
     );
   }
 
-  Column _wikiSection(String wiki) {
+  Column _wikiSection(BuildContext context, String wiki) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _head("Wikipedia"),
-        _detail(wiki),
+        _head(context, "Wikipedia"),
+        _detail(context, wiki),
       ],
     );
   }

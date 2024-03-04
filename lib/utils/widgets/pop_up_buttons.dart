@@ -23,7 +23,7 @@ class PopUpButtonRow extends StatelessWidget {
           color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
         ),
         Gap(10),
-        Text(label),
+        Text(label, style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
       ],
     );
   }

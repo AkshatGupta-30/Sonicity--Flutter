@@ -53,12 +53,12 @@ class PlaylistCell extends StatelessWidget {
             Gap(2),
             Text(
               playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: Get.textTheme.titleLarge!.copyWith(fontSize: 13),
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 13),
             ),
             if(subtitle.isNotEmpty)
               Text(
                 subtitle,
-                style: Get.textTheme.titleSmall!.copyWith(fontSize: 11),
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 11),
               )
           ],
         ),

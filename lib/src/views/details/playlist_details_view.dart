@@ -67,7 +67,7 @@ class PlaylistDetailsView extends StatelessWidget {
           width: media.width/1.4,
           child: Text(
             playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,
-            style: Get.textTheme.titleLarge,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
         background: Stack(
@@ -86,7 +86,9 @@ class PlaylistDetailsView extends StatelessWidget {
               width: media.width, height: 420,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.black.withOpacity(0), Colors.black.withOpacity(0.75)],
+                  colors: (Theme.of(context).brightness == Brightness.light)
+                    ? [Colors.white.withOpacity(0), Colors.white.withOpacity(0.75)]
+                    : [Colors.black.withOpacity(0), Colors.black.withOpacity(0.75)],
                   begin: Alignment.center, end: Alignment.bottomCenter,
                 )
               ),
@@ -105,7 +107,7 @@ class PlaylistDetailsView extends StatelessWidget {
           child: Row( 
             children: [
               Gap(20),
-              Text("${playlist.songs!.length} Songs", style: Get.textTheme.bodyLarge),
+              Text("${playlist.songs!.length} Songs", style: Theme.of(context).textTheme.bodyLarge),
               Spacer(),
               Container(
                 height: kBottomNavigationBarHeight, alignment: Alignment.center,
@@ -116,7 +118,7 @@ class PlaylistDetailsView extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text("Shuffle", style: Get.textTheme.labelMedium),
+                        Text("Shuffle", style: Theme.of(context).textTheme.labelMedium),
                         Iconify(
                           Ic.twotone_shuffle, size: 25,
                           color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,),

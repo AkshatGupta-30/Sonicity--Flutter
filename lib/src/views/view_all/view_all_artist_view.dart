@@ -35,7 +35,7 @@ class ViewAllArtistsView extends StatelessWidget {
             return CustomScrollView(
               controller: controller.scrollController,
               slivers: [
-                _appBar(controller),
+                _appBar(context, controller),
                 _albumList(controller)
               ],
             );
@@ -46,7 +46,7 @@ class ViewAllArtistsView extends StatelessWidget {
     );
   }
 
-  SliverAppBar _appBar(ViewAllSearchArtistsController controller) {
+  SliverAppBar _appBar(BuildContext context, ViewAllSearchArtistsController controller) {
     return SliverAppBar(
       pinned: true, floating: true, snap:  true,
       leading: BackButton(),
@@ -127,15 +127,29 @@ class ViewAllArtistsView extends StatelessWidget {
                 },
               ),
             ),
-            Container(height: 360, width: double.maxFinite, color: Colors.black.withOpacity(0.45)),
+            Container(
+              height: 360, width: double.maxFinite,
+              color: (Theme.of(context).brightness == Brightness.light) ? Colors.white.withOpacity(0.45) : Colors.black.withOpacity(0.45)
+            ),
             Container(
               margin: EdgeInsets.only(top: kToolbarHeight), alignment: Alignment.center,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Text>[
-                  Text("Artists", style: Get.textTheme.displayMedium!.copyWith(fontWeight: FontWeight.bold)),
-                  Text("${controller.artistCount.value} Artists", style: Get.textTheme.headlineSmall),
+                  Text(
+                    "Artists",
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
+                    )
+                  ),
+                  Text(
+                    "${controller.artistCount.value} Artists",
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300
+                    )
+                  ),
                 ],
               ),
             )

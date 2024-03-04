@@ -89,7 +89,7 @@ class _StorageViewState extends State<StorageView> {
       ),
       title: Text(rootName(curDir.value.path)),
       bottom: PreferredSize(
-        preferredSize: Size(media.width, kBottomNavigationBarHeight + safe.top),
+        preferredSize: Size(media.width, kToolbarHeight + safe.top),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 18, vertical: 9),
           child: Column(
@@ -98,14 +98,14 @@ class _StorageViewState extends State<StorageView> {
             children: [
               Text(
                 curDir.value.path.substring(19, curDir.value.path.length).replaceAll('/', ' \u203A '), textAlign: TextAlign.start,
-                style: TextStyle(color: Colors.grey.shade300, fontSize: 18),
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 18),
               ),
               Gap(5),
               Row(
                 children: [
                   Text(
                     "${songCounts.value} Songs\t\t\t", textAlign: TextAlign.start,
-                    style: Get.textTheme.labelMedium,
+                    style: Theme.of(context).textTheme.labelMedium,
                   ),
                   Iconify(
                     Ri.timer_flash_line, size: 18,
@@ -113,7 +113,7 @@ class _StorageViewState extends State<StorageView> {
                   ),
                   Text(
                     " 0 Minutes", textAlign: TextAlign.start,
-                    style: Get.textTheme.labelMedium,
+                    style: Theme.of(context).textTheme.labelMedium,
                   ),
                 ],
               ),

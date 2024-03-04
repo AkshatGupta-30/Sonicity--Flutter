@@ -300,7 +300,7 @@ class SettingsView extends StatelessWidget {
                     String lang = controller.availableLang[index];
                     return ListTile(
                       contentPadding: EdgeInsets.symmetric(horizontal: 5),
-                      title: Text(lang.title(), style: Get.textTheme.labelMedium, maxLines: 1, overflow: TextOverflow.ellipsis,),
+                      title: Text(lang.title(), style: Theme.of(context).textTheme.labelMedium, maxLines: 1, overflow: TextOverflow.ellipsis,),
                       trailing: Obx(() => Checkbox(
                         value: controller.musicLang.value.contains(lang),
                         onChanged: (value) async {

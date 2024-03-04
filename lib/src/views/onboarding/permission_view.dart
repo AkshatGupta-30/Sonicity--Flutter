@@ -70,7 +70,7 @@ class PermissionView extends StatelessWidget {
                     tileColor: Colors.cyanAccent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     leading: Iconify(Pepicons.music_note_double, color: Colors.black),
-                    title: Text("MUSIC AND AUDIO PERMISSION", style: Get.textTheme.labelLarge),
+                    title: Text("MUSIC AND AUDIO PERMISSION", style: Theme.of(context).textTheme.labelLarge),
                   )
                   : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +79,7 @@ class PermissionView extends StatelessWidget {
                       Gap(10),
                       Text(
                         "Premission is granted",
-                        style: Get.textTheme.bodyLarge!.copyWith(color: Get.find<SettingsController>().getAccent)
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Get.find<SettingsController>().getAccent)
                       ),
                     ]
                   );

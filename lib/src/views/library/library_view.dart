@@ -110,10 +110,8 @@ class Tile extends StatelessWidget {
         color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
       ),
       horizontalTitleGap: 30,
-      title: Text(title),
-      titleTextStyle: TextStyle(fontSize: 20),
-      splashColor: Colors.grey.shade900,
-      iconColor: Colors.white,
+      title: Text(title, style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),),
+      splashColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 :Colors.grey.shade900,
     );
   }
 }

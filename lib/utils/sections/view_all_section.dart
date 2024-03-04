@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -29,7 +28,7 @@ class ViewAllSection extends StatelessWidget {
             onPressed: onPressed,
             child: Row(
               children: [
-                Text(buttonTitle, style: Get.textTheme.labelSmall),
+                Text(buttonTitle, style: Theme.of(context).textTheme.labelSmall),
                 Iconify(Ic.baseline_keyboard_arrow_right, color: Colors.grey)
               ],
             ),

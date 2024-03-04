@@ -33,7 +33,7 @@ class NavigationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
       key: controller.scaffoldKey,
-      drawer: _drawer(controller),
+      drawer: _drawer(context, controller),
       body: navTabs[controller.selectedIndex.value],
       floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
       bottomNavigationBar: BottomNavigationBar(
@@ -70,14 +70,14 @@ class NavigationView extends StatelessWidget {
     ));
   }
 
-  Drawer _drawer(NavigationController controller) {
+  Drawer _drawer(BuildContext context, NavigationController controller) {
     return Drawer(
       child: BackgroundGradientDecorator(
         child: Container(
           padding: EdgeInsets.all(8),
           child: Column(
             children: [
-              DrawerHeader(child: Center(child: Text("Sonicity", style: Get.textTheme.displayLarge))),
+              DrawerHeader(child: Center(child: Text("Sonicity", style: Theme.of(context).textTheme.displayLarge))),
               ListTile(
                 onTap: () => controller.closeDrawer(),
                 leading: Obx(() => Iconify(Ion.home_outline, color: Get.find<SettingsController>().getAccent)),
@@ -115,10 +115,11 @@ class NavigationView extends StatelessWidget {
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  children: <WidgetSpan>[
-                    WidgetSpan(child: Text("Made with ", style: GoogleFonts.arbutus(color: Colors.white))),
+                  style: GoogleFonts.arbutus(color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white),
+                  children: [
+                    TextSpan(text: "Made with "),
                     WidgetSpan(child: Iconify(MaterialSymbols.favorite_rounded, color: Colors.red)),
-                    WidgetSpan(child: Text(" by Akshat Gupta", style: GoogleFonts.arbutus(color: Colors.white))),
+                    TextSpan(text: " by Akshat Gupta",),
                   ],
                 )
               ),

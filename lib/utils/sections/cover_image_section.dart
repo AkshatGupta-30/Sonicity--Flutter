@@ -24,8 +24,8 @@ class CoverImageSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Container>[
           _column(
-            Quality.high, image.highQuality,
-            () {
+            context, q: Quality.high, url: image.highQuality,
+            onTap: () {
               FlutterClipboard.copy(image.highQuality).then(
                 (value) => Get.showSnackbar(GetSnackBar(
                   messageText: Row(
@@ -46,9 +46,9 @@ class CoverImageSection extends StatelessWidget {
             }
           ),
           Container(width: 0.5, height: 150, color: Colors.white38),
-          _column(
-            Quality.med, image.highQuality,
-            () {
+          _column(context,
+            q: Quality.med, url: image.highQuality,
+            onTap: () {
               FlutterClipboard.copy(image.standardQuality).then(
                 (value) => Get.showSnackbar(GetSnackBar(
                   messageText: Row(
@@ -69,9 +69,9 @@ class CoverImageSection extends StatelessWidget {
             }
           ),
           Container(width: 0.5, height: 150, color: Colors.white38),
-          _column(
-            Quality.low, image.highQuality,
-            () {
+          _column(context,
+            q: Quality.low, url: image.highQuality,
+            onTap: () {
               FlutterClipboard.copy(image.lowQuality).then(
                 (value) => Get.showSnackbar(GetSnackBar(
                   messageText: Row(
@@ -96,7 +96,7 @@ class CoverImageSection extends StatelessWidget {
     );
   }
 
-  Container _column(Quality q, String url, VoidCallback onTap) {
+  Container _column(BuildContext context, {required Quality q, required String url, required VoidCallback onTap}) {
     String quality = (q == Quality.high)
       ? "High Quality"
       : ((q == Quality.med) ? "Medium Quality" : "Low Quality");
@@ -104,7 +104,7 @@ class CoverImageSection extends StatelessWidget {
       padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Column(
         children: [
-          Text(quality, style: Get.textTheme.bodyMedium),
+          Text(quality, style: Theme.of(context).textTheme.bodyMedium),
           Gap(4),
           GestureDetector(
             onTap: onTap,

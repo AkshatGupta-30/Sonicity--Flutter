@@ -73,7 +73,7 @@ class SongDetailsView extends StatelessWidget {
           width: media.width/1.4,
           child: Text(
             song.name, maxLines: 1, overflow: TextOverflow.ellipsis,  textAlign: TextAlign.center,
-            style: Get.textTheme.titleLarge,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
         background: Stack(
@@ -92,7 +92,9 @@ class SongDetailsView extends StatelessWidget {
               width: media.width, height: 400,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.black.withOpacity(0), Colors.black.withOpacity(0.75)],
+                  colors: (Theme.of(context).brightness == Brightness.light)
+                    ? [Colors.white.withOpacity(0), Colors.white.withOpacity(0.75)]
+                    : [Colors.black.withOpacity(0), Colors.black.withOpacity(0.75)],
                   begin: Alignment.center, end: Alignment.bottomCenter,
                 )
               ),
@@ -132,7 +134,7 @@ class SongDetailsView extends StatelessWidget {
                 Gap(8),
                 Obx(() => Text(
                   "Details",
-                  style: Get.textTheme.labelLarge!.copyWith(
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
                     color: (controller.selectedTab.value == 0)
                       ? Get.find<SettingsController>().getAccent
                       : Get.find<SettingsController>().getAccentDark
@@ -154,7 +156,7 @@ class SongDetailsView extends StatelessWidget {
                 Gap(8),
                 Obx(() => Text(
                   "Lyrics",
-                  style: Get.textTheme.labelLarge!.copyWith(
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
                     color: (controller.selectedTab.value == 1)
                       ? Get.find<SettingsController>().getAccent
                       : Get.find<SettingsController>().getAccentDark
@@ -179,28 +181,28 @@ class SongDetailsView extends StatelessWidget {
           child: ListView(
             children: [
               _divide(),
-              _head("Name"),
-              _detail(song.name),
+              _head(context, "Name"),
+              _detail(context, song.name),
               _divide(),
-              _head("From Album"),
+              _head(context, "From Album"),
               _albumSection(song.album!),
               _divide(),
-              _head("Contributed Artists"),
+              _head(context, "Contributed Artists"),
               _artistSection(song.artists!),
               _divide(),
-              _head("Duration"),
-              _detail("${song.duration} seconds"),
+              _head(context, "Duration"),
+              _detail(context, "${song.duration} seconds"),
               _divide(),
-              _head("Language"),
-              _detail(song.language!.capitalizeFirst!),
+              _head(context, "Language"),
+              _detail(context, song.language!.capitalizeFirst!),
               _divide(),
-              _head("Release Date"),
-              _detail(song.releaseDate!),
+              _head(context, "Release Date"),
+              _detail(context, song.releaseDate!),
               _divide(),
-              _head("Cover Image Url"),
+              _head(context, "Cover Image Url"),
               CoverImageSection(image: song.image),
               _divide(),
-              _head("Download Song"),
+              _head(context, "Download Song"),
               DownloadUrlSection(downloadUrl: song.downloadUrl),
               _divide(),
             ],
@@ -226,7 +228,7 @@ class SongDetailsView extends StatelessWidget {
                       ),
                       Text(
                         "This song doesn't have any available lyrics.", textAlign: TextAlign.center,
-                        style: Get.textTheme.headlineSmall!.copyWith(color: Colors.redAccent),
+                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.redAccent),
                       )
                     ]
                   ),
@@ -239,7 +241,7 @@ class SongDetailsView extends StatelessWidget {
                 Text(
                   controller.lyrics.value.snippet.title(), textAlign: TextAlign.center,
                   maxLines: 1, overflow: TextOverflow.ellipsis,
-                  style: Get.textTheme.titleLarge,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 Gap(5),
                 Row(
@@ -250,10 +252,10 @@ class SongDetailsView extends StatelessWidget {
                         Get.defaultDialog(
                           backgroundColor: Colors.grey.shade800,
                           title: "© Copyright",
-                          titleStyle: Get.textTheme.headlineMedium!.copyWith(color: Colors.blue),
+                          titleStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.blue),
                           content: SelectableText(
                             controller.lyrics.value.copyright, textAlign: TextAlign.center,
-                            style: Get.textTheme.bodyMedium
+                            style: Theme.of(context).textTheme.bodyMedium
                           )
                         );
                       },
@@ -264,7 +266,7 @@ class SongDetailsView extends StatelessWidget {
                             WidgetSpan(child: Iconify(Ic.twotone_copyright, color: Colors.blue, size: 27)),
                             TextSpan(
                               text: " Copyright",
-                              style: Get.textTheme.headlineSmall!.copyWith(color: Colors.blue)
+                              style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.blue)
                             )
                           ]
                         ),
@@ -276,7 +278,7 @@ class SongDetailsView extends StatelessWidget {
                   textAlign: TextAlign.center,
                   TextSpan(
                     text: controller.lyrics.value.lyrics,
-                    style: Get.textTheme.bodyLarge
+                    style: Theme.of(context).textTheme.bodyLarge
                   ),
                 ),
               ],
@@ -348,15 +350,15 @@ class SongDetailsView extends StatelessWidget {
     );
   }
 
-  Text _head(String text) {
-    return Text(text, style: Get.textTheme.titleSmall);
+  Text _head(BuildContext context, String text) {
+    return Text(text, style: Theme.of(context).textTheme.titleSmall);
   }
 
-  Widget _detail(String text, {bool isSelectable = false}) {
+  Widget _detail(BuildContext context, String text, {bool isSelectable = false}) {
     if(isSelectable) {
-      return SelectableText(text, style: Get.textTheme.labelLarge);
+      return SelectableText(text, style: Theme.of(context).textTheme.labelLarge);
     }
-    return Text(text, style: Get.textTheme.labelLarge);
+    return Text(text, style: Theme.of(context).textTheme.labelLarge);
   }
 
   AlbumCell _albumSection(Album album) {

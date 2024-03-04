@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -56,7 +55,7 @@ class WelcomeView extends StatelessWidget {
                   Gap(50),
                   Text(
                     "It can organise and play audio files stored on your phone, SD card or USB storage",
-                    style: Get.textTheme.titleSmall
+                    style: Theme.of(context).textTheme.titleSmall
                   ),
                   Gap(5),
                   Row(
