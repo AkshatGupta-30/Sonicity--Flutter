@@ -8,6 +8,14 @@ import 'package:sonicity/src/models/download_url.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 
+class DownloadQuality {
+  static String get q12kbps => "12kbps";
+  static String get q48kbps => "48kbps";
+  static String get q96kbps => "96kbps";
+  static String get q160kbps => "160kbps";
+  static String get q320kbps => "320kbps";
+}
+
 class DownloadUrlSection extends StatelessWidget {
   final DownloadUrl downloadUrl;
   DownloadUrlSection({super.key, required this.downloadUrl});
@@ -30,7 +38,7 @@ class DownloadUrlSection extends StatelessWidget {
                   child: Iconify(Ic.twotone_cloud_download, size: 50,)
                 ),
               ),
-              Text("320kbps", style: Theme.of(context).textTheme.labelMedium),
+              Text(DownloadQuality.q320kbps, style: Theme.of(context).textTheme.labelMedium),
             ],
           ),
           Column(
@@ -45,7 +53,7 @@ class DownloadUrlSection extends StatelessWidget {
                   child: Iconify(Ic.round_download, size: 50,)
                 ),
               ),
-              Text("160kbps", style: Theme.of(context).textTheme.labelMedium),
+              Text(DownloadQuality.q160kbps, style: Theme.of(context).textTheme.labelMedium),
             ],
           ),
           Column(
@@ -60,7 +68,7 @@ class DownloadUrlSection extends StatelessWidget {
                   child: Iconify(MaterialSymbols.download_rounded, size: 50,)
                 ),
               ),
-              Text("96kbps", style: Theme.of(context).textTheme.labelMedium),
+              Text(DownloadQuality.q96kbps, style: Theme.of(context).textTheme.labelMedium),
             ],
           ),
         ],

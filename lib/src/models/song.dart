@@ -3,6 +3,7 @@ import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
+import 'package:sonicity/utils/sections/download_url_section.dart';
 import 'package:super_string/super_string.dart';
 
 class Song {
@@ -113,13 +114,17 @@ class Song {
     }
   }
 
-  Map<String, dynamic> toDbDloadsMap(ImgQuality quality) {
-    if(quality == ImgQuality.low) {
-      return {"song_id" : id, "link" : image.lowQuality};
-    } else if(quality == ImgQuality.med) {
-      return {"song_id" : id, "link" : image.standardQuality};
+  Map<String, dynamic> toDbDownloadloadsMap(String quality) {
+    if(quality == DownloadQuality.q12kbps) {
+      return {"song_id" : id, "link" : downloadUrl.q12kbps};
+    } else if(quality == DownloadQuality.q48kbps) {
+      return {"song_id" : id, "link" : downloadUrl.q48kbps};
+    } else if(quality == DownloadQuality.q96kbps) {
+      return {"song_id" : id, "link" : downloadUrl.q96kbps};
+    } else if(quality == DownloadQuality.q160kbps) {
+      return {"song_id" : id, "link" : downloadUrl.q160kbps};
     } else {
-      return {"song_id" : id, "link" : image.highQuality};
+      return {"song_id" : id, "link" : downloadUrl.q320kbps};
     }
   }
 

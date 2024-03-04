@@ -1,10 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
+import 'package:sonicity/utils/sections/download_url_section.dart';
 import 'package:sqflite/sqflite.dart';
 
 class RecentsDatabase {
@@ -35,6 +34,11 @@ class RecentsDatabase {
   static const tbSongLowImgs = 'song_low_img';
   static const tbSongMedImgs = 'song_med_img';
   static const tbSongHighImgs = 'song_high_img';
+  static const tbSongQ12kbpsDownloadQuality = 'song_12_download_quality';
+  static const tbSongQ48kbpsDownloadQuality = 'song_48_download_quality';
+  static const tbSongQ96kbpsDownloadQuality = 'song_96_download_quality';
+  static const tbSongQ160kbpsDownloadQuality = 'song_160_download_quality';
+  static const tbSongQ320kbpsDownloadQuality = 'song_320_download_quality';
 
   static const colId = 'id';
   static const colSongId = 'song_id';
@@ -44,7 +48,7 @@ class RecentsDatabase {
   static const colReleaseDate = 'releaseDate';
   static const colDuration = 'duration';
   static const colLanguage = 'language';
-  static const colImgLink = 'link';
+  static const colLink = 'link';
   Future _onCreate(Database db, int version) async {
     await db.execute(
       '''
@@ -60,23 +64,38 @@ class RecentsDatabase {
         )
       '''
     );
-    await db.execute("CREATE TABLE $tbSongLowImgs ($colSongId TEXT NOT NULL, $colImgLink TEXT NOT NULL)");
-    await db.execute("CREATE TABLE $tbSongMedImgs ($colSongId TEXT NOT NULL, $colImgLink TEXT NOT NULL)");
-    await db.execute("CREATE TABLE $tbSongHighImgs ($colSongId TEXT NOT NULL, $colImgLink TEXT NOT NULL)");
+    await db.execute("CREATE TABLE $tbSongLowImgs ($colSongId TEXT NOT NULL, $colLink TEXT NOT NULL)");
+    await db.execute("CREATE TABLE $tbSongMedImgs ($colSongId TEXT NOT NULL, $colLink TEXT NOT NULL)");
+    await db.execute("CREATE TABLE $tbSongHighImgs ($colSongId TEXT NOT NULL, $colLink TEXT NOT NULL)");
+
+    await db.execute("CREATE TABLE $tbSongQ12kbpsDownloadQuality ($colSongId TEXT NOT NULL, $colLink TEXT NOT NULL)");
+    await db.execute("CREATE TABLE $tbSongQ48kbpsDownloadQuality ($colSongId TEXT NOT NULL, $colLink TEXT NOT NULL)");
+    await db.execute("CREATE TABLE $tbSongQ96kbpsDownloadQuality ($colSongId TEXT NOT NULL, $colLink TEXT NOT NULL)");
+    await db.execute("CREATE TABLE $tbSongQ160kbpsDownloadQuality ($colSongId TEXT NOT NULL, $colLink TEXT NOT NULL)");
+    await db.execute("CREATE TABLE $tbSongQ320kbpsDownloadQuality ($colSongId TEXT NOT NULL, $colLink TEXT NOT NULL)");
   }
 
   Future<int> insert(Song song) async {
     Database db = await _instance.database;
-    jsonEncode(song.toDbDetailsMap()).toString().printInfo();
+    // * Images
     await db.insert(tbSongLowImgs, song.toDbImgsMap(ImgQuality.low));
     await db.insert(tbSongMedImgs, song.toDbImgsMap(ImgQuality.med));
     await db.insert(tbSongHighImgs, song.toDbImgsMap(ImgQuality.high));
+
+    // * Download Quality
+    await db.insert(tbSongQ12kbpsDownloadQuality, song.toDbDownloadloadsMap(DownloadQuality.q12kbps));
+    await db.insert(tbSongQ48kbpsDownloadQuality, song.toDbDownloadloadsMap(DownloadQuality.q48kbps));
+    await db.insert(tbSongQ96kbpsDownloadQuality, song.toDbDownloadloadsMap(DownloadQuality.q96kbps));
+    await db.insert(tbSongQ160kbpsDownloadQuality, song.toDbDownloadloadsMap(DownloadQuality.q160kbps));
+    await db.insert(tbSongQ320kbpsDownloadQuality, song.toDbDownloadloadsMap(DownloadQuality.q320kbps));
+
+    // * Details
     return await db.insert(tbSongDetail, song.toDbDetailsMap());
   }
 
   Future<List<Map<String, dynamic>>> getAll() async {
     Database db = await _instance.database;
-    return await db.query(tbSongHighImgs);
+    return await db.query(tbSongQ320kbpsDownloadQuality);
   }
 
   Future<int> count() async {

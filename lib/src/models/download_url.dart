@@ -1,11 +1,15 @@
+import 'package:sonicity/utils/sections/download_url_section.dart';
+
 class DownloadUrl {
   final List<DownloadData> _downloadData;
 
   DownloadUrl({required List<DownloadData> imageLinks}) : _downloadData = imageLinks;
 
-  late final String lowQuality = _getImageUrl('96kbps');
-  late final String standardQuality = _getImageUrl('160kbps');
-  late final String highQuality = _getImageUrl('320kbps');
+  late final String q12kbps = _getImageUrl(DownloadQuality.q12kbps);
+  late final String q48kbps = _getImageUrl(DownloadQuality.q48kbps);
+  late final String q96kbps = _getImageUrl(DownloadQuality.q96kbps);
+  late final String q160kbps = _getImageUrl(DownloadQuality.q160kbps);
+  late final String q320kbps = _getImageUrl(DownloadQuality.q320kbps);
 
   String _getImageUrl(String quality) {
     final link = _downloadData.firstWhere(
