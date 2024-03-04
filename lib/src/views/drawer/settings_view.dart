@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
+import 'package:iconify_flutter_plus/icons/carbon.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
@@ -12,6 +13,7 @@ import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:iconify_flutter_plus/icons/radix_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
+import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/contants/fonts.dart';
 import 'package:sonicity/utils/contants/prefs_keys.dart';
@@ -38,6 +40,13 @@ class SettingsView extends StatelessWidget {
               _buildAccent(context),
               Gap(10),
               _buildFont(context),
+              Gap(10),
+              _buildBackground(context),
+              Gap(20),
+              TitleSection(title: "App Ui"),
+              Gap(5),
+              _buildPlayerBackground(context),
+              Gap(10),
             ],
           ),
         ),
@@ -213,6 +222,29 @@ class SettingsView extends StatelessWidget {
           )
         ),
       ),
+    );
+  }
+
+  _buildBackground(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return ListTile(
+      leading: Iconify(Ph.selection_background_duotone, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
+      title: Text("Background"),
+      trailing: Iconify(Ic.round_arrow_right, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
+      onTap: () => ToDoView(text: "Background")
+    );
+  }
+
+  _buildPlayerBackground(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return ListTile(
+      leading: Iconify(Carbon.gradient, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,),
+      title: Text("Main Player Background"),
+      trailing: Container(
+        height: 32, width: 32,
+        decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle,),
+      ),
+      onTap: () => ToDoView(text: "Background")
     );
   }
 }

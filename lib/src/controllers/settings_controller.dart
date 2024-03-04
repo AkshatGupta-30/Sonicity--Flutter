@@ -12,6 +12,7 @@ class SettingsController extends GetxController {
     _initThemeMode();
     _initAccent();
     _initFontFamily();
+    _initBackGround();
   }
 
   final _themeModeSaved = ThemeMode.system.obs;
@@ -42,5 +43,14 @@ class SettingsController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     String selection = prefs.getString(PrefsKey.fontFamily) ?? Fonts.lovelyMamma;
     setFontfamily = selection;
+  }
+
+  final _backGround = 0.obs;
+  int get backGround => _backGround.value;
+  set setBackground(int index) => _backGround.value = index;
+  void _initBackGround() async {
+    final prefs = await SharedPreferences.getInstance();
+    int selection = prefs.getInt(PrefsKey.backGradient) ?? 0;
+    setBackground = selection;
   }
 }
