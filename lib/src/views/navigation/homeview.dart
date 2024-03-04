@@ -55,7 +55,10 @@ class HomeView extends StatelessWidget{
         centerTitle: true, expandedTitleScale: 1.25,
         titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
         title: SafeArea(child: SearchContainer(media: media)),
-        background: Image.asset("assets/images/concert.jpg", fit: BoxFit.fill, filterQuality: FilterQuality.low),
+        background: Image.asset(
+          (Theme.of(context).brightness == Brightness.light) ? "assets/images/concertLight.jpg" : "assets/images/concertDark.jpg",
+          fit: BoxFit.cover, filterQuality: FilterQuality.low
+        ),
         stretchModes: [StretchMode.blurBackground],
       ),
     );

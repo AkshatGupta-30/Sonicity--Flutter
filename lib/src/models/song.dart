@@ -108,6 +108,6 @@ class Song {
     } else {
       text = artists!.first.name;
     }
-    return "${album!.name} ▪ $text";
+    return "${album!.name} ◈ $text";
   }
 }

@@ -18,13 +18,13 @@ class SearchContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Get.to(() => SearchView()),
-      child: Obx(() => Container(
+      child: Container(
         width: media.width/1.4, height: kToolbarHeight,
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: Color(0xFF151515),
-          border: Border.all(color: Get.find<SettingsController>().getAccent.withOpacity(0.4), width: 2),
-          borderRadius: BorderRadius.circular(50)
+          color: (Theme.of(context).brightness == Brightness.light) ? Color(0xFFEAEAEA)  : Color(0xFF151515),
+          border: Border.all(width: 2, color: Colors.cyan.withOpacity(0.75),),
+          borderRadius: BorderRadius.circular(kToolbarHeight/2)
         ),
         child: RichText(
           textAlign: TextAlign.center,
@@ -35,9 +35,8 @@ class SearchContainer extends StatelessWidget {
                 child: GlowText(
                   "S", blurRadius: 25,
                   style: GoogleFonts.audiowide(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Get.find<SettingsController>().getAccent, letterSpacing: 10,
+                    fontSize: 32,letterSpacing: 10,
+                    fontWeight: FontWeight.bold, color: Colors.cyan,
                   )
                 )
               ),
@@ -46,8 +45,7 @@ class SearchContainer extends StatelessWidget {
                 child: GlowContainer(
                   blurRadius: 25,
                   child: Iconify(
-                    IconParkTwotone.search, size: 32,
-                    color: Get.find<SettingsController>().getAccent,
+                    IconParkTwotone.search, size: 32, color: Colors.cyan,
                   )
                 )
               ),
@@ -56,9 +54,8 @@ class SearchContainer extends StatelessWidget {
                 child: GlowText(
                   "nicity", blurRadius: 25,
                   style: GoogleFonts.audiowide(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Get.find<SettingsController>().getAccent, letterSpacing: 10,
+                    fontSize: 32, letterSpacing: 10,
+                    fontWeight: FontWeight.bold, color: Colors.cyan,
                   )
                 )
               )
@@ -66,7 +63,7 @@ class SearchContainer extends StatelessWidget {
           ),
         ),
       ),
-    ));
+    );
   }
 }
 
