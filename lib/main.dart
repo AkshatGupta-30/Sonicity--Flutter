@@ -43,13 +43,13 @@ class MainApp extends StatelessWidget {
       },
       darkTheme: FeedbackThemeData.dark(),
       child: Obx(() => GetMaterialApp(
-          title: 'Sonicity',
-          debugShowCheckedModeBanner: false,
-          home: NavigationView(),
-          themeMode: settingsController.getThemeMode,
-          theme: MyTheme.lightTheme,
-          darkTheme: MyTheme.darkTheme,
-        ),
+        title: 'Sonicity',
+        debugShowCheckedModeBanner: false,
+        home: NavigationView(),
+        themeMode: settingsController.getThemeMode,
+        theme: MyTheme.lightTheme,
+        darkTheme: MyTheme.darkTheme,
+      ),
     ));
   }
 }

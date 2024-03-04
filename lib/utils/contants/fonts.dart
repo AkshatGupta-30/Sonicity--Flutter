@@ -16,4 +16,10 @@ class Fonts {
   static String get sparkyStones => "SparkyStones";
   static String get superFunky => "SuperFunky";
 
+  static final fontList = [
+    "Cornerita", "GrenzeGotisch", "LovelyMamma", "NotoSerifDisplay",
+    "Platypi", "PlayfairDisplay", "PlaypenSans", "Podkova",
+    "RedRose", "SplineSansMono", "Texturina", "Blkchcry",
+    "CarnevaleeFreakshow", "MouldyCheese", "SparkyStones", "SuperFunky"
+  ];
 }

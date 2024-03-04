@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
@@ -8,9 +9,11 @@ import 'package:iconify_flutter_plus/icons/ion.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:iconify_flutter_plus/icons/ph.dart';
+import 'package:iconify_flutter_plus/icons/radix_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/utils/contants/colors.dart';
+import 'package:sonicity/utils/contants/fonts.dart';
 import 'package:sonicity/utils/contants/prefs_keys.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
@@ -29,8 +32,12 @@ class SettingsView extends StatelessWidget {
             padding: EdgeInsets.all(15),
             children: [
               TitleSection(title: "Theme"),
+              Gap(5),
               _buildTheme(context),
+              Gap(10),
               _buildAccent(context),
+              Gap(10),
+              _buildFont(context),
             ],
           ),
         ),
@@ -138,5 +145,74 @@ class SettingsView extends StatelessWidget {
         ),
       );
     });
+  }
+
+  final fontChange = false.obs;
+  ListTile _buildFont(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return ListTile(
+      leading: Iconify(RadixIcons.font_family, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white),
+      title: Text("Font Family"),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [Text("Abc"), Iconify(MaterialSymbols.arrow_right_rounded, color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white)]
+      ),
+      onTap: () => showDialog(
+        context: context,
+        builder: (context) => Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          child: SizedBox(
+            height: 650,
+            child: Scaffold(
+              backgroundColor: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+              appBar: AppBar(title: Text("Choose Font")),
+              body: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                itemCount: Fonts.fontList.length,
+                itemBuilder: (context, index) {
+                  String font  = Fonts.fontList[index];
+                  return Obx(() => TextButton(
+                    onPressed: () async {
+                      if(controller.fontFamily.value == font) {
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setString(PrefsKey.fontFamily, font);
+                        controller.setFontfamily = font;
+                      }
+                      Navigator.pop(context);
+                      Get.showSnackbar(
+                        GetSnackBar(title: "Info", message: "New setting will be applied on app restart", duration: Duration(seconds: 2),)
+                      );
+                    },
+                    style: ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.all(10))),
+                    child: (controller.fontFamily.value == font)
+                      ? Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Iconify(Ion.checkmark_done_circle_sharp, color: Colors.green, size: 30,),
+                          Gap(10),
+                          Text(
+                            font,
+                            style: TextStyle(
+                              color: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+                              fontFamily: font, fontSize: 25
+                            )
+                          )
+                        ],
+                      )
+                      : Text(
+                        font,
+                        style: TextStyle(
+                          color: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+                          fontFamily: font, fontSize: 25
+                        )
+                      ),
+                  ));
+                },
+              ),
+            )
+          )
+        ),
+      ),
+    );
   }
 }

@@ -2,27 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sonicity/utils/contants/colors.dart';
+import 'package:sonicity/utils/contants/fonts.dart';
 import 'package:sonicity/utils/contants/prefs_keys.dart';
 
 class SettingsController extends GetxController {
-  final _themeModeSaved = ThemeMode.system.obs;
-  ThemeMode get getThemeMode => _themeModeSaved.value;
-  set setThemeMode(ThemeMode newThemeMode) => _themeModeSaved.value = newThemeMode;
-
-  final _accentIndex = 0.obs;
-  int get getAccentIndex => _accentIndex.value;
-  Color get getAccent => lightColorList[_accentIndex.value];
-  Color get getAccentDark => darkColorList[_accentIndex.value];
-  set setAccentIndex(int index) => _accentIndex.value = index;
-
   @override
   void onInit() {
     super.onInit();
     _initThemeMode();
     _initAccent();
+    _initFontFamily();
   }
 
-  _initThemeMode() async {
+  final _themeModeSaved = ThemeMode.system.obs;
+  ThemeMode get getThemeMode => _themeModeSaved.value;
+  set setThemeMode(ThemeMode newThemeMode) => _themeModeSaved.value = newThemeMode;
+  void _initThemeMode() async {
     final prefs = await SharedPreferences.getInstance();
     String selection = prefs.getString(PrefsKey.themeMode) ?? "System";
     if(selection == "System") {setThemeMode = ThemeMode.system;}
@@ -30,9 +25,22 @@ class SettingsController extends GetxController {
     else {setThemeMode = ThemeMode.dark;}
   }
 
-  _initAccent() async {
+  final _accentIndex = 0.obs;
+  int get getAccentIndex => _accentIndex.value;
+  Color get getAccent => lightColorList[_accentIndex.value];
+  Color get getAccentDark => darkColorList[_accentIndex.value];
+  set setAccentIndex(int index) => _accentIndex.value = index;
+  void _initAccent() async {
     final prefs = await SharedPreferences.getInstance();
     int index = prefs.getInt(PrefsKey.accentIndex) ?? 0;
-    _accentIndex.value = index;
+    setAccentIndex = index;
+  }
+
+  final fontFamily = Fonts.lovelyMamma.obs;
+  set setFontfamily(String newFont) => fontFamily.value = newFont;
+  void _initFontFamily() async {
+    final prefs = await SharedPreferences.getInstance();
+    String selection = prefs.getString(PrefsKey.fontFamily) ?? Fonts.lovelyMamma;
+    setFontfamily = selection;
   }
 }
