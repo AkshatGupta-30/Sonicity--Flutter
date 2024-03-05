@@ -11,7 +11,6 @@ import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
 import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
 import 'package:sonicity/src/views/details/album_details_view.dart';
 import 'package:sonicity/src/views/details/song_details_view.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -26,7 +25,6 @@ class SongCard extends StatelessWidget {
     var media = MediaQuery.sizeOf(context);
     return GestureDetector(
       onTap: () async {
-        LastSessionSprefs.add(song.id);
         RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
         await recents.insert(song);
       },

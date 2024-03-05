@@ -19,12 +19,13 @@ Future<void> main() async {
   await dotenv.load(fileName: "lib/.env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   
+  setupLocator();
+
   // * : GetX Controllers
   Get.put(SettingsController());
   Get.put(StorageMethods());
   Get.put(DatabaseMethods());
-  
-  setupLocator();
+
   runApp(MainApp());
 }
 

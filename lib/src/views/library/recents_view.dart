@@ -17,31 +17,30 @@ import 'package:sonicity/utils/widgets/style_widget.dart';
 class RecentsView extends StatelessWidget {
   RecentsView({super.key});
 
+  final controller = Get.find<RecentsController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BackgroundGradientDecorator(
-        child: GetBuilder(
-          init: RecentsController(),
-          builder: (controller) => CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                pinned: true, shadowColor: Colors.transparent,
-                title: Text("Recents"),
-              ),
-              SliverPersistentHeader(pinned: true, delegate: _SongsPlayControls(controller)),
-              SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                sliver: Obx(() => SliverList.builder(
-                  itemCount: controller.recentSongs.length,
-                  itemBuilder: (context, index) {
-                    Song song = controller.recentSongs[controller.recentSongs.length - index - 1];
-                    return SongsTile(song);
-                  },
-                )),
-              )
-            ],
-          ),
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true, shadowColor: Colors.transparent,
+              title: Text("Recents"),
+            ),
+            SliverPersistentHeader(pinned: true, delegate: _SongsPlayControls(controller)),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+              sliver: Obx(() => SliverList.builder(
+                itemCount: controller.recentSongs.length,
+                itemBuilder: (context, index) {
+                  Song song = controller.recentSongs[controller.recentSongs.length - index - 1];
+                  return SongsTile(song);
+                },
+              )),
+            )
+          ],
         )
       ),
     );

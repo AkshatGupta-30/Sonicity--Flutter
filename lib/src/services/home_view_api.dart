@@ -11,7 +11,6 @@ import 'package:sonicity/src/models/top_albums.dart';
 import 'package:sonicity/src/models/top_charts.dart';
 import 'package:sonicity/src/models/trending_now.dart';
 import 'package:sonicity/src/services/song_details_api.dart';
-import 'package:sonicity/src/sprefs/last_session_sprefs.dart';
 import 'package:http/http.dart' as http;
 
 class HomeViewApi {
@@ -68,24 +67,13 @@ class HomeViewApi {
     return HotPlaylists.fromJson(jsonList: playlists);
   }
 
-  static Future<List<Song>> _getLastSession() async {
-    List<String> loadedSongs = await LastSessionSprefs.load();
-    List<Song> songs = [];
-    for (var id in loadedSongs) {
-      Song song = await SongDetailsApi.forPlay(id);
-      songs.insert(0, song);
-    }
-    return songs;
-  }
-
   static Future<Home> get() async {
     final json = await _apiCall();
     TrendingNow trendingNow = await _getTrendingData(json['trending']);
     TopCharts topCharts = await _getTopCharts(json['charts']);
-    List<Song> lastSession = await _getLastSession();
     TopAlbums topAlbums = await _getTopAlbums(json['albums']);
     HotPlaylists hotPlaylists = await _getHotPlaylists(json['playlists']);
 
-    return Home.fromData(trendingNow: trendingNow, topCharts: topCharts, lastSession: lastSession, topAlbums: topAlbums, hotPlaylists: hotPlaylists);
+    return Home.fromData(trendingNow: trendingNow, topCharts: topCharts, topAlbums: topAlbums, hotPlaylists: hotPlaylists);
   }
 }

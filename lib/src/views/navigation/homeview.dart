@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:sonicity/src/controllers/homeview_controller.dart';
+import 'package:sonicity/src/controllers/recents_controller.dart';
 import 'package:sonicity/utils/sections/hot_playlists_section.dart';
 import 'package:sonicity/utils/sections/last_session_section.dart';
 import 'package:sonicity/utils/sections/top_albums_section.dart';
@@ -24,6 +25,7 @@ class HomeView extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => RecentsController());
     Size media = MediaQuery.sizeOf(context);
     EdgeInsets padding = MediaQuery.paddingOf(context);
     return BackgroundGradientDecorator(
@@ -76,8 +78,7 @@ class HomeView extends StatelessWidget{
             Gap(20),
             TopChartsSection(media: media, topCharts: controller.home.value.topCharts),
             Gap(20),
-            if(controller.home.value.lastSession.isNotEmpty)
-              LastSessionSection(media: media, homeController: controller),
+            LastSessionSection(media: media),
             Gap(20),
             TopAlbumsSection(media: media, topAlbums: controller.home.value.topAlbums),
             Gap(20),
