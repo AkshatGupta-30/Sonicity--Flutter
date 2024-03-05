@@ -72,7 +72,7 @@ class SettingsController extends GetxController {
   set setMusicLang(String newLang) => musicLang.value = newLang;
   void _initMusicLang() async {
     final prefs = await SharedPreferences.getInstance();
-    String selection = prefs.getString(PrefsKey.musicLanguage) ?? "";
+    String selection = prefs.getString(PrefsKey.musicLanguage) ?? "hindi,english";
     if(selection.isNotEmpty && selection[selection.length-2] == ",") {
       selection = selection.substring(0, selection.length-2);
     }
