@@ -92,6 +92,41 @@ class Song {
     };
   }
 
+  factory Song.fromDb(Map<String,dynamic> json) {
+    Album album = Album(id: json["album_id"], name: json["album_name"]);
+    List<Artist> artists = [];
+    List<String> artIds = json["artist_ids"].toString().split(",");
+    List<String> artNames = json["artist_names"].toString().split(",");
+    for (int i=0; i<artIds.length; i++) {
+      artists.add(Artist.name({'id' : artIds[i], 'name' : artNames[i]}));
+    }
+    List<Map<String,dynamic>> imageData = [
+      {"quality" : ImageQuality.q50x50, "link" : json["img_low"]},
+      {"quality" : ImageQuality.q150x150, "link" : json["img_med"]},
+      {"quality" : ImageQuality.q500x500, "link" : json["img_high"]},
+    ];
+    List<Map<String,dynamic>> downloadData = [
+      {"quality" : DownloadQuality.q12kbps, "link" : json["download_12kbps"]},
+      {"quality" : DownloadQuality.q48kbps, "link" : json["download_48kbps"]},
+      {"quality" : DownloadQuality.q96kbps, "link" : json["download_96kbps"]},
+      {"quality" : DownloadQuality.q160kbps, "link" : json["download_160kbps"]},
+      {"quality" : DownloadQuality.q320kbps, "link" : json["download_320kbps"]}
+    ];
+    return Song(
+      id: json['song_id'],
+      name: json['name'],
+      album: album,
+      artists: artists,
+      hasLyrics: (json['hasLyrics'] == 1),
+      year: json['year'],
+      releaseDate: json['releaseDate'],
+      duration: json['duration'],
+      language: json['language'],
+      image: ImageUrl.fromJson(imageData),
+      downloadUrl: DownloadUrl.fromJson(downloadData)
+    );
+  }
+
   Map<String, dynamic> toDbDetailsMap() {
     List<String> artistsIds = [];
     List<String> artistsNames = [];

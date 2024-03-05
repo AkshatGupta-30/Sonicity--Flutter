@@ -11,6 +11,11 @@ import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 
 enum ImgQuality {low, med, high}
+class ImageQuality {
+  static String get q50x50 => "50x50";
+  static String get q150x150 => "150x150";
+  static String get q500x500 => "500x500";
+}
 
 class CoverImageSection extends StatelessWidget {
   final ImageUrl image;

@@ -24,6 +24,10 @@ class DownloadUrl {
     return DownloadUrl(imageLinks: links);
   }
 
+  factory DownloadUrl.fromDb(List<Map<String,dynamic>> data) {
+    return DownloadUrl.empty();
+  }
+
   factory DownloadUrl.empty() {
     return DownloadUrl(
       imageLinks: []

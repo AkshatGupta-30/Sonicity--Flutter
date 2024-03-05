@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/carbon.dart';
 import 'package:iconify_flutter_plus/icons/entypo.dart';
+import 'package:iconify_flutter_plus/icons/eos_icons.dart';
 import 'package:iconify_flutter_plus/icons/fe.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
@@ -58,6 +59,8 @@ class SettingsView extends StatelessWidget {
               _buildMusicLanguage(context),
               Gap(10),
               _buildMusicQualitySettings(context),
+              Gap(10),
+              _buildRecentsSongLimit(context),
             ],
           ),
         ),
@@ -347,6 +350,33 @@ class SettingsView extends StatelessWidget {
             controller.setMusicQuality = newValue;
             final prefs = await SharedPreferences.getInstance();
             await prefs.setString(PrefsKey.musicQuality, controller.getMusicQuality);
+          },
+          icon: Iconify(MaterialSymbols.arrow_drop_down_rounded,),
+          padding: EdgeInsets.zero,
+          underline: SizedBox(),
+          borderRadius: BorderRadius.circular(12),
+          dropdownColor: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+          style: theme.textTheme.labelMedium!.copyWith(
+            color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white
+          ),
+        )),
+    );
+  }
+
+  final lengths = [25, 40, 50, 75, 100, 150, 200];
+  _buildRecentsSongLimit(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return ListTile(
+      leading: Iconify(EosIcons.counting),
+      title: Text("Recents Songs Count"),
+      subtitle: Text("Set how many songs you want to save in recents"),
+      trailing: Obx(() => DropdownButton(
+          value: controller.getRecentsSavedLength,
+          items: lengths.map((item) => DropdownMenuItem(value: item, child: Text("$item"))).toList(),
+          onChanged: (newValue) async {
+            controller.setRecentsSavedLength = lengths[lengths.indexOf(newValue!)];
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setInt(PrefsKey.recentsLength, controller.getRecentsSavedLength);
           },
           icon: Iconify(MaterialSymbols.arrow_drop_down_rounded,),
           padding: EdgeInsets.zero,

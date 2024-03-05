@@ -16,6 +16,7 @@ class SettingsController extends GetxController {
     _initDensePlayer();
     _initMusicLang();
     _initMusicQuality();
+    _initRecentsSaved();
   }
 
   final _themeModeSaved = ThemeMode.system.obs;
@@ -87,9 +88,15 @@ class SettingsController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     String selection = prefs.getString(PrefsKey.musicQuality) ?? "96kbps";
     setMusicQuality = qualities[qualities.indexOf(selection)];
-    // if(selection == "System") {setMusicQuality = ThemeMode.system;}
-    // else if(selection == "Light Mode") {setMusicQuality = ThemeMode.light;}
-    // else {setMusicQuality = ThemeMode.dark;}
   }
 
+  final recentsSavedLength = 0.obs;
+  int get getRecentsSavedLength => recentsSavedLength.value;
+  set setRecentsSavedLength(int newLength) => recentsSavedLength.value = newLength;
+  void _initRecentsSaved() async {
+    final lengths = [25, 40, 50, 75, 100, 150, 200];
+    final prefs = await SharedPreferences.getInstance();
+    int selection = prefs.getInt(PrefsKey.recentsLength) ?? 50;
+    setRecentsSavedLength = lengths[lengths.indexOf(selection)];
+  }
 }

@@ -84,9 +84,14 @@ class RecentsDatabase {
     return await db.insert(tbSongDetail, song.toDbDetailsMap());
   }
 
-  Future<List<Map<String, dynamic>>> getAll() async {
+  Future<List<Song>> getAll() async {
     Database db = await _instance.database;
-    return await db.query(tbSongDetail);
+    List<Song> songs = [];
+    List<Map<String,dynamic>> result = await db.query(tbSongDetail);
+    for (var map in result) {
+      songs.add(Song.fromDb(map));
+    }
+    return songs;
   }
 
   Future<int> count() async {

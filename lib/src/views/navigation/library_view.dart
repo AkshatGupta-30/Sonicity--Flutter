@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -56,7 +55,7 @@ class _LibraryViewState extends State<LibraryView> {
             Tile(// * : Recents
               onPressed: () async {
                 RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
-                jsonEncode(await recents.getAll()).toString().printInfo();
+                (await recents.getAll()).toString().printInfo();
               },
               icon: Raphael.history,
               title: "Recents",

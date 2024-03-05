@@ -8,4 +8,5 @@ class PrefsKey {
 
   static String get musicLanguage => "music-language";
   static String get musicQuality => "music-quality";
+  static String get recentsLength => "recents-length";
 }
