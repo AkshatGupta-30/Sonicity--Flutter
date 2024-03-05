@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sonicity/src/controllers/view_all_search_album_controller.dart';
+import 'package:sonicity/src/controllers/view_all_search_artist_controller.dart';
+import 'package:sonicity/src/controllers/view_all_search_playlist_controller.dart';
+import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
 import 'package:sonicity/src/models/search_all.dart';
 import 'package:sonicity/src/services/search_all_api.dart';
 import 'package:sonicity/src/sprefs/search_history.dart';
@@ -25,6 +29,7 @@ class SearchViewController extends GetxController {
         isLoading.value = false;
         isSearching.value = false;
         searchAll.value.clear();
+        _closeControllers();
       }
       update();
     });
@@ -58,7 +63,30 @@ class SearchViewController extends GetxController {
       historyList.removeAt(21);
     }
     SearchHistorySprefs.save(historyList);
+    _initControllers();
     update();
+  }
+
+  void _initControllers() {
+    Get.lazyPut(() => ViewAllSearchSongsController(searchController.text));
+    Get.lazyPut(() => ViewAllSearchAlbumsController(searchController.text));
+    Get.lazyPut(() => ViewAllSearchArtistsController(searchController.text));
+    Get.lazyPut(() => ViewAllSearchPlaylistsController(searchController.text));
+  }
+
+  void _closeControllers() {
+    if(Get.isRegistered<ViewAllSearchSongsController>()) {
+      Get.delete<ViewAllSearchSongsController>();
+    }
+    if(Get.isRegistered<ViewAllSearchAlbumsController>()) {
+      Get.delete<ViewAllSearchAlbumsController>();
+    }
+    if(Get.isRegistered<ViewAllSearchArtistsController>()) {
+      Get.delete<ViewAllSearchArtistsController>();
+    }
+    if(Get.isRegistered<ViewAllSearchPlaylistsController>()) {
+      Get.delete<ViewAllSearchPlaylistsController>();
+    }
   }
 
   void chipRemoved(int index) {

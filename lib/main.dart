@@ -31,7 +31,6 @@ Future<void> main() async {
 
 class MainApp extends StatelessWidget {
   MainApp({super.key});
-
   final settingsController = Get.find<SettingsController>();
 
   @override

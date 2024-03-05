@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 import 'package:sonicity/src/controllers/recents_controller.dart';
+import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/library/recents_view.dart';
 import 'package:sonicity/utils/sections/view_all_section.dart';
@@ -16,7 +18,10 @@ class LastSessionSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<RecentsController>();
+    if(!GetIt.I.isRegistered<RecentsDatabase>()) {
+      return Text("Waiting", style: Theme.of(context).textTheme.titleLarge,);
+    }
+    final controller = Get.put(RecentsController());
     return Obx(
       () {
         if(controller.recentSongs.isEmpty) return SizedBox();
