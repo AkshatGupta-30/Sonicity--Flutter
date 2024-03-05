@@ -13,7 +13,7 @@ class HotPlaylistSection extends StatelessWidget {
   final Size media;
   HotPlaylistSection({super.key, required this.media});
 
-  final hotPlaylists = Get.find<HomeViewController>().home.value.hotPlaylists;
+  final hotPlaylists = Get.find<HomeViewController>().hotPlaylists.value;
 
   @override
   Widget build(BuildContext context) {

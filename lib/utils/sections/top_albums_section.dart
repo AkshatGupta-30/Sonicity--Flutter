@@ -13,7 +13,7 @@ class TopAlbumsSection extends StatelessWidget {
   final Size media;
   TopAlbumsSection({super.key, required this.media});
 
-  final topAlbums = Get.find<HomeViewController>().home.value.topAlbums;
+  final topAlbums = Get.find<HomeViewController>().topAlbums.value;
 
   @override
   Widget build(BuildContext context) {

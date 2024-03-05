@@ -13,7 +13,7 @@ class TopChartsSection extends StatelessWidget {
   final Size media;
   TopChartsSection({super.key, required this.media});
 
-  final topCharts = Get.find<HomeViewController>().home.value.topCharts;
+  final topCharts = Get.find<HomeViewController>().topCharts.value;
 
   @override
   Widget build(BuildContext context) {

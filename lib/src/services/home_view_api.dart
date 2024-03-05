@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/home.dart';
 import 'package:sonicity/src/models/hot_playlists.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
@@ -67,13 +66,13 @@ class HomeViewApi {
     return HotPlaylists.fromJson(jsonList: playlists);
   }
 
-  static Future<Home> get() async {
+  static Future<(TrendingNow, TopCharts, TopAlbums, HotPlaylists)> get() async {
     final json = await _apiCall();
     TrendingNow trendingNow = await _getTrendingData(json['trending']);
     TopCharts topCharts = await _getTopCharts(json['charts']);
     TopAlbums topAlbums = await _getTopAlbums(json['albums']);
     HotPlaylists hotPlaylists = await _getHotPlaylists(json['playlists']);
 
-    return Home.fromData(trendingNow: trendingNow, topCharts: topCharts, topAlbums: topAlbums, hotPlaylists: hotPlaylists);
+    return (trendingNow, topCharts, topAlbums, hotPlaylists);
   }
 }

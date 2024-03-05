@@ -86,16 +86,16 @@ class TrendingNowSection extends StatelessWidget {
             physics: NeverScrollableScrollPhysics(),
             children: <CarouselSlider>[
               CarouselSlider.builder(
-                itemCount: (controller.home.value.trendingNow.songs.isEmpty)
+                itemCount: (controller.trendingNow.value.songs.isEmpty)
                   ? 1
-                  : controller.home.value.trendingNow.songs.length,
+                  : controller.trendingNow.value.songs.length,
                 itemBuilder: (context, index, realIndex) {
-                  if(controller.home.value.trendingNow.songs.isEmpty) {
+                  if(controller.trendingNow.value.songs.isEmpty) {
                     return ShimmerCard();
-                  } else if(controller.home.value.trendingNow.songs.length == 1) {
-                    return SongCard(controller.home.value.trendingNow.songs.first);
+                  } else if(controller.trendingNow.value.songs.length == 1) {
+                    return SongCard(controller.trendingNow.value.songs.first);
                   }
-                  Song song = controller.home.value.trendingNow.songs[index];
+                  Song song = controller.trendingNow.value.songs[index];
                   return SongCard(song);
                 },
                 options: CarouselOptions(
@@ -103,27 +103,27 @@ class TrendingNowSection extends StatelessWidget {
                   autoPlay: true, autoPlayAnimationDuration: Duration(milliseconds: 700),
                   autoPlayInterval: Duration(seconds: 8),
                   initialPage: 0, enlargeCenterPage: true,
-                  enableInfiniteScroll: (controller.home.value.trendingNow.songs.length != 1)
+                  enableInfiniteScroll: (controller.trendingNow.value.songs.length != 1)
                 ),
               ),
               CarouselSlider.builder(
-                  itemCount: (controller.home.value.trendingNow.albums.isEmpty)
+                  itemCount: (controller.trendingNow.value.albums.isEmpty)
                     ? 1
-                    : controller.home.value.trendingNow.albums.length,
+                    : controller.trendingNow.value.albums.length,
                   itemBuilder: (context, index, realIndex) {
-                    if(controller.home.value.trendingNow.albums.isEmpty) {
+                    if(controller.trendingNow.value.albums.isEmpty) {
                       return ShimmerCard();
-                    } else if(controller.home.value.trendingNow.albums.length == 1) {
-                      return AlbumCard(controller.home.value.trendingNow.albums.first);
+                    } else if(controller.trendingNow.value.albums.length == 1) {
+                      return AlbumCard(controller.trendingNow.value.albums.first);
                     }
-                    Album album = controller.home.value.trendingNow.albums[index];
+                    Album album = controller.trendingNow.value.albums[index];
                     return AlbumCard(album);
                   },
                   options: CarouselOptions(
                     height: media.width/1.25,
                     autoPlay: true, autoPlayAnimationDuration: Duration(milliseconds: 700), autoPlayInterval: Duration(seconds: 8),
                     initialPage: 0, enlargeCenterPage: true,
-                    enableInfiniteScroll: (controller.home.value.trendingNow.albums.length != 1)
+                    enableInfiniteScroll: (controller.trendingNow.value.albums.length != 1)
                   ),
                 ),
             ],

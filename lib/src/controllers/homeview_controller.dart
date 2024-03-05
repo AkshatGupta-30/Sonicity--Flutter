@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/models/home.dart';
+import 'package:sonicity/src/models/hot_playlists.dart';
+import 'package:sonicity/src/models/top_albums.dart';
+import 'package:sonicity/src/models/top_charts.dart';
+import 'package:sonicity/src/models/trending_now.dart';
 import 'package:sonicity/src/services/home_view_api.dart';
 
 class HomeViewController extends GetxController with GetSingleTickerProviderStateMixin {
-  final home = Home.empty().obs;
   late TabController tabController;
   final selectedTab = 0.obs;
+  final trendingNow  = TrendingNow.empty().obs;
+  final topCharts = TopCharts.empty().obs;
+  final topAlbums = TopAlbums.empty().obs;
+  final hotPlaylists = HotPlaylists.empty().obs;
 
   @override
   void onInit() {
@@ -19,8 +25,16 @@ class HomeViewController extends GetxController with GetSingleTickerProviderStat
   }
 
   void getHomeData() async {
-    Home data = await HomeViewApi.get();
-    home.value = data;
+    TrendingNow tN  = TrendingNow.empty();
+    TopCharts tC = TopCharts.empty();
+    TopAlbums tA = TopAlbums.empty();
+    HotPlaylists hP = HotPlaylists.empty();
+    (tN, tC, tA, hP) = await HomeViewApi.get();
+
+    trendingNow.value = tN;
+    topCharts.value = tC;
+    topAlbums.value = tA;
+    hotPlaylists.value = hP;
   }
 
   @override
