@@ -163,7 +163,8 @@ class ArtistDetailsView extends StatelessWidget {
         ? PreferredSize(
           preferredSize: Size(double.maxFinite, kToolbarHeight),
           child: Container(
-            height: kToolbarHeight, color: Colors.grey.shade900,
+            height: kToolbarHeight,
+            color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
             padding: EdgeInsets.zero,
             child: Column(
               children: [

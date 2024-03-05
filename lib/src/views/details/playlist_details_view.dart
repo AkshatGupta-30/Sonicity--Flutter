@@ -103,7 +103,7 @@ class PlaylistDetailsView extends StatelessWidget {
       bottom: PreferredSize(
         preferredSize: Size(double.maxFinite, 60),
         child: Container(
-          color: Colors.grey.shade900,
+          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
           child: Row( 
             children: [
               Gap(20),
