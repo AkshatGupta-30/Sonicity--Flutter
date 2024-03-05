@@ -108,7 +108,7 @@ class ViewAllPlaylistsView extends StatelessWidget {
                 itemCount: 4, shrinkWrap: true,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
-                  String image = controller.playlists[index].image.standardQuality;
+                  String image = controller.playlists[index].image.medQuality;
                   return CachedNetworkImage(
                     imageUrl: image, fit: BoxFit.cover,
                     height: 40, width: 40,

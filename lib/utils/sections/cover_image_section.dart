@@ -49,7 +49,7 @@ class CoverImageSection extends StatelessWidget {
           _column(context,
             q: ImgQuality.med, url: image.highQuality,
             onTap: () {
-              FlutterClipboard.copy(image.standardQuality).then(
+              FlutterClipboard.copy(image.medQuality).then(
                 (value) => Get.showSnackbar(GetSnackBar(
                   messageText: Row(
                     children: [

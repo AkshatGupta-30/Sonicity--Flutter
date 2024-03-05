@@ -112,7 +112,7 @@ class Song {
       "duration" : duration,
       "language" : language,
       "img_low" : image.lowQuality,
-      "img_med" : image.standardQuality,
+      "img_med" : image.medQuality,
       "img_high" : image.highQuality,
       "download_12kbps" : downloadUrl.q12kbps,
       "download_48kbps" : downloadUrl.q48kbps,
@@ -126,7 +126,7 @@ class Song {
     if(quality == ImgQuality.low) {
       return {"song_id" : id, "link" : image.lowQuality};
     } else if(quality == ImgQuality.med) {
-      return {"song_id" : id, "link" : image.standardQuality};
+      return {"song_id" : id, "link" : image.medQuality};
     } else {
       return {"song_id" : id, "link" : image.highQuality};
     }

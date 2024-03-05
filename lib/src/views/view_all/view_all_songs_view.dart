@@ -118,7 +118,7 @@ class ViewAllSongsView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   child: (controller.songs.length < 4)
                     ? CachedNetworkImage(
-                    imageUrl: controller.songs.first.image.standardQuality,
+                    imageUrl: controller.songs.first.image.medQuality,
                     fit: BoxFit.cover, height: 160, width: 160,
                     errorWidget: (context, url, error) {
                       return Image.asset(
@@ -138,7 +138,7 @@ class ViewAllSongsView extends StatelessWidget {
                       itemCount: 4, shrinkWrap: true,
                       padding: EdgeInsets.zero, physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        String image = controller.songs[index].image.standardQuality;
+                        String image = controller.songs[index].image.medQuality;
                         return CachedNetworkImage(
                           imageUrl: image, fit: BoxFit.cover,
                           height: 40, width: 40,

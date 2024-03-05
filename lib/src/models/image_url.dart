@@ -4,7 +4,7 @@ class ImageUrl {
   ImageUrl({required List<ImageData> imageLinks}) : _imageData = imageLinks;
 
   late final String lowQuality = _getImageUrl('50x50');
-  late final String standardQuality = _getImageUrl('150x150');
+  late final String medQuality = _getImageUrl('150x150');
   late final String highQuality = _getImageUrl('500x500');
 
   String _getImageUrl(String quality) {

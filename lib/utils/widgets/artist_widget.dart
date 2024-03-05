@@ -106,7 +106,7 @@ class ArtistCell extends StatelessWidget {
           children: [
             ClipOval(
               child: CachedNetworkImage(
-                imageUrl: artist.image!.standardQuality, fit: BoxFit.fill, height: 140, width: 140,
+                imageUrl: artist.image!.medQuality, fit: BoxFit.fill, height: 140, width: 140,
                 placeholder: (context, url) {
                   return Image.asset(
                     "assets/images/appLogo150x150.png",
