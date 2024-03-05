@@ -109,7 +109,10 @@ class SongsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {},
+      onTap: () async {
+        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+        await recents.insert(song);
+      },
       contentPadding: EdgeInsets.zero,
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(8),
