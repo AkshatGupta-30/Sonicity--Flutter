@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -81,6 +83,8 @@ class RecentsDatabase {
 
   Future<int> insert(Song song) async {
     Database db = await _instance.database;
+    _insertCheck(song.id);
+    (await count()).printInfo();
     return await db.insert(tbSongDetail, song.toDbDetailsMap());
   }
 
@@ -99,5 +103,25 @@ class RecentsDatabase {
     int? count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbSongDetail'));
     if(count == null) return 0;
     return count;
+  }
+
+  Future<void> _insertCheck(String songId) async {
+    _checkDuplicates(songId);
+    int maxCount = Get.find<SettingsController>().getRecentsMaxLength;
+    if(await count() == maxCount) _deleteFirstRow();
+  }
+  
+  void _checkDuplicates(String songId) async {
+    Database db = await _instance.database;
+    await db.delete(tbSongDetail, where: '$colSongId = ?', whereArgs: [songId]);
+  }
+
+  void _deleteFirstRow() async {
+    Database db = await _instance.database;
+    List<Map<String, dynamic>> rows = await db.query(tbSongDetail, limit: 1);
+    int? firstRowId = rows.isNotEmpty ? rows.first['id'] : null;
+    if (firstRowId != null) {
+      await db.delete(tbSongDetail, where: 'id = ?', whereArgs: [firstRowId]);
+    }
   }
 }

@@ -91,12 +91,12 @@ class SettingsController extends GetxController {
   }
 
   final recentsSavedLength = 0.obs;
-  int get getRecentsSavedLength => recentsSavedLength.value;
-  set setRecentsSavedLength(int newLength) => recentsSavedLength.value = newLength;
+  int get getRecentsMaxLength => recentsSavedLength.value;
+  set setRecentsMaxLength(int newLength) => recentsSavedLength.value = newLength;
   void _initRecentsSaved() async {
     final lengths = [25, 40, 50, 75, 100, 150, 200];
     final prefs = await SharedPreferences.getInstance();
     int selection = prefs.getInt(PrefsKey.recentsLength) ?? 50;
-    setRecentsSavedLength = lengths[lengths.indexOf(selection)];
+    setRecentsMaxLength = lengths[lengths.indexOf(selection)];
   }
 }

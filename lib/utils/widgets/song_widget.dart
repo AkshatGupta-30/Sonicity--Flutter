@@ -28,8 +28,7 @@ class SongCard extends StatelessWidget {
       onTap: () async {
         LastSessionSprefs.add(song.id);
         RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
-        int res = await recents.insert(song);
-        "Insert : $res".printInfo();
+        await recents.insert(song);
       },
       child: Container(
         width: media.width/1.25, height: media.width/1.25,

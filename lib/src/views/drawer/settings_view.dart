@@ -371,12 +371,12 @@ class SettingsView extends StatelessWidget {
       title: Text("Recents Songs Count"),
       subtitle: Text("Set how many songs you want to save in recents"),
       trailing: Obx(() => DropdownButton(
-          value: controller.getRecentsSavedLength,
+          value: controller.getRecentsMaxLength,
           items: lengths.map((item) => DropdownMenuItem(value: item, child: Text("$item"))).toList(),
           onChanged: (newValue) async {
-            controller.setRecentsSavedLength = lengths[lengths.indexOf(newValue!)];
+            controller.setRecentsMaxLength = lengths[lengths.indexOf(newValue!)];
             final prefs = await SharedPreferences.getInstance();
-            await prefs.setInt(PrefsKey.recentsLength, controller.getRecentsSavedLength);
+            await prefs.setInt(PrefsKey.recentsLength, controller.getRecentsMaxLength);
           },
           icon: Iconify(MaterialSymbols.arrow_drop_down_rounded,),
           padding: EdgeInsets.zero,
