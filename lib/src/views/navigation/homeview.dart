@@ -74,15 +74,15 @@ class HomeView extends StatelessWidget{
         child: Column(
           children: [
             Gap(20),
-            TrendingNowSection(media: media, homeController: controller),
+            TrendingNowSection(media: media),
             Gap(20),
-            TopChartsSection(media: media, topCharts: controller.home.value.topCharts),
+            TopChartsSection(media: media),
             Gap(20),
             LastSessionSection(media: media),
             Gap(20),
-            TopAlbumsSection(media: media, topAlbums: controller.home.value.topAlbums),
+            TopAlbumsSection(media: media),
             Gap(20),
-            HotPlaylistSection(media: media, hotPlaylists: controller.home.value.hotPlaylists),
+            HotPlaylistSection(media: media),
           ]
         ),
       )

@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:sonicity/src/models/hot_playlists.dart';
+import 'package:get/get.dart';
+import 'package:sonicity/src/controllers/homeview_controller.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
@@ -10,8 +11,9 @@ import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 
 class HotPlaylistSection extends StatelessWidget {
   final Size media;
-  final HotPlaylists hotPlaylists;
-  HotPlaylistSection({super.key, required this.media, required this.hotPlaylists});
+  HotPlaylistSection({super.key, required this.media});
+
+  final hotPlaylists = Get.find<HomeViewController>().home.value.hotPlaylists;
 
   @override
   Widget build(BuildContext context) {

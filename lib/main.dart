@@ -23,8 +23,8 @@ Future<void> main() async {
 
   // * : GetX Controllers
   Get.put(SettingsController());
-  Get.put(StorageMethods());
-  Get.put(DatabaseMethods());
+  Get.lazyPut(() => StorageMethods());
+  Get.lazyPut(() => DatabaseMethods());
 
   runApp(MainApp());
 }

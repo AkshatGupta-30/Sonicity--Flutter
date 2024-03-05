@@ -2,16 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:sonicity/src/controllers/homeview_controller.dart';
 import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/top_albums.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 
 class TopAlbumsSection extends StatelessWidget {
   final Size media;
-  final TopAlbums topAlbums;
-  TopAlbumsSection({super.key, required this.media, required this.topAlbums});
+  TopAlbumsSection({super.key, required this.media});
+
+  final topAlbums = Get.find<HomeViewController>().home.value.topAlbums;
 
   @override
   Widget build(BuildContext context) {

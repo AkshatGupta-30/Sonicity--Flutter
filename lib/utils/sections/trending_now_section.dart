@@ -18,8 +18,9 @@ import 'package:sonicity/utils/sections/title_section.dart';
 
 class TrendingNowSection extends StatelessWidget {
   final Size media;
-  final HomeViewController homeController;
-  TrendingNowSection({super.key, required this.media, required this.homeController});
+  TrendingNowSection({super.key, required this.media});
+
+  final controller = Get.find<HomeViewController>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class TrendingNowSection extends StatelessWidget {
       children: [
         TitleSection(title: "Trending Now", center: true),
         TabBar(
-          controller: homeController.tabController,
+          controller: controller.tabController,
           isScrollable: false,
           physics: NeverScrollableScrollPhysics(),
           tabs: [
@@ -37,7 +38,7 @@ class TrendingNowSection extends StatelessWidget {
                 children: [
                   Obx(() => Iconify(
                     Ph.music_note_duotone, size: 25,
-                    color: (homeController.selectedTab.value == 0)
+                    color: (controller.selectedTab.value == 0)
                       ? Get.find<SettingsController>().getAccent
                       : Get.find<SettingsController>().getAccentDark,
                   )),
@@ -45,7 +46,7 @@ class TrendingNowSection extends StatelessWidget {
                   Obx(() => Text(
                     "Music",
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: (homeController.selectedTab.value == 0)
+                      color: (controller.selectedTab.value == 0)
                         ? Get.find<SettingsController>().getAccent
                         : Get.find<SettingsController>().getAccentDark
                     )),
@@ -59,7 +60,7 @@ class TrendingNowSection extends StatelessWidget {
                 children: [
                   Obx(() => Iconify(
                     Ic.twotone_album, size: 25,
-                    color: (homeController.selectedTab.value == 1)
+                    color: (controller.selectedTab.value == 1)
                       ? Get.find<SettingsController>().getAccent
                       : Get.find<SettingsController>().getAccentDark,
                   )),
@@ -67,7 +68,7 @@ class TrendingNowSection extends StatelessWidget {
                   Obx(() => Text(
                     "Album",
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: (homeController.selectedTab.value == 1)
+                      color: (controller.selectedTab.value == 1)
                         ? Get.find<SettingsController>().getAccent
                         : Get.find<SettingsController>().getAccentDark
                     )),
@@ -81,20 +82,20 @@ class TrendingNowSection extends StatelessWidget {
         SizedBox(
           height: media.width/1.25,
           child: TabBarView(
-            controller: homeController.tabController,
+            controller: controller.tabController,
             physics: NeverScrollableScrollPhysics(),
             children: <CarouselSlider>[
               CarouselSlider.builder(
-                itemCount: (homeController.home.value.trendingNow.songs.isEmpty)
+                itemCount: (controller.home.value.trendingNow.songs.isEmpty)
                   ? 1
-                  : homeController.home.value.trendingNow.songs.length,
+                  : controller.home.value.trendingNow.songs.length,
                 itemBuilder: (context, index, realIndex) {
-                  if(homeController.home.value.trendingNow.songs.isEmpty) {
+                  if(controller.home.value.trendingNow.songs.isEmpty) {
                     return ShimmerCard();
-                  } else if(homeController.home.value.trendingNow.songs.length == 1) {
-                    return SongCard(homeController.home.value.trendingNow.songs.first);
+                  } else if(controller.home.value.trendingNow.songs.length == 1) {
+                    return SongCard(controller.home.value.trendingNow.songs.first);
                   }
-                  Song song = homeController.home.value.trendingNow.songs[index];
+                  Song song = controller.home.value.trendingNow.songs[index];
                   return SongCard(song);
                 },
                 options: CarouselOptions(
@@ -102,27 +103,27 @@ class TrendingNowSection extends StatelessWidget {
                   autoPlay: true, autoPlayAnimationDuration: Duration(milliseconds: 700),
                   autoPlayInterval: Duration(seconds: 8),
                   initialPage: 0, enlargeCenterPage: true,
-                  enableInfiniteScroll: (homeController.home.value.trendingNow.songs.length != 1)
+                  enableInfiniteScroll: (controller.home.value.trendingNow.songs.length != 1)
                 ),
               ),
               CarouselSlider.builder(
-                  itemCount: (homeController.home.value.trendingNow.albums.isEmpty)
+                  itemCount: (controller.home.value.trendingNow.albums.isEmpty)
                     ? 1
-                    : homeController.home.value.trendingNow.albums.length,
+                    : controller.home.value.trendingNow.albums.length,
                   itemBuilder: (context, index, realIndex) {
-                    if(homeController.home.value.trendingNow.albums.isEmpty) {
+                    if(controller.home.value.trendingNow.albums.isEmpty) {
                       return ShimmerCard();
-                    } else if(homeController.home.value.trendingNow.albums.length == 1) {
-                      return AlbumCard(homeController.home.value.trendingNow.albums.first);
+                    } else if(controller.home.value.trendingNow.albums.length == 1) {
+                      return AlbumCard(controller.home.value.trendingNow.albums.first);
                     }
-                    Album album = homeController.home.value.trendingNow.albums[index];
+                    Album album = controller.home.value.trendingNow.albums[index];
                     return AlbumCard(album);
                   },
                   options: CarouselOptions(
                     height: media.width/1.25,
                     autoPlay: true, autoPlayAnimationDuration: Duration(milliseconds: 700), autoPlayInterval: Duration(seconds: 8),
                     initialPage: 0, enlargeCenterPage: true,
-                    enableInfiniteScroll: (homeController.home.value.trendingNow.albums.length != 1)
+                    enableInfiniteScroll: (controller.home.value.trendingNow.albums.length != 1)
                   ),
                 ),
             ],

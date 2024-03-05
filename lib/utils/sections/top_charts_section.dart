@@ -2,16 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:sonicity/src/controllers/homeview_controller.dart';
 import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/src/models/top_charts.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/widgets/shimmer_widget.dart';
 
 class TopChartsSection extends StatelessWidget {
   final Size media;
-  final TopCharts topCharts;
-  TopChartsSection({super.key, required this.media, required this.topCharts});
+  TopChartsSection({super.key, required this.media});
+
+  final topCharts = Get.find<HomeViewController>().home.value.topCharts;
 
   @override
   Widget build(BuildContext context) {
