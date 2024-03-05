@@ -8,10 +8,17 @@ import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:sonicity/src/controllers/recents_controller.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
+import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/artist.dart';
+import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/enums.dart';
+import 'package:sonicity/utils/widgets/album_widget.dart';
+import 'package:sonicity/utils/widgets/artist_widget.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
+import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
+import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
@@ -32,6 +39,7 @@ class RecentsView extends StatelessWidget {
           ],
         )
       ),
+      floatingActionButton: CircleAvatar(radius: 25, backgroundColor: Colors.red, child: SpiderReport()),
     );
   }
 
@@ -158,9 +166,30 @@ class RecentsView extends StatelessWidget {
               return SongsTile(song);
             },
           )),
-          Center(child: Text('Albums')),
-          Center(child: Text('Artists')),
-          Center(child: Text('Playlists')),
+          Obx(() => ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+            itemCount: controller.recentAlbums.length,
+            itemBuilder: (context, index) {
+              Album album = controller.recentAlbums[controller.recentAlbums.length - index - 1];
+              return AlbumTile(album, subtitle: "${album.songCount} Songs");
+            },
+          )),
+          Obx(() => ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+            itemCount: controller.recentArtists.length,
+            itemBuilder: (context, index) {
+              Artist artist = controller.recentArtists[controller.recentArtists.length - index - 1];
+              return ArtistTile(artist: artist, subtitle: "${artist.dominantType}");
+            },
+          )),
+          Obx(() => ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+            itemCount: controller.recentPlaylists.length,
+            itemBuilder: (context, index) {
+              Playlist playlist = controller.recentPlaylists[controller.recentPlaylists.length - index - 1];
+              return PlaylistTile(playlist, subtitle: "${playlist.songCount} Songs");
+            },
+          )),
         ],
       ),
     );
@@ -177,62 +206,74 @@ class _SongsPlayControls extends SliverPersistentHeaderDelegate {
   @override
   double get maxExtent => kToolbarHeight;
 
+  final lengths = "".obs;
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Obx(() => Container(
-      height: kToolbarHeight,
-      decoration: BoxDecoration(
-        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
-        boxShadow: [BoxShadow(
-          color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
-          spreadRadius: 1, blurRadius: 5
-        )]
-      ),
-      child: Row(
-        children: [
-          Gap(20),
-          Text("${controller.recentSongs.length} Songs", style: Theme.of(context).textTheme.bodyLarge),
-          Spacer(),
-          if(controller.selectedTab.value == 0)
-            Container(
-              height: kBottomNavigationBarHeight, alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        "Shuffle",
-                        style: TextStyle(color: Colors.grey.shade300, fontSize: 21),
+    return Obx(() {
+      if(controller.selectedTab.value == 0) {
+        lengths.value = "${controller.recentSongs.length} Songs";
+      } else if(controller.selectedTab.value == 1) {
+        lengths.value = "${controller.recentAlbums.length} Albums";
+      }else if(controller.selectedTab.value == 2) {
+        lengths.value = "${controller.recentArtists.length} Artists";
+      } else {
+        lengths.value = "${controller.recentPlaylists.length} Playlists";
+      }
+      return Container(
+        height: kToolbarHeight,
+        decoration: BoxDecoration(
+          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
+          boxShadow: [BoxShadow(
+            color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+            spreadRadius: 1, blurRadius: 5
+          )]
+        ),
+        child: Row(
+          children: [
+            Gap(20),
+            Text(lengths.value, style: Theme.of(context).textTheme.bodyLarge),
+            Spacer(),
+            if(controller.selectedTab.value == 0)
+              Container(
+                height: kBottomNavigationBarHeight, alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "Shuffle",
+                          style: TextStyle(color: Colors.grey.shade300, fontSize: 21),
+                        ),
+                        Iconify(
+                          Ic.twotone_shuffle, size: 25,
+                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,),
+                      ],
+                    ),
+                    Gap(5),
+                    Container(height: 30, width: 1, color: Colors.white38),
+                    Gap(5),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      Iconify(
-                        Ic.twotone_shuffle, size: 25,
-                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,),
-                    ],
-                  ),
-                  Gap(5),
-                  Container(height: 30, width: 1, color: Colors.white38),
-                  Gap(5),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(8),
+                      child: Iconify(
+                        Ic.twotone_play_arrow, size: 27,
+                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+                      ),
                     ),
-                    child: Iconify(
-                      Ic.twotone_play_arrow, size: 27,
-                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          Gap(8)
-        ],
-      ),
-    ));
+            Gap(8)
+          ],
+        ),
+      );
+    });
   }
 
   @override

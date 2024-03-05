@@ -127,7 +127,7 @@ class Song {
     );
   }
 
-  Map<String, dynamic> toDbDetailsMap() {
+  Map<String, dynamic> toDb() {
     List<String> artistsIds = [];
     List<String> artistsNames = [];
     for(Artist artist in artists!) {

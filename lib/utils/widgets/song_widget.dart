@@ -26,7 +26,7 @@ class SongCard extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
-        await recents.insert(song);
+        await recents.insertSong(song);
       },
       child: Container(
         width: media.width/1.25, height: media.width/1.25,
@@ -111,7 +111,7 @@ class SongsTile extends StatelessWidget {
     return ListTile(
       onTap: () async {
         RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
-        await recents.insert(song);
+        await recents.insertSong(song);
       },
       contentPadding: EdgeInsets.zero,
       leading: ClipRRect(

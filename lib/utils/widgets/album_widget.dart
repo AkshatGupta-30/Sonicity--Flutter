@@ -4,8 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
+import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/views/details/album_details_view.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -19,7 +21,9 @@ class AlbumCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+        await recents.insertAlbum(album);
         Get.to(
           () => AlbumDetailsView(),
           arguments: album.id
@@ -127,7 +131,9 @@ class AlbumCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+        await recents.insertAlbum(album);
         Get.to(
           () => AlbumDetailsView(),
           arguments: album.id
@@ -183,7 +189,9 @@ class AlbumTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
+      onTap: () async {
+        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+        await recents.insertAlbum(album);
         Get.to(
           () => AlbumDetailsView(),
           arguments: album.id

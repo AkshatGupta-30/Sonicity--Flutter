@@ -1,6 +1,7 @@
 import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:super_string/super_string.dart';
 
 class Album {
@@ -123,6 +124,31 @@ class Album {
       "songCount" : songCount,
       "artists" : arts,
       "songs" : musics,
+    };
+  }
+
+  factory Album.fromDb(Map<String,dynamic> json) {
+    List<Map<String,dynamic>> imageData = [
+      {"quality" : ImageQuality.q50x50, "link" : json["img_low"]},
+      {"quality" : ImageQuality.q150x150, "link" : json["img_med"]},
+      {"quality" : ImageQuality.q500x500, "link" : json["img_high"]},
+    ];
+    return Album(
+      id: json['album_id'],
+      name: json['name'],
+      songCount: json['songCount'],
+      image: ImageUrl.fromJson(imageData),
+    );
+  }
+
+  Map<String, dynamic> toDb() {
+    return {
+      "album_id" : id,
+      "name" : name,
+      "songCount" : songCount,
+      "img_low" : image!.lowQuality,
+      "img_med" : image!.medQuality,
+      "img_high" : image!.highQuality,
     };
   }
 

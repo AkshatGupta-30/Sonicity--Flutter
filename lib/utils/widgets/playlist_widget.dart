@@ -4,8 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
+import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/views/details/playlist_details_view.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -19,7 +21,9 @@ class PlaylistCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+        await recents.insertPlaylist(playlist);
         Get.to(
           () => PlaylistDetailsView(),
           arguments: playlist.id
@@ -75,7 +79,9 @@ class PlaylistTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
+      onTap: () async {
+        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+        await recents.insertPlaylist(playlist);
         Get.to(
           () => PlaylistDetailsView(),
           arguments: playlist.id

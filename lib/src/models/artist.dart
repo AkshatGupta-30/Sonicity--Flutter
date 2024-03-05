@@ -1,4 +1,5 @@
 import 'package:sonicity/src/models/image_url.dart';
+import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:super_string/super_string.dart';
 
 class Artist {
@@ -85,6 +86,31 @@ class Artist {
       "twitter" : twitter,
       "wiki" : wiki,
       "availableLanguages" : availableLanguages.toString(),
+    };
+  }
+
+  factory Artist.fromDb(Map<String,dynamic> json) {
+    List<Map<String,dynamic>> imageData = [
+      {"quality" : ImageQuality.q50x50, "link" : json["img_low"]},
+      {"quality" : ImageQuality.q150x150, "link" : json["img_med"]},
+      {"quality" : ImageQuality.q500x500, "link" : json["img_high"]},
+    ];
+    return Artist(
+      id: json['artist_id'],
+      name: json['name'],
+      dominantType: json['dominantType'],
+      image: ImageUrl.fromJson(imageData),
+    );
+  }
+
+  Map<String, dynamic> toDb() {
+    return {
+      "artist_id" : id,
+      "name" : name,
+      "dominantType" : dominantType,
+      "img_low" : image!.lowQuality,
+      "img_med" : image!.medQuality,
+      "img_high" : image!.highQuality,
     };
   }
 
