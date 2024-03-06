@@ -3,9 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 import 'package:sonicity/firebase_options.dart';
-import 'package:sonicity/setup_locator.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
+import 'package:sonicity/src/database/home_database.dart';
+import 'package:sonicity/src/database/my_playlists_database.dart';
+import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/firebase/database_methods.dart';
 import 'package:sonicity/src/firebase/storage_methods.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
@@ -17,7 +20,10 @@ Future<void> main() async {
   await dotenv.load(fileName: "lib/.env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   
-  setupLocator();
+  // * : Database
+  GetIt.I.registerLazySingleton<HomeDatabase>(() => HomeDatabase());
+  GetIt.I.registerLazySingleton<MyPlaylistsDatabase>(() => MyPlaylistsDatabase());
+  GetIt.I.registerLazySingleton<RecentsDatabase>(() => RecentsDatabase());
 
   // * : GetX Controllers
   Get.put(SettingsController());

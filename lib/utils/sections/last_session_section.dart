@@ -15,7 +15,7 @@ class LastSessionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if(!GetIt.I.isRegistered<RecentsDatabase>()) {
-      return Text("Waiting", style: Theme.of(context).textTheme.titleLarge,);
+      return SizedBox();
     }
     final controller = Get.put(RecentsController());
     return Obx(

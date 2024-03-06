@@ -23,7 +23,6 @@ class HomeViewController extends GetxController with GetSingleTickerProviderStat
   @override
   void onInit() {
     super.onInit();
-    GetIt.I.registerSingleton<HomeDatabase>(HomeDatabase());
     tabController = TabController(vsync: this, length: 2);
     tabController.addListener(() {
       selectedTab.value = tabController.index;
