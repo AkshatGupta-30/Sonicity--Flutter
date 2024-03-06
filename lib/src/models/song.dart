@@ -1,3 +1,4 @@
+import 'package:html_unescape/html_unescape.dart';
 import 'package:sonicity/src/models/download_url.dart';
 import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/album.dart';
@@ -191,7 +192,7 @@ class Song {
 
   
 
-  String get title => name;
+  String get title => HtmlUnescape().convert(name);
   String get subtitle {
     String text = "";
     if(artists == null || artists!.isEmpty) {
@@ -199,6 +200,6 @@ class Song {
     } else {
       text = artists!.first.name;
     }
-    return "${album!.name} ◈ $text";
+    return HtmlUnescape().convert("${album!.name} ◈ $text");
   }
 }

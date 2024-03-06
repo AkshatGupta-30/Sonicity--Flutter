@@ -43,7 +43,7 @@ class SearchAllApi {
       String id = result['id'];
       String type = result['type'];
       if(type == 'song') {
-        Song song = await SongDetailsApi.get(id);
+        Song song = await SongDetailsApi.forPlay(id);
         songs.add(song);
       } else if(type == 'artist') {
         Artist artist = Artist.image(result);
