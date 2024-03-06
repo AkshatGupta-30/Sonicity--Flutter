@@ -16,6 +16,10 @@ class HomeViewApi {
   static Future<Map<String, dynamic>> _apiCall() async {
     final uri = "https://saavn.dev/modules?language=${Get.find<SettingsController>().getMusicLang}";
     final response = await http.get(Uri.parse(uri));
+    if(response.statusCode != 200) {
+      "Home View Api\nStatus Code : ${response.statusCode}\nMessage : ${jsonDecode(response.body)['message']}".printError();
+      return {};
+    }
     final json = jsonDecode(response.body);
     return json['data'];
   }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sonicity/src/models/lyrics.dart';
 import 'package:sonicity/src/models/song.dart';
@@ -9,6 +10,7 @@ class LyricsApi {
     final uri = "https://saavn.dev/lyrics?id=$id";
     final response = await http.get(Uri.parse(uri));
     if(response.statusCode != 200) {
+      "Lyrics Api\nStatus Code : ${response.statusCode}\nMessage : ${jsonDecode(response.body)['message']}".printError();
       return {};
     }
     final data = jsonDecode(response.body)['data'];

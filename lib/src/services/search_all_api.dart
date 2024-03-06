@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
@@ -15,6 +16,10 @@ class SearchAllApi {
 
     final response = await http.get(uri);
     final jsonMap = jsonDecode(response.body);
+    if(response.statusCode != 200) {
+      "Search All Api\nStatus Code : ${response.statusCode}\nMessage : ${jsonDecode(response.body)['message']}".printError();
+      return {};
+    }
     final data = jsonMap["data"];
     return data;
   }

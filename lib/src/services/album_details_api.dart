@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
@@ -10,6 +11,7 @@ class AlbumDetailsApi {
     final uri = "https://saavn.dev/albums?id=$id";
     final response = await http.get(Uri.parse(uri));
     if(response.statusCode != 200) {
+      "Album Details Api\nStatus Code : ${response.statusCode}\nMessage : ${jsonDecode(response.body)['message']}".printError();
       return {};
     }
     final data = jsonDecode(response.body)['data'];

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
@@ -11,6 +12,10 @@ class SongDetailsApi {
   static Future<Map<String, dynamic>> _apiCall(String id) async {
     final uri = "https://saavn.dev/songs?id=$id";
     final response = await http.get(Uri.parse(uri));
+    if(response.statusCode != 200) {
+      "Song Details Api\nStatus Code : ${response.statusCode}\nMessage : ${jsonDecode(response.body)['message']}".printError();
+      return {};
+    }
     final data = jsonDecode(response.body)['data'][0];
     return data;
   }
