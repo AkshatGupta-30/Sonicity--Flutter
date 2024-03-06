@@ -84,6 +84,7 @@ class Playlist {
       id: json['playlist_id'],
       name: json['name'],
       songCount: json['songCount'],
+      language: json['language'],
       image: ImageUrl.fromJson(imageData),
     );
   }

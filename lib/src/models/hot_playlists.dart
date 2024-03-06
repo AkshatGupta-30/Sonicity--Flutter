@@ -12,4 +12,8 @@ class HotPlaylists {
   factory HotPlaylists.empty() {
     return HotPlaylists(playlists: []);
   }
+
+  void clear() {
+    playlists.clear();
+  }
 }

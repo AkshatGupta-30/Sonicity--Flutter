@@ -12,5 +12,9 @@ class TopCharts {
   factory TopCharts.empty() {
     return TopCharts(playlists: []);
   }
+
+  void clear() {
+    playlists.clear();
+  }
 }
 

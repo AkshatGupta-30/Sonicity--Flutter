@@ -11,4 +11,8 @@ class TopAlbums {
   factory TopAlbums.empty() {
     return TopAlbums(albums: []);
   }
+
+  void clear() {
+    albums.clear();
+  }
 }

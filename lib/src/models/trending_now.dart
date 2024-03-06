@@ -17,4 +17,9 @@ class TrendingNow {
   factory TrendingNow.empty() {
     return TrendingNow(songs: [], albums: []);
   }
+
+  void clear() {
+    songs.clear();
+    albums.clear();
+  }
 }

@@ -137,6 +137,10 @@ class Album {
       id: json['album_id'],
       name: json['name'],
       songCount: json['songCount'],
+      description: json['description'],
+      language: json['language'],
+      year: json['year'],
+      releaseDate: json['releaseDate'],
       image: ImageUrl.fromJson(imageData),
     );
   }

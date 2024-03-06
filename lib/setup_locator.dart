@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/firebase_options.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
+import 'package:sonicity/src/database/home_database.dart';
 import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/firebase/database_methods.dart';
 import 'package:sonicity/src/firebase/storage_methods.dart';
@@ -30,6 +31,7 @@ void setupLocator() async {
   }
 
   // * : Database
+  GetIt.I.registerSingleton<HomeDatabase>(HomeDatabase());
   GetIt.I.registerSingleton<RecentsDatabase>(RecentsDatabase());
   
   // * : GetX Controllers

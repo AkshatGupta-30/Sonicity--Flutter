@@ -99,6 +99,14 @@ class Artist {
       id: json['artist_id'],
       name: json['name'],
       dominantType: json['dominantType'],
+      dominantLanguage: json['dominantLangauge'],
+      description: json['description'],
+      dob: json['dob'],
+      fb: json['fb'],
+      role: json['role'],
+      twitter: json['twitter'],
+      wiki: json['wiki'],
+      availableLanguages: json['availableLanguages'].toString().split(", ").toSet().toList(),
       image: ImageUrl.fromJson(imageData),
     );
   }
