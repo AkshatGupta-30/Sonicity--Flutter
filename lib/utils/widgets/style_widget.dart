@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 class BackgroundGradientDecorator extends StatelessWidget {
   final Widget child;
-  BackgroundGradientDecorator({super.key, required this.child});
+  final double? width, height;
+  BackgroundGradientDecorator({super.key, required this.child, this.width, this.height});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.maxFinite, width: double.maxFinite,
+      height: height ?? double.maxFinite, width: width ?? double.maxFinite,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: (Theme.of(context).brightness == Brightness.light) 

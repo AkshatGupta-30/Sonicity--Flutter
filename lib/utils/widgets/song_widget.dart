@@ -11,6 +11,7 @@ import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/details/album_details_view.dart';
 import 'package:sonicity/src/views/details/song_details_view.dart';
+import 'package:sonicity/utils/sections/add_to_playlist_section.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 
@@ -165,6 +166,7 @@ class SongPopUpMenu extends StatelessWidget {
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),
+            onTap: () => Get.bottomSheet(AddToPlaylistSheet()),
             child: PopUpButtonRow(icon: Tabler.playlist_add, label: "Add to Playlist"),
           ),
           PopupMenuItem(

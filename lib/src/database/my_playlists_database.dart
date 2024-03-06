@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sqflite/sqflite.dart';
@@ -27,7 +28,7 @@ class MyPlaylistsDatabase {
 
   static const tbPlaylistDetails = 'playlist_details';
 
-  static const colId = 'id';
+  static const colId = 'playlist_id';
   static const colName = 'name';
   static const colDateCreated = 'date_created';
   static const colSongCount = 'songCount';
@@ -109,12 +110,21 @@ class MyPlaylistsDatabase {
     );
   }
 
-  Future<List<Playlist>> get details async {
+  Future<(List<Playlist>, List<String>)> get details async {
     Database db = await _instance.database;
-    List<Playlist> playlists = [];
+    List<Playlist> playlists = []; List<String> dateCreated = [];
     List<Map<String,dynamic>> playlistResult = await db.query(tbPlaylistDetails);
-    for (var map in playlistResult)  playlists.add(Playlist.fromDb(map));
-    return playlists;
+    for (var map in playlistResult) {
+      playlists.add(Playlist(
+        id: map['playlist_id'].toString(),
+        name: map['name'],
+        songCount: map['songCount'].toString(),
+        language: map['language'],
+        image: ImageUrl.empty()
+      ));
+      dateCreated.add(map[colDateCreated]);
+    }
+    return (playlists, dateCreated);
   }
 
   void deletePlaylist(String playlistName) async {
