@@ -220,6 +220,57 @@ class HomeDatabase {
     );
   }
 
+  Future<TrendingNow> get trending async {
+    Database db = await _instance.database;
+    List<Song> trendSongs = [];
+    List<Album> trendAlbums = [];
+
+    List<Map<String,dynamic>> trendSongsResult = await db.query(tbTrendingSongs);
+    for (var map in trendSongsResult) trendSongs.add(Song.fromDb(map));
+
+    List<Map<String,dynamic>> trendAlbumsResult = await db.query(tbTrendingAlbums);
+    for (var map in trendAlbumsResult) trendAlbums.add(Album.fromDb(map));
+
+    return TrendingNow.fromList(albums: trendAlbums, songs: trendSongs);
+  }
+
+  Future<TopCharts> get topCharts async {
+    Database db = await _instance.database;
+    List<Playlist> tpChart = [];
+
+    List<Map<String,dynamic>> topChartsResult = await db.query(tbTopCharts);
+    for (var map in topChartsResult) tpChart.add(Playlist.fromDb(map));
+    return TopCharts.fromList(jsonList: tpChart);
+  }
+
+  Future<TopAlbums> get topAlbums async {
+    Database db = await _instance.database;
+    List<Album> tpAlbum = [];
+
+    List<Map<String,dynamic>> topAlbumsResult = await db.query(tbTopAlbums);
+    for (var map in topAlbumsResult) tpAlbum.add(Album.fromDb(map));
+    return TopAlbums.fromJson(jsonList: tpAlbum);
+  }
+
+  Future<HotPlaylists> get hotPlaylist async {
+    Database db = await _instance.database;
+    List<Playlist> htPlaylist = [];
+
+    List<Map<String,dynamic>> hotPlaylistsResult = await db.query(tbHotPlaylists);
+    for (var map in hotPlaylistsResult) htPlaylist.add(Playlist.fromDb(map));
+    return HotPlaylists.fromJson(jsonList: htPlaylist);
+  }
+
+  Future<bool> isFilled() async {
+    Database db = await _instance.database;
+    final trS = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbTrendingSongs'));
+    final trA = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbTrendingAlbums'))!;
+    final tC = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbTopCharts'))!;
+    final tA = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbTopAlbums'))!;
+    final hP = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbHotPlaylists'))!;
+    return (trS!=0 || trA!=0 || tC!=0 || tA!=0 || hP!=0);
+  }
+
   void clearAll() async {
     Database db = await _instance.database;
     List<String> tables = [tbTrendingSongs, tbTrendingAlbums, tbTopCharts, tbTopAlbums, tbHotPlaylists];

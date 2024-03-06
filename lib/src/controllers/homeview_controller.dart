@@ -23,10 +23,12 @@ class HomeViewController extends GetxController with GetSingleTickerProviderStat
   @override
   void onInit() {
     super.onInit();
+    GetIt.I.registerSingleton<HomeDatabase>(HomeDatabase());
     tabController = TabController(vsync: this, length: 2);
     tabController.addListener(() {
       selectedTab.value = tabController.index;
     });
+    getHomeData(false);
     checkInstanceTimer();
   }
 
@@ -40,7 +42,7 @@ class HomeViewController extends GetxController with GetSingleTickerProviderStat
       prefs.setInt(PrefsKey.homeExecutionTime, DateTime.now().millisecondsSinceEpoch);
     }
 
-    Timer.periodic(Duration(seconds: 30), (Timer timer) {
+    Timer.periodic(Duration(minutes: 30), (Timer timer) {
       getHomeData(false);
       prefs.setInt(PrefsKey.homeExecutionTime, DateTime.now().millisecondsSinceEpoch);
     });
@@ -52,20 +54,22 @@ class HomeViewController extends GetxController with GetSingleTickerProviderStat
     TopAlbums tA = TopAlbums.empty();
     HotPlaylists hP = HotPlaylists.empty();
 
-    if(needInstant) (tN, tC, tA, hP) = await HomeViewApi.get();
+    final homeDatabase = GetIt.instance<HomeDatabase>();
+    if(needInstant || !(await homeDatabase.isFilled())) {
+      (tN, tC, tA, hP) = await HomeViewApi.get();
+      trendingNow.value = tN;
+      topCharts.value = tC;
+      topAlbums.value = tA;
+      hotPlaylists.value = hP;
 
-    if (!needInstant) {
-      final homeDatabase = GetIt.instance<HomeDatabase>();
       homeDatabase.clearAll();
       await homeDatabase.insertData(trendNow: tN, tpChart: tC, tpAlbum: tA, htPlaylist: hP);
-      tN.clear(); tC.clear(); tA.clear(); hP.clear();
-      (tN, tC, tA, hP) = await homeDatabase.all;
+    } else {
+      tN = await homeDatabase.trending; trendingNow.value = tN;
+      tC = await homeDatabase.topCharts; topCharts.value = tC;
+      tA = await homeDatabase.topAlbums; topAlbums.value = tA;
+      hP = await homeDatabase.hotPlaylist; hotPlaylists.value = hP;
     }
-
-    trendingNow.value = tN;
-    topCharts.value = tC;
-    topAlbums.value = tA;
-    hotPlaylists.value = hP;
   }
 
   @override
