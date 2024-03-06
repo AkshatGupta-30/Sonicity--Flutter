@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
-
 import 'dart:io';
 
 import 'package:file_manager/file_manager.dart';
