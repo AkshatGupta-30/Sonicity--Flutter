@@ -25,21 +25,7 @@ class AddToPlaylistSheet extends StatelessWidget {
               child: Column(
                 children: [
                   _header(context, theme, controller: controller,),
-                  Obx(() => SizedBox(
-                    height: 400 - kToolbarHeight - 60,
-                    child: ListView.builder(
-                      padding: EdgeInsets.all(12),
-                      itemCount: controller.playlists.length,
-                      itemBuilder: (context, index) {
-                        Playlist playlist = controller.playlists[index];
-                        return ListTile(
-                          onTap: () => controller.insertSong(playlist.name),
-                          title: Text(playlist.name),
-                          subtitle: Text("${playlist.songCount} Songs"),
-                        );
-                      },
-                    ),
-                  )),
+                  _body(controller),
                   _footer(context, controller, theme)
                 ],
               ),
@@ -48,6 +34,32 @@ class AddToPlaylistSheet extends StatelessWidget {
         );
       }
     );
+  }
+
+  Obx _body(AddToPlaylistController controller) {
+    return Obx(() => SizedBox(
+      height: 400 - kToolbarHeight - 60,
+      child: ListView.builder(
+        padding: EdgeInsets.all(12),
+        itemCount: controller.playlists.length,
+        itemBuilder: (context, index) {
+          Playlist playlist = controller.playlists[index];
+          bool checkBoxValue = controller.isSongPresent[index];
+          return ListTile(
+            onTap: () => controller.insertSong(playlist.name),
+            title: Text(playlist.name),
+            subtitle: Text("${playlist.songCount} Songs"),
+            trailing: Checkbox(
+              value: checkBoxValue,
+              onChanged: (value) => (value!)
+                ? controller.insertSong(playlist.name)
+                : controller.deleteSong(playlist.name),
+              activeColor: controller.settings.getAccent,
+            ),
+          );
+        },
+      ),
+    ));
   }
 
   AppBar _header(BuildContext context, ThemeData theme, {required AddToPlaylistController controller,}) {

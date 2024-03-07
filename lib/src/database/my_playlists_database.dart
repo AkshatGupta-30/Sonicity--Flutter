@@ -1,3 +1,6 @@
+// ignore_for_file: unused_import
+
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -37,6 +40,7 @@ class MyPlaylistsDatabase {
   static const colImg2 = 'img_2';
   static const colImg3 = 'img_3';
   static const colImg4 = 'img_4';
+  static const colSongIds = 'song_ids';
   Future _onCreate(Database db, int version) async {
     await db.execute(
       '''
@@ -48,7 +52,8 @@ class MyPlaylistsDatabase {
           $colImg1 TEXT,
           $colImg2 TEXT,
           $colImg3 TEXT,
-          $colImg4 TEXT
+          $colImg4 TEXT,
+          $colSongIds TEXT
         )
       '''
     );
@@ -106,7 +111,8 @@ class MyPlaylistsDatabase {
       {
         colName : playlistName.replaceAll(' ', '_'),
         colDateCreated : DateTime.now().toIso8601String(),
-        colSongCount : 0
+        colSongCount : 0,
+        colSongIds: "" 
       }
     );
   }
@@ -149,15 +155,29 @@ class MyPlaylistsDatabase {
     playlistName = playlistName.replaceAll(" ", "_");
     await db.delete(playlistName, where: '$colSongId = ?', whereArgs: [song.id]);
     _duplicateCheck(playlistName, song);
-    await db.insert(playlistName, song.toDb()).then((value) => "$value insert Song".printInfo());
-    await db.rawUpdate(
-      '''
-        UPDATE $tbPlaylistDetails 
-        SET $colSongCount = $colSongCount + 1 
-        WHERE $colName = ?
-      ''',
-      [playlistName]
-    ).then((value) => "$value updating playlist song count".printInfo());
+    await db.insert(playlistName, song.toDb());
+    updateMainTable(playlistName, song);
+  }
+
+  Future<void> updateMainTable(String playlistName, Song song) async {
+    Database db = await _instance.database;
+    List<Map<String, dynamic>> result = await db.query(tbPlaylistDetails,
+      columns: [colSongIds],
+      where: '$colName = ?',
+      whereArgs: [playlistName]);
+    String existingIds = (result.isNotEmpty) ? result.first[colSongIds] : '';
+
+    if (!existingIds.contains(song.id)) {
+      String updatedIds = existingIds.isEmpty ? song.id.toString() : '$existingIds,${song.id}';
+      await db.rawUpdate(
+        '''
+          UPDATE $tbPlaylistDetails 
+          SET $colSongCount = $colSongCount + 1, $colSongIds = ? 
+          WHERE $colName = ?
+        ''',
+        [updatedIds, playlistName]
+      );
+    }
   }
 
   void deleteSong(String playlistName, Song song) async {
@@ -165,11 +185,15 @@ class MyPlaylistsDatabase {
     await db.delete(playlistName.replaceAll(' ', '_'), where: "$colSongId = ?", whereArgs: [song.id]);
   }
 
-  Future<bool> isSongPresent(String playlistName, Song song) async {
+  Future<List<bool>> isSongPresent(Song song) async {
     final db = await _instance.database;
-    playlistName = playlistName.replaceAll(' ', '_');
-    var res = await db.query(playlistName, where: "$colSongId = ?", whereArgs: [song.id]);
-    return res.isNotEmpty;
+    List<bool> songTrue = [];
+    List<Map<String,dynamic>> songIds = await db.query(tbPlaylistDetails, columns: [colSongIds]);
+    for (int i=0; i<songIds.length; i++) {
+      bool isPresent = (songIds[i][colSongIds] == song.id);
+      songTrue.add(isPresent);
+    }
+    return songTrue;
   }
 
   Future<int> count() async {

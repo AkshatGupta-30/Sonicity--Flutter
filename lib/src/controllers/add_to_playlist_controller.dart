@@ -15,13 +15,14 @@ class AddToPlaylistController extends GetxController {
   SettingsController settings = Get.find<SettingsController>();
   final playlists = <Playlist>[].obs;
   final dateCreated = <String>[].obs;
+  final isSongPresent = <bool>[].obs;
 
   final playlistCount = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
-    db.isSongPresent("abc", song);
+    checkSongPresent();
     getPlaylists();
     getPlaylistCount();
   }
@@ -33,6 +34,7 @@ class AddToPlaylistController extends GetxController {
 
     playlists.value = p;
     dateCreated.value = d;
+    update();
   }
 
   void newPlaylist() async {
@@ -46,8 +48,19 @@ class AddToPlaylistController extends GetxController {
     db.insertSong(playlistName, song);
     getPlaylists();
   }
+
+  void deleteSong(String playlistName) async {
+    db.deleteSong(playlistName, song);
+    getPlaylists();
+  }
   
   void getPlaylistCount() async {
     playlistCount.value = await db.count();
+    update();
+  }
+  
+  Future<void> checkSongPresent() async {
+    isSongPresent.value = await db.isSongPresent(song);
+    update();
   }
 }
