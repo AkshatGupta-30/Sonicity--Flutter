@@ -55,7 +55,7 @@ class HomeView extends StatelessWidget{
         titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
         title: SafeArea(child: SearchContainer(media: media)),
         background: Image.asset(
-          (Theme.of(context).brightness == Brightness.light) ? "assets/images/concertLight.jpg" : "assets/images/concertDark.jpg",
+          (Theme.of(context).brightness == Brightness.light) ? "assets/images/homeCover/concertLight.jpg" : "assets/images/homeCover/concertDark.jpg",
           fit: BoxFit.cover, filterQuality: FilterQuality.low
         ),
         stretchModes: [StretchMode.blurBackground],

@@ -31,7 +31,7 @@ class WelcomeView extends StatelessWidget {
                       shape: BoxShape.circle
                     ),
                     child: ClipOval(
-                      child: Image.asset("assets/images/appLogo150x150.png"),
+                      child: Image.asset("assets/images/appLogo/appLogo150x150.png"),
                     ),
                   ),
                   Gap(10),

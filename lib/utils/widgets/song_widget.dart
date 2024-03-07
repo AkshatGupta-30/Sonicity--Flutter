@@ -42,13 +42,13 @@ class SongCard extends StatelessWidget {
                 width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
                 placeholder: (context, url) {
                   return Image.asset(
-                    "assets/images/appLogo150x150.png",
+                    "assets/images/appLogo/appLogo150x150.png",
                     width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
                   );
                 },
                 errorWidget: (context, url, error) {
                   return Image.asset(
-                    "assets/images/appLogo150x150.png",
+                    "assets/images/appLogo/appLogo150x150.png",
                     width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
                   );
                 },
@@ -119,13 +119,13 @@ class SongsTile extends StatelessWidget {
           imageUrl: song.image.lowQuality, fit: BoxFit.cover, width: 50, height: 50,
           errorWidget: (context, url, error) {
             return Image.asset(
-              "assets/images/appLogo50x50.png",
+              "assets/images/appLogo/appLogo50x50.png",
               fit: BoxFit.cover, width: 50, height: 50
             );
           },
           placeholder: (context, url) {
             return Image.asset(
-              "assets/images/appLogo50x50.png",
+              "assets/images/appLogo/appLogo50x50.png",
               fit: BoxFit.cover, width: 50, height: 50
             );
           },

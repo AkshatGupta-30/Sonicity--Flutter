@@ -40,13 +40,13 @@ class PlaylistCell extends StatelessWidget {
                 width: 140, height: 140, fit: BoxFit.fill,
                 placeholder: (context, url) {
                   return Image.asset(
-                    "assets/images/appLogo150x150.png",
+                    "assets/images/appLogo/appLogo150x150.png",
                     width: 140, height: 140, fit: BoxFit.fill,
                   );
                 },
                 errorWidget: (context, url, error) {
                   return Image.asset(
-                    "assets/images/appLogo150x150.png",
+                    "assets/images/appLogo/appLogo150x150.png",
                     width: 140, height: 140, fit: BoxFit.fill,
                   );
                 },
@@ -93,13 +93,13 @@ class PlaylistTile extends StatelessWidget {
           fit: BoxFit.cover, width: 50, height: 50,
           errorWidget: (context, url, error) {
             return Image.asset(
-              "assets/images/appLogo50x50.png",
+              "assets/images/appLogo/appLogo50x50.png",
               fit: BoxFit.cover, width: 50, height: 50
             );
           },
           placeholder: (context, url) {
             return Image.asset(
-              "assets/images/appLogo50x50.png",
+              "assets/images/appLogo/appLogo50x50.png",
               fit: BoxFit.cover, width: 50, height: 50
             );
           },

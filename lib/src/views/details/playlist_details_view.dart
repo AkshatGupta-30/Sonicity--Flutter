@@ -74,10 +74,10 @@ class PlaylistDetailsView extends StatelessWidget {
               imageUrl: playlist.image.highQuality, fit: BoxFit.fill,
               width: double.maxFinite, height: 380,
               placeholder: (context, url) {
-                return Image.asset("assets/images/appLogo150x150.png", fit: BoxFit.fill);
+                return Image.asset("assets/images/appLogo/appLogo150x150.png", fit: BoxFit.fill);
               },
               errorWidget: (context, url, error) {
-                return Image.asset("assets/images/appLogo150x150.png", fit: BoxFit.fill);
+                return Image.asset("assets/images/appLogo/appLogo150x150.png", fit: BoxFit.fill);
               },
             ),
             Container(

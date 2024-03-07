@@ -35,13 +35,13 @@ class ArtistTile extends StatelessWidget {
           fit: BoxFit.cover, width: 50, height: 50,
           errorWidget: (context, url, error) {
             return Image.asset(
-              "assets/images/appLogo50x50.png",
+              "assets/images/appLogo/appLogo50x50.png",
               fit: BoxFit.cover, width: 50, height: 50
             );
           },
           placeholder: (context, url) {
             return Image.asset(
-              "assets/images/appLogo50x50.png",
+              "assets/images/appLogo/appLogo50x50.png",
               fit: BoxFit.cover, width: 50, height: 50
             );
           },
@@ -111,13 +111,13 @@ class ArtistCell extends StatelessWidget {
                 imageUrl: artist.image!.medQuality, fit: BoxFit.fill, height: 140, width: 140,
                 placeholder: (context, url) {
                   return Image.asset(
-                    "assets/images/appLogo150x150.png",
+                    "assets/images/appLogo/appLogo150x150.png",
                     fit: BoxFit.fill, height: 140, width: 140
                   );
                 },
                 errorWidget: (context, url, error) {
                   return Image.asset(
-                    "assets/images/appLogo150x150.png",
+                    "assets/images/appLogo/appLogo150x150.png",
                     fit: BoxFit.fill, height: 140, width: 140,
                   );
                 },

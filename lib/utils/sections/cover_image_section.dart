@@ -117,13 +117,13 @@ class CoverImageSection extends StatelessWidget {
                 imageUrl: url, fit: BoxFit.cover, height: 120, width: 120,
                 placeholder: (context, url) {
                   return Image.asset(
-                    "assets/images/appLogo500x500.png",
+                    "assets/images/appLogo/appLogo500x500.png",
                     fit: BoxFit.cover, height: 120, width: 120
                   );
                 },
                 errorWidget: (context, url, error) {
                   return Image.asset(
-                    "assets/images/appLogo500x500.png",
+                    "assets/images/appLogo/appLogo500x500.png",
                     fit: BoxFit.cover, height: 120, width: 120,
                   );
                 },

@@ -53,13 +53,15 @@ dev_dependencies:
 flutter_launcher_icons:
     android: true
     ios: true
-    image_path: "assets/images/appLogo150x150.png"
+    image_path: "assets/images/appLogo/appLogo150x150.png"
 
 flutter:
   uses-material-design: true
   assets:
     - lib/.env
     - assets/images/
+    - assets/images/appLogo/
+    - assets/images/homeCover/
     - assets/lottie/
   fonts:
     - family: Blkchcry

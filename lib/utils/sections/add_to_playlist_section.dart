@@ -136,9 +136,11 @@ class AddToPlaylistDialog extends StatelessWidget {
         itemBuilder: (context, index) {
           Playlist playlist = controller.playlists[index];
           bool checkBoxValue = controller.isSongPresent[index];
+          DateTime dateCreated = DateTime.parse(controller.dateCreated[index]);
+          String formattedDate = "${dateCreated.day.toString().padLeft(2, '0')}-${dateCreated.month.toString().padLeft(2, '0')}-${dateCreated.year}";
           return ListTile(
             title: Text(playlist.name),
-            subtitle: Text("${playlist.songCount} Songs"),
+            subtitle: Text("${playlist.songCount} Songs ◈ $formattedDate"),
             trailing: Checkbox(
               value: checkBoxValue,
               onChanged: (value) => (value!)
