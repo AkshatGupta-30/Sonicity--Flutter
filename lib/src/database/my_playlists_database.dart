@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/playlist.dart';
@@ -127,6 +128,16 @@ class MyPlaylistsDatabase {
     return (playlists, dateCreated);
   }
 
+  Future<List<Song>> getSongs(String playlistName) async {
+    Database db = await _instance.database;
+    List<Song> songs = [];
+    List<Map<String,dynamic>> songsResult = await db.query(playlistName.replaceAll(' ', '_'));
+    for (var map in songsResult) {
+      songs.add(Song.fromDb(map));
+    }
+    return songs;
+  }
+
   void deletePlaylist(String playlistName) async {
     Database db = await _instance.database;
     await db.delete(tbPlaylistDetails, where: "$colName = ?", whereArgs: [playlistName.replaceAll(' ', '_')]);
@@ -138,12 +149,27 @@ class MyPlaylistsDatabase {
     playlistName = playlistName.replaceAll(" ", "_");
     await db.delete(playlistName, where: '$colSongId = ?', whereArgs: [song.id]);
     _duplicateCheck(playlistName, song);
-    await db.insert(playlistName, song.toDb());
+    await db.insert(playlistName, song.toDb()).then((value) => "$value insert Song".printInfo());
+    await db.rawUpdate(
+      '''
+        UPDATE $tbPlaylistDetails 
+        SET $colSongCount = $colSongCount + 1 
+        WHERE $colName = ?
+      ''',
+      [playlistName]
+    ).then((value) => "$value updating playlist song count".printInfo());
   }
 
   void deleteSong(String playlistName, Song song) async {
     Database db = await _instance.database;
     await db.delete(playlistName.replaceAll(' ', '_'), where: "$colSongId = ?", whereArgs: [song.id]);
+  }
+
+  Future<bool> isSongPresent(String playlistName, Song song) async {
+    final db = await _instance.database;
+    playlistName = playlistName.replaceAll(' ', '_');
+    var res = await db.query(playlistName, where: "$colSongId = ?", whereArgs: [song.id]);
+    return res.isNotEmpty;
   }
 
   Future<int> count() async {

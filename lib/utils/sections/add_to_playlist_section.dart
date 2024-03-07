@@ -35,7 +35,7 @@ class AddToPlaylistSheet extends StatelessWidget {
                         return ListTile(
                           onTap: () => controller.insertSong(playlist.name),
                           title: Text(playlist.name),
-                          trailing: Text("${playlist.songCount} Songs"),
+                          subtitle: Text("${playlist.songCount} Songs"),
                         );
                       },
                     ),

@@ -10,6 +10,7 @@ import 'package:iconify_flutter_plus/icons/pepicons.dart';
 import 'package:iconify_flutter_plus/icons/raphael.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:iconify_flutter_plus/icons/wpf.dart';
+import 'package:sonicity/src/views/library/all_playlists_view.dart';
 import 'package:sonicity/src/views/library/recents_view.dart';
 import 'package:sonicity/src/views/library/storage_view.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -65,7 +66,7 @@ class _LibraryViewState extends State<LibraryView> {
               title: "My Storage",
             ),
             Tile(// * : Playlists
-              onPressed: () {},
+              onPressed: () => Get.to(() => AllPlaylistsView()),
               icon: Bx.bxs_playlist,
               title: "Playlists",
             ),

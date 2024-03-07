@@ -21,6 +21,7 @@ class AddToPlaylistController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    db.isSongPresent("abc", song);
     getPlaylists();
     getPlaylistCount();
   }
@@ -43,6 +44,7 @@ class AddToPlaylistController extends GetxController {
 
   void insertSong(String playlistName) async {
     db.insertSong(playlistName, song);
+    getPlaylists();
   }
   
   void getPlaylistCount() async {

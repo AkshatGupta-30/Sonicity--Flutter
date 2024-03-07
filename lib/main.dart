@@ -41,7 +41,7 @@ Future<void> main() async {
 Future<void> _downloadAllDatabase() async {
     try {
       Directory app = await getApplicationDocumentsDirectory();
-      String path = "${app.path}my_playlists.db";
+      String path = "${app.path}/my_playlists.db";
       String databasePath = path;
       String databaseFile = '/storage/emulated/0/Databases/my_playlists.db';
       await File(databasePath).copy(databaseFile);
