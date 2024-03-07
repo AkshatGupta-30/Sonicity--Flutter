@@ -22,36 +22,23 @@ class AddToPlaylistController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    checkSongPresent();
+    initMethods();
+  }
+
+  void initMethods() {
     getPlaylists();
     getPlaylistCount();
+    checkSongPresent();
   }
 
   void getPlaylists() async {
     List<Playlist> p =[];
     List<String> d = [];
-    (p, d) = await db.details;
+    (p, d) = await db.playlists;
 
     playlists.value = p;
     dateCreated.value = d;
     update();
-  }
-
-  void newPlaylist() async {
-    if(textController.text.isEmpty) return;
-    await db.createPlaylist(textController.text);
-    getPlaylistCount();
-    getPlaylists();
-  }
-
-  void insertSong(String playlistName) async {
-    db.insertSong(playlistName, song);
-    getPlaylists();
-  }
-
-  void deleteSong(String playlistName) async {
-    db.deleteSong(playlistName, song);
-    getPlaylists();
   }
   
   void getPlaylistCount() async {
@@ -59,8 +46,21 @@ class AddToPlaylistController extends GetxController {
     update();
   }
   
-  Future<void> checkSongPresent() async {
+  void checkSongPresent() async {
     isSongPresent.value = await db.isSongPresent(song);
     update();
+  }
+
+  void createPlaylist() async {
+    if(textController.text.isEmpty) return;
+    await db.createPlaylist(textController.text).then((value) => initMethods());
+  }
+
+  void insertSong(String playlistName) async {
+    await db.insertSong(playlistName, song).then((value) => initMethods());
+  }
+
+  void deleteSong(String playlistName) async {
+    await db.deleteSong(playlistName, song).then((value) => initMethods());
   }
 }

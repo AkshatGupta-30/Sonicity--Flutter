@@ -17,7 +17,7 @@ class AllPlaylistsController extends GetxController {
   Future<void> getMyPlaylists() async {
     List<Playlist> p =[];
     List<String> d = [];
-    (p, d) = await db.details;
+    (p, d) = await db.playlists;
 
     myPlaylists.value = p;
     dateCreated.value = d;

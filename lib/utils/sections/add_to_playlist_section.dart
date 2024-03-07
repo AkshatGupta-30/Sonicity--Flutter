@@ -46,7 +46,6 @@ class AddToPlaylistSheet extends StatelessWidget {
           Playlist playlist = controller.playlists[index];
           bool checkBoxValue = controller.isSongPresent[index];
           return ListTile(
-            onTap: () => controller.insertSong(playlist.name),
             title: Text(playlist.name),
             subtitle: Text("${playlist.songCount} Songs"),
             trailing: Checkbox(
@@ -124,7 +123,7 @@ class AddToPlaylistSheet extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.pop(context);
-              controller.newPlaylist();
+              controller.createPlaylist();
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
