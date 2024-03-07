@@ -36,12 +36,13 @@ class HomeViewController extends GetxController with GetSingleTickerProviderStat
     int lastExecutionTimeMillis = prefs.getInt(PrefsKey.homeExecutionTime) ?? 0;
     DateTime lastExecutionTime = DateTime.fromMillisecondsSinceEpoch(lastExecutionTimeMillis);
     Duration timeDifference = DateTime.now().difference(lastExecutionTime);
-    if (timeDifference.inMinutes >= 30 || lastExecutionTime.day != DateTime.now().day) {
+    int maxTime = 100000; // ! = 30
+    if (timeDifference.inMinutes >= maxTime || lastExecutionTime.day != DateTime.now().day) {
       getHomeData(true);
       prefs.setInt(PrefsKey.homeExecutionTime, DateTime.now().millisecondsSinceEpoch);
     }
 
-    Timer.periodic(Duration(minutes: 30), (Timer timer) {
+    Timer.periodic(Duration(minutes: maxTime), (Timer timer) {
       getHomeData(false);
       prefs.setInt(PrefsKey.homeExecutionTime, DateTime.now().millisecondsSinceEpoch);
     });

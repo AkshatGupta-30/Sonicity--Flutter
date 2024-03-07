@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:feedback/feedback.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/firebase_options.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/database/home_database.dart';
@@ -30,8 +33,23 @@ Future<void> main() async {
   Get.lazyPut(() => StorageMethods());
   Get.lazyPut(() => DatabaseMethods());
 
+  _downloadAllDatabase();
+
   runApp(MainApp());
 }
+
+Future<void> _downloadAllDatabase() async {
+    try {
+      Directory app = await getApplicationDocumentsDirectory();
+      String path = "${app.path}my_playlists.db";
+      String databasePath = path;
+      String databaseFile = '/storage/emulated/0/Databases/my_playlists.db';
+      await File(databasePath).copy(databaseFile);
+      ('Database downloaded to: $databaseFile').printInfo();
+    } catch (e) {
+      ('Error downloading database: $e').printError();
+    }
+  }
 
 class MainApp extends StatelessWidget {
   MainApp({super.key});

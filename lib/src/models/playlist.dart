@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:get/get.dart';
 import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
@@ -83,7 +80,6 @@ class Playlist {
       {"quality" : ImageQuality.q150x150, "link" : json["img_med"]},
       {"quality" : ImageQuality.q500x500, "link" : json["img_high"]},
     ];
-    jsonEncode(json).toString().printInfo();
     return Playlist(
       id: json['playlist_id'].toString(),
       name: json['name'],

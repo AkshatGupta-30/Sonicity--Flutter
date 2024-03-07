@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
-import 'package:sonicity/src/controllers/app_to_playlist_controller.dart';
+import 'package:sonicity/src/controllers/add_to_playlist_controller.dart';
+import 'package:sonicity/src/models/playlist.dart';
+import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class AddToPlaylistSheet extends StatelessWidget {
-  AddToPlaylistSheet({super.key});
+  final Song song;
+  AddToPlaylistSheet(this.song, {super.key});
 
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return GetBuilder(
-      init: AddToPlaylistController(),
+      init: AddToPlaylistController(song),
       builder: (controller) {
         return SizedBox(
           height: 400,
@@ -22,7 +25,21 @@ class AddToPlaylistSheet extends StatelessWidget {
               child: Column(
                 children: [
                   _header(context, theme, controller: controller,),
-                  Obx(() => Expanded(child: Center(child: Text("${controller.playlistCount.value} Playlists"),))),
+                  Obx(() => SizedBox(
+                    height: 400 - kToolbarHeight - 60,
+                    child: ListView.builder(
+                      padding: EdgeInsets.all(12),
+                      itemCount: controller.playlists.length,
+                      itemBuilder: (context, index) {
+                        Playlist playlist = controller.playlists[index];
+                        return ListTile(
+                          onTap: () => controller.insertSong(playlist.name),
+                          title: Text(playlist.name),
+                          trailing: Text("${playlist.songCount} Songs"),
+                        );
+                      },
+                    ),
+                  )),
                   _footer(context, controller, theme)
                 ],
               ),

@@ -4,8 +4,12 @@ import 'package:get_it/get_it.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/database/my_playlists_database.dart';
 import 'package:sonicity/src/models/playlist.dart';
+import 'package:sonicity/src/models/song.dart';
 
 class AddToPlaylistController extends GetxController {
+  final Song song;
+  AddToPlaylistController(this.song);
+
   final db = GetIt.instance<MyPlaylistsDatabase>();
   final textController = TextEditingController();
   SettingsController settings = Get.find<SettingsController>();
@@ -35,6 +39,10 @@ class AddToPlaylistController extends GetxController {
     await db.createPlaylist(textController.text);
     getPlaylistCount();
     getPlaylists();
+  }
+
+  void insertSong(String playlistName) async {
+    db.insertSong(playlistName, song);
   }
   
   void getPlaylistCount() async {

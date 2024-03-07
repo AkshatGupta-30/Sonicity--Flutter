@@ -166,7 +166,7 @@ class SongPopUpMenu extends StatelessWidget {
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),
-            onTap: () => Get.bottomSheet(AddToPlaylistSheet()),
+            onTap: () => Get.bottomSheet(AddToPlaylistSheet(song)),
             child: PopUpButtonRow(icon: Tabler.playlist_add, label: "Add to Playlist"),
           ),
           PopupMenuItem(
