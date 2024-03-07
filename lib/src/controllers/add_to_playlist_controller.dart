@@ -17,7 +17,7 @@ class AddToPlaylistController extends GetxController {
   final dateCreated = <String>[].obs;
   final isSongPresent = <bool>[].obs;
 
-  final playlistCount = 0.obs;
+  final playlistCount = (-1).obs;
 
   @override
   void onInit() {
@@ -42,7 +42,7 @@ class AddToPlaylistController extends GetxController {
   }
   
   void getPlaylistCount() async {
-    playlistCount.value = await db.count();
+    playlistCount.value= await db.count();
     update();
   }
   

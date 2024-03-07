@@ -166,7 +166,7 @@ class SongPopUpMenu extends StatelessWidget {
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),
-            onTap: () => Get.bottomSheet(AddToPlaylistSheet(song)),
+            onTap: () => _addToPlaylistDialog(context),
             child: PopUpButtonRow(icon: Tabler.playlist_add, label: "Add to Playlist"),
           ),
           PopupMenuItem(
@@ -197,5 +197,22 @@ class SongPopUpMenu extends StatelessWidget {
         color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
       ),
     );
+  }
+
+  void _addToPlaylistDialog(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    showDialog(context: context, builder: (context) {
+      return Dialog(
+        elevation: 10, shadowColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Container(
+          height: 600,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: AddToPlaylistDialog(song),
+        ),
+      );
+    });
   }
 }
