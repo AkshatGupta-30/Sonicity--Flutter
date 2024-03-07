@@ -60,8 +60,13 @@ flutter:
   assets:
     - lib/.env
     - assets/images/
+    - assets/images/albumCover/
     - assets/images/appLogo/
+    - assets/images/artistCover/
     - assets/images/homeCover/
+    - assets/images/myPlaylistCover/
+    - assets/images/playlistCover/
+    - assets/images/songCover/
     - assets/lottie/
   fonts:
     - family: Blkchcry

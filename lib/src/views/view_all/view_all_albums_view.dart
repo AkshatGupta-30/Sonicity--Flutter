@@ -89,13 +89,13 @@ class ViewAllAlbumsView extends StatelessWidget {
                 height: 320, width: 320,
                 errorWidget: (context, url, error) {
                   return Image.asset(
-                    "assets/images/appLogo/appLogo50x50.png",
+                    "assets/images/albumCover/albumCover500x500.jpg",
                     fit: BoxFit.cover, height: 320, width: 320
                   );
                 },
                 placeholder: (context, url) {
                   return Image.asset(
-                    "assets/images/appLogo/appLogo50x50.png",
+                    "assets/images/albumCover/albumCover500x500.jpg",
                     fit: BoxFit.cover, height: 320, width: 320
                   );
                 },
@@ -111,13 +111,13 @@ class ViewAllAlbumsView extends StatelessWidget {
                     height: 40, width: 40,
                     errorWidget: (context, url, error) {
                       return Image.asset(
-                        "assets/images/appLogo/appLogo50x50.png",
+                        "assets/images/albumCover/albumCover50x50.jpg",
                         fit: BoxFit.cover, height: 40, width: 40,
                       );
                     },
                     placeholder: (context, url) {
                       return Image.asset(
-                        "assets/images/appLogo/appLogo50x50.png",
+                        "assets/images/albumCover/albumCover50x50.jpg",
                         fit: BoxFit.cover, height: 40, width: 40,
                       );
                     },

@@ -77,10 +77,10 @@ class AlbumDetailsView extends StatelessWidget {
               imageUrl: album.image!.highQuality, fit: BoxFit.fill,
               width: double.maxFinite, height: 380,
               placeholder: (context, url) {
-                return Image.asset("assets/images/appLogo/appLogo150x150.png", fit: BoxFit.fill);
+                return Image.asset("assets/images/albumCover/albumCover500x500.jpg", fit: BoxFit.fill);
               },
               errorWidget: (context, url, error) {
-                return Image.asset("assets/images/appLogo/appLogo150x150.png", fit: BoxFit.fill);
+                return Image.asset("assets/images/albumCover/albumCover500x500.jpg", fit: BoxFit.fill);
               },
             ),
             Container(
