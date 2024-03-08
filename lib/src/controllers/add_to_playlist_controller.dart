@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/database/my_playlists_database.dart';
-import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/utils/contants/enums.dart';
 
 class AddToPlaylistController extends GetxController {
   final Song song;
@@ -16,9 +16,6 @@ class AddToPlaylistController extends GetxController {
   SettingsController settings = Get.find<SettingsController>();
   final playlists = <MyPlaylist>[].obs;
   final isSongPresent = <bool>[].obs;
-  final dateCreated = <String>[].obs;
-  final coverImages = <ImageUrl>[].obs;
-
   final playlistCount = (2).obs;
 
   @override
@@ -59,5 +56,34 @@ class AddToPlaylistController extends GetxController {
 
   void deleteSong(String playlistName) async {
     await db.deleteSong(playlistName, song).then((value) => initMethods());
+  }
+
+  void sort(SortType sortType, Sort sortBy) {
+    final initialPlaylistIds = List<String>.from(playlists.map((playlist) => playlist.id));
+    if(sortType == SortType.name) {
+      if(sortBy == Sort.asc) {
+        playlists.sort((a, b) => a.name.compareTo(b.name));
+      } else{
+        playlists.sort((a, b) => b.name.compareTo(a.name));
+      }
+    } else if(sortType == SortType.songCount) {
+      if(sortBy == Sort.asc) {
+        playlists.sort((a, b) => int.parse(a.songCount).compareTo(int.parse(b.songCount)));
+      } else{
+        playlists.sort((a, b) => int.parse(b.songCount).compareTo(int.parse(a.songCount)));
+      }
+    } else {
+      if(sortBy == Sort.asc) {
+        playlists.sort((a, b) => a.dateCreated.compareTo(b.dateCreated));
+      } else{
+        playlists.sort((a, b) => b.dateCreated.compareTo(a.dateCreated));
+      }
+    }
+    final newPlaylistIds = List<String>.from(playlists.map((playlist) => playlist.id));
+    final sortedIsSongPresent = List<bool>.generate(
+      playlists.length, (index) => isSongPresent[initialPlaylistIds.indexOf(newPlaylistIds[index])]
+    );
+    isSongPresent.assignAll(sortedIsSongPresent);
+    update();
   }
 }

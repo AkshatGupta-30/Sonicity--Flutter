@@ -4,11 +4,14 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
+import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/add_to_playlist_controller.dart';
 import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
+import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class AddToPlaylistDialog extends StatelessWidget {
@@ -54,19 +57,38 @@ class AddToPlaylistDialog extends StatelessWidget {
             ),
           ),
         ),
-        Tooltip(
-          message: "Sort Playlist",
-          child: CircleAvatar(
-            radius: 22, backgroundColor: Colors.transparent,
-            child: InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(50),
-              child: Padding(
-                padding: EdgeInsets.all(5),
-                child: Iconify(MaterialSymbols.sort_rounded, size: 30,),
+        PopupMenuButton(
+          itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                onTap: () => controller.sort(SortType.name, Sort.asc),
+                child: PopUpButtonRow(icon: Mdi.sort_alphabetical_ascending, label: "Name Asc")
               ),
-            ),
-          ),
+              PopupMenuItem(
+                onTap: () => controller.sort(SortType.name, Sort.dsc),
+                child: PopUpButtonRow(icon: Mdi.sort_alphabetical_descending, label: "Name Desc")
+              ),
+              PopupMenuItem(
+                onTap: () => controller.sort(SortType.songCount, Sort.asc),
+                child: PopUpButtonRow(icon: Mdi.sort_numeric_ascending, label: "Song Count Asc")
+              ),
+              PopupMenuItem(
+                onTap: () => controller.sort(SortType.songCount, Sort.dsc),
+                child: PopUpButtonRow(icon: Mdi.sort_numeric_descending, label: "Song Count Desc")
+              ),
+              PopupMenuItem(
+                onTap: () => controller.sort(SortType.date, Sort.asc),
+                child: PopUpButtonRow(icon: Mdi.sort_calendar_ascending, label: "Date Created Asc")
+              ),
+              PopupMenuItem(
+                onTap: () => controller.sort(SortType.date, Sort.dsc),
+                child: PopUpButtonRow(icon: Mdi.sort_calendar_descending, label: "Date Created Desc")
+              ),
+            ];
+          },
+          icon: Iconify(MaterialSymbols.sort_rounded, color: Theme.of(context).appBarTheme.actionsIconTheme!.color),
+          position: PopupMenuPosition.under, color: Colors.grey.shade900,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
         Gap(10)
       ],
@@ -129,9 +151,8 @@ class AddToPlaylistDialog extends StatelessWidget {
   Obx _body(ThemeData theme, AddToPlaylistController controller) {
     return Obx(() {
       if(controller.playlistCount.value == -1) return Lottie.asset("assets/lottie/gramophone2.json", animate: true, height: 40);
-      if(controller.playlistCount.value != 0 && controller.playlists.isEmpty 
-        && controller.isSongPresent.isEmpty && controller.dateCreated.isEmpty && controller.coverImages.isEmpty
-      ) return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 40);
+      if(controller.playlistCount.value != 0 && controller.playlists.isEmpty && controller.isSongPresent.isEmpty)
+        return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 40);
       return ListView.builder(
         padding: EdgeInsets.all(12),
         itemCount: controller.playlists.length,
