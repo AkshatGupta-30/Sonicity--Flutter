@@ -1,5 +1,5 @@
 enum Sort {asc, dsc}
-enum SortType {name, year, songCount, duration, description}
+enum SortType {name, year, songCount, duration, description, date}
 
 enum Routes {
   navigation, home, library, queue,

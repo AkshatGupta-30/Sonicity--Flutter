@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/database/my_playlists_database.dart';
 import 'package:sonicity/src/models/image_url.dart';
-import 'package:sonicity/src/models/playlist.dart';
+import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 
 class AddToPlaylistController extends GetxController {
@@ -14,12 +14,12 @@ class AddToPlaylistController extends GetxController {
   final db = GetIt.instance<MyPlaylistsDatabase>();
   final textController = TextEditingController();
   SettingsController settings = Get.find<SettingsController>();
-  final playlists = <Playlist>[].obs;
+  final playlists = <MyPlaylist>[].obs;
   final isSongPresent = <bool>[].obs;
   final dateCreated = <String>[].obs;
   final coverImages = <ImageUrl>[].obs;
 
-  final playlistCount = (-1).obs;
+  final playlistCount = (2).obs;
 
   @override
   void onInit() {
@@ -27,30 +27,23 @@ class AddToPlaylistController extends GetxController {
     initMethods();
   }
 
-  void initMethods() {
-    getPlaylistCount();
-    checkSongPresent();
-    getPlaylists();
+  Future<void> initMethods() async {
+    await getPlaylistCount();
+    await checkSongPresent();
+    await getPlaylists();
   }
 
-  void getPlaylists() async {
-    List<Playlist> p =[];
-    List<String> d = [];
-    List<ImageUrl> c = [];
-    (p, d, c) = await db.playlists;
-
-    playlists.value = p;
-    dateCreated.value = d;
-    coverImages.value = c;
+  Future<void> getPlaylists() async {
+    playlists.value = await db.playlists;
     update();
   }
   
-  void getPlaylistCount() async {
+  Future<void> getPlaylistCount() async {
     playlistCount.value= await db.count();
     update();
   }
   
-  void checkSongPresent() async {
+  Future<void> checkSongPresent() async {
     isSongPresent.value = await db.isSongPresent(song);
     update();
   }

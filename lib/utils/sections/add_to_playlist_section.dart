@@ -6,8 +6,7 @@ import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/add_to_playlist_controller.dart';
-import 'package:sonicity/src/models/image_url.dart';
-import 'package:sonicity/src/models/playlist.dart';
+import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
@@ -25,7 +24,7 @@ class AddToPlaylistDialog extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.transparent,
           appBar: _header(context, theme, controller: controller),
-          body: BackgroundGradientDecorator(child: _body(controller)),
+          body: BackgroundGradientDecorator(child: _body(theme, controller)),
           bottomSheet: _footer(context, controller, theme),
         );
       }
@@ -127,35 +126,36 @@ class AddToPlaylistDialog extends StatelessWidget {
     );
   }
 
-  Obx _body(AddToPlaylistController controller) {
+  Obx _body(ThemeData theme, AddToPlaylistController controller) {
     return Obx(() {
       if(controller.playlistCount.value == -1) return Lottie.asset("assets/lottie/gramophone2.json", animate: true, height: 40);
-      if(controller.playlistCount.value != 0 && controller.playlists.isEmpty
-        && controller.isSongPresent.isEmpty && controller.dateCreated.isEmpty
-      ) return Lottie.asset("assets/lottie/gramophone2.json", animate: true, height: 40);
-
+      if(controller.playlistCount.value != 0 && controller.playlists.isEmpty 
+        && controller.isSongPresent.isEmpty && controller.dateCreated.isEmpty && controller.coverImages.isEmpty
+      ) return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 40);
       return ListView.builder(
         padding: EdgeInsets.all(12),
         itemCount: controller.playlists.length,
         itemBuilder: (context, index) {
-          Playlist playlist = controller.playlists[index];
+          MyPlaylist playlist = controller.playlists[index];
           bool checkBoxValue = controller.isSongPresent[index];
-          DateTime dateCreated = DateTime.parse(controller.dateCreated[index]);
-          String formattedDate = "${dateCreated.day.toString().padLeft(2, '0')}-${dateCreated.month.toString().padLeft(2, '0')}-${dateCreated.year}";
-          ImageUrl image = controller.coverImages[index];
           return ListTile(
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: (image.lowQuality == 'assets/images/myPlaylistCover/myPlaylistCover50x50.jpg')
-                ? Image.asset(image.medQuality, width: 50, height: 50, fit: BoxFit.fill,)
+              child: (playlist.image.lowQuality == 'assets/images/myPlaylistCover/myPlaylistCover50x50.jpg')
+                ? Image.asset(playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,)
                 : CachedNetworkImage(
-                  imageUrl: image.medQuality, width: 50, height: 50, fit: BoxFit.fill,
-                  placeholder: (context, url) => Image.asset(image.medQuality, width: 50, height: 50, fit: BoxFit.fill,),
-                  errorWidget: (context, url, error) => Image.asset(image.medQuality, width: 50, height: 50, fit: BoxFit.fill,),
+                  imageUrl: playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,
+                  placeholder: (context, url) => Image.asset(playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,),
+                  errorWidget: (context, url, error) => Image.asset(playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,),
                 ),
             ),
-            title: Text(playlist.name),
-            subtitle: Text("${playlist.songCount} Songs ◈ $formattedDate"),
+            title: Text.rich(
+              TextSpan(children: [
+                TextSpan(text: playlist.name, style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w400)),
+                TextSpan(text: " ${playlist.songCount} Songs", style: theme.textTheme.labelSmall)
+              ])
+            ),
+            subtitle: Text("${playlist.dateCreated.day.toString().padLeft(2, '0')}-${playlist.dateCreated.month.toString().padLeft(2, '0')}-${playlist.dateCreated.year}"),
             trailing: Checkbox(
               value: checkBoxValue,
               onChanged: (value) => (value!)

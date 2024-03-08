@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/src/models/image_url.dart';
+import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sqflite/sqflite.dart';
@@ -121,28 +122,14 @@ class MyPlaylistsDatabase {
     await db.delete(playlistName.replaceAll(' ', '_'));
   }
 
-  Future<(List<Playlist>, List<String>, List<ImageUrl>)> get playlists async {
+  Future<List<MyPlaylist>> get playlists async {
     Database db = await _instance.database;
-    List<Playlist> playlists = []; List<String> dateCreated = []; List<ImageUrl> coverImages = [];
+    List<MyPlaylist> playlists = [];
     List<Map<String,dynamic>> playlistResult = await db.query(tbPlaylistDetails);
     for (var map in playlistResult) {
-      playlists.add(Playlist(
-        id: map[colPlaylistId].toString(),
-        name: map[colName],
-        songCount: map[colSongCount].toString(),
-        language: map[colLanguage],
-        image: ImageUrl.empty()
-      ));
-      dateCreated.add(map[colDateCreated]);
-      List<String> imageList = map[colImages].toString().split(specCharQuality);
-      List<Map<String, dynamic>> forImageUrlJson = [
-        {'quality' : '50x50', 'link' : imageList[0]},
-        {'quality' : '150x150', 'link' : imageList[1]},
-        {'quality' : '500x500', 'link' : imageList[2]},
-      ];
-      coverImages.add(ImageUrl.fromJson(forImageUrlJson));
+      playlists.add(MyPlaylist.fromDb(map));
     }
-    return (playlists, dateCreated, coverImages);
+    return playlists;
   }
 
   Future<List<Song>> getSongs(String playlistName) async {
@@ -259,13 +246,17 @@ class MyPlaylistsDatabase {
 
   Future<List<bool>> isSongPresent(Song song) async {
     final db = await _instance.database;
-    List<bool> songTrue = [];
-    List<Map<String,dynamic>> songIds = await db.query(tbPlaylistDetails, columns: [colSongIds]);
-    for (int i=0; i<songIds.length; i++) {
-      bool isPresent = (songIds[i][colSongIds] == song.id);
-      songTrue.add(isPresent);
+    List<bool> isSongPresent = [];
+    List<Map<String,dynamic>> queryRes = await db.query(tbPlaylistDetails, columns: [colSongIds]);
+    if(queryRes.isEmpty) return [];
+    for(var songId in queryRes) {
+      if(songId[colSongIds].toString().contains(song.id)) {
+        isSongPresent.add(true);
+      } else {
+        isSongPresent.add(false);
+      }
     }
-    return songTrue;
+    return isSongPresent;
   }
 
   Future<int> count() async {
