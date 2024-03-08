@@ -25,9 +25,9 @@ class AddToPlaylistDialog extends StatelessWidget {
       init: AddToPlaylistController(song),
       builder: (controller) {
         return Scaffold(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.black,
           appBar: _header(context, theme, controller: controller),
-          body: BackgroundGradientDecorator(child: _body(theme, controller)),
+          body: BackgroundGradientDecorator(child: _body(theme, controller),),
           bottomSheet: _footer(context, controller, theme),
         );
       }
@@ -37,7 +37,6 @@ class AddToPlaylistDialog extends StatelessWidget {
   AppBar _header(BuildContext context, ThemeData theme, {required AddToPlaylistController controller,}) {
     return AppBar(
       toolbarHeight: kToolbarHeight * 1.25,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       leading: SizedBox(), leadingWidth: 0,
       centerTitle: false,
       title: Text("Add to Playlist",),
@@ -194,7 +193,7 @@ class AddToPlaylistDialog extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.pop(context),
       child: Container(
-        height: 40, width: 75, alignment: Alignment.center,
+        height: 40, width: double.maxFinite, alignment: Alignment.center,
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         decoration: BoxDecoration(

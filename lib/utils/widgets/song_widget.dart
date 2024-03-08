@@ -203,14 +203,11 @@ class SongPopUpMenu extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     showDialog(context: context, builder: (context) {
       return Dialog(
-        elevation: 10, shadowColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
+        elevation: 5, shadowColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Container(
+        child: SizedBox(
           height: 600,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: AddToPlaylistDialog(song),
+          child: ClipRRect(borderRadius: BorderRadius.circular(20), child: AddToPlaylistDialog(song)),
         ),
       );
     });
