@@ -12,11 +12,20 @@ class AddToPlaylistController extends GetxController {
   AddToPlaylistController(this.song);
 
   final db = GetIt.instance<MyPlaylistsDatabase>();
-  final textController = TextEditingController();
   SettingsController settings = Get.find<SettingsController>();
   final playlists = <MyPlaylist>[].obs;
   final isSongPresent = <bool>[].obs;
   final playlistCount = (2).obs;
+
+  final searching = false.obs;
+  final searchResults = <MyPlaylist>[].obs;
+  final searchIsSongPresent = <bool>[].obs;
+  final searchPlaylistController = TextEditingController();
+  FocusNode searchPlaylistFocus = FocusNode();
+
+  final newPlaylistTextController = TextEditingController();
+  FocusNode newPlaylistFocus = FocusNode();
+  final newPlaylistTfActive = false.obs;
 
   @override
   void onInit() {
@@ -30,33 +39,20 @@ class AddToPlaylistController extends GetxController {
     await getPlaylists();
   }
 
-  Future<void> getPlaylists() async {
-    playlists.value = await db.playlists;
-    update();
-  }
+  Future<void> getPlaylists() async => playlists.value = await db.playlists;
   
-  Future<void> getPlaylistCount() async {
-    playlistCount.value= await db.count();
-    update();
-  }
+  Future<void> getPlaylistCount() async => playlistCount.value= await db.count();
   
-  Future<void> checkSongPresent() async {
-    isSongPresent.value = await db.isSongPresent(song);
-    update();
-  }
+  Future<void> checkSongPresent() async => isSongPresent.value = await db.isSongPresent(song);
 
   void createPlaylist() async {
-    if(textController.text.isEmpty) return;
-    await db.createPlaylist(textController.text).then((value) => initMethods());
+    if(newPlaylistTextController.text.isEmpty) return;
+    await db.createPlaylist(newPlaylistTextController.text).then((value) => initMethods());
   }
 
-  void insertSong(String playlistName) async {
-    await db.insertSong(playlistName, song).then((value) => initMethods());
-  }
+  void insertSong(String playlistName) async => await db.insertSong(playlistName, song).then((value) => initMethods());
 
-  void deleteSong(String playlistName) async {
-    await db.deleteSong(playlistName, song).then((value) => initMethods());
-  }
+  void deleteSong(String playlistName) async => await db.deleteSong(playlistName, song).then((value) => initMethods());
 
   void sort(SortType sortType, Sort sortBy) {
     final initialPlaylistIds = List<String>.from(playlists.map((playlist) => playlist.id));
@@ -85,5 +81,27 @@ class AddToPlaylistController extends GetxController {
     );
     isSongPresent.assignAll(sortedIsSongPresent);
     update();
+  }
+
+  void filterSearchedPlaylists() {
+    String query = searchPlaylistController.text;
+    if (query.isEmpty) {
+      searchResults.assignAll([]);
+      searchIsSongPresent.assignAll([]);
+      searching.value = false;
+      return;
+    }
+
+    searching.value = true;
+    final filteredPlaylists = <MyPlaylist>[];
+    final filteredIsSongPresent = <bool>[];
+    for (int i = 0; i < playlists.length; i++) {
+      if (playlists[i].name.toLowerCase().contains(query.toLowerCase())) {
+        filteredPlaylists.add(playlists[i]);
+        filteredIsSongPresent.add(isSongPresent[i]);
+      }
+    }
+    searchResults.assignAll(filteredPlaylists);
+    searchIsSongPresent.assignAll(filteredIsSongPresent);
   }
 }

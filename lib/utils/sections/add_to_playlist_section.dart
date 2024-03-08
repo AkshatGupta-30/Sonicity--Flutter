@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
+import 'package:iconify_flutter_plus/icons/ri.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/add_to_playlist_controller.dart';
 import 'package:sonicity/src/models/my_playlist.dart';
@@ -92,8 +93,32 @@ class AddToPlaylistDialog extends StatelessWidget {
         Gap(10)
       ],
       bottom: PreferredSize(
-        preferredSize: Size(double.maxFinite, 20),
-        child: Text("TODO Search Playlist", style: TextStyle(color: Colors.red),)
+        preferredSize: Size(double.maxFinite, kToolbarHeight),
+        child: Padding(
+          padding: EdgeInsets.only(left: 8, right: 8, bottom: 2),
+          child: TextField(
+            controller: controller.searchPlaylistController,
+            focusNode: controller.searchPlaylistFocus,
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(borderSide: BorderSide(color: controller.settings.getAccent, width: 3)),
+              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 3)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: controller.settings.getAccent, width: 1)),
+              hintText: "\tSearch Playlist",
+              hintStyle: theme.textTheme.titleSmall,
+              prefixIcon: Iconify(
+                Ri.search_line,
+                color: (theme.brightness == Brightness.light) ? Colors.grey.shade600 : Colors.grey.shade400,
+              ),
+              prefixIconConstraints: BoxConstraints.loose(Size(40,30)),
+              suffixIcon: CloseButton(onPressed: () {
+                controller.searchPlaylistController.text = '';
+                controller.filterSearchedPlaylists();
+              },)
+            ),
+            onChanged: (query) => controller.filterSearchedPlaylists(),
+            onTapOutside: (event) => controller.searchPlaylistFocus.unfocus(),
+          ),
+        )
       ),
     );
   }
@@ -101,48 +126,59 @@ class AddToPlaylistDialog extends StatelessWidget {
   Future<dynamic> _newPlaylistDialog(BuildContext context, ThemeData theme, {required AddToPlaylistController controller,}) {
     return showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        backgroundColor: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
-        title: Text("New Playlist"),
-        titleTextStyle: theme.textTheme.labelLarge,
-        content: TextField(
-          controller: controller.textController,
-          cursorColor: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
-          style: TextStyle(color: (theme.brightness == Brightness.light) ?Colors.black : Colors.white,),
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1),),
-            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 3),),
-            hintText: "Playlist Name"
-          ),
-        ),
-        actions: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(12)
-              ),
-              child: Text("Cancel", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
+      barrierDismissible: true,
+      useRootNavigator: true,
+      builder: (ctx) => GestureDetector(
+        onTap: () => controller.searchPlaylistFocus.unfocus(),
+        child: AlertDialog(
+          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          backgroundColor: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+          title: Text("New Playlist"),
+          titleTextStyle: theme.textTheme.labelLarge,
+          content: TextField(
+            controller: controller.newPlaylistTextController,
+            cursorColor: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+            style: TextStyle(color: (theme.brightness == Brightness.light) ?Colors.black : Colors.white,),
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1),),
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 3),),
+              hintText: "Playlist Name"
             ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-              controller.createPlaylist();
+            onTap: () => controller.newPlaylistTfActive.value = true,
+            focusNode: controller.searchPlaylistFocus,
+            onTapOutside: (event) {
+              controller.searchPlaylistFocus.unfocus();
+              controller.newPlaylistTfActive.value = false;
             },
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: controller.settings.getAccent,
-                borderRadius: BorderRadius.circular(12)
+          ),
+          actions: [
+            GestureDetector(
+              onTap: () => Navigator.pop(ctx),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(12)
+                ),
+                child: Text("Cancel", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
               ),
-              child: Text("Create", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
             ),
-          )
-        ]
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(ctx);
+                controller.createPlaylist();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: controller.settings.getAccent,
+                  borderRadius: BorderRadius.circular(12)
+                ),
+                child: Text("Create", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
+              ),
+            )
+          ]
+        ),
       ),
     );
   }
@@ -154,10 +190,14 @@ class AddToPlaylistDialog extends StatelessWidget {
         return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 40);
       return ListView.builder(
         padding: EdgeInsets.all(12),
-        itemCount: controller.playlists.length,
+        itemCount: (controller.searching.value) ? controller.searchResults.length : controller.playlists.length,
         itemBuilder: (context, index) {
-          MyPlaylist playlist = controller.playlists[index];
-          bool checkBoxValue = controller.isSongPresent[index];
+          MyPlaylist playlist = (controller.searching.value)
+            ? controller.searchResults[index]
+            : controller.playlists[index];
+          bool checkBoxValue = (controller.searching.value)
+            ? controller.searchIsSongPresent[index]
+            : controller.isSongPresent[index];
           return ListTile(
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(8),
@@ -165,8 +205,8 @@ class AddToPlaylistDialog extends StatelessWidget {
                 ? Image.asset(playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,)
                 : CachedNetworkImage(
                   imageUrl: playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,
-                  placeholder: (context, url) => Image.asset(playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,),
-                  errorWidget: (context, url, error) => Image.asset(playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,),
+                  placeholder: (_, __) => Image.asset(playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,),
+                  errorWidget: (_, __, ___) => Image.asset(playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,),
                 ),
             ),
             title: Text.rich(
