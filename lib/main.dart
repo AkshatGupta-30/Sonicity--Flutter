@@ -39,17 +39,24 @@ Future<void> main() async {
 }
 
 Future<void> _downloadAllDatabase() async {
-    try {
-      Directory app = await getApplicationDocumentsDirectory();
-      String path = "${app.path}/my_playlists.db";
-      String databasePath = path;
-      String databaseFile = '/storage/emulated/0/Databases/my_playlists.db';
-      await File(databasePath).copy(databaseFile);
-      ('Database downloaded to: $databaseFile').printInfo();
-    } catch (e) {
-      ('Error downloading database: $e').printError();
-    }
+  try {
+    Directory app = await getApplicationDocumentsDirectory();
+    String path = "${app.path}my_playlists.db";
+    String databaseFile = '/storage/emulated/0/Databases/my_playlists.db';
+
+    Directory destDir = Directory('/storage/emulated/0/Databases/');
+    if (!await destDir.exists()) await destDir.create(recursive: true);
+
+    File existingFile = File(databaseFile);
+    if (await existingFile.exists()) await existingFile.delete();
+    await File(path).copy(databaseFile);
+
+    await File(path).copy(databaseFile);
+    'Database downloaded to: $databaseFile'.printInfo();
+  } catch (e) {
+    'Error downloading database: $e'.printError();
   }
+}
 
 class MainApp extends StatelessWidget {
   MainApp({super.key});
