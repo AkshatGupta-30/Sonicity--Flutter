@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/add_to_playlist_controller.dart';
+import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -128,8 +130,10 @@ class AddToPlaylistDialog extends StatelessWidget {
   Obx _body(AddToPlaylistController controller) {
     return Obx(() {
       if(controller.playlistCount.value == -1) return Lottie.asset("assets/lottie/gramophone2.json", animate: true, height: 40);
-      if(controller.playlistCount.value != 0 && controller.playlists.isEmpty)
-        return Lottie.asset("assets/lottie/gramophone2.json", animate: true, height: 40);
+      if(controller.playlistCount.value != 0 && controller.playlists.isEmpty
+        && controller.isSongPresent.isEmpty && controller.dateCreated.isEmpty
+      ) return Lottie.asset("assets/lottie/gramophone2.json", animate: true, height: 40);
+
       return ListView.builder(
         padding: EdgeInsets.all(12),
         itemCount: controller.playlists.length,
@@ -138,7 +142,18 @@ class AddToPlaylistDialog extends StatelessWidget {
           bool checkBoxValue = controller.isSongPresent[index];
           DateTime dateCreated = DateTime.parse(controller.dateCreated[index]);
           String formattedDate = "${dateCreated.day.toString().padLeft(2, '0')}-${dateCreated.month.toString().padLeft(2, '0')}-${dateCreated.year}";
+          ImageUrl image = controller.coverImages[index];
           return ListTile(
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: (image.lowQuality == 'assets/images/myPlaylistCover/myPlaylistCover50x50.jpg')
+                ? Image.asset(image.medQuality, width: 50, height: 50, fit: BoxFit.fill,)
+                : CachedNetworkImage(
+                  imageUrl: image.medQuality, width: 50, height: 50, fit: BoxFit.fill,
+                  placeholder: (context, url) => Image.asset(image.medQuality, width: 50, height: 50, fit: BoxFit.fill,),
+                  errorWidget: (context, url, error) => Image.asset(image.medQuality, width: 50, height: 50, fit: BoxFit.fill,),
+                ),
+            ),
             title: Text(playlist.name),
             subtitle: Text("${playlist.songCount} Songs ◈ $formattedDate"),
             trailing: Checkbox(

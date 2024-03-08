@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/database/my_playlists_database.dart';
+import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 
@@ -14,8 +15,9 @@ class AddToPlaylistController extends GetxController {
   final textController = TextEditingController();
   SettingsController settings = Get.find<SettingsController>();
   final playlists = <Playlist>[].obs;
-  final dateCreated = <String>[].obs;
   final isSongPresent = <bool>[].obs;
+  final dateCreated = <String>[].obs;
+  final coverImages = <ImageUrl>[].obs;
 
   final playlistCount = (-1).obs;
 
@@ -26,18 +28,20 @@ class AddToPlaylistController extends GetxController {
   }
 
   void initMethods() {
-    getPlaylists();
     getPlaylistCount();
     checkSongPresent();
+    getPlaylists();
   }
 
   void getPlaylists() async {
     List<Playlist> p =[];
     List<String> d = [];
-    (p, d) = await db.playlists;
+    List<ImageUrl> c = [];
+    (p, d, c) = await db.playlists;
 
     playlists.value = p;
     dateCreated.value = d;
+    coverImages.value = c;
     update();
   }
   
