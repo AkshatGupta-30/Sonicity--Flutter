@@ -6,7 +6,7 @@ import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:iconify_flutter_plus/icons/ri.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sonicity/src/controllers/add_to_playlist_controller.dart';
+import 'package:sonicity/src/controllers/my_playlist_controller.dart';
 import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/enums.dart';
@@ -38,7 +38,7 @@ class AddToPlaylistDialog extends StatelessWidget {
               SizedBox(
                 height: 590,
                 child: GetBuilder(
-                  init: AddToPlaylistController(song),
+                  init: MyPlaylistController(song),
                   builder: (controller) {
                     return Scaffold(
                       resizeToAvoidBottomInset: true,
@@ -57,7 +57,7 @@ class AddToPlaylistDialog extends StatelessWidget {
     );
   }
 
-  AppBar _header(BuildContext context, ThemeData theme, {required AddToPlaylistController controller,}) {
+  AppBar _header(BuildContext context, ThemeData theme, {required MyPlaylistController controller,}) {
     return AppBar(
       toolbarHeight: kToolbarHeight * 1.25, backgroundColor: Colors.transparent, shadowColor: Colors.transparent,
       leading: SizedBox(), leadingWidth: 0,
@@ -145,7 +145,7 @@ class AddToPlaylistDialog extends StatelessWidget {
     );
   }
 
-  Future<dynamic> _newPlaylistDialog(BuildContext context, ThemeData theme, {required AddToPlaylistController controller,}) {
+  Future<dynamic> _newPlaylistDialog(BuildContext context, ThemeData theme, {required MyPlaylistController controller,}) {
     return showDialog(
       context: context,
       barrierDismissible: true,
@@ -205,7 +205,7 @@ class AddToPlaylistDialog extends StatelessWidget {
     );
   }
 
-  Obx _body(ThemeData theme, AddToPlaylistController controller) {
+  Obx _body(ThemeData theme, MyPlaylistController controller) {
     return Obx(() {
       if(controller.playlistCount.value == -1) return Lottie.asset("assets/lottie/gramophone2.json", animate: true, height: 40);
       if(controller.playlistCount.value != 0 && controller.playlists.isEmpty && controller.isSongPresent.isEmpty)
@@ -226,7 +226,7 @@ class AddToPlaylistDialog extends StatelessWidget {
     });
   }
 
-  _footer(BuildContext context, AddToPlaylistController controller, ThemeData theme) {
+  _footer(BuildContext context, MyPlaylistController controller, ThemeData theme) {
     return GestureDetector(
       onTap: () => Navigator.pop(context),
       child: Container(

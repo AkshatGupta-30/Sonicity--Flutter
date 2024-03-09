@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/my_playlist_controller.dart';
 import 'package:sonicity/src/models/my_playlist.dart';
+import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/widgets/my_playlist_tile.dart';
 
@@ -13,7 +14,7 @@ class MyPlaylistsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: MyPlaylistController(),
+      init: MyPlaylistController(Song.empty()),
       builder: (controller) {
         if(controller.playlists.isEmpty) return SizedBox();
         return Obx(() => Column(

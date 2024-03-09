@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:sonicity/src/controllers/add_to_playlist_controller.dart';
+import 'package:sonicity/src/controllers/my_playlist_controller.dart';
 import 'package:sonicity/src/models/my_playlist.dart';
+import 'package:super_string/super_string.dart';
 
 class MyPlaylistAddSongTile extends StatelessWidget{
   final MyPlaylist playlist;
   final bool checkBoxValue;
-  final AddToPlaylistController controller;
+  final MyPlaylistController controller;
 
   const MyPlaylistAddSongTile({super.key, required this.playlist, required this.checkBoxValue, required this.controller});
 
@@ -19,7 +20,7 @@ class MyPlaylistAddSongTile extends StatelessWidget{
         width: 50, height: 50,
         child: ClipRRect(borderRadius: BorderRadius.circular(8), child: MyPlaylistLeadingCover(playlist: playlist, size: 50))
       ),
-      title: Text(playlist.name, style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w400)),
+      title: Text(playlist.name.title(), style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w400)),
       subtitle: Text("${playlist.songCount} Songs"),
       trailing: Checkbox(
         value: checkBoxValue,
@@ -53,7 +54,7 @@ class MyPlaylistCell extends StatelessWidget {
           ),
           Gap(2),
           Text(
-            playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
+            playlist.name.title(), maxLines: 1, overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 13),
           ),
           Text(
