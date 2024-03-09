@@ -22,22 +22,44 @@ class AddToPlaylistDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    return GetBuilder(
-      init: AddToPlaylistController(song),
-      builder: (controller) {
-        return Scaffold(
-          backgroundColor: Colors.black,
-          appBar: _header(context, theme, controller: controller),
-          body: BackgroundGradientDecorator(child: _body(theme, controller),),
-          bottomSheet: _footer(context, controller, theme),
-        );
-      }
+    return Container(
+      decoration: BoxDecoration(
+        color: (theme.brightness == Brightness.light) ? Colors.white : Colors.black,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white, width: 2),
+      ),
+      child: BackgroundGradientDecorator(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Column(
+            children: [
+              Spacer(),
+              Divider(height: 2, thickness: 2,),
+              SizedBox(
+                height: 590,
+                child: GetBuilder(
+                  init: AddToPlaylistController(song),
+                  builder: (controller) {
+                    return Scaffold(
+                      resizeToAvoidBottomInset: true,
+                      backgroundColor: Colors.transparent,
+                      appBar: _header(context, theme, controller: controller),
+                      body: _body(theme, controller),
+                      bottomSheet: _footer(context, controller, theme),
+                    );
+                  }
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
   AppBar _header(BuildContext context, ThemeData theme, {required AddToPlaylistController controller,}) {
     return AppBar(
-      toolbarHeight: kToolbarHeight * 1.25,
+      toolbarHeight: kToolbarHeight * 1.25, backgroundColor: Colors.transparent, shadowColor: Colors.transparent,
       leading: SizedBox(), leadingWidth: 0,
       centerTitle: false,
       title: Text("Add to Playlist",),
