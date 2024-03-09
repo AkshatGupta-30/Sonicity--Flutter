@@ -1,40 +1,19 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/bx.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
-import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/pepicons.dart';
 import 'package:iconify_flutter_plus/icons/raphael.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:iconify_flutter_plus/icons/wpf.dart';
 import 'package:sonicity/src/views/library/all_playlists_view.dart';
 import 'package:sonicity/src/views/library/recents_view.dart';
-import 'package:sonicity/src/views/library/storage_view.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
-class LibraryView extends StatefulWidget {
+class LibraryView extends StatelessWidget {
   LibraryView({super.key});
-
-  @override
-  State<LibraryView> createState() => _LibraryViewState();
-}
-
-class _LibraryViewState extends State<LibraryView> {
-  @override
-  void initState() {
-    initAsync();
-    super.initState();
-  }
-
-  void initAsync() async {
-    if(!await Directory("storage/emulated/0/Music").exists()) {
-      await Directory("storage/emulated/0/Music").create();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +38,6 @@ class _LibraryViewState extends State<LibraryView> {
               onPressed: () {},
               icon: Uis.favorite,
               title: "Starred",
-            ),
-            Tile(// * : My Storage
-              onPressed: () => Get.to(() => StorageView()),
-              icon: MaterialSymbols.home_storage_rounded,
-              title: "My Storage",
             ),
             Tile(// * : Playlists
               onPressed: () => Get.to(() => AllPlaylistsView()),
