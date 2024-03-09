@@ -6,15 +6,20 @@ import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:super_string/super_string.dart';
 
 class MyPlaylistAddSongTile extends StatelessWidget{
-  final MyPlaylist playlist;
-  final bool checkBoxValue;
+  final int index;
   final MyPlaylistController controller;
 
-  const MyPlaylistAddSongTile({super.key, required this.playlist, required this.checkBoxValue, required this.controller});
+  MyPlaylistAddSongTile({super.key, required this.index, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
+    MyPlaylist playlist = (controller.searching.value)
+      ? controller.searchResults[index]
+      : controller.playlists[index];
+    bool checkBoxValue = (controller.searching.value)
+      ? controller.searchIsSongPresent[index]
+      : controller.isSongPresent[index];
     return ListTile(
       leading: SizedBox(
         width: 50, height: 50,

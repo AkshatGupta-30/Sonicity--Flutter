@@ -220,10 +220,9 @@ class MyPlaylistsDatabase {
             whereArgs: [playlistName]
           );
         } else {
+          String imageLinks = '${song.image.lowQuality}$specCharQuality${song.image.medQuality}$specCharQuality${song.image.highQuality}';
           String existingImages = (result.isNotEmpty) ? result.first[colImages] : '';
-          List<String> imageList = existingImages.split(specCharSong);
-          imageList.removeLast();
-          String newImages = imageList.join(specCharSong);
+          String newImages = existingImages.replaceFirst("$specCharSong$imageLinks", "");
           await db.update(
             tbPlaylistDetails,
             {colImages: newImages},

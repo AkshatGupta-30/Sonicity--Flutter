@@ -7,7 +7,6 @@ import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:iconify_flutter_plus/icons/ri.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/my_playlist_controller.dart';
-import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -38,6 +37,7 @@ class AddToPlaylistDialog extends StatelessWidget {
               SizedBox(
                 height: 590,
                 child: GetBuilder(
+                  global: false,
                   init: MyPlaylistController(song),
                   builder: (controller) {
                     return Scaffold(
@@ -214,13 +214,7 @@ class AddToPlaylistDialog extends StatelessWidget {
         padding: EdgeInsets.all(12),
         itemCount: (controller.searching.value) ? controller.searchResults.length : controller.playlists.length,
         itemBuilder: (context, index) {
-          MyPlaylist playlist = (controller.searching.value)
-            ? controller.searchResults[index]
-            : controller.playlists[index];
-          bool checkBoxValue = (controller.searching.value)
-            ? controller.searchIsSongPresent[index]
-            : controller.isSongPresent[index];
-          return MyPlaylistAddSongTile(playlist: playlist, checkBoxValue: checkBoxValue, controller: controller);
+          return MyPlaylistAddSongTile( index: index, controller: controller,);
         },
       );
     });

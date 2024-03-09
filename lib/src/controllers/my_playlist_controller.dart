@@ -40,16 +40,16 @@ class  MyPlaylistController extends GetxController {
     await getPlaylists();
   }
 
+  void createPlaylist() async {
+    if(newPlaylistTextController.text.isEmpty) return;
+    await db.createPlaylist(newPlaylistTextController.text).then((value) => initMethods());
+  }
+
   Future<void> getPlaylists() async => playlists.value = await db.playlists;
   
   Future<void> getPlaylistCount() async => playlistCount.value= await db.count();
   
   Future<void> checkSongPresent() async => isSongPresent.value = await db.isSongPresent(song);
-
-  void createPlaylist() async {
-    if(newPlaylistTextController.text.isEmpty) return;
-    await db.createPlaylist(newPlaylistTextController.text).then((value) => initMethods());
-  }
 
   void insertSong(String playlistName) async => await db.insertSong(playlistName, song).then((value) => initMethods());
 

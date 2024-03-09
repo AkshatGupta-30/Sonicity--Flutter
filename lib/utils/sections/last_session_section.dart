@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sonicity/src/controllers/recents_controller.dart';
@@ -24,6 +25,7 @@ class LastSessionSection extends StatelessWidget {
         int listLength = (controller.recentSongs.length > 20) ? 20 : controller.recentSongs.length;
         return Column(
           children: [
+            Gap(20),
             ViewAllSection(
               onPressed: () => Get.to(() => RecentsView()),
               title: "Last Session", buttonTitle: "View All",

@@ -14,11 +14,13 @@ class MyPlaylistsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
+      global: false,
       init: MyPlaylistController(Song.empty()),
       builder: (controller) {
         if(controller.playlists.isEmpty) return SizedBox();
         return Obx(() => Column(
           children: [
+            Gap(20),
             TitleSection(title: "My Playlists", size: 24),
             Gap(12),
             SizedBox(
