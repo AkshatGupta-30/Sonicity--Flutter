@@ -201,14 +201,7 @@ class MyPlaylistsDatabase {
     if(count < 4) {
       if(isInsert) {
         String imageLinks = '${song.image.lowQuality}$specCharQuality${song.image.medQuality}$specCharQuality${song.image.highQuality}';
-        if(count == 1) {
-          await db.update(
-            tbPlaylistDetails,
-            {colImages : imageLinks},
-            where: '$colName = ?',
-            whereArgs: [playlistName]
-          );
-        } else {
+        if(count <= 4) {
           String existingImages = (result.isNotEmpty) ? result.first[colImages] : '';
           String appendImage = "$existingImages$specCharSong$imageLinks";
           await db.update(

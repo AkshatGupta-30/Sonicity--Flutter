@@ -5,7 +5,7 @@ import 'package:sonicity/src/models/song.dart';
 class MyPlaylist {
   final String id;
   final String name;
-  final ImageUrl image;
+  final List<ImageUrl> image;
   final String songCount;
   final DateTime dateCreated;
   final List<Song> ? songs;
@@ -16,22 +16,27 @@ class MyPlaylist {
   });
 
   factory MyPlaylist.fromDb(Map<String, dynamic> data) {
-    List<String> imageList = data[MyPlaylistsDatabase.colImages].toString().split(MyPlaylistsDatabase.specCharQuality);
-    List<Map<String, dynamic>> forImageUrl = [
-      {'quality' : '50x50', 'link' : imageList[0]},
-      {'quality' : '150x150', 'link' : imageList[1]},
-      {'quality' : '500x500', 'link' : imageList[2]},
-    ];
+    List<String> songImageList = data[MyPlaylistsDatabase.colImages].toString().split(MyPlaylistsDatabase.specCharSong);
+    List<ImageUrl> imageUrls = [];
+    for(var songImage in songImageList) {
+      List<String> imageQualityList = songImage.toString().split(MyPlaylistsDatabase.specCharQuality);
+      List<Map<String, dynamic>> imageUrlMap = [
+        {'quality' : '50x50', 'link' : imageQualityList[0]},
+        {'quality' : '150x150', 'link' : imageQualityList[1]},
+        {'quality' : '500x500', 'link' : imageQualityList[2]},
+      ];
+      imageUrls.add(ImageUrl.fromJson(imageUrlMap));
+    }
     return MyPlaylist(
       id: data[MyPlaylistsDatabase.colPlaylistId].toString(),
       name: data[MyPlaylistsDatabase.colName].toString().replaceAll('_', ' '),
       songCount: data[MyPlaylistsDatabase.colSongCount].toString(),
-      image: ImageUrl.fromJson(forImageUrl),
+      image: imageUrls,
       dateCreated: DateTime.parse(data[MyPlaylistsDatabase.colDateCreated]),
     );
   }
 
   factory MyPlaylist.empty() {
-    return MyPlaylist(id: '', name: '', image: ImageUrl.empty(), dateCreated: DateTime.now(), songCount: '');
+    return MyPlaylist(id: '', name: '', image: [], dateCreated: DateTime.now(), songCount: '');
   }
 }

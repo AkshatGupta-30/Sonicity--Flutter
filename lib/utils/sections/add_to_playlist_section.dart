@@ -167,9 +167,9 @@ class AddToPlaylistDialog extends StatelessWidget {
               hintText: "Playlist Name"
             ),
             onTap: () => controller.newPlaylistTfActive.value = true,
-            focusNode: controller.searchPlaylistFocus,
+            focusNode: controller.newPlaylistFocus,
             onTapOutside: (event) {
-              controller.searchPlaylistFocus.unfocus();
+              controller.newPlaylistFocus.unfocus();
               controller.newPlaylistTfActive.value = false;
             },
           ),
@@ -221,23 +221,12 @@ class AddToPlaylistDialog extends StatelessWidget {
             ? controller.searchIsSongPresent[index]
             : controller.isSongPresent[index];
           return ListTile(
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: (playlist.image.lowQuality == 'assets/images/myPlaylistCover/myPlaylistCover50x50.jpg')
-                ? Image.asset(playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,)
-                : CachedNetworkImage(
-                  imageUrl: playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,
-                  placeholder: (_, __) => Image.asset(playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,),
-                  errorWidget: (_, __, ___) => Image.asset(playlist.image.medQuality, width: 50, height: 50, fit: BoxFit.fill,),
-                ),
+            leading: SizedBox(
+              width: 50, height: 50,
+              child: ClipRRect(borderRadius: BorderRadius.circular(8), child: _leadingCover(playlist))
             ),
-            title: Text.rich(
-              TextSpan(children: [
-                TextSpan(text: playlist.name, style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w400)),
-                TextSpan(text: " ${playlist.songCount} Songs", style: theme.textTheme.labelSmall)
-              ])
-            ),
-            subtitle: Text("${playlist.dateCreated.day.toString().padLeft(2, '0')}-${playlist.dateCreated.month.toString().padLeft(2, '0')}-${playlist.dateCreated.year}"),
+            title: Text(playlist.name, style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w400)),
+            subtitle: Text("${playlist.songCount} Songs"),
             trailing: Checkbox(
               value: checkBoxValue,
               onChanged: (value) => (value!)
@@ -249,6 +238,51 @@ class AddToPlaylistDialog extends StatelessWidget {
         },
       );
     });
+  }
+
+  Widget _leadingCover(MyPlaylist playlist) {
+    "Song Count ${playlist.songCount}".printInfo();
+    if(int.parse(playlist.songCount) == 0) return _leadingAssetImage(playlist.image[0].medQuality);
+    else return GridView.count(
+      crossAxisCount: 2,
+      children: (int.parse(playlist.songCount) == 1)
+        ? [
+            _leadingNetworkImage(playlist.image[1].medQuality, playlist.image[0].medQuality),
+            _leadingAssetImage(playlist.image[0].medQuality),
+            _leadingAssetImage(playlist.image[0].medQuality),
+            _leadingAssetImage(playlist.image[0].medQuality),
+          ]
+        : (int.parse(playlist.songCount) == 2)
+          ? [
+              _leadingNetworkImage(playlist.image[1].medQuality, playlist.image[0].medQuality),
+              _leadingNetworkImage(playlist.image[2].medQuality, playlist.image[0].medQuality),
+              _leadingAssetImage(playlist.image[0].medQuality),
+              _leadingAssetImage(playlist.image[0].medQuality)
+            ]
+          : (int.parse(playlist.songCount) == 3)
+            ? [
+                _leadingNetworkImage(playlist.image[1].medQuality, playlist.image[0].medQuality),
+                _leadingNetworkImage(playlist.image[2].medQuality, playlist.image[0].medQuality),
+                _leadingNetworkImage(playlist.image[3].medQuality, playlist.image[0].medQuality),
+                _leadingAssetImage(playlist.image[0].medQuality)
+              ]
+            : [
+                _leadingNetworkImage(playlist.image[1].medQuality, playlist.image[0].medQuality),
+                _leadingNetworkImage(playlist.image[2].medQuality, playlist.image[0].medQuality),
+                _leadingNetworkImage(playlist.image[3].medQuality, playlist.image[0].medQuality),
+                _leadingNetworkImage(playlist.image[4].medQuality, playlist.image[0].medQuality),
+              ]
+    );
+  }
+
+  Image _leadingAssetImage(String asset) => Image.asset(asset, width: 50, height: 50, fit: BoxFit.fill,);
+
+  CachedNetworkImage _leadingNetworkImage(String url, String asset) {
+    return CachedNetworkImage(
+      imageUrl: url, width: 50, height: 50, fit: BoxFit.fill,
+      placeholder: (_, __) => Image.asset(asset, width: 50, height: 50, fit: BoxFit.fill,),
+      errorWidget: (_, __, ___) => Image.asset(asset, width: 50, height: 50, fit: BoxFit.fill,),
+    );
   }
 
   _footer(BuildContext context, AddToPlaylistController controller, ThemeData theme) {

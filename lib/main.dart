@@ -48,11 +48,13 @@ Future<void> _downloadAllDatabase() async {
     if (!await destDir.exists()) await destDir.create(recursive: true);
 
     File existingFile = File(databaseFile);
-    if (await existingFile.exists()) await existingFile.delete();
-    await File(path).copy(databaseFile);
-
-    await File(path).copy(databaseFile);
-    'Database downloaded to: $databaseFile'.printInfo();
+    if (await existingFile.exists()) {
+      await existingFile.delete().then((value) async => await File(path).copy(databaseFile));
+      'Database Overridden to: $databaseFile'.printInfo();
+    } else {
+      await File(path).copy(databaseFile);
+      'Database downloaded to: $databaseFile'.printInfo();
+    }
   } catch (e) {
     'Error downloading database: $e'.printError();
   }
