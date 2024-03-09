@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -12,6 +11,7 @@ import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
+import 'package:sonicity/utils/widgets/my_playlist_tile.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
@@ -220,69 +220,10 @@ class AddToPlaylistDialog extends StatelessWidget {
           bool checkBoxValue = (controller.searching.value)
             ? controller.searchIsSongPresent[index]
             : controller.isSongPresent[index];
-          return ListTile(
-            leading: SizedBox(
-              width: 50, height: 50,
-              child: ClipRRect(borderRadius: BorderRadius.circular(8), child: _leadingCover(playlist))
-            ),
-            title: Text(playlist.name, style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w400)),
-            subtitle: Text("${playlist.songCount} Songs"),
-            trailing: Checkbox(
-              value: checkBoxValue,
-              onChanged: (value) => (value!)
-                ? controller.insertSong(playlist.name)
-                : controller.deleteSong(playlist.name),
-              activeColor: controller.settings.getAccent,
-            ),
-          );
+          return MyPlaylistAddSongTile(playlist: playlist, checkBoxValue: checkBoxValue, controller: controller);
         },
       );
     });
-  }
-
-  Widget _leadingCover(MyPlaylist playlist) {
-    "Song Count ${playlist.songCount}".printInfo();
-    if(int.parse(playlist.songCount) == 0) return _leadingAssetImage(playlist.image[0].medQuality);
-    else return GridView.count(
-      crossAxisCount: 2,
-      children: (int.parse(playlist.songCount) == 1)
-        ? [
-            _leadingNetworkImage(playlist.image[1].medQuality, playlist.image[0].medQuality),
-            _leadingAssetImage(playlist.image[0].medQuality),
-            _leadingAssetImage(playlist.image[0].medQuality),
-            _leadingAssetImage(playlist.image[0].medQuality),
-          ]
-        : (int.parse(playlist.songCount) == 2)
-          ? [
-              _leadingNetworkImage(playlist.image[1].medQuality, playlist.image[0].medQuality),
-              _leadingNetworkImage(playlist.image[2].medQuality, playlist.image[0].medQuality),
-              _leadingAssetImage(playlist.image[0].medQuality),
-              _leadingAssetImage(playlist.image[0].medQuality)
-            ]
-          : (int.parse(playlist.songCount) == 3)
-            ? [
-                _leadingNetworkImage(playlist.image[1].medQuality, playlist.image[0].medQuality),
-                _leadingNetworkImage(playlist.image[2].medQuality, playlist.image[0].medQuality),
-                _leadingNetworkImage(playlist.image[3].medQuality, playlist.image[0].medQuality),
-                _leadingAssetImage(playlist.image[0].medQuality)
-              ]
-            : [
-                _leadingNetworkImage(playlist.image[1].medQuality, playlist.image[0].medQuality),
-                _leadingNetworkImage(playlist.image[2].medQuality, playlist.image[0].medQuality),
-                _leadingNetworkImage(playlist.image[3].medQuality, playlist.image[0].medQuality),
-                _leadingNetworkImage(playlist.image[4].medQuality, playlist.image[0].medQuality),
-              ]
-    );
-  }
-
-  Image _leadingAssetImage(String asset) => Image.asset(asset, width: 50, height: 50, fit: BoxFit.fill,);
-
-  CachedNetworkImage _leadingNetworkImage(String url, String asset) {
-    return CachedNetworkImage(
-      imageUrl: url, width: 50, height: 50, fit: BoxFit.fill,
-      placeholder: (_, __) => Image.asset(asset, width: 50, height: 50, fit: BoxFit.fill,),
-      errorWidget: (_, __, ___) => Image.asset(asset, width: 50, height: 50, fit: BoxFit.fill,),
-    );
   }
 
   _footer(BuildContext context, AddToPlaylistController controller, ThemeData theme) {
