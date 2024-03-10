@@ -5,7 +5,7 @@ import 'package:sonicity/src/controllers/my_playlist_controller.dart';
 import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/sections/title_section.dart';
-import 'package:sonicity/utils/widgets/my_playlist_tile.dart';
+import 'package:sonicity/utils/widgets/my_playlist_widget.dart';
 
 class MyPlaylistsSection extends StatelessWidget {
   final Size media;

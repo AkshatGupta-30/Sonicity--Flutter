@@ -10,7 +10,7 @@ import 'package:sonicity/src/controllers/my_playlist_controller.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/my_playlist_tile.dart';
+import 'package:sonicity/utils/widgets/my_playlist_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
