@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:sonicity/src/controllers/my_playlist_controller.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:sonicity/src/views/todo/playlist_soongs.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -101,7 +102,7 @@ class MyPlaylistViewTile extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(8.0),
           child: Iconify(
-            MaterialSymbols.delete_outline_rounded, size: 32,
+            MaterialSymbols.delete_outline_rounded, size: 27,
             color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade600 : Colors.grey.shade400,
           ),
         ),
@@ -159,6 +160,71 @@ class MyPlaylistLeadingCover extends StatelessWidget {
       imageUrl: url, width: size, height: size, fit: BoxFit.fill,
       placeholder: (_, __) => Image.asset(asset, width: size, height: size, fit: BoxFit.fill,),
       errorWidget: (_, __, ___) => Image.asset(asset, width: size, height: size, fit: BoxFit.fill,),
+    );
+  }
+}
+
+class NewPlaylistDialog extends StatelessWidget {
+  final MyPlaylistController controller;
+  const NewPlaylistDialog(this.controller, {super.key,});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final settings = Get.find<SettingsController>();
+    return GestureDetector(
+      onTap: () => controller.searchPlaylistFocus.unfocus(),
+      child: AlertDialog(
+        elevation: 10,
+        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        backgroundColor: (theme.brightness == Brightness.light) ? Colors.white : Colors.black,
+        shadowColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
+        title: Text("New Playlist"),
+        titleTextStyle: theme.textTheme.labelLarge,
+        content: TextField(
+          controller: controller.newPlaylistTextController,
+          cursorColor: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+          style: TextStyle(color: (theme.brightness == Brightness.light) ?Colors.black : Colors.white,),
+          decoration: InputDecoration(
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: settings.getAccentDark, width: 2),),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: settings.getAccent, width: 3),),
+            hintText: "Playlist Name"
+          ),
+          onTap: () => controller.newPlaylistTfActive.value = true,
+          focusNode: controller.newPlaylistFocus,
+          onTapOutside: (event) {
+            controller.newPlaylistFocus.unfocus();
+            controller.newPlaylistTfActive.value = false;
+          },
+        ),
+        actions: [
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(12)
+              ),
+              child: Text("Cancel", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+              controller.createPlaylist();
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(
+                color: controller.settings.getAccent,
+                borderRadius: BorderRadius.circular(12)
+              ),
+              child: Text("Create", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
+            ),
+          )
+        ]
+      ),
     );
   }
 }

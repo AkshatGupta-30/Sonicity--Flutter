@@ -70,7 +70,10 @@ class AddToPlaylistDialog extends StatelessWidget {
           child: CircleAvatar(
             radius: 22, backgroundColor: Colors.transparent,
             child: InkWell(
-              onTap: () => _newPlaylistDialog(context, theme, controller: controller),
+              onTap: () => showDialog(
+                context: context, barrierDismissible: true, useRootNavigator: true,
+                builder: (ctx) => NewPlaylistDialog(controller),
+              ),
               borderRadius: BorderRadius.circular(50),
               child: Padding(
                 padding: EdgeInsets.all(5),
@@ -141,66 +144,6 @@ class AddToPlaylistDialog extends StatelessWidget {
             onTapOutside: (event) => controller.searchPlaylistFocus.unfocus(),
           ),
         )
-      ),
-    );
-  }
-
-  Future<dynamic> _newPlaylistDialog(BuildContext context, ThemeData theme, {required MyPlaylistController controller,}) {
-    return showDialog(
-      context: context,
-      barrierDismissible: true,
-      useRootNavigator: true,
-      builder: (ctx) => GestureDetector(
-        onTap: () => controller.searchPlaylistFocus.unfocus(),
-        child: AlertDialog(
-          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          backgroundColor: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
-          title: Text("New Playlist"),
-          titleTextStyle: theme.textTheme.labelLarge,
-          content: TextField(
-            controller: controller.newPlaylistTextController,
-            cursorColor: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
-            style: TextStyle(color: (theme.brightness == Brightness.light) ?Colors.black : Colors.white,),
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1),),
-              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 3),),
-              hintText: "Playlist Name"
-            ),
-            onTap: () => controller.newPlaylistTfActive.value = true,
-            focusNode: controller.newPlaylistFocus,
-            onTapOutside: (event) {
-              controller.newPlaylistFocus.unfocus();
-              controller.newPlaylistTfActive.value = false;
-            },
-          ),
-          actions: [
-            GestureDetector(
-              onTap: () => Navigator.pop(ctx),
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(12)
-                ),
-                child: Text("Cancel", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(ctx);
-                controller.createPlaylist();
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                decoration: BoxDecoration(
-                  color: controller.settings.getAccent,
-                  borderRadius: BorderRadius.circular(12)
-                ),
-                child: Text("Create", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
-              ),
-            )
-          ]
-        ),
       ),
     );
   }

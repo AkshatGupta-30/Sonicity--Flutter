@@ -28,7 +28,10 @@ class AllPlaylistsView extends StatelessWidget {
                 slivers: [
                   SliverToBoxAdapter(
                     child: ListTile(
-                      onTap: () {},
+                      onTap: () => showDialog(
+                        context: context, barrierDismissible: true, useRootNavigator: true,
+                        builder: (ctx) => NewPlaylistDialog(controller),
+                      ),
                       leading: Iconify(Tabler.playlist_add, size: 30,),
                       title: Text("Create Playlist", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),)
                     ),
