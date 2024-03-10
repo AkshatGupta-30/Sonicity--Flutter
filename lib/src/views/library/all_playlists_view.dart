@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/controllers/all_playlists_controller.dart';
+import 'package:iconify_flutter_plus/icons/codicon.dart';
+import 'package:iconify_flutter_plus/icons/tabler.dart';
+import 'package:sonicity/src/controllers/my_playlist_controller.dart';
 import 'package:sonicity/src/models/my_playlist.dart';
-import 'package:sonicity/src/views/todo/playlist_soongs.dart';
+import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
+import 'package:sonicity/utils/widgets/my_playlist_tile.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class AllPlaylistsView extends StatelessWidget {
@@ -10,27 +15,44 @@ class AllPlaylistsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text("All Playlists"),),
+      appBar: AppBar(title: Text("Playlists"),),
       body: BackgroundGradientDecorator(
-        child: GetBuilder(
-          init: AllPlaylistsController(),
-          builder: (controller) {
-            return Obx(() => ListView.builder(
-              itemCount: controller.myPlaylists.length,
-              itemBuilder: (context, index) {
-                MyPlaylist playlist = controller.myPlaylists[index];
-                return ListTile(
-                  title: Text(playlist.name),
-                  subtitle: Text("${playlist.songCount} Songs"),
-                  onTap: () async {
-                    final songs = await controller.db.getSongs(playlist.name);
-                    Get.to(() => PlaylistSongs(songs: songs,));
-                  },
-                );
-              },
-            ));
-          },
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 15),
+          child: GetBuilder(
+            init: MyPlaylistController(Song.empty()),
+            builder: (controller) {
+              return Obx(() => CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: ListTile(
+                      onTap: () {},
+                      leading: Iconify(Tabler.playlist_add, size: 30,),
+                      title: Text("Create Playlist", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),)
+                    ),
+                  ),
+                  SliverToBoxAdapter(child: Gap(10)),
+                  SliverToBoxAdapter(
+                    child: ListTile(
+                      onTap: () {},
+                      leading: Iconify(Codicon.merge, size: 30,),
+                      title: Text("Merge Playlist", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),)
+                    ),
+                  ),
+                  SliverToBoxAdapter(child: Gap(10)),
+                  SliverList.builder(
+                    itemCount: controller.playlists.length,
+                    itemBuilder: (context, index) {
+                      MyPlaylist playlist = controller.playlists[index];
+                      return MyPlaylistViewTile(playlist: playlist, controller: controller,);
+                    },
+                  ),
+                ],
+              ));
+            },
+          ),
         ),
       ),
     );

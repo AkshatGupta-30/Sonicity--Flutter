@@ -1,8 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:sonicity/src/controllers/my_playlist_controller.dart';
 import 'package:sonicity/src/models/my_playlist.dart';
+import 'package:sonicity/src/views/todo/playlist_soongs.dart';
+import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:super_string/super_string.dart';
 
 class MyPlaylistAddSongTile extends StatelessWidget{
@@ -67,6 +71,40 @@ class MyPlaylistCell extends StatelessWidget {
             style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 11),
           )
         ],
+      ),
+    );
+  }
+}
+
+class MyPlaylistViewTile extends StatelessWidget {
+  final MyPlaylist playlist;
+  final MyPlaylistController controller;
+  const MyPlaylistViewTile({super.key, required this.playlist, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return ListTile(
+      onTap: () => Get.to(PlaylistSongs(songs: [])),
+      leading: SizedBox(
+        width: 60, height: 60,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: MyPlaylistLeadingCover(playlist: playlist, size: 0,)
+        )
+      ),
+      title: Text(playlist.name, style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),),
+      subtitle: Text("${playlist.songCount} Songs"),
+      trailing: InkWell(
+        onTap: () => {},
+        borderRadius: BorderRadius.circular(100),
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Iconify(
+            MaterialSymbols.delete_outline_rounded, size: 32,
+            color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade600 : Colors.grey.shade400,
+          ),
+        ),
       ),
     );
   }
