@@ -116,7 +116,7 @@ class MyPlaylistsDatabase {
     );
   }
 
-  void deletePlaylist(String playlistName) async {
+  Future<void> deletePlaylist(String playlistName) async {
     Database db = await _instance.database;
     await db.delete(tbPlaylistDetails, where: "$colName = ?", whereArgs: [playlistName.replaceAll(' ', '_')]);
     await db.delete(playlistName.replaceAll(' ', '_'));

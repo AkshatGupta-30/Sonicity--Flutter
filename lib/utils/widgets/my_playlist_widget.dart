@@ -86,7 +86,7 @@ class MyPlaylistViewTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ListTile(
-      onTap: () => Get.to(PlaylistSongs(songs: [])),
+      onTap: () => Get.to(() => PlaylistSongs(songs: [])),
       leading: SizedBox(
         width: 60, height: 60,
         child: ClipRRect(
@@ -97,7 +97,7 @@ class MyPlaylistViewTile extends StatelessWidget {
       title: Text(playlist.name, style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),),
       subtitle: Text("${playlist.songCount} Songs"),
       trailing: InkWell(
-        onTap: () => {},
+        onTap: () => controller.deletePlaylist(playlist),
         borderRadius: BorderRadius.circular(100),
         child: Padding(
           padding: EdgeInsets.all(8.0),

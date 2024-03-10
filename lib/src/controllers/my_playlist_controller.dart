@@ -45,6 +45,8 @@ class  MyPlaylistController extends GetxController {
     await db.createPlaylist(newPlaylistTextController.text).then((value) => initMethods());
   }
 
+  void deletePlaylist(MyPlaylist playlist) async => await db.deletePlaylist(playlist.name).then((value) => initMethods());
+
   Future<void> getPlaylists() async => playlists.value = await db.playlists;
   
   Future<void> getPlaylistCount() async => playlistCount.value= await db.count();
