@@ -8,7 +8,7 @@ class MyPlaylist {
   final List<ImageUrl> image;
   final String songCount;
   final DateTime dateCreated;
-  final List<Song> ? songs;
+  List<Song> ? songs;
 
   MyPlaylist({
     required this.id, required this.name, required this.image,

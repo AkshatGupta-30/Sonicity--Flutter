@@ -7,7 +7,7 @@ import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 
-class  MyPlaylistController extends GetxController {
+class MyPlaylistController extends GetxController {
   final Song song;
   MyPlaylistController(this.song);
 
