@@ -119,7 +119,18 @@ class MyPlaylistsDatabase {
   Future<void> deletePlaylist(String playlistName) async {
     Database db = await _instance.database;
     await db.delete(tbPlaylistDetails, where: "$colName = ?", whereArgs: [playlistName.replaceAll(' ', '_')]);
-    await db.delete(playlistName.replaceAll(' ', '_'));
+    await db.execute('DROP TABLE IF EXISTS ${playlistName.replaceAll(' ', '_')}');
+  }
+
+  Future<void> renamePlaylist(String playlistName, String newName) async {
+    final db = await _instance.database;
+    await db.update(
+      tbPlaylistDetails,
+      {colName: newName},
+      where: '$colName = ?',
+      whereArgs: [playlistName.replaceAll(' ', '_')]
+    );
+    await db.execute('ALTER TABLE ${playlistName.replaceAll(' ', '_')} RENAME TO $newName');
   }
 
   Future<List<MyPlaylist>> get playlists async {
@@ -251,7 +262,7 @@ class MyPlaylistsDatabase {
     return isSongPresent;
   }
 
-  Future<int> count() async {
+  Future<int> get playlistCount async {
     Database db = await _instance.database;
     int? count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbPlaylistDetails'));
     if(count == null) return 0;
