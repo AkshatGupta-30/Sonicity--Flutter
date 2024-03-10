@@ -6,7 +6,7 @@ import 'package:sonicity/src/models/artist.dart';
 
 class SearchArtistsApi {
   static Future<Map> _apiCall(String text, int page, int limit) async {
-    final uri = "https://saavn.dev/search/artists?query=$text&page=$page&limit=$limit";
+    final uri = "https://saavn.dev/api/search/artists?query=$text&page=$page&limit=$limit";
     final response = await http.get(Uri.parse(uri));
     if(response.statusCode != 200) {
       "Search Artist Api\nStatus Code : ${response.statusCode}\nMessage : ${jsonDecode(response.body)['message']}".printError();
@@ -23,7 +23,7 @@ class SearchArtistsApi {
     }
     List<Artist> artists = [];
     for (var element in result['data']['results']) {
-      artists.add(Artist.description(element));
+      artists.add(Artist.type(element));
     }
     return artists;
   }

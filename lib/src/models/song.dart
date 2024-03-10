@@ -38,9 +38,9 @@ class Song {
       image: ImageUrl.fromJson(data['image']),
       downloadUrl: DownloadUrl.fromJson(data['downloadUrl']),
       hasLyrics: (data['hasLyrics'] == 'true') ? true : false,
-      year: data['year'],
+      year: data['year'].toString(),
       releaseDate: data['releaseDate'],
-      duration: data['duration'],
+      duration: data['duration'].toString(),
       artists: arts,
       album: Album.image(data['album']),
       language: data['language'].toString().title()
@@ -60,9 +60,9 @@ class Song {
       image: ImageUrl.fromJson(data['image']),
       downloadUrl: DownloadUrl.fromJson(data['downloadUrl']),
       hasLyrics: (data['hasLyrics'].toString() == 'true') ? true : false,
-      year: data['year'],
+      year: data['year'].toString(),
       releaseDate: data['releaseDate'],
-      duration: data['duration'],
+      duration: data['duration'].toString(),
       artists: arts,
       album: Album.name(data['album']),
       language: data['language'].toString().title()
@@ -102,16 +102,16 @@ class Song {
       artists.add(Artist.name({'id' : artIds[i], 'name' : artNames[i]}));
     }
     List<Map<String,dynamic>> imageData = [
-      {"quality" : ImageQuality.q50x50, "link" : json["img_low"]},
-      {"quality" : ImageQuality.q150x150, "link" : json["img_med"]},
-      {"quality" : ImageQuality.q500x500, "link" : json["img_high"]},
+      {"quality" : ImageQuality.q50x50, "url" : json["img_low"]},
+      {"quality" : ImageQuality.q150x150, "url" : json["img_med"]},
+      {"quality" : ImageQuality.q500x500, "url" : json["img_high"]},
     ];
     List<Map<String,dynamic>> downloadData = [
-      {"quality" : DownloadQuality.q12kbps, "link" : json["download_12kbps"]},
-      {"quality" : DownloadQuality.q48kbps, "link" : json["download_48kbps"]},
-      {"quality" : DownloadQuality.q96kbps, "link" : json["download_96kbps"]},
-      {"quality" : DownloadQuality.q160kbps, "link" : json["download_160kbps"]},
-      {"quality" : DownloadQuality.q320kbps, "link" : json["download_320kbps"]}
+      {"quality" : DownloadQuality.q12kbps, "url" : json["download_12kbps"]},
+      {"quality" : DownloadQuality.q48kbps, "url" : json["download_48kbps"]},
+      {"quality" : DownloadQuality.q96kbps, "url" : json["download_96kbps"]},
+      {"quality" : DownloadQuality.q160kbps, "url" : json["download_160kbps"]},
+      {"quality" : DownloadQuality.q320kbps, "url" : json["download_320kbps"]}
     ];
     return Song(
       id: json['song_id'],
@@ -119,9 +119,9 @@ class Song {
       album: album,
       artists: artists,
       hasLyrics: (json['hasLyrics'] == 1),
-      year: json['year'],
+      year: json['year'].toString(),
       releaseDate: json['releaseDate'],
-      duration: json['duration'],
+      duration: json['duration'].toString(),
       language: json['language'],
       image: ImageUrl.fromJson(imageData),
       downloadUrl: DownloadUrl.fromJson(downloadData)
@@ -160,25 +160,25 @@ class Song {
 
   Map<String, dynamic> toDbImgsMap(ImgQuality quality) {
     if(quality == ImgQuality.low) {
-      return {"song_id" : id, "link" : image.lowQuality};
+      return {"song_id" : id, "url" : image.lowQuality};
     } else if(quality == ImgQuality.med) {
-      return {"song_id" : id, "link" : image.medQuality};
+      return {"song_id" : id, "url" : image.medQuality};
     } else {
-      return {"song_id" : id, "link" : image.highQuality};
+      return {"song_id" : id, "url" : image.highQuality};
     }
   }
 
   Map<String, dynamic> toDbDownloadloadsMap(String quality) {
     if(quality == DownloadQuality.q12kbps) {
-      return {"song_id" : id, "link" : downloadUrl.q12kbps};
+      return {"song_id" : id, "url" : downloadUrl.q12kbps};
     } else if(quality == DownloadQuality.q48kbps) {
-      return {"song_id" : id, "link" : downloadUrl.q48kbps};
+      return {"song_id" : id, "url" : downloadUrl.q48kbps};
     } else if(quality == DownloadQuality.q96kbps) {
-      return {"song_id" : id, "link" : downloadUrl.q96kbps};
+      return {"song_id" : id, "url" : downloadUrl.q96kbps};
     } else if(quality == DownloadQuality.q160kbps) {
-      return {"song_id" : id, "link" : downloadUrl.q160kbps};
+      return {"song_id" : id, "url" : downloadUrl.q160kbps};
     } else {
-      return {"song_id" : id, "link" : downloadUrl.q320kbps};
+      return {"song_id" : id, "url" : downloadUrl.q320kbps};
     }
   }
 

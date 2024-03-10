@@ -51,7 +51,7 @@ class ArtistDetailsView extends StatelessWidget {
                 body: TabBarView(
                   controller: controller.tabController,
                   physics: NeverScrollableScrollPhysics(),
-                  children: <ListView>[
+                  children: [
                     _songsTab(controller),
                     _albumsTab(controller),
                     _infoTab(context, artist),
@@ -296,7 +296,7 @@ class ArtistDetailsView extends StatelessWidget {
     );
   }
 
-  ListView _songsTab(ArtistDetailController controller) {
+  Widget _songsTab(ArtistDetailController controller) {
     return ListView.builder(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       itemCount: (controller.songsIsLoading.value && controller.songCount.value != controller.songList.length)

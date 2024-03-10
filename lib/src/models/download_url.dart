@@ -52,14 +52,14 @@ class DownloadData {
   factory DownloadData.fromJson(Map<String, dynamic> json) {
     return DownloadData(
       quality: json['quality'],
-      link: json['link'],
+      link: json['url'],
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'quality': quality,
-      'link': link,
+      'url': link,
     };
   }
 }

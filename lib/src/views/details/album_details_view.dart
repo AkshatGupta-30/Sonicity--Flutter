@@ -34,19 +34,21 @@ class AlbumDetailsView extends StatelessWidget {
         child: GetBuilder(
           init: AlbumDetailController(Get.arguments),
           builder: (controller) {
-            Album album = controller.album.value;
-            if(album.isEmpty()) {
-              return Center(
-                child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+            return Obx(() {
+              Album album = controller.album.value;
+              if(album.isEmpty()) {
+                return Center(
+                  child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+                );
+              }
+              return CustomScrollView(
+                slivers: [
+                  _appBar(context, media, album, controller),
+                  _albumArtists(album),
+                  _albumSongs(album),
+                ],
               );
-            }
-            return CustomScrollView(
-              slivers: [
-                _appBar(context, media, album, controller),
-                _albumArtists(album),
-                _albumSongs(album),
-              ],
-            );
+            });
           }
         ),
       ),

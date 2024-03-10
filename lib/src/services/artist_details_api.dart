@@ -8,7 +8,7 @@ import 'package:sonicity/src/models/song.dart';
 
 class ArtistDetailsApi {
   static Future<Map<String, dynamic>> _detailsApiCall(String id) async {
-    final uri = "https://saavn.dev/artists?id=$id";
+    final uri = "https://saavn.dev/api/artists/$id";
     final response = await http.get(Uri.parse(uri));
     if(response.statusCode != 200) {
       "Artist Details Api\nStatus Code : ${response.statusCode}\nMessage : ${jsonDecode(response.body)['message']}".printError();
@@ -19,9 +19,10 @@ class ArtistDetailsApi {
   }
 
   static Future<Map<String, dynamic>> _albumsApiCall(String id, int page) async {
-    final uri = "https://saavn.dev/artists/$id/albums?page=$page";
+    final uri = "https://saavn.dev/api/artists/$id/albums?page=$page";
     final response = await http.get(Uri.parse(uri));
     if(response.statusCode != 200) {
+      "Albums Details Api\nStatus Code : ${response.statusCode}\nMessage : ${jsonDecode(response.body)['message']}".printError();
       return {};
     }
     final data = jsonDecode(response.body)['data'];
@@ -29,9 +30,10 @@ class ArtistDetailsApi {
   }
 
   static Future<Map<String, dynamic>> _songsApiCall(String id, int page) async {
-    final uri = "https://saavn.dev/artists/$id/songs?page=$page";
+    final uri = "https://saavn.dev/api/artists/$id/songs?page=$page";
     final response = await http.get(Uri.parse(uri));
     if(response.statusCode != 200) {
+      "Songs Details Api\nStatus Code : ${response.statusCode}\nMessage : ${jsonDecode(response.body)['message']}".printError();
       return {};
     }
     final data = jsonDecode(response.body)['data'];
@@ -40,11 +42,8 @@ class ArtistDetailsApi {
 
   static Future<List<Album>> getAlbums(String id, int page) async {
     final data = await _albumsApiCall(id, page);
-    if(data['results'] == null) {
-      return [];
-    }
     List<Album> albums = [];
-    for (var element in data['results']) {
+    for (var element in data['albums']) {
       albums.add(Album.year(element));
     }
     return albums;
@@ -52,29 +51,25 @@ class ArtistDetailsApi {
 
   static Future<int> getAlbumCount(String id) async {
     final data = await _albumsApiCall(id, 1);
-    if(data['results'] == null) {
-      return 0;
-    }
     return int.parse(data['total'].toString());
   }
 
   static Future<List<Song>> getSongs(String id, int page) async {
     final data = await _songsApiCall(id, page);
-    if(data['results'] == null) {
-      return [];
-    }
     List<Song> songs = [];
-    for (var element in data['results']) {
-      songs.add(Song.forPlay(element));
+    for (var song in data['songs']) {
+      List<Map<String, dynamic>> artists = [];
+      for (var artist in song['artists']['all']) {
+        artists.add(Artist.name(artist).toMap());
+      }
+      song['artists'] = artists;
+      songs.add(Song.forPlay(song));
     }
     return songs;
   }
 
   static Future<int> getSongCount(String id) async {
     final data = await _songsApiCall(id,  1);
-    if(data['results'] == null) {
-      return 0;
-    }
     return int.parse(data['total'].toString());
   }
 

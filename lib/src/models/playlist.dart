@@ -76,9 +76,9 @@ class Playlist {
 
   factory Playlist.fromDb(Map<String,dynamic> json) {
     List<Map<String,dynamic>> imageData = [
-      {"quality" : ImageQuality.q50x50, "link" : json["img_low"]},
-      {"quality" : ImageQuality.q150x150, "link" : json["img_med"]},
-      {"quality" : ImageQuality.q500x500, "link" : json["img_high"]},
+      {"quality" : ImageQuality.q50x50, "url" : json["img_low"]},
+      {"quality" : ImageQuality.q150x150, "url" : json["img_med"]},
+      {"quality" : ImageQuality.q500x500, "url" : json["img_high"]},
     ];
     return Playlist(
       id: json['playlist_id'].toString(),

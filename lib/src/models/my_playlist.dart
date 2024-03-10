@@ -21,9 +21,9 @@ class MyPlaylist {
     for(var songImage in songImageList) {
       List<String> imageQualityList = songImage.toString().split(MyPlaylistsDatabase.specCharQuality);
       List<Map<String, dynamic>> imageUrlMap = [
-        {'quality' : '50x50', 'link' : imageQualityList[0]},
-        {'quality' : '150x150', 'link' : imageQualityList[1]},
-        {'quality' : '500x500', 'link' : imageQualityList[2]},
+        {'quality' : '50x50', 'url' : imageQualityList[0]},
+        {'quality' : '150x150', 'url' : imageQualityList[1]},
+        {'quality' : '500x500', 'url' : imageQualityList[2]},
       ];
       imageUrls.add(ImageUrl.fromJson(imageUrlMap));
     }

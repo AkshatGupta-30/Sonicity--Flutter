@@ -26,24 +26,30 @@ class Album {
     List<Artist> arts = [];
     if(data['artists'] != null) {
       for(var ar in data['artists']) {
-        arts.add(Artist.detail(ar));
+        arts.add(Artist.image(ar));
       }
     }
+
     List<Song> musics = [];
     if(data['songs'] != null) {
-      for(var so in data['songs']) {
-        musics.add(Song.forPlay(so));
+      for(var song in data['songs']) {
+        List<Map<String, dynamic>> artists = [];
+        for (var artist in song['artists']['all']) {
+          artists.add(Artist.name(artist).toMap());
+        }
+        song['artists'] = artists;
+        musics.add(Song.forPlay(song));
       }
     }
     return Album(
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
-      year: data['year'],
+      year: data['year'].toString(),
       releaseDate: data['releaseDate'],
       language: data['language'].toString().title(),
       description: data['description'].toString().title(),
-      songCount: data['songCount'],
+      songCount: data['songCount'].toString(),
       artists: arts,
       songs: musics
     );
@@ -78,7 +84,7 @@ class Album {
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
-      songCount: data['songCount']
+      songCount: data['songCount'].toString()
     );
   }
 
@@ -87,8 +93,8 @@ class Album {
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
-      songCount: data['songCount'],
-      year: data['year']
+      songCount: data['songCount'].toString(),
+      year: data['year'].toString()
     );
   }
 
@@ -129,17 +135,17 @@ class Album {
 
   factory Album.fromDb(Map<String,dynamic> json) {
     List<Map<String,dynamic>> imageData = [
-      {"quality" : ImageQuality.q50x50, "link" : json["img_low"]},
-      {"quality" : ImageQuality.q150x150, "link" : json["img_med"]},
-      {"quality" : ImageQuality.q500x500, "link" : json["img_high"]},
+      {"quality" : ImageQuality.q50x50, "url" : json["img_low"]},
+      {"quality" : ImageQuality.q150x150, "url" : json["img_med"]},
+      {"quality" : ImageQuality.q500x500, "url" : json["img_high"]},
     ];
     return Album(
       id: json['album_id'],
       name: json['name'],
-      songCount: json['songCount'],
+      songCount: json['songCount'].toString(),
       description: json['description'],
       language: json['language'],
-      year: json['year'],
+      year: json['year'].toString(),
       releaseDate: json['releaseDate'],
       image: ImageUrl.fromJson(imageData),
     );

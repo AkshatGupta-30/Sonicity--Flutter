@@ -57,6 +57,17 @@ class Artist {
     );
   }
 
+  
+
+  factory Artist.type(Map<String,dynamic> data) {
+    return Artist(
+      id: data['id'],
+      name: data['name'] ?? data['title'],
+      image: ImageUrl.fromJson(data['image']),
+      dominantType: data['type'].toString().title()
+    );
+  }
+
   factory Artist.name(Map<String,dynamic> data) {
     return Artist(
       id: data['id'],
@@ -91,9 +102,9 @@ class Artist {
 
   factory Artist.fromDb(Map<String,dynamic> json) {
     List<Map<String,dynamic>> imageData = [
-      {"quality" : ImageQuality.q50x50, "link" : json["img_low"]},
-      {"quality" : ImageQuality.q150x150, "link" : json["img_med"]},
-      {"quality" : ImageQuality.q500x500, "link" : json["img_high"]},
+      {"quality" : ImageQuality.q50x50, "url" : json["img_low"]},
+      {"quality" : ImageQuality.q150x150, "url" : json["img_med"]},
+      {"quality" : ImageQuality.q500x500, "url" : json["img_high"]},
     ];
     return Artist(
       id: json['artist_id'],
