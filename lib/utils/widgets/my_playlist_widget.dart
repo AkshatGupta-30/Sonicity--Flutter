@@ -107,6 +107,36 @@ class MyPlaylistViewTile extends StatelessWidget {
   }
 }
 
+class MyPlaylistMergeTile extends StatelessWidget {
+  final MyPlaylistController controller;
+  final int index;
+  const MyPlaylistMergeTile({super.key, required this.controller, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    MyPlaylist playlist = (controller.searching.value)
+      ? controller.searchResults[index]
+      : controller.playlists[index];
+    bool isMerging = controller.isMerging[index];
+    return CheckboxListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+      secondary: SizedBox(
+        width: 60, height: 60,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: MyPlaylistLeadingCover(playlist: playlist, size: 0,)
+        )
+      ),
+      title: Text(playlist.name.title(), style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),),
+      subtitle: Text("${playlist.songCount} Songs"),
+      value: isMerging,
+      onChanged: (value) => controller.addToMerge(index, value!),
+      activeColor: controller.settings.getAccent,
+    );
+  }
+}
+
 class MyPlaylistAddSongTile extends StatelessWidget{
   final int index;
   final MyPlaylistController controller;

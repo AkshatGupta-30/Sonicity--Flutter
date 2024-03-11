@@ -31,15 +31,18 @@ class MyPlaylistController extends GetxController {
   FocusNode renamePlaylistFocus = FocusNode();
   final renamePlaylistTfActive = false.obs;
 
+  final isMerge = false.obs;
+  final merging = <String>[].obs;
+  final isMerging = <bool>[].obs;
+
   @override
   void onInit() {
     super.onInit();
-    if(song == Song.empty()) getPlaylists();
-    else initMethods();
+    initMethods();
   }
 
   Future<void> initMethods() async {
-    await getPlaylistCount();
+    await getPlaylistCount().then((value) => mergeCount());
     await checkSongPresent();
     await getPlaylists();
   }
@@ -52,6 +55,28 @@ class MyPlaylistController extends GetxController {
   void renamePlaylist(String old) => db.renamePlaylist(old, renamePlaylistTextController.text).then((value) => initMethods());
 
   void deletePlaylist(MyPlaylist playlist) async => await db.deletePlaylist(playlist.name).then((value) => initMethods());
+
+  void mergePlaylist() async {
+    merging.clear();
+    for (var i = 0; i < isMerging.length; i++) {
+      if(isMerging[i]) merging.add(playlists[i].name.replaceAll(' ', '_'));
+    }
+    await db.mergePlaylist(merging).then((value) {
+      isMerge.value = false;
+      merging.clear();
+      initMethods();
+    });
+  }
+
+  void mergeCount() {
+    isMerging.clear();
+    isMerging.value = List<bool>.generate(playlistCount.value, (_) => false);
+  }
+
+  void addToMerge(int index, bool value) {
+    isMerging[index] = value;
+    update();
+  }
 
   Future<void> getPlaylists() async => playlists.value = await db.playlists;
   

@@ -81,7 +81,6 @@ class MyPlaylistsDatabase {
     await db.execute(// * Create playlist
       '''
         CREATE TABLE ${playlistName.replaceAll(' ', '_')} (
-          $colPlaylistId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colSongId TEXT NOT NULL,
           $colName TEXT NOT NULL,
           $colAlbumId TEXT,
@@ -141,6 +140,20 @@ class MyPlaylistsDatabase {
       playlists.add(MyPlaylist.fromDb(map));
     }
     return playlists;
+  }
+
+  Future<void> mergePlaylist(List<String> playlistsNameList) async {
+    Database db = await _instance.database;
+    String mergedName = 'merge_${playlistsNameList.join('_')}';
+
+    await createPlaylist(mergedName);
+
+    for (var playlistName in playlistsNameList) {
+      List<Map<String, dynamic>> table = await db.query(playlistName);
+      for (Map<String, dynamic> row in table) {
+        await insertSong(mergedName, Song.fromDb(row));
+      }
+    }
   }
 
   Future<List<Song>> getSongs(String playlistName) async {
