@@ -7,6 +7,7 @@ import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
+import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:sonicity/src/controllers/song_controller.dart';
 import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/models/song.dart';
@@ -161,19 +162,24 @@ class SongPopUpMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
+      onOpened: () => controller.checkCloneAndStar(),
       itemBuilder: (context) {
         return [
           PopupMenuItem(
             onTap: () => controller.switchCloned(),
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: PopUpButtonRow(
-              icon: (controller.isCloned.value) ? Ic.twotone_cyclone : Ic.round_cyclone,
-              label: (controller.isCloned.value) ? "Remove from Library" : "Clone to Library"
+              icon: (controller.isClone.value) ? Ic.twotone_cyclone : Ic.round_cyclone,
+              label: (controller.isClone.value) ? "Remove from Library" : "Clone to Library"
             ),
           ),
           PopupMenuItem(
+            onTap: () => controller.switchStarred(),
             padding: EdgeInsets.symmetric(horizontal: 8),
-            child: PopUpButtonRow(icon: Mi.favorite, label: "Add to Starred"),
+            child: PopUpButtonRow(
+              icon: (controller.isStar.value) ? Mi.favorite : Uis.favorite,
+              label: (controller.isStar.value) ? "Remove from Star" : "Add to Starred"
+            ),
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),

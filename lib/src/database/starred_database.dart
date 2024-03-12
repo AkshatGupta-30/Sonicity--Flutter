@@ -2,17 +2,17 @@ import 'dart:io';
 
 import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sonicity/src/database/starred_database.dart';
+import 'package:sonicity/src/database/cloned_database.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sqflite/sqflite.dart';
 
-class ClonedDatabase {
-  ClonedDatabase._();
-  static final ClonedDatabase _instance = ClonedDatabase._();
-  factory ClonedDatabase() => _instance;
+class StarredDatabase {
+  StarredDatabase._();
+  static final StarredDatabase _instance = StarredDatabase._();
+  factory StarredDatabase() => _instance;
 
   static Database? _database;
   Future<Database> get database async {
@@ -21,7 +21,7 @@ class ClonedDatabase {
     return _database!;
   }
 
-  static const _databaseName = "cloned.db";
+  static const _databaseName = "starred.db";
   static const _databaseVersion = 1;
   _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
@@ -30,10 +30,10 @@ class ClonedDatabase {
   }
 
   // TODO : separate class for this
-  static const tbSongDetail = 'cloned_song';
-  static const tbAlbumDetail = 'cloned_album';
-  static const tbArtistDetail = 'cloned_artist';
-  static const tbPlaylistDetail = 'cloned_playlist';
+  static const tbSongDetail = 'starred_song';
+  static const tbAlbumDetail = 'starred_album';
+  static const tbArtistDetail = 'starred_artist';
+  static const tbPlaylistDetail = 'starred_playlist';
 
   static const colId = 'id';
   static const colSongId = 'song_id';
@@ -127,7 +127,8 @@ class ClonedDatabase {
     );
   }
 
-  Future<void> clone(dynamic model) async {
+  Future<void> starred(dynamic model) async {
+    GetIt.instance<ClonedDatabase>().clone(model);
     Database db = await _instance.database;
     Map<Type, String> tableNames = {
       Song: tbSongDetail,
@@ -140,8 +141,7 @@ class ClonedDatabase {
     }
   }
 
-  Future<void> deleteClone(dynamic model) async {
-    GetIt.instance<StarredDatabase>().deleteStarred(model);
+  Future<void> deleteStarred(dynamic model) async {
     Database db = await _instance.database;
     Map<Type, Map<String, dynamic>> modelsMap = {
       Song: {tbSongDetail: colSongId},

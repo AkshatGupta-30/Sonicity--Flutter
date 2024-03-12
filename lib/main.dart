@@ -13,6 +13,7 @@ import 'package:sonicity/src/database/cloned_database.dart';
 import 'package:sonicity/src/database/home_database.dart';
 import 'package:sonicity/src/database/my_playlists_database.dart';
 import 'package:sonicity/src/database/recents_database.dart';
+import 'package:sonicity/src/database/starred_database.dart';
 import 'package:sonicity/src/firebase/database_methods.dart';
 import 'package:sonicity/src/firebase/storage_methods.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
@@ -29,6 +30,7 @@ Future<void> main() async {
   GetIt.I.registerLazySingleton<MyPlaylistsDatabase>(() => MyPlaylistsDatabase());
   GetIt.I.registerLazySingleton<RecentsDatabase>(() => RecentsDatabase());
   GetIt.I.registerLazySingleton<ClonedDatabase>(() => ClonedDatabase());
+  GetIt.I.registerLazySingleton<StarredDatabase>(() => StarredDatabase());
 
   // * : GetX Controllers
   Get.put(SettingsController());
