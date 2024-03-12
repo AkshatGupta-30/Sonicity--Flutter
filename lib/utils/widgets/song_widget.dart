@@ -7,6 +7,7 @@ import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
+import 'package:sonicity/src/controllers/song_controller.dart';
 import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/details/album_details_view.dart';
@@ -16,6 +17,8 @@ import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
+//TODO add Hero widget
+
 class SongCard extends StatelessWidget {
   final Song song;
   SongCard(this.song, {super.key});
@@ -23,80 +26,85 @@ class SongCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
-    return GestureDetector(
-      onTap: () async {
-        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
-        await recents.insertSong(song);
-      },
-      child: Container(
-        width: media.width/1.25, height: media.width/1.25,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            ClipRRect(
+    return GetBuilder(
+      init: SongController(song),
+      builder: (controller) {
+        return GestureDetector(
+          onTap: () async {
+            RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+            await recents.insertSong(song);
+          },
+          child: Container(
+            width: media.width/1.25, height: media.width/1.25,
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              child: CachedNetworkImage(
-                imageUrl: song.image.highQuality,
-                width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
-                placeholder: (context, url) {
-                  return Image.asset(
-                    "assets/images/songCover/songCover500x500.jpg",
-                    width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
-                  );
-                },
-                errorWidget: (context, url, error) {
-                  return Image.asset(
-                    "assets/images/songCover/songCover500x500.jpg",
-                    width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
-                  );
-                },
-              ),
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Container(
-                width: media.width/1.25, height: media.width/1.25,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: (Theme.of(context).brightness == Brightness.light)
-                      ? [Colors.white.withOpacity(0.25), Colors.grey.shade200]
-                      : [Colors.black.withOpacity(0.25), Colors.black],
-                    begin: Alignment.center, end: Alignment.bottomCenter,
-                    stops: [0.4, 1]
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: CachedNetworkImage(
+                    imageUrl: song.image.highQuality,
+                    width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
+                    placeholder: (context, url) {
+                      return Image.asset(
+                        "assets/images/songCover/songCover500x500.jpg",
+                        width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
+                      );
+                    },
+                    errorWidget: (context, url, error) {
+                      return Image.asset(
+                        "assets/images/songCover/songCover500x500.jpg",
+                        width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
+                      );
+                    },
+                  ),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    width: media.width/1.25, height: media.width/1.25,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: (Theme.of(context).brightness == Brightness.light)
+                          ? [Colors.white.withOpacity(0.25), Colors.grey.shade200]
+                          : [Colors.black.withOpacity(0.25), Colors.black],
+                        begin: Alignment.center, end: Alignment.bottomCenter,
+                        stops: [0.4, 1]
+                      )
+                    ),
                   )
                 ),
-              )
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, bottom: 20),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Text>[
-                  Text(
-                    song.title, maxLines: 1, overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.labelLarge!,
+                Padding(
+                  padding: EdgeInsets.only(left: 16, right: 16, bottom: 20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Text>[
+                      Text(
+                        song.title, maxLines: 1, overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.labelLarge!,
+                      ),
+                      Text(
+                        song.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade800 : null
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    song.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade800 : null
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                Positioned(
+                  top: 0, right: 0,
+                  child: SongPopUpMenu(song, controller: controller),
+                ),
+              ],
             ),
-            Positioned(
-              top: 0, right: 0,
-              child: SongPopUpMenu(song),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 }
@@ -108,41 +116,47 @@ class SongsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () async {
-        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
-        await recents.insertSong(song);
-      },
-      contentPadding: EdgeInsets.zero,
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: CachedNetworkImage(
-          imageUrl: song.image.lowQuality, fit: BoxFit.cover, width: 50, height: 50,
-          errorWidget: (context, url, error) {
-            return Image.asset(
-              "assets/images/songCover/songCover50x50.jpg",
-              fit: BoxFit.cover, width: 50, height: 50
-            );
+    return GetBuilder(
+      init: SongController(song),
+      builder: (controller) {
+        return ListTile(
+          onTap: () async {
+            RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+            await recents.insertSong(song);
           },
-          placeholder: (context, url) {
-            return Image.asset(
-              "assets/images/songCover/songCover50x50.jpg",
-              fit: BoxFit.cover, width: 50, height: 50
-            );
-          },
-        ),
-      ),
-      horizontalTitleGap: 10,
-      title: Text(song.title, maxLines: 1, overflow: TextOverflow.ellipsis,),
-      subtitle: Text((subtitle.isEmpty) ? song.subtitle : subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,),
-      trailing:   SongPopUpMenu(song)
+          contentPadding: EdgeInsets.zero,
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: CachedNetworkImage(
+              imageUrl: song.image.lowQuality, fit: BoxFit.cover, width: 50, height: 50,
+              errorWidget: (context, url, error) {
+                return Image.asset(
+                  "assets/images/songCover/songCover50x50.jpg",
+                  fit: BoxFit.cover, width: 50, height: 50
+                );
+              },
+              placeholder: (context, url) {
+                return Image.asset(
+                  "assets/images/songCover/songCover50x50.jpg",
+                  fit: BoxFit.cover, width: 50, height: 50
+                );
+              },
+            ),
+          ),
+          horizontalTitleGap: 10,
+          title: Text(song.title, maxLines: 1, overflow: TextOverflow.ellipsis,),
+          subtitle: Text((subtitle.isEmpty) ? song.subtitle : subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,),
+          trailing:  SongPopUpMenu(song, controller: controller)
+        );
+      }
     );
   }
 }
 
 class SongPopUpMenu extends StatelessWidget {
   final Song song;
-  SongPopUpMenu(this.song, {super.key});
+  final SongController controller;
+  SongPopUpMenu(this.song, {super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -150,8 +164,12 @@ class SongPopUpMenu extends StatelessWidget {
       itemBuilder: (context) {
         return [
           PopupMenuItem(
+            onTap: () => controller.switchCloned(),
             padding: EdgeInsets.symmetric(horizontal: 8),
-            child: PopUpButtonRow(icon: Ic.round_cyclone, label: "Clone to Library"),
+            child: PopUpButtonRow(
+              icon: (controller.isCloned.value) ? Ic.twotone_cyclone : Ic.round_cyclone,
+              label: (controller.isCloned.value) ? "Remove from Library" : "Clone to Library"
+            ),
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),

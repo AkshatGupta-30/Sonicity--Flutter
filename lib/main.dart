@@ -9,6 +9,7 @@ import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/firebase_options.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
+import 'package:sonicity/src/database/cloned_database.dart';
 import 'package:sonicity/src/database/home_database.dart';
 import 'package:sonicity/src/database/my_playlists_database.dart';
 import 'package:sonicity/src/database/recents_database.dart';
@@ -27,6 +28,7 @@ Future<void> main() async {
   GetIt.I.registerLazySingleton<HomeDatabase>(() => HomeDatabase());
   GetIt.I.registerLazySingleton<MyPlaylistsDatabase>(() => MyPlaylistsDatabase());
   GetIt.I.registerLazySingleton<RecentsDatabase>(() => RecentsDatabase());
+  GetIt.I.registerLazySingleton<ClonedDatabase>(() => ClonedDatabase());
 
   // * : GetX Controllers
   Get.put(SettingsController());
@@ -38,7 +40,7 @@ Future<void> main() async {
   runApp(MainApp());
 }
 
-Future<void> _downloadAllDatabase() async {
+Future<void> _downloadAllDatabase() async { // TODO - remove this
   try {
     Directory app = await getApplicationDocumentsDirectory();
     String path = "${app.path}my_playlists.db";

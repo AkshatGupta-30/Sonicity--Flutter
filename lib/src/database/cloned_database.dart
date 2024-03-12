@@ -1,18 +1,16 @@
 import 'dart:io';
 
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sqflite/sqflite.dart';
 
-class RecentsDatabase {
-  RecentsDatabase._();
-  static final RecentsDatabase _instance = RecentsDatabase._();
-  factory RecentsDatabase() => _instance;
+class ClonedDatabase {
+  ClonedDatabase._();
+  static final ClonedDatabase _instance = ClonedDatabase._();
+  factory ClonedDatabase() => _instance;
 
   static Database? _database;
   Future<Database> get database async {
@@ -21,16 +19,12 @@ class RecentsDatabase {
     return _database!;
   }
 
-  static const _databaseName = "recents_songs.db";
+  static const _databaseName = "cloned.db";
   static const _databaseVersion = 1;
   _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = "${documentsDirectory.path}$_databaseName";
-    return await openDatabase(
-      path,
-      version: _databaseVersion,
-      onCreate: _onCreate,
-    );
+    return await openDatabase(path, version: _databaseVersion, onCreate: _onCreate,);
   }
 
   static const tbSongDetail = 'song_details';
@@ -130,36 +124,44 @@ class RecentsDatabase {
     );
   }
 
-  Future<void> insertSong(Song song) async {
+  Future<void> clone(dynamic model) async {
     Database db = await _instance.database;
-    await db.delete(tbSongDetail, where: '$colSongId = ?', whereArgs: [song.id]);
-    int maxCount = Get.find<SettingsController>().getRecentsMaxLength;
-    if(await count == maxCount) _deleteFirstRow(tbSongDetail);
-    await db.insert(tbSongDetail, song.toDb());
+    Map<Type, String> tableNames = {
+      Song: tbSongDetail,
+      Album: tbAlbumDetail,
+      Artist: tbArtistDetail,
+      Playlist: tbPlaylistDetail,
+    };
+    if (tableNames.containsKey(model.runtimeType)) {
+      await db.insert(tableNames[model.runtimeType]!, model.toDb());
+    }
   }
 
-  Future<void> insertAlbum(Album album) async {
+  Future<void> deleteClone(dynamic model) async {//TODO : Remove from favorities
     Database db = await _instance.database;
-    await db.delete(tbAlbumDetail, where: '$colAlbumId = ?', whereArgs: [album.id]);
-    int maxCount = Get.find<SettingsController>().getRecentsMaxLength;
-    if(await count == maxCount) _deleteFirstRow(tbAlbumDetail);
-    await db.insert(tbAlbumDetail, album.toDb());
+    Map<Type, Map<String, dynamic>> modelsMap = {
+      Song: {tbSongDetail: colSongId},
+      Album: {tbAlbumDetail: colAlbumId},
+      Artist: {tbArtistDetail: colArtistId},
+      Playlist: {tbPlaylistDetail: colPlaylistId}
+    };
+
+    final tableColumn = modelsMap[model.runtimeType];
+    await db.delete(tableColumn!.keys.first, where: '${tableColumn.values.first} = ?', whereArgs: [model.id]);
   }
 
-  Future<void> insertArtist(Artist artist) async {
+  Future<bool> isPresent(dynamic model) async {
     Database db = await _instance.database;
-    await db.delete(tbArtistDetail, where: '$colArtistId = ?', whereArgs: [artist.id]);
-    int maxCount = Get.find<SettingsController>().getRecentsMaxLength;
-    if(await count == maxCount) _deleteFirstRow(tbArtistDetail);
-    await db.insert(tbArtistDetail, artist.toDb());
-  }
+    Map<Type, Map<String, dynamic>> modelsMap = {
+      Song: {tbSongDetail: colSongId},
+      Album: {tbAlbumDetail: colAlbumId},
+      Artist: {tbArtistDetail: colArtistId},
+      Playlist: {tbPlaylistDetail: colPlaylistId}
+    };
 
-  Future<void> insertPlaylist(Playlist playlist) async {
-    Database db = await _instance.database;
-    await db.delete(tbPlaylistDetail, where: '$colPlaylistId = ?', whereArgs: [playlist.id]);
-    int maxCount = Get.find<SettingsController>().getRecentsMaxLength;
-    if(await count == maxCount) _deleteFirstRow(tbPlaylistDetail);
-    await db.insert(tbPlaylistDetail, playlist.toDb());
+    final tableColumn = modelsMap[model.runtimeType];
+    final result = await db.query(tableColumn!.keys.first, where: '${tableColumn.values.first} = ?', whereArgs: [model.id]);
+    return result.isNotEmpty;
   }
 
   Future<(List<Song>, List<Album>, List<Artist>, List<Playlist>)> get all async {
@@ -184,49 +186,10 @@ class RecentsDatabase {
     return (songs, albums, artists, playlists);
   }
 
-  Future<List<Album>> getAlbums() async {
-    Database db = await _instance.database;
-    List<Album> albums = [];
-    List<Map<String,dynamic>> result = await db.query(tbAlbumDetail);
-    for (var map in result) {
-      albums.add(Album.fromDb(map));
-    }
-    return albums;
-  }
-
-  Future<List<Artist>> getArtists() async {
-    Database db = await _instance.database;
-    List<Artist> artists = [];
-    List<Map<String,dynamic>> result = await db.query(tbArtistDetail);
-    for (var map in result) {
-      artists.add(Artist.fromDb(map));
-    }
-    return artists;
-  }
-
-  Future<List<Playlist>> getPlaylists() async {
-    Database db = await _instance.database;
-    List<Playlist> playlists = [];
-    List<Map<String,dynamic>> result = await db.query(tbPlaylistDetail);
-    for (var map in result) {
-      playlists.add(Playlist.fromDb(map));
-    }
-    return playlists;
-  }
-
   Future<int> get count async {
     Database db = await _instance.database;
     int? count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbSongDetail'));
     if(count == null) return 0;
     return count;
-  }
-
-  void _deleteFirstRow(String tableName) async {
-    Database db = await _instance.database;
-    List<Map<String, dynamic>> rows = await db.query(tableName, limit: 1);
-    int? firstRowId = rows.isNotEmpty ? rows.first['id'] : null;
-    if (firstRowId != null) {
-      await db.delete(tableName, where: 'id = ?', whereArgs: [firstRowId]);
-    }
   }
 }

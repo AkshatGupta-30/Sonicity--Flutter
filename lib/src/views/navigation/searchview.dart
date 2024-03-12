@@ -98,8 +98,8 @@ class SearchView extends StatelessWidget {
       );
   }
 
-  Column _searchResults(SearchViewController controller) {
-    return Column(
+  Obx _searchResults(SearchViewController controller) {
+    return Obx(() => Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Column>[
@@ -275,6 +275,6 @@ class SearchView extends StatelessWidget {
             ],
           ),
       ]
-    );
+    ));
   }
 }
