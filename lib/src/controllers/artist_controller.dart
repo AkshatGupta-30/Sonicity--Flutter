@@ -1,33 +1,42 @@
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sonicity/src/database/cloned_database.dart';
+import 'package:sonicity/src/database/starred_database.dart';
 import 'package:sonicity/src/models/artist.dart';
 
 class ArtistController extends GetxController {
   final Artist artist;
   ArtistController(this.artist);
 
-  final db = GetIt.instance<ClonedDatabase>();
-  final isCloned = false.obs;
+  final cloneDb = GetIt.instance<ClonedDatabase>();
+  final starDb = GetIt.instance<StarredDatabase>();
+  final isClone = false.obs;
+  final isStar = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    cloneCheck();
+    checkCloneAndStar();
   }
   @override
   void onReady() {
     super.onReady();
-    cloneCheck();
+    checkCloneAndStar();
   }
 
-  void cloneCheck() async {
-    isCloned.value = await db.isPresent(artist);
+  void checkCloneAndStar() async {
+    isClone.value = await cloneDb.isPresent(artist);
+    isStar.value = await starDb.isPresent(artist);
     update();
   }
 
   void switchCloned() async {
-    (isCloned.value) ? db.deleteClone(artist) : db.clone(artist);
-    cloneCheck();
+    (isClone.value) ? cloneDb.deleteClone(artist) : cloneDb.clone(artist);
+    checkCloneAndStar();
+  }
+
+  void switchStarred() async {
+    (isStar.value) ? starDb.deleteStarred(artist) : starDb.starred(artist);
+    checkCloneAndStar();
   }
 }
