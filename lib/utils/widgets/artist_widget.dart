@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
+import 'package:sonicity/src/controllers/artist_controller.dart';
 import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/views/details/artist_details_view.dart';
@@ -18,71 +19,44 @@ class ArtistTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () async {
-        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
-        await recents.insertArtist(artist);
-        Get.to(
-          () => ArtistDetailsView(),
-          arguments: artist.id
+    return GetBuilder(
+      init: ArtistController(artist),
+      builder: (controller) {
+        return ListTile(
+          onTap: () async {
+            RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+            await recents.insertArtist(artist);
+            Get.to(
+              () => ArtistDetailsView(),
+              arguments: artist.id
+            );
+          },
+          contentPadding: EdgeInsets.zero,
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: CachedNetworkImage(
+              imageUrl: artist.image!.lowQuality,
+              fit: BoxFit.cover, width: 50, height: 50,
+              errorWidget: (context, url, error) {
+                return Image.asset(
+                  "assets/images/artistCover/artistCover50x50.jpg",
+                  fit: BoxFit.cover, width: 50, height: 50
+                );
+              },
+              placeholder: (context, url) {
+                return Image.asset(
+                  "assets/images/artistCover/artistCover50x50.jpg",
+                  fit: BoxFit.cover, width: 50, height: 50
+                );
+              },
+            ),
+          ),
+          horizontalTitleGap: 10,
+          title: Text(artist.name, maxLines: 1, overflow: TextOverflow.ellipsis,),
+          subtitle: Text(subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,),
+          trailing: ArtistPopUpMenu(artist, controller: controller,),
         );
-      },
-      contentPadding: EdgeInsets.zero,
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: CachedNetworkImage(
-          imageUrl: artist.image!.lowQuality,
-          fit: BoxFit.cover, width: 50, height: 50,
-          errorWidget: (context, url, error) {
-            return Image.asset(
-              "assets/images/artistCover/artistCover50x50.jpg",
-              fit: BoxFit.cover, width: 50, height: 50
-            );
-          },
-          placeholder: (context, url) {
-            return Image.asset(
-              "assets/images/artistCover/artistCover50x50.jpg",
-              fit: BoxFit.cover, width: 50, height: 50
-            );
-          },
-        ),
-      ),
-      horizontalTitleGap: 10,
-      title: Text(
-        artist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-      ),
-      subtitle: Text(
-        subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-      ),
-      trailing: ArtistPopUpMenu(artist),
-    );
-  }
-}
-
-class ArtistPopUpMenu extends StatelessWidget {
-  final Artist artist;
-  const ArtistPopUpMenu(this.artist, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      itemBuilder: (context) {
-        return [
-          PopupMenuItem(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: PopUpButtonRow(icon: Ic.round_cyclone, label: "Clone to Library"),
-          ),
-          PopupMenuItem(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: PopUpButtonRow(icon: Mi.favorite, label: "Add to Starred"),
-          ),
-        ];
-      },
-      padding: EdgeInsets.zero,
-      icon: Iconify(
-        Ic.sharp_more_vert, size: 32,
-        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
-      ),
+      }
     );
   }
 }
@@ -135,6 +109,39 @@ class ArtistCell extends StatelessWidget {
               ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ArtistPopUpMenu extends StatelessWidget {
+  final Artist artist;
+  final ArtistController controller;
+  const ArtistPopUpMenu(this.artist, {super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+            onTap: () => controller.switchCloned(),
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: PopUpButtonRow(
+              icon: (controller.isCloned.value) ? Ic.twotone_cyclone : Ic.round_cyclone,
+              label: (controller.isCloned.value) ? "Remove from Library" : "Clone to Library"
+            ),
+          ),
+          PopupMenuItem(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: PopUpButtonRow(icon: Mi.favorite, label: "Add to Starred"),
+          ),
+        ];
+      },
+      padding: EdgeInsets.zero,
+      icon: Iconify(
+        Ic.sharp_more_vert, size: 32,
+        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
       ),
     );
   }

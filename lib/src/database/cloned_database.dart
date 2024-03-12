@@ -27,6 +27,7 @@ class ClonedDatabase {
     return await openDatabase(path, version: _databaseVersion, onCreate: _onCreate,);
   }
 
+  // TODO : separate class for this
   static const tbSongDetail = 'song_details';
   static const tbAlbumDetail = 'album_details';
   static const tbArtistDetail = 'artist_details';

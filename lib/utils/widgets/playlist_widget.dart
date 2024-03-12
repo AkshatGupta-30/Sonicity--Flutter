@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
+import 'package:sonicity/src/controllers/playlist_controller.dart';
 import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/views/details/playlist_details_view.dart';
@@ -76,50 +77,56 @@ class PlaylistTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () async {
-        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
-        await recents.insertPlaylist(playlist);
-        Get.to(
-          () => PlaylistDetailsView(),
-          arguments: playlist.id
+    return GetBuilder(
+      init: PlaylistController(playlist),
+      builder: (controller) {
+        return ListTile(
+          onTap: () async {
+            RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+            await recents.insertPlaylist(playlist);
+            Get.to(
+              () => PlaylistDetailsView(),
+              arguments: playlist.id
+            );
+          },
+          contentPadding: EdgeInsets.zero,
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: CachedNetworkImage(
+              imageUrl: playlist.image.lowQuality,
+              fit: BoxFit.cover, width: 50, height: 50,
+              errorWidget: (context, url, error) {
+                return Image.asset(
+                  "assets/images/playlistCover/playlistCover50x50.jpg",
+                  fit: BoxFit.cover, width: 50, height: 50
+                );
+              },
+              placeholder: (context, url) {
+                return Image.asset(
+                  "assets/images/playlistCover/playlistCover50x50.jpg",
+                  fit: BoxFit.cover, width: 50, height: 50
+                );
+              },
+            ),
+          ),
+          horizontalTitleGap: 10,
+          title: Text(
+            playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
+          ),
+          subtitle: Text(
+            subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
+          ),
+          trailing: PlaylistPopUpMenu(playlist, controller: controller,),
         );
-      },
-      contentPadding: EdgeInsets.zero,
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: CachedNetworkImage(
-          imageUrl: playlist.image.lowQuality,
-          fit: BoxFit.cover, width: 50, height: 50,
-          errorWidget: (context, url, error) {
-            return Image.asset(
-              "assets/images/playlistCover/playlistCover50x50.jpg",
-              fit: BoxFit.cover, width: 50, height: 50
-            );
-          },
-          placeholder: (context, url) {
-            return Image.asset(
-              "assets/images/playlistCover/playlistCover50x50.jpg",
-              fit: BoxFit.cover, width: 50, height: 50
-            );
-          },
-        ),
-      ),
-      horizontalTitleGap: 10,
-      title: Text(
-        playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-      ),
-      subtitle: Text(
-        subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-      ),
-      trailing: PlaylistPopUpMenu(playlist),
+      }
     );
   }
 }
 
 class PlaylistPopUpMenu extends StatelessWidget {
   final Playlist playlist;
-  const PlaylistPopUpMenu(this.playlist, {super.key});
+  final PlaylistController controller;
+  const PlaylistPopUpMenu(this.playlist, {super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -127,8 +134,12 @@ class PlaylistPopUpMenu extends StatelessWidget {
       itemBuilder: (context) {
         return [
           PopupMenuItem(
+            onTap: () => controller.switchCloned(),
             padding: EdgeInsets.symmetric(horizontal: 8),
-            child: PopUpButtonRow(icon: Ic.round_cyclone, label: "Clone to Library"),
+            child: PopUpButtonRow(
+              icon: (controller.isCloned.value) ? Ic.twotone_cyclone : Ic.round_cyclone,
+              label: (controller.isCloned.value) ? "Remove from Library" : "Clone to Library"
+            ),
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),
