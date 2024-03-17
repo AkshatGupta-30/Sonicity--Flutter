@@ -8,6 +8,7 @@ import 'package:iconify_flutter_plus/icons/raphael.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:iconify_flutter_plus/icons/wpf.dart';
 import 'package:sonicity/src/views/library/all_playlists_view.dart';
+import 'package:sonicity/src/views/library/all_songs_view.dart';
 import 'package:sonicity/src/views/library/recents_view.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
@@ -25,7 +26,7 @@ class LibraryView extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           children: <Tile>[
             Tile(// * : All Songs
-              onPressed: () {},
+              onPressed: () => Get.to(() => AllSongsView()),
               icon: Pepicons.music_note_single,
               title: "All Songs",
             ),

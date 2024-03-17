@@ -79,6 +79,7 @@ class PlaylistTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
+      global: false,
       init: PlaylistController(playlist),
       builder: (controller) {
         return ListTile(

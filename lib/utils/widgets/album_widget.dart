@@ -21,6 +21,7 @@ class AlbumCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return GetBuilder(
+      global: false,
       init: AlbumController(album),
       builder: (controller) {
         return GestureDetector(
@@ -170,43 +171,42 @@ class AlbumTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
+      global: false,
       init: AlbumController(album),
-      builder: (controller) {
-        return ListTile(
-          onTap: () async {
-            RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
-            await recents.insertAlbum(album);
-            Get.to(
-              () => AlbumDetailsView(),
-              arguments: album.id
-            );
-          },
-          contentPadding: EdgeInsets.zero,
-          leading: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: CachedNetworkImage(
-              imageUrl: album.image!.lowQuality,
-              fit: BoxFit.cover, width: 50, height: 50,
-              errorWidget: (context, url, error) {
-                return Image.asset(
-                  "assets/images/albumCover/albumCover50x50.jpg",
-                  fit: BoxFit.cover, width: 50, height: 50
-                );
-              },
-              placeholder: (context, url) {
-                return Image.asset(
-                  "assets/images/albumCover/albumCover50x50.jpg",
-                  fit: BoxFit.cover, width: 50, height: 50
-                );
-              },
-            ),
+      builder: (controller) => ListTile(
+        onTap: () async {
+          RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+          await recents.insertAlbum(album);
+          Get.to(
+            () => AlbumDetailsView(),
+            arguments: album.id
+          );
+        },
+        contentPadding: EdgeInsets.zero,
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: CachedNetworkImage(
+            imageUrl: album.image!.lowQuality,
+            fit: BoxFit.cover, width: 50, height: 50,
+            errorWidget: (context, url, error) {
+              return Image.asset(
+                "assets/images/albumCover/albumCover50x50.jpg",
+                fit: BoxFit.cover, width: 50, height: 50
+              );
+            },
+            placeholder: (context, url) {
+              return Image.asset(
+                "assets/images/albumCover/albumCover50x50.jpg",
+                fit: BoxFit.cover, width: 50, height: 50
+              );
+            },
           ),
-          horizontalTitleGap: 10,
-          title: Text(album.name, maxLines: 1, overflow: TextOverflow.ellipsis,),
-          subtitle: Text(subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,),
-          trailing: AlbumPopUpMenu(album, controller: controller,),
-        );
-      }
+        ),
+        horizontalTitleGap: 10,
+        title: Text(album.name, maxLines: 1, overflow: TextOverflow.ellipsis,),
+        subtitle: Text(subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,),
+        trailing: AlbumPopUpMenu(album, controller: controller,),
+      )
     );
   }
 }

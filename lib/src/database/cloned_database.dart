@@ -129,6 +129,7 @@ class ClonedDatabase {
 
   Future<void> clone(dynamic model) async {
     Database db = await _instance.database;
+    if(await isPresent(model)) return;
     Map<Type, String> tableNames = {
       Song: tbSongDetail,
       Album: tbAlbumDetail,
@@ -188,6 +189,38 @@ class ClonedDatabase {
     for (var map in playlistResult) playlists.add(Playlist.fromDb(map));
 
     return (songs, albums, artists, playlists);
+  }
+
+  Future<List<Song>> get songs async {
+    Database db = await _instance.database;
+    List<Song> songs = [];
+    List<Map<String,dynamic>> songResult = await db.query(tbSongDetail);
+    for (var map in songResult)  songs.add(Song.fromDb(map));
+    return songs;
+  }
+
+  Future<List<Album>> get albums async {
+    Database db = await _instance.database;
+    List<Album> albums = [];
+    List<Map<String,dynamic>> albumResult = await db.query(tbAlbumDetail);
+    for (var map in albumResult) albums.add(Album.fromDb(map));
+    return albums;
+  }
+
+  Future<List<Artist>> get artists async {
+    Database db = await _instance.database;
+    List<Artist> artists = [];
+    List<Map<String,dynamic>> artistResult = await db.query(tbArtistDetail);
+    for (var map in artistResult) artists.add(Artist.fromDb(map));
+    return artists;
+  }
+
+  Future<List<Playlist>> get playlists async {
+    Database db = await _instance.database;
+    List<Playlist> playlists = [];
+    List<Map<String,dynamic>> playlistResult = await db.query(tbPlaylistDetail);
+    for (var map in playlistResult) playlists.add(Playlist.fromDb(map));
+    return playlists;
   }
 
   Future<int> get count async {

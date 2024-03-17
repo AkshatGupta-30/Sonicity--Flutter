@@ -28,6 +28,7 @@ class SongCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return GetBuilder(
+      global: false,
       init: SongController(song),
       builder: (controller) {
         return GestureDetector(
@@ -118,38 +119,37 @@ class SongsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
+      global: false,
       init: SongController(song),
-      builder: (controller) {
-        return ListTile(
-          onTap: () async {
-            RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
-            await recents.insertSong(song);
-          },
-          contentPadding: EdgeInsets.zero,
-          leading: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: CachedNetworkImage(
-              imageUrl: song.image.lowQuality, fit: BoxFit.cover, width: 50, height: 50,
-              errorWidget: (context, url, error) {
-                return Image.asset(
-                  "assets/images/songCover/songCover50x50.jpg",
-                  fit: BoxFit.cover, width: 50, height: 50
-                );
-              },
-              placeholder: (context, url) {
-                return Image.asset(
-                  "assets/images/songCover/songCover50x50.jpg",
-                  fit: BoxFit.cover, width: 50, height: 50
-                );
-              },
-            ),
+      builder: (controller) => ListTile(
+        onTap: () async {
+          RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+          await recents.insertSong(song);
+        },
+        contentPadding: EdgeInsets.zero,
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: CachedNetworkImage(
+            imageUrl: song.image.lowQuality, fit: BoxFit.cover, width: 50, height: 50,
+            errorWidget: (context, url, error) {
+              return Image.asset(
+                "assets/images/songCover/songCover50x50.jpg",
+                fit: BoxFit.cover, width: 50, height: 50
+              );
+            },
+            placeholder: (context, url) {
+              return Image.asset(
+                "assets/images/songCover/songCover50x50.jpg",
+                fit: BoxFit.cover, width: 50, height: 50
+              );
+            },
           ),
-          horizontalTitleGap: 10,
-          title: Text(song.title, maxLines: 1, overflow: TextOverflow.ellipsis,),
-          subtitle: Text((subtitle.isEmpty) ? song.subtitle : subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,),
-          trailing:  SongPopUpMenu(song, controller: controller)
-        );
-      }
+        ),
+        horizontalTitleGap: 10,
+        title: Text(song.title, maxLines: 1, overflow: TextOverflow.ellipsis,),
+        subtitle: Text((subtitle.isEmpty) ? song.subtitle : subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,),
+        trailing:  SongPopUpMenu(song, controller: controller)
+      )
     );
   }
 }
@@ -168,10 +168,10 @@ class SongPopUpMenu extends StatelessWidget {
           PopupMenuItem(
             onTap: () => controller.switchCloned(),
             padding: EdgeInsets.symmetric(horizontal: 8),
-            child: PopUpButtonRow(
+            child: Obx(() =>PopUpButtonRow(
               icon: (controller.isClone.value) ? Ic.twotone_cyclone : Ic.round_cyclone,
               label: (controller.isClone.value) ? "Remove from Library" : "Clone to Library"
-            ),
+            )),
           ),
           PopupMenuItem(
             onTap: () => controller.switchStarred(),

@@ -21,6 +21,7 @@ class ArtistTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
+      global: false,
       init: ArtistController(artist),
       builder: (controller) {
         return ListTile(
