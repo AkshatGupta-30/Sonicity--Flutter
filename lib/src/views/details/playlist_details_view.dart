@@ -31,7 +31,7 @@ class PlaylistDetailsView extends StatelessWidget {
       body: BackgroundGradientDecorator(
         child: GetBuilder(
           init: PlaylistDetailController(Get.arguments),
-          builder: (controller) {
+          builder: (controller) => Obx(() {
             Playlist playlist = controller.playlist.value;
             if(playlist.isEmpty()) {
               return Center(
@@ -45,7 +45,7 @@ class PlaylistDetailsView extends StatelessWidget {
               ],
             );
           }
-        ),
+        )),
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: _floatingActionButton(),

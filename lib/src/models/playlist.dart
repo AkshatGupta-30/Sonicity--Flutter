@@ -1,3 +1,4 @@
+import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
@@ -20,6 +21,11 @@ class Playlist {
     List<Song> songs = [];
     if(data['songs'] != null) {
       for (var music in data['songs']) {
+        List<Map<String, dynamic>> artists = [];
+        for (var artist in music['artists']['all']) {
+          artists.add(Artist.name(artist).toMap());
+        }
+        music['artists'] = artists;
         songs.add(Song.forPlay(music));
       }
     }
@@ -27,7 +33,7 @@ class Playlist {
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
-      songCount: data['songCount'] ?? "",
+      songCount: data['songCount'].toString(),
       language: data['language'].toString().title(),
       songs: songs
     );
@@ -59,7 +65,7 @@ class Playlist {
       id: data['id'],
       name: data['name'] ?? data['title'],
       image: ImageUrl.fromJson(data['image']),
-      songCount: data['songCount']
+      songCount: data['songCount'].toString()
     );
   }
 
