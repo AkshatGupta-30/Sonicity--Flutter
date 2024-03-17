@@ -168,7 +168,7 @@ class SongPopUpMenu extends StatelessWidget {
           PopupMenuItem(
             onTap: () => controller.switchCloned(),
             padding: EdgeInsets.symmetric(horizontal: 8),
-            child: Obx(() =>PopUpButtonRow(
+            child: Obx(() => PopUpButtonRow(
               icon: (controller.isClone.value) ? Ic.twotone_cyclone : Ic.round_cyclone,
               label: (controller.isClone.value) ? "Remove from Library" : "Clone to Library"
             )),
@@ -176,10 +176,10 @@ class SongPopUpMenu extends StatelessWidget {
           PopupMenuItem(
             onTap: () => controller.switchStarred(),
             padding: EdgeInsets.symmetric(horizontal: 8),
-            child: PopUpButtonRow(
+            child: Obx(() => PopUpButtonRow(
               icon: (controller.isStar.value) ? Mi.favorite : Uis.favorite,
               label: (controller.isStar.value) ? "Remove from Star" : "Add to Starred"
-            ),
+            )),
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),

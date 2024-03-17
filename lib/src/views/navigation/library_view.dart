@@ -7,6 +7,7 @@ import 'package:iconify_flutter_plus/icons/pepicons.dart';
 import 'package:iconify_flutter_plus/icons/raphael.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:iconify_flutter_plus/icons/wpf.dart';
+import 'package:sonicity/src/views/library/all_albums_view.dart';
 import 'package:sonicity/src/views/library/all_playlists_view.dart';
 import 'package:sonicity/src/views/library/all_songs_view.dart';
 import 'package:sonicity/src/views/library/recents_view.dart';
@@ -46,7 +47,7 @@ class LibraryView extends StatelessWidget {
               title: "Playlists",
             ),
             Tile(// * : Album
-              onPressed: () {},
+              onPressed: () => Get.to(() => AllAlbumsView()),
               icon: Ic.baseline_album,
               title: "Album",
             ),
