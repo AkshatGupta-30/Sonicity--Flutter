@@ -2,7 +2,9 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sonicity/src/database/cloned_database.dart';
 import 'package:sonicity/src/database/starred_database.dart';
+import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/services/album_details_api.dart';
 
 class SongController extends GetxController {
   final Song song;
@@ -13,9 +15,12 @@ class SongController extends GetxController {
   final isClone = false.obs;
   final isStar = false.obs;
 
+  final album = Album.empty().obs;
+
   @override
   void onInit() {
     super.onInit();
+    getAlbum();
     checkCloneAndStar();
   }
   @override
@@ -38,5 +43,9 @@ class SongController extends GetxController {
   void switchStarred() async {
     (isStar.value) ? starDb.deleteStarred(song) : starDb.starred(song);
     checkCloneAndStar();
+  }
+
+  void getAlbum() async {
+    album.value = await AlbumDetailsApi.getImage(song.album!.id);
   }
 }
