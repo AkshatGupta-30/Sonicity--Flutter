@@ -10,6 +10,7 @@ import 'package:iconify_flutter_plus/icons/entypo.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
+import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:iconify_flutter_plus/icons/ri.dart';
 import 'package:iconify_flutter_plus/icons/uit.dart';
 import 'package:interactive_slider/interactive_slider.dart';
@@ -55,7 +56,7 @@ class MainPlayerView extends StatelessWidget {
                     Gap(10),
                     _buttonRows(),
                     Spacer(),
-                    _albumView(),
+                    _albumViewAndEqualizer(),
                     Gap(10),
                   ],
                 ),
@@ -98,10 +99,10 @@ class MainPlayerView extends StatelessWidget {
               imageUrl: song.image.highQuality, fit: BoxFit.cover,
               height: media.width * 0.75, width: media.width * 0.75,
               errorWidget: (context, url, error) {
-                return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.75, width: double.maxFinite,);
+                return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.75, width: media.width * 0.75,);
               },
               placeholder: (context, url) {
-                return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.75, width: double.maxFinite,);
+                return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.75, width: media.width * 0.75,);
               },
             )
           ),
@@ -196,29 +197,34 @@ class MainPlayerView extends StatelessWidget {
     );
   }
 
-  Container _albumView() {
-    return Container(// * : Album View
-      width: double.maxFinite, height: 60, alignment: Alignment.centerLeft,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Container( // TODO - Open Album
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.white, width: 2),
-            borderRadius: BorderRadius.circular(12)
-          ),
-          child: CachedNetworkImage(
-            imageUrl: song.image.medQuality, fit: BoxFit.cover,
-            height: 50, width: 50,
-            errorWidget: (context, url, error) {
-              return Image.asset("assets/images/albumCover/albumCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
-            },
-            placeholder: (context, url) {
-              return Image.asset("assets/images/albumCover/albumCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
-            },
+  Row _albumViewAndEqualizer() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        ClipRRect(// * : Album View
+          borderRadius: BorderRadius.circular(12),
+          child: Container( // TODO - Open Album
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.white, width: 2),
+              borderRadius: BorderRadius.circular(12)
+            ),
+            child: CachedNetworkImage(
+              imageUrl: song.image.medQuality, fit: BoxFit.cover,
+              height: 50, width: 50,
+              errorWidget: (context, url, error) {
+                return Image.asset("assets/images/albumCover/albumCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
+              },
+              placeholder: (context, url) {
+                return Image.asset("assets/images/albumCover/albumCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
+              },
+            ),
           ),
         ),
-      ),
+        Spacer(),
+        Iconify(Mdi.equalizer, size: 40,), // TODO - Equalizer - 'equalizer_flutter_custom'
+      ],
     );
   }
 }
