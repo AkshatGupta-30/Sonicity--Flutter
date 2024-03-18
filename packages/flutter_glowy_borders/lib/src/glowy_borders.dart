@@ -4,6 +4,8 @@ import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'animated_gradient_container.dart';
 
@@ -28,7 +30,8 @@ class AnimatedGradientBorder extends StatefulWidget {
       this.glowSize,
       this.animationProgress,
       this.stretchAlongAxis = false,
-      this.stretchAxis = Axis.horizontal});
+      this.stretchAxis = Axis.horizontal,
+      this.backgroundColor = Colors.transparent});
 
   final Widget child;
   final double? borderSize;
@@ -39,21 +42,25 @@ class AnimatedGradientBorder extends StatefulWidget {
   final double? animationProgress;
   final bool stretchAlongAxis;
   final Axis stretchAxis;
+  final Color backgroundColor;
 
   @override
   State<StatefulWidget> createState() => AnimatedGradientState();
 }
 
-class AnimatedGradientState extends State<AnimatedGradientBorder> with SingleTickerProviderStateMixin {
+class AnimatedGradientState extends State<AnimatedGradientBorder>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation _angleAnimation;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: Duration(seconds: widget.animationTime ?? 2));
+    _controller = AnimationController(
+        vsync: this, duration: Duration(seconds: widget.animationTime ?? 2));
     _controller.addListener(() => setState(() {}));
-    _angleAnimation = Tween<double>(begin: 0.1, end: 2 * math.pi).animate(_controller);
+    _angleAnimation =
+        Tween<double>(begin: 0.1, end: 2 * math.pi).animate(_controller);
     if (widget.animationProgress != null) {
       _controller.forward();
     } else {
@@ -82,48 +89,50 @@ class AnimatedGradientState extends State<AnimatedGradientBorder> with SingleTic
   Widget build(BuildContext context) {
     final negativeMargin = -1.0 * (widget.borderSize ?? 0);
     return Container(
-      padding: EdgeInsets.all((widget.glowSize ?? 5) * 3 + (widget.borderSize ?? 0) * 3),
+      padding: EdgeInsets.all((widget.borderSize ?? 0)),
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(borderRadius: widget.borderRadius),
-      child: Stack(alignment: Alignment.center, clipBehavior: Clip.none, children: [
-        Positioned(
-            top: negativeMargin,
-            left: negativeMargin,
-            right: negativeMargin,
-            bottom: negativeMargin,
-            child: AnimatedGradientContainer(
-              gradientColors: widget.gradientColors,
-              borderRadius: widget.borderRadius,
-              gradientAngle: _angleAnimation.value,
-            )),
-        BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: widget.glowSize ?? 0, sigmaY: widget.glowSize ?? 0),
-          child: Stack(
-            alignment: Alignment.center,
-            clipBehavior: Clip.none,
-            children: [
-              Positioned(
-                  top: negativeMargin,
-                  right: negativeMargin,
-                  left: negativeMargin,
-                  bottom: negativeMargin,
-                  child: AnimatedGradientContainer(
-                    gradientColors: widget.gradientColors,
-                    borderRadius: widget.borderRadius,
-                    gradientAngle: _angleAnimation.value,
-                  )),
-              if (widget.stretchAlongAxis)
-                SizedBox(
-                  width: widget.stretchAxis == Axis.horizontal ? double.infinity : null,
-                  height: widget.stretchAxis == Axis.vertical ? double.infinity : null,
-                  child: widget.child,
-                )
-              else
-                widget.child,
-            ],
-          ),
-        ),
-      ]),
+      child: Stack(
+          alignment: Alignment.center,
+          clipBehavior: Clip.none,
+          children: [
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: widget.glowSize ?? 0, sigmaY: widget.glowSize ?? 0),
+              child: Stack(
+                alignment: Alignment.center,
+                clipBehavior: Clip.none,
+                children: [
+                  Positioned(
+                    top: negativeMargin,
+                    right: negativeMargin,
+                    left: negativeMargin,
+                    bottom: negativeMargin,
+                    child: AnimatedGradientContainer(
+                      gradientColors: widget.gradientColors,
+                      borderRadius: widget.borderRadius,
+                      gradientAngle: _angleAnimation.value,
+                    ),
+                  ),
+                  if (widget.stretchAlongAxis)
+                    Container(
+                      color: widget.backgroundColor,
+                      width: widget.stretchAxis == Axis.horizontal
+                          ? double.infinity
+                          : null,
+                      height: widget.stretchAxis == Axis.vertical
+                          ? double.infinity
+                          : null,
+                      child: widget.child,
+                    )
+                  else
+                    Container(
+                      color: widget.backgroundColor,
+                      child: widget.child,
+                    ),
+                ],
+              ),
+            ),
+          ]),
     );
   }
 }

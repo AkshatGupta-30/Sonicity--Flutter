@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 class AnimatedGradientContainer extends StatelessWidget {
-  const AnimatedGradientContainer(
-      {super.key, required this.gradientColors, required this.gradientAngle, required this.borderRadius});
+  const AnimatedGradientContainer({
+    super.key,
+    required this.gradientColors,
+    required this.gradientAngle,
+    required this.borderRadius,
+  });
 
   final List<Color> gradientColors;
   final double gradientAngle;
@@ -11,12 +15,15 @@ class AnimatedGradientContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-            borderRadius: borderRadius,
-            gradient: SweepGradient(
-                colors: [...gradientColors, ...gradientColors.reversed],
-                stops: _generateColorStops([...gradientColors, ...gradientColors.reversed]),
-                transform: GradientRotation(gradientAngle))));
+      decoration: BoxDecoration(
+        borderRadius: borderRadius,
+        gradient: SweepGradient(
+          colors: [...gradientColors, ...gradientColors.reversed],
+          stops: _generateColorStops([...gradientColors, ...gradientColors.reversed]),
+          transform: GradientRotation(gradientAngle),
+        ),
+      ),
+    );
   }
 
   List<double> _generateColorStops(List<dynamic> colors) {

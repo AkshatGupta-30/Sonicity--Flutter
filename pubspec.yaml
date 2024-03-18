@@ -27,6 +27,8 @@ dependencies:
   gap: ^3.0.1
   get: ^4.6.6
   get_it: ^7.6.7
+  glowy_borders:
+    path: packages/flutter_glowy_borders/
   google_fonts: ^6.1.0
   google_nav_bar: ^5.0.6
   html_unescape: ^2.0.0
