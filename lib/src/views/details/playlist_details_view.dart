@@ -9,6 +9,7 @@ import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 import 'package:sonicity/src/controllers/playlist_detail_controller.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/playlist.dart';
@@ -16,7 +17,6 @@ import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
@@ -41,6 +41,7 @@ class PlaylistDetailsView extends StatelessWidget {
             return CustomScrollView(
               slivers: [
                 _appBar(context, media, playlist, controller),
+                _summaryHeader(context, playlist, controller),
                 _playlistSongs(playlist),
               ],
             );
@@ -56,11 +57,11 @@ class PlaylistDetailsView extends StatelessWidget {
     return SliverAppBar(
       pinned: true, floating: false, snap: false,
       leading: BackButton(),
-      expandedHeight: 400,
+      expandedHeight: 360,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true, expandedTitleScale: 1.5,
         stretchModes: [StretchMode.blurBackground],
-        titlePadding: EdgeInsets.only(left: 20, right: 20, bottom: 75),
+        titlePadding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
         title: SizedBox(
           width: media.width/1.4,
           child: Text(
@@ -72,7 +73,7 @@ class PlaylistDetailsView extends StatelessWidget {
           children: [
             CachedNetworkImage(
               imageUrl: playlist.image.highQuality, fit: BoxFit.fill,
-              width: double.maxFinite, height: 380,
+              width: double.maxFinite, height: double.maxFinite,
               placeholder: (context, url) {
                 return Image.asset("assets/images/playlistCover/playlistCover500x500.jpg", fit: BoxFit.fill);
               },
@@ -81,7 +82,7 @@ class PlaylistDetailsView extends StatelessWidget {
               },
             ),
             Container(
-              width: media.width, height: 420,
+              width: media.width, height: double.maxFinite,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: (Theme.of(context).brightness == Brightness.light)
@@ -94,13 +95,12 @@ class PlaylistDetailsView extends StatelessWidget {
           ],
         ),
       ),
-      actions: [
-        SpiderReport(color: Colors.redAccent),
-        Gap(10),
-      ],
-      bottom: PreferredSize(
-        preferredSize: Size(double.maxFinite, 60),
-        child: Container(
+    );
+  }
+
+  SliverPinnedHeader _summaryHeader(BuildContext context, Playlist playlist, PlaylistDetailController controller) {
+    return SliverPinnedHeader(
+      child: Container(
           color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
           child: Row( 
             children: [
@@ -176,8 +176,7 @@ class PlaylistDetailsView extends StatelessWidget {
               Gap(10)
             ],
           ),
-        )
-      ),
+        ),
     );
   }
 

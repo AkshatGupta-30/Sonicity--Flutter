@@ -178,7 +178,7 @@ class MainPlayerView extends StatelessWidget {
             Spacer(flex: 2,),
             Iconify(Ic.round_skip_next, size: 35,), // TODO - Next Song
             Spacer(flex: 2,),
-            Icon(Icons.repeat_one_rounded, size: 30, color: Colors.grey,), // TODO - MaterialSymbols.repeat_rounded
+            Iconify(MaterialSymbols.repeat_rounded, size: 30, color: Colors.grey,), // TODO - (Repeat) MaterialSymbols.repeat_rounded, Icons.repeat_one_rounded
           ],
         ),
         Gap(15),

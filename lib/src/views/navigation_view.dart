@@ -14,7 +14,6 @@ import 'package:sonicity/src/views/drawer/settings_view.dart';
 import 'package:sonicity/src/views/navigation/library_view.dart';
 import 'package:sonicity/src/views/navigation/homeview.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
 class NavigationView extends StatelessWidget {
@@ -33,7 +32,6 @@ class NavigationView extends StatelessWidget {
       key: controller.scaffoldKey,
       drawer: _drawer(context, controller),
       body: navTabs[controller.selectedIndex.value],
-      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: controller.selectedIndex.value,
         items: [
