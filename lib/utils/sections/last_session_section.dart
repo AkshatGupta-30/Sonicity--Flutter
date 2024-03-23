@@ -21,8 +21,8 @@ class LastSessionSection extends StatelessWidget {
     final controller = Get.put(RecentsController());
     return Obx(
       () {
-        if(controller.recentSongs.isEmpty) return SizedBox();
-        int listLength = (controller.recentSongs.length > 20) ? 20 : controller.recentSongs.length;
+        if(controller.songs.isEmpty) return SizedBox();
+        int listLength = (controller.songs.length > 20) ? 20 : controller.songs.length;
         return Column(
           children: [
             Gap(20),
@@ -37,19 +37,19 @@ class LastSessionSection extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 physics: (listLength <= 4) ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                itemCount: (controller.recentSongs.length / 4).ceil(),
+                itemCount: (controller.songs.length / 4).ceil(),
                 itemBuilder: (context, outerIndex) {
                   var currentRowIndex = outerIndex * 4;
                   return SizedBox(
-                    width: (controller.recentSongs.length <= 4) ? media.width / 1.05 : media.width / 1.2,
+                    width: (controller.songs.length <= 4) ? media.width / 1.05 : media.width / 1.2,
                     child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
                       itemCount: 4,
                       itemBuilder: (context, innerIndex) {
                         var currentItemIndex = currentRowIndex + innerIndex;
-                        if (currentItemIndex < controller.recentSongs.length) {
-                          Song song = controller.recentSongs[listLength - currentItemIndex - 1];
+                        if (currentItemIndex < controller.songs.length) {
+                          Song song = controller.songs[listLength - currentItemIndex - 1];
                           return SongsTile(song);
                         } else {
                           return SizedBox();

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sonicity/src/database/recents_database.dart';
+import 'package:sonicity/src/database/starred_database.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 
-class RecentsController extends GetxController with GetTickerProviderStateMixin {
-  final _recentDatabase = GetIt.instance<RecentsDatabase>();
+class StarredController extends GetxController with GetTickerProviderStateMixin {
   late TabController tabController;
   final selectedTab = 0.obs;
+  
+  final starDb = GetIt.instance<StarredDatabase>();
   final songs = <Song>[].obs;
   final albums = <Album>[].obs;
   final artists = <Artist>[].obs;
@@ -20,18 +21,18 @@ class RecentsController extends GetxController with GetTickerProviderStateMixin 
   @override
   void onInit() {
     super.onInit();
-    _get();
     tabController = TabController(length: 4, vsync: this);
     tabController.addListener(() => selectedTab.value = tabController.index);
+    getAll();
   }
 
-  void _get() async {
+  void getAll() async {
     List<Song> so = [];
     List<Album> al = [];
     List<Artist> ar = [];
     List<Playlist> pl = [];
-    (so, al, ar, pl) = await _recentDatabase.all;
-    
+    (so, al, ar, pl) = await starDb.all;
+
     songs.value = so;
     albums.value = al;
     artists.value = ar;

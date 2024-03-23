@@ -73,6 +73,8 @@ class Song {
     return Song(id: "", name: "", image: ImageUrl.empty(), downloadUrl: DownloadUrl.empty(), hasLyrics: false);
   }
 
+  get songCount => null;
+
   Map<String, dynamic> toMap() {
     List<Artist> arts = [];
     if(artists != null) {

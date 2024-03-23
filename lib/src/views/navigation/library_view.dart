@@ -12,6 +12,7 @@ import 'package:sonicity/src/views/library/all_artist_view.dart';
 import 'package:sonicity/src/views/library/all_playlists_view.dart';
 import 'package:sonicity/src/views/library/all_songs_view.dart';
 import 'package:sonicity/src/views/library/recents_view.dart';
+import 'package:sonicity/src/views/library/starred_view.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
@@ -38,7 +39,7 @@ class LibraryView extends StatelessWidget {
               title: "Recents",
             ),
             Tile(// * : Starred
-              onPressed: () {},
+              onPressed: () => Get.to(() => StarredView()),
               icon: Uis.favorite,
               title: "Starred",
             ),

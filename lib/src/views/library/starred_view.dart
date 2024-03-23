@@ -5,8 +5,8 @@ import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:sliver_tools/sliver_tools.dart';
-import 'package:sonicity/src/controllers/recents_controller.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
+import 'package:sonicity/src/controllers/starred_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/playlist.dart';
@@ -17,35 +17,30 @@ import 'package:sonicity/utils/widgets/artist_widget.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
-import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
-class RecentsView extends StatelessWidget {
-  RecentsView({super.key});
-
-  final controller = Get.find<RecentsController>();
+class StarredView extends StatelessWidget {
+  StarredView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BackgroundGradientDecorator(
-        child: CustomScrollView(
-          slivers: [
-            _appbar(context),
-            _summaryHeader(context),
-            _body()
-          ],
-        )
+        child: GetBuilder(
+          init: StarredController(),
+          builder: (controller) => CustomScrollView(
+            slivers: [_appbar(context, controller), _summaryHeader(context, controller), _body(controller)],
+          ),
+        ),
       ),
-      floatingActionButton: CircleAvatar(radius: 25, backgroundColor: Colors.red, child: SpiderReport()),
     );
   }
 
-  SliverAppBar _appbar(BuildContext context) {
+  SliverAppBar _appbar(BuildContext context, StarredController controller) {
     return SliverAppBar(
       pinned: true, shadowColor: Colors.transparent,
-      title: Text("Recents"),
+      title: Text("Starred"),
       actions: [
         PopupMenuButton(
           itemBuilder: (context) {
@@ -146,12 +141,12 @@ class RecentsView extends StatelessWidget {
         labelColor: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
         unselectedLabelColor: Colors.grey,
         indicatorColor: Get.find<SettingsController>().getAccent, dividerColor: Get.find<SettingsController>().getAccentDark,
-        tabs: [Tab(text: "Songs"), Tab(text: "Albums"), Tab(text: "Artists") , Tab(text: "Playlists")],
+        tabs: [Tab(text: "Songs"), Tab(text: "Albums"), Tab(text: "Artists"), Tab(text: "Playlists")],
       ),
     );
   }
 
-  SliverPinnedHeader _summaryHeader(BuildContext context,) {
+  SliverPinnedHeader _summaryHeader(BuildContext context, StarredController controller) {
     return SliverPinnedHeader(
       child: Container(
         height: kBottomNavigationBarHeight,
@@ -213,18 +208,17 @@ class RecentsView extends StatelessWidget {
     );
   }
 
-  SliverFillRemaining _body() {
+  SliverFillRemaining _body(StarredController controller) {
     return SliverFillRemaining(
       child: TabBarView(
         controller: controller.tabController,
-        physics: NeverScrollableScrollPhysics(),
         children: [
           Obx(() => ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
             itemCount: controller.songs.length,
             itemBuilder: (context, index) {
               Song song = controller.songs[controller.songs.length - index - 1];
-              return SongsTile(song);
+              return SongsTile(song,);
             },
           )),
           Obx(() => ListView.builder(
@@ -232,7 +226,7 @@ class RecentsView extends StatelessWidget {
             itemCount: controller.albums.length,
             itemBuilder: (context, index) {
               Album album = controller.albums[controller.albums.length - index - 1];
-              return AlbumTile(album, subtitle: "${album.songCount} Songs");
+              return AlbumTile(album, subtitle: '${album.songCount} Songs',);
             },
           )),
           Obx(() => ListView.builder(
@@ -240,7 +234,7 @@ class RecentsView extends StatelessWidget {
             itemCount: controller.artists.length,
             itemBuilder: (context, index) {
               Artist artist = controller.artists[controller.artists.length - index - 1];
-              return ArtistTile(artist: artist, subtitle: "${artist.dominantType}");
+              return ArtistTile(artist: artist, subtitle: '${artist.dominantType}',);
             },
           )),
           Obx(() => ListView.builder(
@@ -248,7 +242,7 @@ class RecentsView extends StatelessWidget {
             itemCount: controller.playlists.length,
             itemBuilder: (context, index) {
               Playlist playlist = controller.playlists[controller.playlists.length - index - 1];
-              return PlaylistTile(playlist, subtitle: "${playlist.songCount} Songs");
+              return PlaylistTile(playlist, subtitle: '${playlist.songCount} Songs',);
             },
           )),
         ],
