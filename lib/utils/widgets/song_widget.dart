@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:iconify_flutter_plus/icons/entypo.dart';
@@ -153,6 +154,59 @@ class SongTile extends StatelessWidget {
         subtitle: Text((subtitle.isEmpty) ? song.subtitle : subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,),
         trailing:  SongPopUpMenu(song, controller: controller)
       )
+    );
+  }
+}
+
+class SongCell extends StatelessWidget {
+  final Song song;
+  final String subtitle;
+  SongCell(this.song, {super.key, this.subtitle = ''});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+        await recents.insertSong(song);
+      },
+      child: Container(
+        width: 140,
+        margin: EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: CachedNetworkImage(
+                imageUrl: song.image.medQuality,
+                width: 140, height: 140, fit: BoxFit.fill,
+                placeholder: (context, url) {
+                  return Image.asset(
+                    "assets/images/albumCover/albumCover150x150.jpg",
+                    width: 140, height: 140, fit: BoxFit.fill,
+                  );
+                },
+                errorWidget: (context, url, error) {
+                  return Image.asset(
+                    "assets/images/albumCover/albumCover150x150.jpg",
+                    width: 140, height: 140, fit: BoxFit.fill,
+                  );
+                },
+              ),
+            ),
+            Gap(2),
+            Text(
+              song.title, maxLines: 1, overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 14),
+            ),
+            Text(
+              (subtitle.isEmpty) ? song.subtitle : subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 11),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

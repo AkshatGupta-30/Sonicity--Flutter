@@ -108,7 +108,8 @@ class AlbumCard extends StatelessWidget {
 class AlbumCell extends StatelessWidget {
   final Album album;
   final String subtitle;
-  AlbumCell(this.album, {super.key, required this.subtitle});
+  final CrossAxisAlignment alignment;
+  AlbumCell(this.album, {super.key, required this.subtitle, this.alignment  = CrossAxisAlignment.start});
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +126,7 @@ class AlbumCell extends StatelessWidget {
         width: 140,
         margin: EdgeInsets.symmetric(horizontal: 8),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: alignment,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(15),

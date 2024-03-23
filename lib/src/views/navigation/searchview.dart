@@ -110,49 +110,49 @@ class SearchView extends StatelessWidget {
               TitleSection(title: "Top Results", leftPadding: 0, size: 22),
               if(controller.searchAll.value.topQuery.songs.isNotEmpty) // * : Top songs
                 SizedBox(
-                  height: 76.0 * controller.searchAll.value.topQuery.songs.length,
+                  height: 190,
                   child: ListView.builder(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: 10), scrollDirection: Axis.horizontal,
                     itemCount: controller.searchAll.value.topQuery.songs.length,
                     itemBuilder: (context, index) {
                       Song song = controller.searchAll.value.songs[index];
-                      return SongTile(song, subtitle: "Song");
+                      return SongCell(song, subtitle: 'Song',);
                     },
                   ),
                 )
               else if(controller.searchAll.value.topQuery.albums.isNotEmpty) // * : Top albums
                 SizedBox(
-                  height: 76.0 * controller.searchAll.value.topQuery.albums.length,
+                  height: 190,
                   child: ListView.builder(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: 10), scrollDirection: Axis.horizontal,
                     itemCount: controller.searchAll.value.topQuery.albums.length,
                     itemBuilder: (context, index) {
                       Album album = controller.searchAll.value.topQuery.albums[index];
-                      return AlbumTile(album, subtitle: "Album");
+                      return AlbumCell(album, subtitle: "Album", alignment: CrossAxisAlignment.center,);
                     },
                   ),
                 )
               else if(controller.searchAll.value.topQuery.artists.isNotEmpty) // * : Top artists
                 SizedBox(
-                  height: 76.0 * controller.searchAll.value.topQuery.artists.length,
+                  height: 190,
                   child: ListView.builder(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: 10), scrollDirection: Axis.horizontal,
                     itemCount: controller.searchAll.value.topQuery.artists.length,
                     itemBuilder: (context, index) {
                       Artist artist = controller.searchAll.value.topQuery.artists[index];
-                      return ArtistTile(artist, subtitle: "Artist");
+                      return ArtistCell(artist, subtitle: "Artist");
                     },
                   ),
                 )
               else if(controller.searchAll.value.topQuery.playlists.isNotEmpty) // * : Top playlists
                 SizedBox(
-                  height: 76.0 * controller.searchAll.value.topQuery.playlists.length,
+                  height: 190,
                   child: ListView.builder(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: 10), scrollDirection: Axis.horizontal,
                     itemCount: controller.searchAll.value.topQuery.playlists.length,
                     itemBuilder: (context, index) {
                       Playlist playlist = controller.searchAll.value.topQuery.playlists[index];
-                      return PlaylistTile(playlist, subtitle: "Playlist");
+                      return PlaylistCell(playlist, subtitle: "Playlist");
                     },
                   ),
                 )
@@ -172,16 +172,14 @@ class SearchView extends StatelessWidget {
                   );
                 },
               ),
-              Container(
-                color: Colors.transparent,
-                height: 76.0 * controller.searchAll.value.songs.length,
+              SizedBox(
+                height: 190,
                 child: ListView.builder(
-                  padding: EdgeInsets.only(top: 10),
-                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.only(top: 10), scrollDirection: Axis.horizontal,
                   itemCount: controller.searchAll.value.songs.length,
                   itemBuilder: (context, index) {
                     Song song = controller.searchAll.value.songs[index];
-                    return SongTile(song);
+                    return SongCell(song);
                   },
                 ),
               ),
@@ -201,16 +199,14 @@ class SearchView extends StatelessWidget {
                   );
                 },
               ),
-              Container(
-                color: Colors.transparent,
-                height: 76.0 * controller.searchAll.value.albums.length,
+              SizedBox(
+                height: 190,
                 child: ListView.builder(
-                  padding: EdgeInsets.only(top: 10),
-                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.only(top: 10), scrollDirection: Axis.horizontal,
                   itemCount: controller.searchAll.value.albums.length,
                   itemBuilder: (context, index) {
                     Album album = controller.searchAll.value.albums[index];
-                    return AlbumTile(album, subtitle: album.language!);
+                    return AlbumCell(album, subtitle: album.language!, alignment: CrossAxisAlignment.center,);
                   },
                 ),
               ),
@@ -230,16 +226,14 @@ class SearchView extends StatelessWidget {
                   );
                 },
               ),
-              Container(
-                color: Colors.transparent,
-                height: 76.0 * controller.searchAll.value.artists.length,
+              SizedBox(
+                height: 190,
                 child: ListView.builder(
-                  padding: EdgeInsets.only(top: 10),
-                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.only(top: 10), scrollDirection: Axis.horizontal,
                   itemCount: controller.searchAll.value.artists.length,
                   itemBuilder: (context, index) {
                     Artist artist = controller.searchAll.value.artists[index];
-                    return ArtistTile(artist, subtitle: artist.description!);
+                    return ArtistCell(artist, subtitle: artist.description!);
                   },
                 ),
               ),
@@ -259,16 +253,14 @@ class SearchView extends StatelessWidget {
                   );
                 },
               ),
-              Container(
-                color: Colors.transparent,
-                height: 76.0 * controller.searchAll.value.playlists.length,
+              SizedBox(
+                height: 190,
                 child: ListView.builder(
-                  padding: EdgeInsets.only(top: 10),
-                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.only(top: 10), scrollDirection: Axis.horizontal,
                   itemCount: controller.searchAll.value.playlists.length,
                   itemBuilder: (context, index) {
                     Playlist playlist = controller.searchAll.value.playlists[index];
-                    return PlaylistTile(playlist, subtitle: playlist.language!.capitalizeFirst!);
+                    return PlaylistCell(playlist, subtitle: playlist.language!.capitalizeFirst!);
                   },
                 ),
               ),

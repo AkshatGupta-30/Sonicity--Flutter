@@ -34,8 +34,7 @@ class ArtistTile extends StatelessWidget {
             );
           },
           contentPadding: EdgeInsets.zero,
-          leading: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
+          leading: ClipOval(
             child: CachedNetworkImage(
               imageUrl: artist.image!.lowQuality,
               fit: BoxFit.cover, width: 50, height: 50,
