@@ -31,37 +31,45 @@ class NavigationView extends StatelessWidget {
     return Obx(() => Scaffold(
       key: controller.scaffoldKey,
       drawer: _drawer(context, controller),
-      body: navTabs[controller.selectedIndex.value],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: controller.selectedIndex.value,
-        items: [
-          BottomNavigationBarItem(
-            icon: Iconify(
-              MaterialSymbols.queue_music_rounded,
-              color: (controller.selectedIndex.value == 0) ? Get.find<SettingsController>().getAccent : null
+      body: TabBarView(
+        controller: controller.tabController,
+        physics: NeverScrollableScrollPhysics(),
+        children: navTabs,
+      ),
+      bottomNavigationBar: Container(
+        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+        child: TabBar(
+          controller: controller.tabController,
+          unselectedLabelColor: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+          tabs: [
+            Tab(
+              icon: Iconify(
+                MaterialSymbols.queue_music_rounded,
+                color: (controller.selectedTab.value == 0) ? Get.find<SettingsController>().getAccent : null
+              ),
+              text: "Queue"
             ),
-            label: "Queue"
-          ),
-          BottomNavigationBarItem(
-            icon: Iconify(
-              Fa6Solid.house_chimney,
-              color: (controller.selectedIndex.value == 1)
-                ? Get.find<SettingsController>().getAccent : null
+            Tab(
+              icon: Iconify(
+                Fa6Solid.house_chimney,
+                color: (controller.selectedTab.value == 1)
+                  ? Get.find<SettingsController>().getAccent : null
+              ),
+              text: "Home"
             ),
-            label: "Home"
-          ),
-          BottomNavigationBarItem(
-            icon: Iconify(
-              Ic.round_library_music,
-              color: (controller.selectedIndex.value == 2)
-                ? Get.find<SettingsController>().getAccent : null
+            Tab(
+              icon: Iconify(
+                Ic.round_library_music,
+                color: (controller.selectedTab.value == 2)
+                  ? Get.find<SettingsController>().getAccent : null
+              ),
+              text: "Library"
             ),
-            label: "Library"
-          ),
-        ],
-        onTap: (index) {
-          controller.selectedIndex.value = index;
-        },
+          ],
+          onTap: (index) {
+            controller.selectedTab.value = index;
+          },
+        ),
       ),
     ));
   }
