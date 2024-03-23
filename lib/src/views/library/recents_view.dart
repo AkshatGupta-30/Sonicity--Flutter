@@ -240,7 +240,7 @@ class RecentsView extends StatelessWidget {
             itemCount: controller.artists.length,
             itemBuilder: (context, index) {
               Artist artist = controller.artists[controller.artists.length - index - 1];
-              return ArtistTile(artist: artist, subtitle: "${artist.dominantType}");
+              return ArtistTile(artist, subtitle: "${artist.dominantType}");
             },
           )),
           Obx(() => ListView.builder(

@@ -16,7 +16,7 @@ import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 class ArtistTile extends StatelessWidget {
   final Artist artist;
   final String subtitle;
-  ArtistTile({super.key,required this.artist, required this.subtitle});
+  ArtistTile(this.artist, {super.key, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {

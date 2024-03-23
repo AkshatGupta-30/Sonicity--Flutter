@@ -3,10 +3,7 @@ library glowy_borderspertino.dart;
 import 'dart:math' as math;
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import 'animated_gradient_container.dart';
 
 /// This Widget creates a glowing, animated gradient border around your widgets.

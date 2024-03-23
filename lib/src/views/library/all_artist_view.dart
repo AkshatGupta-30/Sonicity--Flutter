@@ -94,7 +94,7 @@ class AllArtistsView extends StatelessWidget {
             itemCount: controller.starArtists.length,
             itemBuilder: (context, index) {
               Artist artist = controller.starArtists[controller.starArtists.length - index - 1];
-              return ArtistTile(artist: artist, subtitle: artist.description!,);
+              return ArtistTile(artist, subtitle: artist.description!,);
             },
           )),
           Obx(() => ListView.builder(
@@ -102,7 +102,7 @@ class AllArtistsView extends StatelessWidget {
             itemCount: controller.cloneArtists.length,
             itemBuilder: (context, index) {
               Artist artist = controller.cloneArtists[controller.cloneArtists.length - index - 1];
-              return ArtistTile(artist: artist, subtitle: artist.description!,);
+              return ArtistTile(artist, subtitle: artist.description!,);
             },
           )),
         ],
