@@ -113,10 +113,10 @@ class SongCard extends StatelessWidget {
   }
 }
 
-class SongsTile extends StatelessWidget {
+class SongTile extends StatelessWidget {
   final Song song;
   final String subtitle;
-  SongsTile(this.song, {super.key, this.subtitle = ""});
+  SongTile(this.song, {super.key, this.subtitle = ""});
 
   @override
   Widget build(BuildContext context) {

@@ -116,7 +116,7 @@ class SearchView extends StatelessWidget {
                     itemCount: controller.searchAll.value.topQuery.songs.length,
                     itemBuilder: (context, index) {
                       Song song = controller.searchAll.value.songs[index];
-                      return SongsTile(song, subtitle: "Song");
+                      return SongTile(song, subtitle: "Song");
                     },
                   ),
                 )
@@ -181,7 +181,7 @@ class SearchView extends StatelessWidget {
                   itemCount: controller.searchAll.value.songs.length,
                   itemBuilder: (context, index) {
                     Song song = controller.searchAll.value.songs[index];
-                    return SongsTile(song);
+                    return SongTile(song);
                   },
                 ),
               ),

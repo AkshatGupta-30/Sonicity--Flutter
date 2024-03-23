@@ -11,7 +11,7 @@ class PlaylistSongs extends StatelessWidget {
     return Scaffold(
       body: ListView.builder(
         itemCount: songs.length,
-        itemBuilder: (context, index) => SongsTile(songs[index]),
+        itemBuilder: (context, index) => SongTile(songs[index]),
       ),
     );
   }

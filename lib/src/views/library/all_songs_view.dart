@@ -97,7 +97,7 @@ class AllSongsView extends StatelessWidget {
             itemCount: controller.starSongs.length,
             itemBuilder: (context, index) {
               Song song = controller.starSongs[controller.starSongs.length - index - 1];
-              return SongsTile(song);
+              return SongTile(song);
             },
           )),
           Obx(() => ListView.builder(
@@ -105,7 +105,7 @@ class AllSongsView extends StatelessWidget {
             itemCount: controller.cloneSongs.length,
             itemBuilder: (context, index) {
               Song song = controller.cloneSongs[controller.cloneSongs.length - index - 1];
-              return SongsTile(song);
+              return SongTile(song);
             },
           )),
         ],

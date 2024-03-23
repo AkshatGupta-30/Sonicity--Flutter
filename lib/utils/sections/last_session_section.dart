@@ -50,7 +50,7 @@ class LastSessionSection extends StatelessWidget {
                         var currentItemIndex = currentRowIndex + innerIndex;
                         if (currentItemIndex < controller.songs.length) {
                           Song song = controller.songs[listLength - currentItemIndex - 1];
-                          return SongsTile(song);
+                          return SongTile(song);
                         } else {
                           return SizedBox();
                         }

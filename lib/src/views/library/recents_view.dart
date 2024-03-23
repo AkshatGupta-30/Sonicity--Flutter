@@ -224,7 +224,7 @@ class RecentsView extends StatelessWidget {
             itemCount: controller.songs.length,
             itemBuilder: (context, index) {
               Song song = controller.songs[controller.songs.length - index - 1];
-              return SongsTile(song);
+              return SongTile(song);
             },
           )),
           Obx(() => ListView.builder(

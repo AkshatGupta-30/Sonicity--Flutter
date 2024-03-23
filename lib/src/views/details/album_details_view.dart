@@ -221,7 +221,7 @@ class AlbumDetailsView extends StatelessWidget {
         itemCount: album.songs!.length,
         itemBuilder: (context, index) {
           Song song = album.songs![index];
-          return SongsTile(song);
+          return SongTile(song);
         },
       ),
     );

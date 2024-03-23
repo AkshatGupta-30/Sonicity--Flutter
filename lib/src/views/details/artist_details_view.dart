@@ -321,7 +321,7 @@ class ArtistDetailsView extends StatelessWidget {
       itemBuilder: (context, index)  {
         if(index < controller.songList.length) {
           Song song = controller.songList[index];
-          return SongsTile(song);
+          return SongTile(song);
         } else {
           return Lottie.asset("assets/lottie/gramophone1.json", animate: true, height: 50);
         }
