@@ -1,21 +1,11 @@
-import 'dart:io';
-
 import 'package:feedback/feedback.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/firebase_options.dart';
+import 'package:sonicity/src/audio/service_locator.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/database/cloned_database.dart';
-import 'package:sonicity/src/database/home_database.dart';
-import 'package:sonicity/src/database/my_playlists_database.dart';
-import 'package:sonicity/src/database/recents_database.dart';
-import 'package:sonicity/src/database/starred_database.dart';
-import 'package:sonicity/src/firebase/database_methods.dart';
-import 'package:sonicity/src/firebase/storage_methods.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
 import 'package:sonicity/utils/contants/themes.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
@@ -24,44 +14,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: "lib/.env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  
-  // * : Database
-  GetIt.I.registerLazySingleton<HomeDatabase>(() => HomeDatabase());
-  GetIt.I.registerLazySingleton<MyPlaylistsDatabase>(() => MyPlaylistsDatabase());
-  GetIt.I.registerLazySingleton<RecentsDatabase>(() => RecentsDatabase());
-  GetIt.I.registerLazySingleton<ClonedDatabase>(() => ClonedDatabase());
-  GetIt.I.registerLazySingleton<StarredDatabase>(() => StarredDatabase());
-
-  // * : GetX Controllers
-  Get.put(SettingsController());
-  Get.lazyPut(() => StorageMethods());
-  Get.lazyPut(() => DatabaseMethods());
-
-  _downloadAllDatabase();
-
+  await setupServiceLocator();
   runApp(MainApp());
-}
-
-Future<void> _downloadAllDatabase() async { // TODO - remove this
-  try {
-    Directory app = await getApplicationDocumentsDirectory();
-    String path = "${app.path}my_playlists.db";
-    String databaseFile = '/storage/emulated/0/Databases/my_playlists.db';
-
-    Directory destDir = Directory('/storage/emulated/0/Databases/');
-    if (!await destDir.exists()) await destDir.create(recursive: true);
-
-    File existingFile = File(databaseFile);
-    if (await existingFile.exists()) {
-      await existingFile.delete().then((value) async => await File(path).copy(databaseFile));
-      'Database Overridden to: $databaseFile'.printInfo();
-    } else {
-      await File(path).copy(databaseFile);
-      'Database downloaded to: $databaseFile'.printInfo();
-    }
-  } catch (e) {
-    'Error downloading database: $e'.printError();
-  }
 }
 
 class MainApp extends StatelessWidget {

@@ -1,4 +1,7 @@
+import 'package:audio_service/audio_service.dart';
+import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/download_url.dart';
 import 'package:sonicity/src/models/image_url.dart';
 import 'package:sonicity/src/models/album.dart';
@@ -184,6 +187,39 @@ class Song {
     }
   }
 
+  factory Song.fromMediaItem(MediaItem mediaItem) {
+    return Song(
+      id: mediaItem.id,
+      name: mediaItem.title,
+      artists: [],
+      image: ImageUrl.empty(),
+      downloadUrl: DownloadUrl.empty(),
+      hasLyrics: false
+    );
+  }
+
+  MediaItem toMediaItem() {
+    String songUrl = '';
+    String musicQuality = Get.find<SettingsController>().getMusicQuality;
+    switch(musicQuality) {
+      case "12kbps" : songUrl = downloadUrl.q12kbps; break;
+      case "48kbps" : songUrl = downloadUrl.q48kbps; break;
+      case "96kbps" : songUrl = downloadUrl.q96kbps; break;
+      case "160kbps" : songUrl = downloadUrl.q160kbps; break;
+      default : songUrl = downloadUrl.q320kbps; break;
+    }
+
+    return MediaItem(
+    id: id,
+    artist: artists!.first.id,
+    title: title,
+    artUri: Uri.parse(image.lowQuality),
+    extras: <String, dynamic>{
+      'url': songUrl,
+    },
+  );
+  }
+
   bool isEmpty() {
     return id.isEmpty;
   }
@@ -191,8 +227,6 @@ class Song {
   bool isNotEmpty() {
     return id.isNotEmpty;
   }
-
-  
 
   String get title => HtmlUnescape().convert(name);
   String get subtitle {
@@ -203,5 +237,11 @@ class Song {
       text = artists!.first.name;
     }
     return HtmlUnescape().convert("${album!.name} ◈ $text");
+  }
+  
+  String get artistsName {
+    String text = "";
+    if(artists != null || artists!.isNotEmpty) text = artists!.first.name;
+    return text;
   }
 }

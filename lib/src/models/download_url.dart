@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/utils/sections/download_url_section.dart';
 
 class DownloadUrl {
@@ -40,6 +42,16 @@ class DownloadUrl {
 
   List<Map<String,dynamic>> toMap() {
     return _downloadData.map((data) => data.toMap()).toList();
+  }
+
+  String get link {
+    switch (Get.find<SettingsController>().getMusicQuality) {
+      case "12kbps" : return q12kbps;
+      case "48kbps" : return q48kbps;
+      case "96kbps" : return q96kbps;
+      case "160kbps" : return q160kbps;
+      default: return q320kbps;
+    }
   }
 }
 
