@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -30,35 +31,6 @@ class RecentsDatabase {
     );
   }
 
-  static const tbSongDetail = 'song_details';
-  static const tbAlbumDetail = 'album_details';
-  static const tbArtistDetail = 'artist_details';
-  static const tbPlaylistDetail = 'playlist_details';
-
-  static const colId = 'id';
-  static const colSongId = 'song_id';
-  static const colAlbumId = 'album_id';
-  static const colArtistId = 'artist_id';
-  static const colPlaylistId = 'playlist_id';
-  static const colName = 'name';
-  static const colAlbumName = 'album_name';
-  static const colArtistIds = 'artist_ids';
-  static const colArtistNames = 'artist_names';
-  static const colHasLyrics = 'hasLyrics';
-  static const colYear = 'year';
-  static const colReleaseDate = 'releaseDate';
-  static const colDuration = 'duration';
-  static const colLanguage = 'language';
-  static const colSongCount = 'songCount';
-  static const colDominantType = 'dominantType';
-  static const colImgLow = 'img_low';
-  static const colImgMed = 'img_med';
-  static const colImgHigh = 'img_high';
-  static const colDownload12kbps = 'download_12kbps';
-  static const colDownload48kbps = 'download_48kbps';
-  static const colDownload96kbps = 'download_96kbps';
-  static const colDownload160kbps = 'download_160kbps';
-  static const colDownload320kbps = 'download_320kbps';
   Future _onCreate(Database db, int version) async {
     await db.execute( // * Song Details
       '''

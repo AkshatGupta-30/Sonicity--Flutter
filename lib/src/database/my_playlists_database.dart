@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -28,17 +29,6 @@ class MyPlaylistsDatabase {
     return await openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
 
-  static const tbPlaylistDetails = 'playlist_details';
-  static const defaultImg = 'assets/images/myPlaylistCover/myPlaylistCover50x50.jpg${specCharQuality}assets/images/myPlaylistCover/myPlaylistCover150x150.jpg${specCharQuality}assets/images/myPlaylistCover/myPlaylistCover500x500.jpg';
-  static const specCharSong = '(*_*)';
-  static const specCharQuality = '[*]';
-
-  static const colPlaylistId = 'playlist_id';
-  static const colName = 'name';
-  static const colDateCreated = 'date_created';
-  static const colSongCount = 'songCount';
-  static const colImages = 'images';
-  static const colSongIds = 'song_ids';
   Future _onCreate(Database db, int version) async {
     await db.execute(
       '''

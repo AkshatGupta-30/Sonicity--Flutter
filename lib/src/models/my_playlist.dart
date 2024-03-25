@@ -15,10 +15,10 @@ class MyPlaylist {
   });
 
   factory MyPlaylist.fromDb(Map<String, dynamic> data) {
-    List<String> songImageList = data[MyPlaylistsDatabase.colImages].toString().split(MyPlaylistsDatabase.specCharSong);
+    List<String> songImageList = data[colImages].toString().split(specCharSong);
     List<ImageUrl> imageUrls = [];
     for(var songImage in songImageList) {
-      List<String> imageQualityList = songImage.toString().split(MyPlaylistsDatabase.specCharQuality);
+      List<String> imageQualityList = songImage.toString().split(specCharQuality);
       List<Map<String, dynamic>> imageUrlMap = [
         {'quality' : '50x50', 'url' : imageQualityList[0]},
         {'quality' : '150x150', 'url' : imageQualityList[1]},
@@ -27,11 +27,11 @@ class MyPlaylist {
       imageUrls.add(ImageUrl.fromJson(imageUrlMap));
     }
     return MyPlaylist(
-      id: data[MyPlaylistsDatabase.colPlaylistId].toString(),
-      name: data[MyPlaylistsDatabase.colName].toString().replaceAll('_', ' '),
-      songCount: data[MyPlaylistsDatabase.colSongCount].toString(),
+      id: data[colPlaylistId].toString(),
+      name: data[colName].toString().replaceAll('_', ' '),
+      songCount: data[colSongCount].toString(),
       image: imageUrls,
-      dateCreated: DateTime.parse(data[MyPlaylistsDatabase.colDateCreated]),
+      dateCreated: DateTime.parse(data[colDateCreated]),
     );
   }
 
