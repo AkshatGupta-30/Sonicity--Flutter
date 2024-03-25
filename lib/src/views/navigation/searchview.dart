@@ -170,12 +170,7 @@ class SearchView extends StatelessWidget {
               Gap(20),
               ViewAllSection(
                 title: "Songs", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
-                onPressed: () {
-                  Get.to(
-                    () => ViewAllSongsView(),
-                    arguments: controller.searchController.text
-                  );
-                },
+                onPressed: () => Get.to(() => ViewAllSongsView(), arguments: controller.searchController.text),
               ),
               SizedBox(
                 height: 190,
@@ -197,12 +192,7 @@ class SearchView extends StatelessWidget {
               Gap(20),
               ViewAllSection(
                 title: "Albums", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
-                onPressed: () {
-                  Get.to(
-                    () => ViewAllAlbumsView(),
-                    arguments: controller.searchController.text
-                  );
-                },
+                onPressed: () => Get.to(() => ViewAllAlbumsView(), arguments: controller.searchController.text),
               ),
               SizedBox(
                 height: 190,
@@ -224,12 +214,7 @@ class SearchView extends StatelessWidget {
               Gap(20),
               ViewAllSection(
                 title: "Artists", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
-                onPressed: () {
-                  Get.to(
-                    () => ViewAllArtistsView(),
-                    arguments: controller.searchController.text
-                  );
-                },
+                onPressed: () => Get.to(() => ViewAllArtistsView(), arguments: controller.searchController.text),
               ),
               SizedBox(
                 height: 190,
@@ -251,12 +236,7 @@ class SearchView extends StatelessWidget {
               Gap(20),
               ViewAllSection(
                 title: "Playlists", buttonTitle: "View all", leftPadding: 0, rightPadding: 0, size: 22,
-                onPressed: () {
-                  Get.to(
-                    () => ViewAllPlaylistsView(),
-                    arguments: controller.searchController.text
-                  );
-                },
+                onPressed: () => Get.to(() => ViewAllPlaylistsView(), arguments: controller.searchController.text),
               ),
               SizedBox(
                 height: 190,

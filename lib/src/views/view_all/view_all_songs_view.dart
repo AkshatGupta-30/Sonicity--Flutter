@@ -21,7 +21,6 @@ import 'package:super_string/super_string.dart';
 
 class ViewAllSongsView extends StatelessWidget {
   ViewAllSongsView({super.key});
-  final controller = Get.find<ViewAllSearchSongsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +30,25 @@ class ViewAllSongsView extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         children: [
           BackgroundGradientDecorator(
-            child: Obx(() {
-              if(controller.songs.isEmpty) {
-                return Center(
-                  child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
-                );
+            child: GetBuilder(
+              init: ViewAllSearchSongsController(Get.arguments),
+              builder: (controller) {
+                return Obx(() {
+                  if(controller.songs.isEmpty) {
+                    return Center(
+                      child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+                    );
+                  }
+                  return CustomScrollView(
+                    controller: controller.scrollController,
+                    slivers: [
+                      _appBar(context, media, controller),
+                      _songList(controller)
+                    ],
+                  );
+                });
               }
-              return CustomScrollView(
-                controller: controller.scrollController,
-                slivers: [
-                  _appBar(context, media, controller),
-                  _songList(controller)
-                ],
-              );
-            }),
+            ),
           ),
           MiniPlayerView()
         ],
