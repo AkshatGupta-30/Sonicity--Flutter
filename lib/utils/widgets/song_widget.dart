@@ -9,12 +9,12 @@ import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
+import 'package:sonicity/src/audio/player_invoke.dart';
 import 'package:sonicity/src/controllers/song_controller.dart';
 import 'package:sonicity/src/database/recents_database.dart';
 import 'package:sonicity/src/models/song.dart';
 import 'package:sonicity/src/views/details/album_details_view.dart';
 import 'package:sonicity/src/views/details/song_details_view.dart';
-import 'package:sonicity/src/views/player/main_player_view.dart';
 import 'package:sonicity/utils/sections/add_to_playlist_section.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
@@ -35,7 +35,7 @@ class SongCard extends StatelessWidget {
       builder: (controller) {
         return GestureDetector(
           onTap: () async {
-            Get.to(() => MainPlayerView(song: song, controller: controller));
+            playSong(song);
             RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
             await recents.insertSong(song);
           },
@@ -126,7 +126,7 @@ class SongTile extends StatelessWidget {
       init: SongController(song),
       builder: (controller) => ListTile(
         onTap: () async {
-            Get.to(() => MainPlayerView(song: song, controller: controller));
+          playSong(song);
           RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
           await recents.insertSong(song);
         },
@@ -167,6 +167,7 @@ class SongCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
+        playSong(song);
         RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
         await recents.insertSong(song);
       },

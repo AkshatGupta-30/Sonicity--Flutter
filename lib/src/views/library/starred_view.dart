@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:sliver_tools/sliver_tools.dart';
@@ -18,6 +17,7 @@ import 'package:sonicity/utils/widgets/artist_widget.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
+import 'package:sonicity/utils/widgets/shuffle_n_play.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
@@ -173,41 +173,7 @@ class StarredView extends StatelessWidget {
             ),
             Spacer(),
             if(controller.selectedTab.value == 0)
-              Container(
-                height: kBottomNavigationBarHeight, alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Shuffle",
-                          style: TextStyle(color: Colors.grey.shade300, fontSize: 21),
-                        ),
-                        Iconify(
-                          Ic.twotone_shuffle, size: 25,
-                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,),
-                      ],
-                    ),
-                    Gap(5),
-                    Container(height: 30, width: 1, color: Colors.white38),
-                    Gap(5),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Iconify(
-                        Ic.twotone_play_arrow, size: 27,
-                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              ShuffleNPlay(controller.songs),
             Gap(8)
           ],
         )),

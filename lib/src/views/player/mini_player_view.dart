@@ -23,11 +23,11 @@ class MiniPlayerView extends StatelessWidget {
     return ValueListenableBuilder<AudioProcessingState>(
       valueListenable: audioManager.playbackStatNotifier,
       builder: (context, processingState, _) {
-        if(processingState == AudioProcessingState.idle) return Container(height: 20, width: double.maxFinite, color: Colors.red,);
+        if(processingState == AudioProcessingState.idle) return SizedBox();
         return ValueListenableBuilder<MediaItem?>(
           valueListenable: audioManager.currentSongNotifier,
           builder: (context, mediaItem, _) {
-            if(mediaItem == null) return Container(height: 20, width: double.maxFinite, color: Colors.amber,);
+            if(mediaItem == null) return SizedBox();
             return Dismissible(
               key: const Key("mini_player"),
               direction: DismissDirection.down,

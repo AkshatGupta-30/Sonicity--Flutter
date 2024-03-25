@@ -17,16 +17,16 @@ void playSong(Song song) {
   debounce?.cancel();
   debounce = Timer(
     const Duration(milliseconds: 600), () {
-      PlayerInvoke.init(songsList: [song], index: 0,);
+      PlayerInvoke.init(songsList: [song], index: 0, shuffle: false);
     }
   );
 }
 
-void playSongs(List<Song> songs, {required int index}) {
+void playSongs(List<Song> songs, {required int index, bool shuffle = false}) {
   debounce?.cancel();
   debounce = Timer(
     const Duration(milliseconds: 600), () {
-      PlayerInvoke.init(songsList: songs, index: index,);
+      PlayerInvoke.init(songsList: songs, index: index, shuffle: shuffle);
     }
   );
 }
@@ -37,8 +37,8 @@ class PlayerInvoke {
   static Future<void> init({
     required List<Song> songsList,
     required int index,
+    required bool shuffle,
     bool fromMiniPlayer = false,
-    bool shuffle = false,
     String? playlistBox,
   }) async {
     final int globalIndex = index < 0 ? 0 : index;

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 import 'package:sonicity/src/controllers/all_songs_controller.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/song.dart';
@@ -30,7 +31,7 @@ class AllSongsView extends StatelessWidget {
                 return CustomScrollView(
                   slivers: [
                     _appbar(context, controller),
-                    SliverPersistentHeader(pinned: true, delegate: _SongsPlayControls(controller)),// TODO
+                    _summaryHeader(context, controller),
                     _body(controller)
                   ],
                 );
@@ -93,54 +94,9 @@ class AllSongsView extends StatelessWidget {
     );
   }
 
-  SliverFillRemaining _body(AllSongsController controller) {
-    return SliverFillRemaining(
-      child: TabBarView(
-        controller: controller.tabController,
-        physics: NeverScrollableScrollPhysics(),
-        children: [
-          Obx(() => ListView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-            itemCount: controller.starSongs.length,
-            itemBuilder: (context, index) {
-              Song song = controller.starSongs[controller.starSongs.length - index - 1];
-              return SongTile(song);
-            },
-          )),
-          Obx(() => ListView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-            itemCount: controller.cloneSongs.length,
-            itemBuilder: (context, index) {
-              Song song = controller.cloneSongs[controller.cloneSongs.length - index - 1];
-              return SongTile(song);
-            },
-          )),
-        ],
-      ),
-    );
-  }
-}
-
-class _SongsPlayControls extends SliverPersistentHeaderDelegate {
-  final AllSongsController controller;
-  _SongsPlayControls(this.controller);
-
-  @override
-  double get minExtent => kToolbarHeight;
-
-  @override
-  double get maxExtent => kToolbarHeight;
-
-  final lengths = "".obs;
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Obx(() {
-      if(controller.selectedTab.value == 0) {
-        lengths.value = "${controller.starSongs.length} Songs";
-      } else {
-        lengths.value = "${controller.cloneSongs.length} Songs";
-      }
-      return Container(
+  SliverPinnedHeader _summaryHeader(BuildContext context, AllSongsController controller) {
+    return SliverPinnedHeader(
+      child: Container(
         height: kToolbarHeight,
         decoration: BoxDecoration(
           color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
@@ -152,7 +108,9 @@ class _SongsPlayControls extends SliverPersistentHeaderDelegate {
         child: Row(
           children: [
             Gap(20),
-            Text(lengths.value, style: Theme.of(context).textTheme.bodyLarge),
+            Obx(() => (controller.selectedTab.value == 0)
+                ? Text("${controller.starSongs.length} Songs", style: Theme.of(context).textTheme.bodyLarge)
+                : Text("${controller.cloneSongs.length} Songs", style: Theme.of(context).textTheme.bodyLarge)),
             Spacer(),
             Container(
               height: kBottomNavigationBarHeight, alignment: Alignment.center,
@@ -192,12 +150,34 @@ class _SongsPlayControls extends SliverPersistentHeaderDelegate {
             Gap(8)
           ],
         ),
-      );
-    });
+      )
+    );
   }
 
-  @override
-  bool shouldRebuild(_SongsPlayControls oldDelegate) {
-    return false;
+  SliverFillRemaining _body(AllSongsController controller) {
+    return SliverFillRemaining(
+      child: TabBarView(
+        controller: controller.tabController,
+        physics: NeverScrollableScrollPhysics(),
+        children: [
+          Obx(() => ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+            itemCount: controller.starSongs.length,
+            itemBuilder: (context, index) {
+              Song song = controller.starSongs[controller.starSongs.length - index - 1];
+              return SongTile(song);
+            },
+          )),
+          Obx(() => ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+            itemCount: controller.cloneSongs.length,
+            itemBuilder: (context, index) {
+              Song song = controller.cloneSongs[controller.cloneSongs.length - index - 1];
+              return SongTile(song);
+            },
+          )),
+        ],
+      ),
+    );
   }
 }

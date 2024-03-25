@@ -7,6 +7,7 @@ import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sonicity/src/audio/player_invoke.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
 import 'package:sonicity/src/models/song.dart';
@@ -162,45 +163,41 @@ class ViewAllSongsView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(// * : Play Button
-                        onTap: (){},
+                        onTap: () => playSongs(controller.songs, index: 0),
                         borderRadius: BorderRadius.circular(15),
-                        child: Obx(
-                          () {
-                            final settings = Get.find<SettingsController>();
-                            return Container(
-                              padding: EdgeInsets.only(left: 5, top: 10, right: 10, bottom: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(18),
-                                gradient: LinearGradient(
-                                  colors: [
-                                    settings.getAccent,
-                                    (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
-                                  ],
-                                  begin: Alignment.center, end: Alignment.bottomCenter,
-                                  stops: [0.25, 1], tileMode: TileMode.clamp
-                                )
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Iconify(Ic.twotone_play_arrow, size: 30),
-                                  Gap(3),
-                                  Text(
-                                    "Play",
-                                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
-                                    )
-                                  )
+                        child: Obx(() => Container(
+                            padding: EdgeInsets.only(left: 5, top: 10, right: 10, bottom: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Get.find<SettingsController>().getAccent,
+                                  (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
                                 ],
+                                begin: Alignment.center, end: Alignment.bottomCenter,
+                                stops: [0.25, 1], tileMode: TileMode.clamp
                               )
-                            );
-                          }
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Iconify(Ic.twotone_play_arrow, size: 30),
+                                Gap(3),
+                                Text(
+                                  "Play",
+                                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
+                                  )
+                                )
+                              ],
+                            )
+                          )
                         ),
                       ),
                       Gap(10),
-                      InkWell(
-                        onTap: (){},
-                        borderRadius: BorderRadius.circular(15),
+                      InkWell(// * : Shuffle Button
+                        onTap: () => playSongs(controller.songs, index: 0, shuffle: true),
+                        borderRadius: BorderRadius.circular(100),
                         child: Container(
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(

@@ -20,6 +20,7 @@ import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
+import 'package:sonicity/utils/widgets/shuffle_n_play.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
@@ -184,88 +185,57 @@ class ArtistDetailsView extends StatelessWidget {
         () {
           if(controller.selectedTab.value == 2) return SizedBox();
           return Container(
-              height: kToolbarHeight,
-              color: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Colors.black,
-              padding: EdgeInsets.zero,
-              child: Column(
-                children: [
-                  Divider(),
-                  Spacer(),
-                  if(controller.selectedTab.value == 0)
-                    Row( 
+            height: kToolbarHeight, padding: EdgeInsets.zero,
+            color: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Colors.black,
+            child: Column(
+              children: [
+                (controller.selectedTab.value == 0)
+                    ? Row( 
                       children: [
                         Gap(20),
                         Text("${controller.songCount} Songs", style: Theme.of(context).textTheme.bodyLarge),
                         Spacer(),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Row(
-                                children: [
-                                  Text("Shuffle", style: Theme.of(context).textTheme.labelMedium),
-                                  Iconify(Ic.twotone_shuffle, size: 25),
-                                ],
+                        ShuffleNPlay(controller.songList),
+                        PopupMenuButton(
+                          itemBuilder: (context) {
+                            return [
+                              PopupMenuItem(
+                                onTap: () => controller.sort(SortType.name, Sort.asc),
+                                child: PopUpButtonRow(icon: Mdi.sort_alphabetical_ascending, label: "Name Asc")
                               ),
-                              Gap(5),
-                              Container(height: 30, width: 1, color: Colors.white38),
-                              Gap(8),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Iconify(
-                                  Ic.twotone_play_arrow, size: 27,
-                                  color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
-                                ),
+                              PopupMenuItem(
+                                onTap: () => controller.sort(SortType.name, Sort.dsc),
+                                child: PopUpButtonRow(icon: Mdi.sort_alphabetical_descending, label: "Name Desc")
                               ),
-                              PopupMenuButton(
-                                itemBuilder: (context) {
-                                  return [
-                                    PopupMenuItem(
-                                      onTap: () => controller.sort(SortType.name, Sort.asc),
-                                      child: PopUpButtonRow(icon: Mdi.sort_alphabetical_ascending, label: "Name Asc")
-                                    ),
-                                    PopupMenuItem(
-                                      onTap: () => controller.sort(SortType.name, Sort.dsc),
-                                      child: PopUpButtonRow(icon: Mdi.sort_alphabetical_descending, label: "Name Desc")
-                                    ),
-                                    PopupMenuItem(
-                                      onTap: () => controller.sort(SortType.duration, Sort.asc),
-                                      child: PopUpButtonRow(icon: Mdi.sort_numeric_ascending, label: "Duration Asc")
-                                    ),
-                                    PopupMenuItem(
-                                      onTap: () => controller.sort(SortType.duration, Sort.dsc),
-                                      child: PopUpButtonRow(icon: Mdi.sort_numeric_descending, label: "Duration Desc")
-                                    ),
-                                    PopupMenuItem(
-                                      onTap: () => controller.sort(SortType.year, Sort.asc),
-                                      child: PopUpButtonRow(icon: Mdi.sort_calendar_ascending, label: "Year Asc")
-                                    ),
-                                    PopupMenuItem(
-                                      onTap: () => controller.sort(SortType.year, Sort.dsc),
-                                      child: PopUpButtonRow(icon: Mdi.sort_calendar_descending, label: "Year Desc")
-                                    ),
-                                  ];
-                                },
-                                icon: Iconify(MaterialSymbols.sort_rounded,),
-                                position: PopupMenuPosition.under,
-                                color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              PopupMenuItem(
+                                onTap: () => controller.sort(SortType.duration, Sort.asc),
+                                child: PopUpButtonRow(icon: Mdi.sort_numeric_ascending, label: "Duration Asc")
                               ),
-                            ],
-                          ),
+                              PopupMenuItem(
+                                onTap: () => controller.sort(SortType.duration, Sort.dsc),
+                                child: PopUpButtonRow(icon: Mdi.sort_numeric_descending, label: "Duration Desc")
+                              ),
+                              PopupMenuItem(
+                                onTap: () => controller.sort(SortType.year, Sort.asc),
+                                child: PopUpButtonRow(icon: Mdi.sort_calendar_ascending, label: "Year Asc")
+                              ),
+                              PopupMenuItem(
+                                onTap: () => controller.sort(SortType.year, Sort.dsc),
+                                child: PopUpButtonRow(icon: Mdi.sort_calendar_descending, label: "Year Desc")
+                              ),
+                            ];
+                          },
+                          icon: Iconify(MaterialSymbols.sort_rounded,),
+                          position: PopupMenuPosition.under,
+                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         Gap(10)
                       ],
-                    ),
-                  if(controller.selectedTab.value == 1)
-                    Container(
+                    )
+                    : SizedBox(),
+                (controller.selectedTab.value == 1)
+                    ? Container(
                       width: double.maxFinite, alignment: Alignment.centerLeft,
                       padding: EdgeInsets.only(left: 20),
                       child: Row(
@@ -309,11 +279,12 @@ class ArtistDetailsView extends StatelessWidget {
                           Gap(10)
                         ],
                       ),
-                    ),
-                  Spacer()
-                ],
-              ),
-            );
+                    )
+                    : SizedBox(),
+                Spacer()
+              ],
+            ),
+          );
         }
       ),
     );
