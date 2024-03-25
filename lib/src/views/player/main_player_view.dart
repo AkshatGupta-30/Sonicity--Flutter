@@ -39,34 +39,44 @@ class MainPlayerView extends StatelessWidget {
         ),
       ),
       onDismissed: (direction) => Get.back(),
-      child: AnimatedGradientBorder( // TODO - Various Options of Main screen view
-        backgroundColor: Colors.black,
-        borderSize: 10, borderRadius: BorderRadius.zero,
-        gradientColors: [Colors.red, Colors.yellow, Colors.green, Colors.blue],
-        child: BackgroundGradientDecorator(
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  children: [
-                    _songInfo(context),
-                    Gap(20),
-                    _artworkAndSlider(media),
-                    Gap(10),
-                    _durationAndVolume(context),
-                    Gap(10),
-                    _buttonRows(),
-                    Spacer(),
-                    _albumViewAndEqualizer(),
-                    Gap(10),
-                  ],
+      child: ValueListenableBuilder(
+        valueListenable: audioManager.playButtonNotifier,
+        builder: (context, state, _) {
+          return AnimatedGradientBorder( // TODO - Various Options of Main screen view
+            backgroundColor: Colors.black,
+            borderSize: 10, borderRadius: BorderRadius.zero,
+            gradientColors: [
+              Colors.red, Colors.orange, Colors.yellow,
+              Colors.lightGreen, Colors.green, Colors.cyan,
+              Colors.blue, Colors.purple, Colors.pink
+            ],
+            isPaused: (state == ButtonState.paused) ? true : false,
+            child: BackgroundGradientDecorator(
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                body: SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      children: [
+                        _songInfo(context),
+                        Gap(20),
+                        _artworkAndSlider(media),
+                        Gap(10),
+                        _durationAndVolume(context),
+                        Gap(10),
+                        _buttonRows(),
+                        Spacer(),
+                        _albumViewAndEqualizer(),
+                        Gap(10),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
+          );
+        }
       ),
     );
   }

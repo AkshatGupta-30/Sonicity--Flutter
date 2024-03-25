@@ -22,6 +22,7 @@ class AnimatedGradientBorder extends StatefulWidget {
       required this.child,
       required this.gradientColors,
       required this.borderRadius,
+      this.isPaused = false,
       this.animationTime,
       this.borderSize,
       this.glowSize,
@@ -33,6 +34,7 @@ class AnimatedGradientBorder extends StatefulWidget {
   final Widget child;
   final double? borderSize;
   final double? glowSize;
+  final bool isPaused;
   final List<Color> gradientColors;
   final BorderRadiusGeometry borderRadius;
   final int? animationTime;
@@ -55,7 +57,10 @@ class AnimatedGradientState extends State<AnimatedGradientBorder>
     super.initState();
     _controller = AnimationController(
         vsync: this, duration: Duration(seconds: widget.animationTime ?? 2));
-    _controller.addListener(() => setState(() {}));
+    _controller.addListener(() {
+      (widget.isPaused) ? _controller.stop() : _controller.repeat();
+      setState(() {});
+    });
     _angleAnimation =
         Tween<double>(begin: 0.1, end: 2 * math.pi).animate(_controller);
     if (widget.animationProgress != null) {
