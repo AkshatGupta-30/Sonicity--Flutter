@@ -4,7 +4,9 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_glow/flutter_glow.dart';
@@ -16,6 +18,7 @@ import 'package:interactive_slider/interactive_slider.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/views/details/album_details_view.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 // TODO - Adjust View with theme (Dark , light)
@@ -218,13 +221,59 @@ class MainPlayerView extends StatelessWidget {
         Row(// * : Primary Buttons
           children: [
             Iconify(Uit.favorite, size: 30,), // TODO - Star
+            Spacer(flex: 5,),
+            ValueListenableBuilder(// * : Previous Song
+              valueListenable: audioManager.isFirstSongNotifier,
+              builder: (context, isFirst, _) {
+                return IconButton(
+                  onPressed: (isFirst) ? null : audioManager.previous,
+                  padding: EdgeInsets.zero,
+                  icon: Iconify(Ic.round_skip_previous, size: 40, color: (isFirst) ? Colors.grey : null,)
+                );
+              }
+            ),
             Spacer(flex: 2,),
-            Iconify(Ic.round_skip_previous, size: 35,), // TODO - Previous Song
+            ValueListenableBuilder(// * : Play/Pause Button
+              valueListenable: audioManager.playButtonNotifier,
+              builder: (context, state, _) {
+                return SizedBox.square(
+                  dimension: 80,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      if(state == ButtonState.loading)
+                        CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(Get.find<SettingsController>().getAccent),
+                        ),
+                      if(state == ButtonState.playing)
+                        IconButton(
+                          onPressed: () => audioManager.pause(),
+                          padding: EdgeInsets.zero,
+                          icon: Iconify(MaterialSymbols.pause_circle, size: 75,),
+                        )
+                      else
+                        IconButton(
+                          onPressed: () => audioManager.play(),
+                          padding: EdgeInsets.zero,
+                          icon: Iconify(MaterialSymbols.play_circle, size: 75,),
+                        )
+                    ],
+                  ),
+                );
+              }
+            ),
             Spacer(flex: 2,),
-            Iconify(MaterialSymbols.pause_circle, size: 75,), // TODO - MaterialSymbols.play_circle
-            Spacer(flex: 2,),
-            Iconify(Ic.round_skip_next, size: 35,), // TODO - Next Song
-            Spacer(flex: 2,),
+            ValueListenableBuilder(// * : Next Song
+              valueListenable: audioManager.isLastSongNotifier,
+              builder: (context, isLast, _) {
+                return IconButton(
+                  onPressed: (isLast) ? null : audioManager.next,
+                  padding: EdgeInsets.zero,
+                  icon: Iconify(Ic.round_skip_next, size: 40, color: (isLast) ? Colors.grey : null,)
+                );
+              }
+            ),
+            Spacer(flex: 5,),
             Iconify(MaterialSymbols.repeat_rounded, size: 30, color: Colors.grey,), // TODO - (Repeat) MaterialSymbols.repeat_rounded, Icons.repeat_one_rounded
           ],
         ),
