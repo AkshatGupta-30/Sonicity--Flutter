@@ -22,6 +22,7 @@ class MainPlayerView extends StatelessWidget {
   MainPlayerView({super.key});
 
   final audioManager = getIt<AudioManager>();
+  final controller = Get.find<PlayerController>();
   @override
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
@@ -53,25 +54,20 @@ class MainPlayerView extends StatelessWidget {
                 body: SafeArea(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: GetBuilder(
-                      init: PlayerController(),
-                      builder: (controller) {
-                        return Column(
-                          children: [
-                            Spacer(flex: 2,),
-                            _songInfo(context),
-                            Spacer(flex: 2,),
-                            _artworkAndSlider(media),
-                            Spacer(flex: 1,),
-                            _durationAndVolume(context),
-                            Spacer(flex: 1,),
-                            _buttonRows(controller),
-                            Spacer(flex: 2,),
-                            _albumViewAndEqualizer(),
-                            Spacer(flex: 1,),
-                          ],
-                        );
-                      }
+                    child: Column(
+                      children: [
+                        Spacer(flex: 2,),
+                        _songInfo(context),
+                        Spacer(flex: 2,),
+                        _artworkAndSlider(media),
+                        Spacer(flex: 1,),
+                        _durationAndVolume(context),
+                        Spacer(flex: 1,),
+                        _buttonRows(context),
+                        Spacer(flex: 2,),
+                        _albumViewAndEqualizer(),
+                        Spacer(flex: 1,),
+                      ],
                     ),
                   ),
                 ),
@@ -223,7 +219,7 @@ class MainPlayerView extends StatelessWidget {
     );
   }
 
-  Column _buttonRows(PlayerController controller) {
+  Column _buttonRows(BuildContext context) {
     return Column(// * : Button Rows
       children: [
         Row(// * : Primary Buttons
@@ -309,7 +305,11 @@ class MainPlayerView extends StatelessWidget {
         Gap(15),
         Row(// * : Secondary Button
           children: [
-            Iconify(Ic.twotone_lyrics, size: 27,), // TODO - Lyrics
+            IconButton(
+              onPressed: () => (controller.currentSong.value.hasLyrics) ? controller.showLyrics(context) : null,
+              padding: EdgeInsets.zero,
+              icon: Iconify(Ic.twotone_lyrics, size: 27,)
+            ),
             Gap(20),
             IconButton(
               onPressed: () => Get.off(() => SongDetailsView(), arguments: controller.currentSong.value.id),

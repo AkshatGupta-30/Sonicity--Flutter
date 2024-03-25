@@ -6,7 +6,7 @@ import 'package:sonicity/src/models/models.dart';
 
 class LyricsApi {
   static Future<Map<String, dynamic>> _apiCall(String id) async {
-    final uri = "https://saavn.dev/lyrics?id=$id";
+    final uri = "https://saavn.dev/api/songs/$id/lyrics";
     final response = await http.get(Uri.parse(uri));
     if(response.statusCode != 200) {
       "Lyrics Api\nStatus Code : ${response.statusCode}\nMessage : ${jsonDecode(response.body)['message']}".printError();
