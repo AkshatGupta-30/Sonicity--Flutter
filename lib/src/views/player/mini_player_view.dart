@@ -100,18 +100,15 @@ class MiniPlayerView extends StatelessWidget {
                                 },
                                 leading: ClipRRect(// * : Song Artwork
                                   borderRadius: BorderRadius.circular(6),
-                                  child: Hero(
-                                    tag: 'currentArtwork',
-                                    child: CachedNetworkImage(
-                                      imageUrl: mediaItem.artUri.toString(), fit: BoxFit.cover,
-                                      height: 50, width: 50,
-                                      errorWidget: (context, url, error) {
-                                        return Image.asset("assets/images/songCover/songCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
-                                      },
-                                      placeholder: (context, url) {
-                                        return Image.asset("assets/images/songCover/songCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
-                                      },
-                                    ),
+                                  child: CachedNetworkImage(
+                                    imageUrl: mediaItem.artUri.toString(), fit: BoxFit.cover,
+                                    height: 50, width: 50,
+                                    errorWidget: (context, url, error) {
+                                      return Image.asset("assets/images/songCover/songCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
+                                    },
+                                    placeholder: (context, url) {
+                                      return Image.asset("assets/images/songCover/songCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
+                                    },
                                   )
                                 ),
                                 title: Text(

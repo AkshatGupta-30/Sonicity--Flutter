@@ -31,4 +31,13 @@ class MediaItemConverter {
       },
     );
   }
+
+  static Song toSong(MediaItem song) {
+    return Song(
+      id: song.id, name: song.title,
+      image: ImageUrl.empty(),
+      downloadUrl: DownloadUrl.empty(),
+      hasLyrics: false
+    );
+  }
 }

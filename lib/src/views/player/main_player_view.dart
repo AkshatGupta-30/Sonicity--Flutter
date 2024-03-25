@@ -4,11 +4,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/animation.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -19,7 +15,7 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
-import 'package:sonicity/src/views/details/album_details_view.dart';
+import 'package:sonicity/src/views/details/details_view.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 // TODO - Adjust View with theme (Dark , light)
 class MainPlayerView extends StatelessWidget {
@@ -57,19 +53,25 @@ class MainPlayerView extends StatelessWidget {
                 body: SafeArea(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                      children: [
-                        _songInfo(context),
-                        Gap(20),
-                        _artworkAndSlider(media),
-                        Gap(10),
-                        _durationAndVolume(context),
-                        Gap(10),
-                        _buttonRows(),
-                        Spacer(),
-                        _albumViewAndEqualizer(),
-                        Gap(10),
-                      ],
+                    child: GetBuilder(
+                      init: PlayerController(),
+                      builder: (controller) {
+                        return Column(
+                          children: [
+                            Spacer(flex: 2,),
+                            _songInfo(context),
+                            Spacer(flex: 2,),
+                            _artworkAndSlider(media),
+                            Spacer(flex: 1,),
+                            _durationAndVolume(context),
+                            Spacer(flex: 1,),
+                            _buttonRows(controller),
+                            Spacer(flex: 2,),
+                            _albumViewAndEqualizer(),
+                            Spacer(flex: 1,),
+                          ],
+                        );
+                      }
                     ),
                   ),
                 ),
@@ -114,21 +116,17 @@ class MainPlayerView extends StatelessWidget {
           valueListenable: audioManager.currentSongNotifier,
           builder: (context, song, _) {
             if(song == null) return SizedBox();
-            return Hero(// * : ArtWork
-              tag: "currentArtwork",
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(media.width * 0.8),
-                child: CachedNetworkImage(
-                  imageUrl: song.artUri.toString(), fit: BoxFit.cover,
-                  height: media.width * 0.75, width: media.width * 0.75,
-                  errorWidget: (context, url, error) {
-                    return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.75, width: media.width * 0.75,);
-                  },
-                  placeholder: (context, url) {
-                    return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.75, width: media.width * 0.75,);
-                  },
-                )
-              ),
+            return ClipOval(// * : Artwork
+              child: CachedNetworkImage(
+                imageUrl: song.artUri.toString(), fit: BoxFit.cover,
+                height: media.width * 0.75, width: media.width * 0.75,
+                errorWidget: (context, url, error) {
+                  return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.75, width: media.width * 0.75,);
+                },
+                placeholder: (context, url) {
+                  return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.75, width: media.width * 0.75,);
+                },
+              )
             );
           }
         ),
@@ -225,7 +223,7 @@ class MainPlayerView extends StatelessWidget {
     );
   }
 
-  Column _buttonRows() {
+  Column _buttonRows(PlayerController controller) {
     return Column(// * : Button Rows
       children: [
         Row(// * : Primary Buttons
@@ -313,11 +311,22 @@ class MainPlayerView extends StatelessWidget {
           children: [
             Iconify(Ic.twotone_lyrics, size: 27,), // TODO - Lyrics
             Gap(20),
-            Iconify(Entypo.info, size: 27,), // TODO - Song Info
+            IconButton(
+              onPressed: () => Get.off(() => SongDetailsView(), arguments: controller.currentSong.value.id),
+              padding: EdgeInsets.zero,
+              icon: Iconify(Entypo.info, size: 27,)
+            ),
             Spacer(),
             Iconify(Bi.speaker_fill, size: 27,), // TODO - System Sound = Ion.headset, Mdi.cellphone_sound, Bi.speaker_fill
             Gap(20),
-            Iconify(Uit.favorite, size: 30,), // TODO - Star
+            Obx(() => IconButton(
+              onPressed: controller.toggleStarred,
+              padding: EdgeInsets.zero,
+              icon: Iconify(
+                (controller.isFavorite.value) ? Uis.favorite : Uit.favorite, size: 30,
+                color: (controller.isFavorite.value) ? Colors.yellowAccent : Colors.white
+              )
+            )),
           ],
         )
       ],

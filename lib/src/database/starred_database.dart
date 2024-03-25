@@ -26,6 +26,36 @@ class StarredDatabase {
     return await openDatabase(path, version: _databaseVersion, onCreate: _onCreate,);
   }
 
+  // TODO : separate class for this
+  static const tbSongDetail = 'starred_song';
+  static const tbAlbumDetail = 'starred_album';
+  static const tbArtistDetail = 'starred_artist';
+  static const tbPlaylistDetail = 'starred_playlist';
+
+  static const colId = 'id';
+  static const colSongId = 'song_id';
+  static const colAlbumId = 'album_id';
+  static const colArtistId = 'artist_id';
+  static const colPlaylistId = 'playlist_id';
+  static const colName = 'name';
+  static const colAlbumName = 'album_name';
+  static const colArtistIds = 'artist_ids';
+  static const colArtistNames = 'artist_names';
+  static const colHasLyrics = 'hasLyrics';
+  static const colYear = 'year';
+  static const colReleaseDate = 'releaseDate';
+  static const colDuration = 'duration';
+  static const colLanguage = 'language';
+  static const colSongCount = 'songCount';
+  static const colDominantType = 'dominantType';
+  static const colImgLow = 'img_low';
+  static const colImgMed = 'img_med';
+  static const colImgHigh = 'img_high';
+  static const colDownload12kbps = 'download_12kbps';
+  static const colDownload48kbps = 'download_48kbps';
+  static const colDownload96kbps = 'download_96kbps';
+  static const colDownload160kbps = 'download_160kbps';
+  static const colDownload320kbps = 'download_320kbps';
   Future _onCreate(Database db, int version) async {
     await db.execute( // * Song Details
       '''
