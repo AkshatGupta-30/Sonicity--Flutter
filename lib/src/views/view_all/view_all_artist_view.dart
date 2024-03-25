@@ -11,7 +11,6 @@ import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/artist_widget.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
-import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 import 'package:super_string/super_string.dart';
 
@@ -45,7 +44,6 @@ class ViewAllArtistsView extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
     );
   }
 

@@ -18,7 +18,6 @@ import 'package:sonicity/utils/sections/title_section.dart';
 import 'package:sonicity/utils/sections/view_all_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/artist_widget.dart';
-import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/widgets/search_history_cells.dart';
 import 'package:sonicity/utils/widgets/search_widget.dart';
@@ -72,7 +71,6 @@ class SearchView extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
     );
   }
 

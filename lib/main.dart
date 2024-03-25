@@ -1,4 +1,3 @@
-import 'package:feedback/feedback.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -9,7 +8,6 @@ import 'package:sonicity/src/audio/service_locator.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
 import 'package:sonicity/utils/contants/themes.dart';
-import 'package:sonicity/utils/widgets/report_widget.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,25 +35,13 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BetterFeedback(
-      mode: FeedbackMode.draw, themeMode: ThemeMode.system,
-      feedbackBuilder: (BuildContext context, OnSubmit onSubmit, ScrollController? scrollController) {
-        final textController = TextEditingController();
-        return ReportSheet(
-          textController: textController,
-          scrollController: scrollController,
-          onSubmit: onSubmit
-        );
-      },
-      darkTheme: FeedbackThemeData.dark(),
-      child: Obx(() => GetMaterialApp(
-        title: 'Sonicity',
-        debugShowCheckedModeBanner: false,
-        home: NavigationView(),
-        themeMode: settingsController.getThemeMode,
-        theme: MyTheme.lightTheme,
-        darkTheme: MyTheme.darkTheme,
-      ),
+    return Obx(() => GetMaterialApp(
+      title: 'Sonicity',
+      debugShowCheckedModeBanner: false,
+      home: NavigationView(),
+      themeMode: settingsController.getThemeMode,
+      theme: MyTheme.lightTheme,
+      darkTheme: MyTheme.darkTheme,
     ));
   }
 

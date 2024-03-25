@@ -12,7 +12,6 @@ import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/my_playlist_widget.dart';
-import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
@@ -85,10 +84,6 @@ class MyPlaylistDetailsView extends StatelessWidget {
           ],
         ),
       ),
-      actions: [
-        SpiderReport(color: Colors.redAccent),
-        Gap(10),
-      ],
       bottom: PreferredSize(
         preferredSize: Size(double.maxFinite, 60),
         child: Container(

@@ -8,7 +8,6 @@ import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
-import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/controllers/song_detail_controller.dart';
@@ -22,7 +21,6 @@ import 'package:sonicity/utils/sections/download_url_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/artist_widget.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 import 'package:super_string/super_string.dart';
 
@@ -107,20 +105,6 @@ class SongDetailsView extends StatelessWidget {
           ],
         ),
       ),
-      actions: [
-        SpiderReport(color: Colors.redAccent),
-        Gap(10),
-        GestureDetector(
-          onTap: () {
-            Get.to(() => ToDoView(text: "Song in starred"));
-          },
-          child: Iconify(
-            Uis.favorite, size: 30,
-            color: (Theme.of(context).brightness == Brightness.light) ? Colors.yellow : Colors.yellowAccent
-          )
-        ),
-        Gap(8)
-      ],
       bottom: TabBar(
         controller: controller.tabController,
         isScrollable: false,

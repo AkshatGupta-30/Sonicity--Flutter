@@ -18,7 +18,6 @@ import 'package:sonicity/utils/widgets/artist_widget.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
-import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
@@ -45,7 +44,6 @@ class RecentsView extends StatelessWidget {
           MiniPlayerView()
         ],
       ),
-      floatingActionButton: CircleAvatar(radius: 25, backgroundColor: Colors.red, child: SpiderReport()),
     );
   }
 
