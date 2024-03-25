@@ -13,10 +13,11 @@ import 'package:sonicity/src/views/player/main_player_view.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
 class MiniPlayerView extends StatelessWidget {
-  static const MiniPlayerView _instance = MiniPlayerView._internal();
+  static final MiniPlayerView _instance = MiniPlayerView._internal();
   factory MiniPlayerView() => _instance;
-  const MiniPlayerView._internal();
+  MiniPlayerView._internal();
 
+  final controller = Get.find<PlayerController>();
   @override
   Widget build(BuildContext context) {
     final audioManager = getIt<AudioManager>();
@@ -122,50 +123,30 @@ class MiniPlayerView extends StatelessWidget {
                                 trailing: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    ValueListenableBuilder<bool>(
-                                      valueListenable: audioManager.isFirstSongNotifier,
-                                      builder: (context, isFirst, _) {
-                                        return InkWell(
-                                          onTap: () => (isFirst) ? null : audioManager.previous(),
-                                          child: Iconify(
-                                            MaterialSymbols.skip_previous_rounded,
-                                            color: (isFirst) ? Colors.grey : null,
-                                          )
-                                        );
-                                      }
-                                    ),
+                                    Obx(() => IconButton(
+                                      onPressed: controller.toggleStarred,
+                                      padding: EdgeInsets.zero,
+                                      icon: Iconify(
+                                        (controller.isFavorite.value) ? Uis.favorite : Uit.favorite, size: 30,
+                                        color: (controller.isFavorite.value) ? Colors.yellowAccent : Colors.white
+                                      )
+                                    )),
                                     Gap(5),
                                     ValueListenableBuilder<ButtonState>(
                                       valueListenable: audioManager.playButtonNotifier,
                                       builder: (context, state, _) {
                                         if(state == ButtonState.loading) {
                                           return CircularProgressIndicator(color: Get.find<SettingsController>().getAccent);
-                                        } else if(state == ButtonState.playing) {
-                                          return InkWell(
-                                            onTap: () => audioManager.pause(),
-                                            child: Iconify(Ic.round_pause, size: 36,)
-                                          );
                                         } else {
-                                          return InkWell(
-                                            onTap: () => audioManager.pause(),
-                                            child: Iconify(Ic.round_play_arrow, size: 36,)
+                                          return IconButton(
+                                            onPressed: (state == ButtonState.playing) ? audioManager.pause : audioManager.play,
+                                            padding: EdgeInsets.zero,
+                                            icon: Iconify((state == ButtonState.playing) ? Ic.round_pause : Ic.round_play_arrow, size: 36,)
                                           );
                                         }
                                       }
                                     ),
                                     Gap(5),
-                                    ValueListenableBuilder(
-                                      valueListenable: audioManager.isLastSongNotifier,
-                                      builder: (context, isLast, _) {
-                                        return InkWell(
-                                          onTap: () => (isLast) ? null : audioManager.next(),
-                                          child: Iconify(
-                                            MaterialSymbols.skip_next_rounded,
-                                            color: (isLast) ? Colors.grey : null,
-                                          )
-                                        );
-                                      }
-                                    )
                                   ],
                                 ),
                               ),

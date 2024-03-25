@@ -24,4 +24,5 @@ Future<void> setupServiceLocator() async {
   Get.put(SettingsController());
   Get.lazyPut(() => StorageMethods());
   Get.lazyPut(() => DatabaseMethods());
+  Get.lazyPut(() => PlayerController());
 }

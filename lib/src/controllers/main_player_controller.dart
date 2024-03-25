@@ -16,9 +16,7 @@ class PlayerController extends GetxController {
   void onInit() {
     super.onInit();
     setSong();
-    audioManager.currentSongNotifier.addListener(() async {
-      await setSong();
-    });
+    audioManager.currentSongNotifier.addListener(() async => await setSong());
   }
 
   Future<void> setSong() async {
