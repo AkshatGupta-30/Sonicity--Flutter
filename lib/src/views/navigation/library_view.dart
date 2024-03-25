@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/icons/bx.dart';
-import 'package:iconify_flutter_plus/icons/ic.dart';
-import 'package:iconify_flutter_plus/icons/ion.dart';
-import 'package:iconify_flutter_plus/icons/pepicons.dart';
-import 'package:iconify_flutter_plus/icons/raphael.dart';
-import 'package:iconify_flutter_plus/icons/uis.dart';
-import 'package:iconify_flutter_plus/icons/wpf.dart';
+import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/views/library/library_view.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 

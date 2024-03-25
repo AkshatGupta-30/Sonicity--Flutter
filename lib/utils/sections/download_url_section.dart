@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/icons/ic.dart';
-import 'package:iconify_flutter_plus/icons/material_symbols.dart';
+import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
