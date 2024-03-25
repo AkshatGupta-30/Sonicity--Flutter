@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/firebase_options.dart';
+import 'package:sonicity/src/audio/audio_manager.dart';
 import 'package:sonicity/src/audio/service_locator.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
@@ -18,9 +19,21 @@ Future<void> main() async {
   runApp(MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
   final settingsController = Get.find<SettingsController>();
+  
+  @override
+  void initState() {
+    super.initState();
+    getIt<AudioManager>().init();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,5 +57,11 @@ class MainApp extends StatelessWidget {
         darkTheme: MyTheme.darkTheme,
       ),
     ));
+  }
+
+  @override
+  void dispose() {
+    getIt<AudioManager>().dispose();
+    super.dispose();
   }
 }

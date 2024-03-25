@@ -1,21 +1,9 @@
 import 'dart:io';
 
 import 'package:audio_service/audio_service.dart';
-import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
-Future<AudioHandler> initAudioService() async {
-  return await AudioService.init(
-    builder: () => MyAudioHandler(),
-    config: AudioServiceConfig(
-      androidNotificationChannelId: "com.bytecraft.sonicity.channel.audio",
-      androidNotificationChannelName: "sonicity",
-      androidShowNotificationBadge: true,
-      androidStopForegroundOnPause: true,
-      notificationColor: Colors.grey[900],
-    ),
-  );
-}
+Future<AudioHandler> initAudioService() async => await AudioService.init(builder: () => MyAudioHandler());
 
 abstract class AudioPlayerHandler implements AudioHandler {
   Future<void> setNewPlaylist(List<MediaItem> mediaItems, int index);
