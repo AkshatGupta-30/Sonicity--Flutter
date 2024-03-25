@@ -220,7 +220,16 @@ class MainPlayerView extends StatelessWidget {
       children: [
         Row(// * : Primary Buttons
           children: [
-            Iconify(Uit.favorite, size: 30,), // TODO - Star
+            ValueListenableBuilder(
+              valueListenable: audioManager.isShuffleModeEnabledNotifier,
+              builder: (context, isShuffle, _) {
+                return IconButton(
+                  onPressed: audioManager.shuffle,
+                  padding: EdgeInsets.zero,
+                  icon: Iconify(Ri.shuffle_fill, color: (isShuffle) ? null : Colors.grey,)
+                );
+              }
+            ),
             Spacer(flex: 5,),
             ValueListenableBuilder(// * : Previous Song
               valueListenable: audioManager.isFirstSongNotifier,
@@ -274,7 +283,19 @@ class MainPlayerView extends StatelessWidget {
               }
             ),
             Spacer(flex: 5,),
-            Iconify(MaterialSymbols.repeat_rounded, size: 30, color: Colors.grey,), // TODO - (Repeat) MaterialSymbols.repeat_rounded, Icons.repeat_one_rounded
+            ValueListenableBuilder(
+              valueListenable: audioManager.repeatButtonNotifier,
+              builder: (context, state, _) {
+                return IconButton(
+                  onPressed: audioManager.repeat,
+                  padding: EdgeInsets.zero,
+                  icon: Iconify(
+                    (state == RepeatState.repeatSong) ? MaterialSymbols.repeat_one_rounded : MaterialSymbols.repeat_rounded,
+                    color: (state == RepeatState.off) ? Colors.grey : null, size: 30,
+                  )
+                );
+              }
+            ),
           ],
         ),
         Gap(15),
@@ -286,7 +307,7 @@ class MainPlayerView extends StatelessWidget {
             Spacer(),
             Iconify(Bi.speaker_fill, size: 27,), // TODO - System Sound = Ion.headset, Mdi.cellphone_sound, Bi.speaker_fill
             Gap(20),
-            Iconify(Ri.shuffle_fill), // TODO - Shuffle
+            Iconify(Uit.favorite, size: 30,), // TODO - Star
           ],
         )
       ],
