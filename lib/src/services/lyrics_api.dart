@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:sonicity/src/models/lyrics.dart';
-import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/models/models.dart';
 
 class LyricsApi {
   static Future<Map<String, dynamic>> _apiCall(String id) async {

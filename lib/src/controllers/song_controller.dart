@@ -1,10 +1,8 @@
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sonicity/src/database/cloned_database.dart';
-import 'package:sonicity/src/database/starred_database.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/services/album_details_api.dart';
+import 'package:sonicity/src/database/database.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/services/services.dart';
 
 class SongController extends GetxController {
   final Song song;

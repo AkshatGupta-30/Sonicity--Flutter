@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class PopUpButtonRow extends StatelessWidget {
   PopUpButtonRow({

@@ -15,10 +15,9 @@ import 'package:iconify_flutter_plus/icons/ri.dart';
 import 'package:iconify_flutter_plus/icons/uit.dart';
 import 'package:interactive_slider/interactive_slider.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:sonicity/src/controllers/song_controller.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/style_widget.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 // TODO - Adjust View with theme (Dark , light)
 class MainPlayerView extends StatelessWidget {
   final Song song;

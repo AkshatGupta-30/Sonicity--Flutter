@@ -9,20 +9,12 @@ import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sliver_tools/sliver_tools.dart';
-import 'package:sonicity/src/controllers/album_detail_controller.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/views/player/mini_player_view.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/views/player/player_view.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
-import 'package:sonicity/utils/contants/enums.dart';
-import 'package:sonicity/utils/widgets/artist_widget.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
-import 'package:sonicity/utils/widgets/shuffle_n_play.dart';
-import 'package:sonicity/utils/widgets/song_widget.dart';
-import 'package:sonicity/utils/widgets/style_widget.dart';
+import 'package:sonicity/utils/contants/constants.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class AlbumDetailsView extends StatelessWidget {
   AlbumDetailsView({super.key});

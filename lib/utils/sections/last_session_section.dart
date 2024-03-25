@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sonicity/src/controllers/recents_controller.dart';
-import 'package:sonicity/src/database/recents_database.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/views/library/recents_view.dart';
-import 'package:sonicity/utils/sections/view_all_section.dart';
-import 'package:sonicity/utils/widgets/song_widget.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/database/database.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/views/library/library_view.dart';
+import 'package:sonicity/utils/sections/sections.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class LastSessionSection extends StatelessWidget {
   final Size media;

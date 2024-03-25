@@ -6,12 +6,11 @@ import 'package:get_it/get_it.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
-import 'package:sonicity/src/controllers/artist_controller.dart';
-import 'package:sonicity/src/database/recents_database.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/src/views/details/artist_details_view.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/database/database.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/views/details/details_view.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class ArtistTile extends StatelessWidget {
   final Artist artist;

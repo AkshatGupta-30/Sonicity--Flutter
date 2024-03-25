@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/controllers/homeview_controller.dart';
-import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/utils/widgets/playlist_widget.dart';
-import 'package:sonicity/utils/sections/title_section.dart';
-import 'package:sonicity/utils/widgets/shimmer_widget.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/sections/sections.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class HotPlaylistSection extends StatelessWidget {
   final Size media;

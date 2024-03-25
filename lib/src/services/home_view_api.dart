@@ -1,15 +1,9 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/hot_playlists.dart';
-import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/models/top_albums.dart';
-import 'package:sonicity/src/models/top_charts.dart';
-import 'package:sonicity/src/models/trending_now.dart';
-import 'package:sonicity/src/services/song_details_api.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/services/services.dart';
 import 'package:http/http.dart' as http;
 
 class HomeViewApi {

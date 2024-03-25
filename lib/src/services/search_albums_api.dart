@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/models.dart';
 
 class SearchAlbumsApi {
   static Future<Map> _apiCall(String text, int page, int limit) async {

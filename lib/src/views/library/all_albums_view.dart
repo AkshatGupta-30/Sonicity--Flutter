@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
-import 'package:sonicity/src/controllers/all_albums_controller.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/views/player/mini_player_view.dart';
-import 'package:sonicity/utils/contants/enums.dart';
-import 'package:sonicity/utils/widgets/album_widget.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
-import 'package:sonicity/utils/widgets/style_widget.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/views/player/player_view.dart';
+import 'package:sonicity/utils/contants/constants.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class AllAlbumsView extends StatelessWidget {
   AllAlbumsView({super.key});

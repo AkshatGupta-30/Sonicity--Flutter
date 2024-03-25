@@ -1,7 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:sonicity/src/audio/my_audio_handler.dart';
-import 'package:sonicity/src/audio/service_locator.dart';
+import 'package:sonicity/src/audio/audio.dart';
 
 /// The PlayButtonNotifier class is a ValueNotifier that manages the state of a play button with
 /// possible states of paused, playing, and loading.

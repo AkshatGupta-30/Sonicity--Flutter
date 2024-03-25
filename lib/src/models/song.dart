@@ -1,13 +1,9 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/models/download_url.dart';
-import 'package:sonicity/src/models/image_url.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/utils/sections/cover_image_section.dart';
-import 'package:sonicity/utils/sections/download_url_section.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/sections/sections.dart';
 import 'package:super_string/super_string.dart';
 
 class Song {

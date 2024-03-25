@@ -4,7 +4,7 @@ import 'package:file_manager/file_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class StorageTile extends StatelessWidget {
   final FileSystemEntity entity;

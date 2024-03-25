@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/models/lyrics.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/services/lyrics_api.dart';
-import 'package:sonicity/src/services/song_details_api.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/services/services.dart';
 
 class SongDetailController extends GetxController with GetSingleTickerProviderStateMixin {
   final String songId;

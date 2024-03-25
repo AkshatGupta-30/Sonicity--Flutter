@@ -3,16 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
-import 'package:sonicity/src/controllers/homeview_controller.dart';
-import 'package:sonicity/utils/sections/hot_playlists_section.dart';
-import 'package:sonicity/utils/sections/last_session_section.dart';
-import 'package:sonicity/utils/sections/my_playlist_section.dart';
-import 'package:sonicity/utils/sections/top_albums_section.dart';
-import 'package:sonicity/utils/sections/top_charts_section.dart';
-import 'package:sonicity/utils/sections/trending_now_section.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/search_widget.dart';
-import 'package:sonicity/utils/widgets/style_widget.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/utils/sections/sections.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class HomeView extends StatelessWidget{
   HomeView({super.key});

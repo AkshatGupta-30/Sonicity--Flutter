@@ -13,15 +13,12 @@ import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:iconify_flutter_plus/icons/radix_icons.dart';
 import 'package:iconify_flutter_plus/icons/simple_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/views/player/mini_player_view.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/views/player/player_view.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
-import 'package:sonicity/utils/contants/colors.dart';
-import 'package:sonicity/utils/contants/fonts.dart';
-import 'package:sonicity/utils/contants/prefs_keys.dart';
-import 'package:sonicity/utils/sections/title_section.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/style_widget.dart';
+import 'package:sonicity/utils/contants/constants.dart';
+import 'package:sonicity/utils/sections/sections.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 import 'package:super_string/super_string.dart';
 
 class SettingsView extends StatelessWidget {

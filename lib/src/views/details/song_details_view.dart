@@ -9,19 +9,12 @@ import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:iconify_flutter_plus/icons/ph.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/controllers/song_detail_controller.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/views/player/mini_player_view.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/views/player/player_view.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
-import 'package:sonicity/utils/sections/cover_image_section.dart';
-import 'package:sonicity/utils/sections/download_url_section.dart';
-import 'package:sonicity/utils/widgets/album_widget.dart';
-import 'package:sonicity/utils/widgets/artist_widget.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/style_widget.dart';
+import 'package:sonicity/utils/sections/sections.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 import 'package:super_string/super_string.dart';
 
 class SongDetailsView extends StatelessWidget {

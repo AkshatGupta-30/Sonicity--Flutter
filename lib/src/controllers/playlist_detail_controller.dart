@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/src/services/playlist_details_api.dart';
-import 'package:sonicity/utils/contants/enums.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/services/services.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 
 class PlaylistDetailController extends GetxController {
   final String playlistId;

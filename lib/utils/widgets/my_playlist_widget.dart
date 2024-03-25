@@ -4,12 +4,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
-import 'package:sonicity/src/controllers/my_playlist_controller.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/models/my_playlist.dart';
-import 'package:sonicity/src/views/details/my_playlist_details_view.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/views/details/details_view.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 import 'package:super_string/super_string.dart';
 
 class MyPlaylistCell extends StatelessWidget {

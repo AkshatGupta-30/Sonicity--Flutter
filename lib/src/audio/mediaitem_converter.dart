@@ -1,5 +1,5 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/models/models.dart';
 
 class MediaItemConverter {
   static MediaItem toMediaItem(

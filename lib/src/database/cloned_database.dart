@@ -2,11 +2,8 @@ import 'dart:io';
 
 import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sonicity/src/database/starred_database.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/database/database.dart';
+import 'package:sonicity/src/models/models.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ClonedDatabase {

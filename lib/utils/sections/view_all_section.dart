@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
-import 'package:sonicity/utils/sections/title_section.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
+import 'package:sonicity/utils/sections/sections.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class ViewAllSection extends StatelessWidget {
   final double leftPadding, rightPadding;

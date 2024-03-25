@@ -1,13 +1,7 @@
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/hot_playlists.dart';
-import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/models/top_albums.dart';
-import 'package:sonicity/src/models/top_charts.dart';
-import 'package:sonicity/src/models/trending_now.dart';
+import 'package:sonicity/src/models/models.dart';
 import 'package:sqflite/sqflite.dart';
 
 class HomeDatabase {

@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sonicity/src/database/cloned_database.dart';
-import 'package:sonicity/src/database/starred_database.dart';
-import 'package:sonicity/src/models/artist.dart';
+import 'package:sonicity/src/database/database.dart';
+import 'package:sonicity/src/models/models.dart';
 
 class ArtistController extends GetxController {
   final Artist artist;

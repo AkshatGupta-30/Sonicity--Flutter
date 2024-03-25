@@ -1,7 +1,4 @@
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/models/models.dart';
 
 class TopQuery{
   final List<Song> songs;

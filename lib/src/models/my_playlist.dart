@@ -1,6 +1,5 @@
-import 'package:sonicity/src/database/my_playlists_database.dart';
-import 'package:sonicity/src/models/image_url.dart';
-import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/database/database.dart';
+import 'package:sonicity/src/models/models.dart';
 
 class MyPlaylist {
   final String id;

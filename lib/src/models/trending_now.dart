@@ -1,5 +1,4 @@
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/models/models.dart';
 
 class TrendingNow {
   final List<Song> songs;

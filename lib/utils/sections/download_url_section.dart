@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
-import 'package:sonicity/src/models/download_url.dart';
+import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class DownloadQuality {
   static String get q12kbps => "12kbps";

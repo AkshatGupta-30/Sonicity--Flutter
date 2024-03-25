@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/firebase_options.dart';
-import 'package:sonicity/src/audio/audio_manager.dart';
-import 'package:sonicity/src/audio/service_locator.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
+import 'package:sonicity/src/audio/audio.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
-import 'package:sonicity/utils/contants/themes.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

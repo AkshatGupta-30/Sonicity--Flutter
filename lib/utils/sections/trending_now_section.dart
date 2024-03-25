@@ -4,15 +4,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/ph.dart';
-import 'package:sonicity/src/controllers/homeview_controller.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/utils/widgets/album_widget.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/shimmer_widget.dart';
-import 'package:sonicity/utils/widgets/song_widget.dart';
-import 'package:sonicity/utils/sections/title_section.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/sections/sections.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class TrendingNowSection extends StatelessWidget {
   final Size media;

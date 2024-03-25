@@ -4,13 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sonicity/src/database/home_database.dart';
-import 'package:sonicity/src/models/hot_playlists.dart';
-import 'package:sonicity/src/models/top_albums.dart';
-import 'package:sonicity/src/models/top_charts.dart';
-import 'package:sonicity/src/models/trending_now.dart';
-import 'package:sonicity/src/services/home_view_api.dart';
-import 'package:sonicity/utils/contants/prefs_keys.dart';
+import 'package:sonicity/src/database/database.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/services/services.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 
 class HomeViewController extends GetxController with GetSingleTickerProviderStateMixin {
   late TabController tabController;

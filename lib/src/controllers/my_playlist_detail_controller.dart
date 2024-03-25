@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sonicity/src/database/my_playlists_database.dart';
-import 'package:sonicity/src/models/my_playlist.dart';
-import 'package:sonicity/utils/contants/enums.dart';
+import 'package:sonicity/src/database/database.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 
 class MyPlaylistDetailController extends GetxController {
   final MyPlaylist importedPlaylist;

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/utils/sections/download_url_section.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/utils/sections/sections.dart';
 
 class DownloadUrl {
   final List<DownloadData> _downloadData;

@@ -1,4 +1,4 @@
-import 'package:sonicity/src/models/playlist.dart';
+import 'package:sonicity/src/models/models.dart';
 
 class TopCharts {
   final List<Playlist> playlists;

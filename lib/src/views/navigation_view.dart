@@ -8,14 +8,11 @@ import 'package:iconify_flutter_plus/icons/icomoon_free.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
 import 'package:iconify_flutter_plus/icons/ion.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
-import 'package:sonicity/src/controllers/navigation_controller.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/views/drawer/settings_view.dart';
-import 'package:sonicity/src/views/navigation/library_view.dart';
-import 'package:sonicity/src/views/navigation/homeview.dart';
-import 'package:sonicity/src/views/player/mini_player_view.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/style_widget.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/views/drawer/drawer_view.dart';
+import 'package:sonicity/src/views/navigation/navigation_view.dart';
+import 'package:sonicity/src/views/player/player_view.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class NavigationView extends StatelessWidget {
   NavigationView({super.key});

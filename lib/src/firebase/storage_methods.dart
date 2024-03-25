@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:get/get.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:sonicity/utils/contants/enums.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 
 class StorageMethods extends GetxController {
   final FirebaseStorage _storage = FirebaseStorage.instance;

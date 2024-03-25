@@ -1,7 +1,5 @@
-import 'package:sonicity/src/models/image_url.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/utils/sections/cover_image_section.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/sections/sections.dart';
 import 'package:super_string/super_string.dart';
 
 class Album {

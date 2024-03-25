@@ -7,14 +7,8 @@ import 'package:iconify_flutter_plus/icons/pepicons.dart';
 import 'package:iconify_flutter_plus/icons/raphael.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
 import 'package:iconify_flutter_plus/icons/wpf.dart';
-import 'package:sonicity/src/views/library/all_albums_view.dart';
-import 'package:sonicity/src/views/library/all_artist_view.dart';
-import 'package:sonicity/src/views/library/all_playlists_view.dart';
-import 'package:sonicity/src/views/library/all_songs_view.dart';
-import 'package:sonicity/src/views/library/recents_view.dart';
-import 'package:sonicity/src/views/library/starred_view.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/style_widget.dart';
+import 'package:sonicity/src/views/library/library_view.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class LibraryView extends StatelessWidget {
   LibraryView({super.key});

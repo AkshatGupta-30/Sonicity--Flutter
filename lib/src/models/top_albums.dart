@@ -1,4 +1,4 @@
-import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/models/models.dart';
 
 class TopAlbums {
   final List<Album> albums;

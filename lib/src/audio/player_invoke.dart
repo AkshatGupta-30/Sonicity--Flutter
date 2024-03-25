@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
-import 'package:sonicity/src/audio/audio_manager.dart';
-import 'package:sonicity/src/audio/mediaitem_converter.dart';
-import 'package:sonicity/src/audio/service_locator.dart';
-import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/audio/audio.dart';
+import 'package:sonicity/src/models/models.dart';
 
 DateTime playerTapTime = DateTime.now();
 bool get isProcessForPlay {

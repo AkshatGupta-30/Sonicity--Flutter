@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/services/artist_details_api.dart';
-import 'package:sonicity/utils/contants/enums.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/services/services.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 
 class ArtistDetailController extends GetxController with GetSingleTickerProviderStateMixin {
   final String albumId;

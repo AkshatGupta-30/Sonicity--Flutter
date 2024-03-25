@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/controllers/view_all_search_album_controller.dart';
-import 'package:sonicity/src/controllers/view_all_search_artist_controller.dart';
-import 'package:sonicity/src/controllers/view_all_search_playlist_controller.dart';
-import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
-import 'package:sonicity/src/models/search_all.dart';
-import 'package:sonicity/src/services/search_all_api.dart';
-import 'package:sonicity/src/sprefs/search_history.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/services/services.dart';
+import 'package:sonicity/src/sprefs/sprefs.dart';
 
 class SearchViewController extends GetxController {
   final searchController = TextEditingController();

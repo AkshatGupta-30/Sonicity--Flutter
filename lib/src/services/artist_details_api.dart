@@ -2,9 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/models/models.dart';
 
 class ArtistDetailsApi {
   static Future<Map<String, dynamic>> _detailsApiCall(String id) async {

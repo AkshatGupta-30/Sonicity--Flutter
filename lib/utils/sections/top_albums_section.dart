@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/controllers/homeview_controller.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/utils/sections/title_section.dart';
-import 'package:sonicity/utils/widgets/album_widget.dart';
-import 'package:sonicity/utils/widgets/shimmer_widget.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/sections/sections.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class TopAlbumsSection extends StatelessWidget {
   final Size media;

@@ -7,10 +7,9 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
-import 'package:sonicity/src/audio/audio_manager.dart';
-import 'package:sonicity/src/audio/service_locator.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
+import 'package:sonicity/src/audio/audio.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class MiniPlayerView extends StatelessWidget {
   static const MiniPlayerView _instance = MiniPlayerView._internal();

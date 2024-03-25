@@ -5,13 +5,10 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sonicity/src/controllers/view_all_search_artist_controller.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/utils/contants/enums.dart';
-import 'package:sonicity/utils/widgets/artist_widget.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
-import 'package:sonicity/utils/widgets/style_widget.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/contants/constants.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 import 'package:super_string/super_string.dart';
 
 class ViewAllArtistsView extends StatelessWidget {

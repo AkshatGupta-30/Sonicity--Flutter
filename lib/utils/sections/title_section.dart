@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
 
 class TitleSection extends StatelessWidget {
   final String title;

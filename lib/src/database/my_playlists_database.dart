@@ -5,10 +5,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sonicity/src/models/image_url.dart';
-import 'package:sonicity/src/models/my_playlist.dart';
-import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/models/models.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MyPlaylistsDatabase {

@@ -4,9 +4,9 @@ import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/views/navigation/searchview.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/views/navigation/navigation_view.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class SearchContainer extends StatelessWidget {
   final Size media;

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sonicity/utils/contants/colors.dart';
-import 'package:sonicity/utils/contants/fonts.dart';
-import 'package:sonicity/utils/contants/prefs_keys.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 
 class SettingsController extends GetxController {
   @override

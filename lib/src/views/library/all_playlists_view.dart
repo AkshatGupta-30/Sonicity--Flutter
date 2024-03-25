@@ -3,16 +3,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
-import 'package:sonicity/src/controllers/all_playlists_controller.dart';
-import 'package:sonicity/src/controllers/my_playlist_controller.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/views/player/mini_player_view.dart';
-import 'package:sonicity/utils/widgets/iconify.dart';
-import 'package:sonicity/utils/widgets/my_playlist_widget.dart';
-import 'package:sonicity/utils/widgets/playlist_widget.dart';
-import 'package:sonicity/utils/widgets/style_widget.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/views/player/player_view.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class AllPlaylistsView extends StatelessWidget {
   AllPlaylistsView({super.key});

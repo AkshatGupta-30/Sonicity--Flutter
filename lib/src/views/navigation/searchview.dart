@@ -2,27 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/src/controllers/searchview_controller.dart';
-import 'package:sonicity/src/controllers/settings_controller.dart';
-import 'package:sonicity/src/models/album.dart';
-import 'package:sonicity/src/models/artist.dart';
-import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/src/models/song.dart';
-import 'package:sonicity/src/views/player/mini_player_view.dart';
-import 'package:sonicity/src/views/view_all/view_all_albums_view.dart';
-import 'package:sonicity/src/views/view_all/view_all_artist_view.dart';
-import 'package:sonicity/src/views/view_all/view_all_playlist_view.dart';
-import 'package:sonicity/src/views/view_all/view_all_songs_view.dart';
-import 'package:sonicity/utils/sections/search_shimmer.dart';
-import 'package:sonicity/utils/sections/title_section.dart';
-import 'package:sonicity/utils/sections/view_all_section.dart';
-import 'package:sonicity/utils/widgets/album_widget.dart';
-import 'package:sonicity/utils/widgets/artist_widget.dart';
-import 'package:sonicity/utils/widgets/playlist_widget.dart';
-import 'package:sonicity/utils/widgets/search_history_cells.dart';
-import 'package:sonicity/utils/widgets/search_widget.dart';
-import 'package:sonicity/utils/widgets/song_widget.dart';
-import 'package:sonicity/utils/widgets/style_widget.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/views/player/player_view.dart';
+import 'package:sonicity/src/views/view_all/view_all_view.dart';
+import 'package:sonicity/utils/sections/sections.dart';
+import 'package:sonicity/utils/widgets/widgets.dart';
 
 class SearchView extends StatelessWidget {
   SearchView({super.key});

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sonicity/src/database/cloned_database.dart';
-import 'package:sonicity/src/database/starred_database.dart';
-import 'package:sonicity/src/models/playlist.dart';
-import 'package:sonicity/utils/contants/enums.dart';
+import 'package:sonicity/src/database/database.dart';
+import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 
 class AllPlaylistsController extends GetxController with GetTickerProviderStateMixin {
   late TabController tabController;
