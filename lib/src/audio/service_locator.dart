@@ -24,7 +24,7 @@ Future<void> setupServiceLocator() async {
 
   // * : Audio
   getIt.registerSingleton<AudioHandler>(await initAudioService());
-  getIt.registerSingleton<AudioManager>(AudioManager());
+  getIt.registerLazySingleton<AudioManager>(() => AudioManager());
 
   // * : GetX Controllers
   Get.put(SettingsController());

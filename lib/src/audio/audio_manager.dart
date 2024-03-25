@@ -1,5 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sonicity/src/audio/my_audio_handler.dart';
 import 'package:sonicity/src/audio/service_locator.dart';
 
@@ -79,6 +80,7 @@ class AudioManager {
         playlistNotifier.value = playlist;
       }
       updateSkipButton();
+      'Listening Playlist Notifier : ${playlistNotifier.value}'.printInfo();
     });
   }
 
@@ -120,6 +122,7 @@ class AudioManager {
         audioHandler.seek(Duration.zero);
         audioHandler.pause();
       }
+      'Listening PlaybackState Notifier : ${playbackStatNotifier.value}'.printInfo();
     });
   }
 
@@ -136,6 +139,7 @@ class AudioManager {
           current: position,
           buffered: oldState.buffered,
           total: oldState.total);
+      'Listening Progress Notifier : ${progressNotifier.value.current}'.printInfo();
     });
   }
 
@@ -153,6 +157,7 @@ class AudioManager {
           current: oldState.current,
           buffered: playbackState.bufferedPosition,
           total: oldState.total);
+      'Listening Buffered Notifier : ${playbackState.bufferedPosition}'.printInfo();
     });
   }
 
@@ -169,6 +174,7 @@ class AudioManager {
           current: oldState.current,
           buffered: oldState.buffered,
           total: mediaItem?.duration ?? Duration.zero);
+      'Listening Total Position Notifier : ${mediaItem!.duration}'.printInfo();
     });
   }
 
@@ -182,6 +188,7 @@ class AudioManager {
     audioHandler.mediaItem.listen((mediaItem) async {
       currentSongNotifier.value = mediaItem;
       updateSkipButton();
+      'Listening Change in Song Notifier : ${currentSongNotifier.value}'.printInfo();
     });
   }
 

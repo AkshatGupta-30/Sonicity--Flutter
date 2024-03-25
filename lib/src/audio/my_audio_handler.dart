@@ -33,6 +33,7 @@ class MyAudioHandler extends BaseAudioHandler implements AudioPlayerHandler {
 
   MyAudioHandler() {
     loadEmptyPlaylist();
+    notifyAudioHandlerAboutPlaybackEvents();
     listenForDurationChanges();
     listenForCurrentSongIndexChanges();
     listenForSequenceStateChanges();
@@ -47,6 +48,42 @@ class MyAudioHandler extends BaseAudioHandler implements AudioPlayerHandler {
     /// the audio source, the audio player is configured to play the audio tracks in the playlist in the
     /// order they are provided.
     await player.setAudioSource(playlist);
+  }
+
+  Future<void> notifyAudioHandlerAboutPlaybackEvents() async {
+    player.playbackEventStream.listen((event) {
+      final playing = player.playing;
+      playbackState.add(PlaybackState(
+        controls: [
+          MediaControl.skipToPrevious,
+          if (playing) MediaControl.pause else MediaControl.play,
+          MediaControl.stop,
+          MediaControl.skipToNext,
+        ],
+        systemActions: const {MediaAction.seek},
+        androidCompactActionIndices: const [0, 1, 3],
+        processingState: const {
+          ProcessingState.idle: AudioProcessingState.idle,
+          ProcessingState.loading: AudioProcessingState.loading,
+          ProcessingState.buffering: AudioProcessingState.buffering,
+          ProcessingState.ready: AudioProcessingState.ready,
+          ProcessingState.completed: AudioProcessingState.completed,
+        }[player.processingState]!,
+        repeatMode: const {
+          LoopMode.off: AudioServiceRepeatMode.none,
+          LoopMode.one: AudioServiceRepeatMode.one,
+          LoopMode.all: AudioServiceRepeatMode.all,
+        }[player.loopMode]!,
+        shuffleMode: player.shuffleModeEnabled
+            ? AudioServiceShuffleMode.all
+            : AudioServiceShuffleMode.none,
+        playing: playing,
+        updatePosition: player.position,
+        bufferedPosition: player.bufferedPosition,
+        speed: player.speed,
+        queueIndex: event.currentIndex,
+      ));
+    });
   }
 
   /// The function `listenForDurationChanges` listens for changes in the duration of the currently
