@@ -9,6 +9,7 @@ import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/views/player/main_player_view.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
 class MiniPlayerView extends StatelessWidget {
@@ -88,7 +89,15 @@ class MiniPlayerView extends StatelessWidget {
                                 }
                               ),
                               ListTile(
-                                onTap: () {}, // TODO - Open Main Player View
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      opaque: false,
+                                      pageBuilder: (_,__,___) => MainPlayerView(),
+                                    )
+                                  );
+                                },
                                 leading: ClipRRect(// * : Song Artwork
                                   borderRadius: BorderRadius.circular(6),
                                   child: Hero(
