@@ -34,7 +34,8 @@ dependencies:
   google_nav_bar: ^5.0.6
   html_unescape: ^2.0.0
   http: ^1.2.0
-  iconify_flutter_plus: ^1.0.3
+  iconify_flutter:
+    path: packages/iconify_flutter_plus/
   interactive_slider: ^0.2.2
   intl: ^0.18.1
   just_audio: ^0.9.36

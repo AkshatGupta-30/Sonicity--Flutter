@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconify_flutter_plus/icons/codicon.dart';
-import 'package:iconify_flutter_plus/icons/fa6_solid.dart';
-import 'package:iconify_flutter_plus/icons/ic.dart';
-import 'package:iconify_flutter_plus/icons/icomoon_free.dart';
-import 'package:iconify_flutter_plus/icons/icon_park_twotone.dart';
-import 'package:iconify_flutter_plus/icons/ion.dart';
-import 'package:iconify_flutter_plus/icons/material_symbols.dart';
+import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/views/drawer/drawer_view.dart';
 import 'package:sonicity/src/views/navigation/navigation_view.dart';

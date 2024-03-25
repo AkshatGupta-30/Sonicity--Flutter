@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:iconify_flutter_plus/icons/ri.dart';
+import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
 class SearchHistoryCell extends StatelessWidget {

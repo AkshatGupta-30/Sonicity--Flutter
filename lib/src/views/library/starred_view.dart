@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/icons/material_symbols.dart';
-import 'package:iconify_flutter_plus/icons/mdi.dart';
+import 'package:iconify_flutter/iconify.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/models/models.dart';

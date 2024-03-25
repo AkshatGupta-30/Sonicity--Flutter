@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/icons/uis.dart';
+import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/utils/sections/sections.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
