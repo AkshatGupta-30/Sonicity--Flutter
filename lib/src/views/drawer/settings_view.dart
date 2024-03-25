@@ -14,6 +14,7 @@ import 'package:iconify_flutter_plus/icons/radix_icons.dart';
 import 'package:iconify_flutter_plus/icons/simple_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/colors.dart';
 import 'package:sonicity/utils/contants/fonts.dart';
@@ -33,32 +34,38 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       body: BackgroundGradientDecorator(
         child: SafeArea(
-          child: ListView(
-            padding: EdgeInsets.all(15),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
             children: [
-              TitleSection(title: "Theme"),
-              Gap(5),
-              _buildTheme(context),
-              Gap(10),
-              _buildAccent(context),
-              Gap(10),
-              _buildFont(context),
-              Gap(10),
-              _buildBackground(context),
-              Gap(20),
-              TitleSection(title: "App Ui"),
-              Gap(5),
-              _buildPlayerBackground(context),
-              Gap(10),
-              _buildDenseMiniPlayer(context),
-              Gap(20),
-              TitleSection(title: "Music & Playback"),
-              Gap(5),
-              _buildMusicLanguage(context),
-              Gap(10),
-              _buildMusicQualitySettings(context),
-              Gap(10),
-              _buildRecentsSongLimit(context),
+              ListView(
+                padding: EdgeInsets.all(15),
+                children: [
+                  TitleSection(title: "Theme"),
+                  Gap(5),
+                  _buildTheme(context),
+                  Gap(10),
+                  _buildAccent(context),
+                  Gap(10),
+                  _buildFont(context),
+                  Gap(10),
+                  _buildBackground(context),
+                  Gap(20),
+                  TitleSection(title: "App Ui"),
+                  Gap(5),
+                  _buildPlayerBackground(context),
+                  Gap(10),
+                  _buildDenseMiniPlayer(context),
+                  Gap(20),
+                  TitleSection(title: "Music & Playback"),
+                  Gap(5),
+                  _buildMusicLanguage(context),
+                  Gap(10),
+                  _buildMusicQualitySettings(context),
+                  Gap(10),
+                  _buildRecentsSongLimit(context),
+                ],
+              ),
+              MiniPlayerView()
             ],
           ),
         ),

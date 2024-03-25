@@ -15,6 +15,7 @@ import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/artist_widget.dart';
@@ -30,28 +31,34 @@ class AlbumDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: BackgroundGradientDecorator(
-        child: GetBuilder(
-          init: AlbumDetailController(Get.arguments),
-          builder: (controller) {
-            return Obx(() {
-              Album album = controller.album.value;
-              if(album.isEmpty()) {
-                return Center(
-                  child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
-                );
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BackgroundGradientDecorator(
+            child: GetBuilder(
+              init: AlbumDetailController(Get.arguments),
+              builder: (controller) {
+                return Obx(() {
+                  Album album = controller.album.value;
+                  if(album.isEmpty()) {
+                    return Center(
+                      child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+                    );
+                  }
+                  return CustomScrollView(
+                    slivers: [
+                      _appBar(context, media, album, controller),
+                      _summaryHeader(context, album, controller),
+                      _albumArtists(album),
+                      _albumSongs(album),
+                    ],
+                  );
+                });
               }
-              return CustomScrollView(
-                slivers: [
-                  _appBar(context, media, album, controller),
-                  _summaryHeader(context, album, controller),
-                  _albumArtists(album),
-                  _albumSongs(album),
-                ],
-              );
-            });
-          }
-        ),
+            ),
+          ),
+          MiniPlayerView()
+        ],
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: _floatingActionButton(),

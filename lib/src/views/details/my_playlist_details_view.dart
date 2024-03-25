@@ -8,6 +8,7 @@ import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/my_playlist_detail_controller.dart';
 import 'package:sonicity/src/models/my_playlist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/my_playlist_widget.dart';
@@ -24,23 +25,29 @@ class MyPlaylistDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: BackgroundGradientDecorator(
-        child: GetBuilder(
-          init: MyPlaylistDetailController(Get.arguments),
-          builder: (controller) => Obx(() {
-            if(controller.playlist.value.songs == null) {
-              return Center(
-                child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
-              );
-            }
-            return CustomScrollView(
-              slivers: [
-                _appBar(context, media, controller),
-                _playlistSongs(controller.playlist.value),
-              ],
-            );
-          })
-        ),
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BackgroundGradientDecorator(
+            child: GetBuilder(
+              init: MyPlaylistDetailController(Get.arguments),
+              builder: (controller) => Obx(() {
+                if(controller.playlist.value.songs == null) {
+                  return Center(
+                    child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+                  );
+                }
+                return CustomScrollView(
+                  slivers: [
+                    _appBar(context, media, controller),
+                    _playlistSongs(controller.playlist.value),
+                  ],
+                );
+              })
+            ),
+          ),
+          MiniPlayerView()
+        ],
       ),
     );
   }

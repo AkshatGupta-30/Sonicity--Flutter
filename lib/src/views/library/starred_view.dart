@@ -11,6 +11,7 @@ import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/artist_widget.dart';
@@ -26,13 +27,19 @@ class StarredView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BackgroundGradientDecorator(
-        child: GetBuilder(
-          init: StarredController(),
-          builder: (controller) => CustomScrollView(
-            slivers: [_appbar(context, controller), _summaryHeader(context, controller), _body(controller)],
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BackgroundGradientDecorator(
+            child: GetBuilder(
+              init: StarredController(),
+              builder: (controller) => CustomScrollView(
+                slivers: [_appbar(context, controller), _summaryHeader(context, controller), _body(controller)],
+              ),
+            ),
           ),
-        ),
+          MiniPlayerView()
+        ],
       ),
     );
   }

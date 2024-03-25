@@ -8,6 +8,7 @@ import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/src/views/view_all/view_all_albums_view.dart';
 import 'package:sonicity/src/views/view_all/view_all_artist_view.dart';
 import 'package:sonicity/src/views/view_all/view_all_playlist_view.dart';
@@ -32,37 +33,43 @@ class SearchView extends StatelessWidget {
     var safeArea = MediaQuery.paddingOf(context);
     return Scaffold(
       body: BackgroundGradientDecorator(
-        child: GetBuilder(
-          init: SearchViewController(),
-          builder: (controller) {
-            return CustomScrollView(
-              physics: (controller.isSearching.value)
-                ? AlwaysScrollableScrollPhysics()
-                : NeverScrollableScrollPhysics(),
-              slivers: [
-                SliverAppBar(
-                  pinned: true, toolbarHeight: kToolbarHeight + safeArea.top/2,
-                  leadingWidth: 0, titleSpacing: 0,
-                  title: SearchBox(
-                    searchController: controller.searchController,
-                    focusNode: controller.focusNode,
-                    onChanged: (text) => controller.searchChanged(text),
-                    onSubmitted: (text) => controller.searchSubmitted(text),
-                  )
-                ),
-                SliverPadding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-                  sliver:  SliverToBoxAdapter(
-                    child: (controller.isLoading.value)
-                      ? SearchShimmer()
-                      : (controller.isSearching.value)
-                        ? _searchResults(controller)
-                        : _searchHistory(context, controller),
-                  ),
-                )
-              ],
-            );
-          }
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            GetBuilder(
+              init: SearchViewController(),
+              builder: (controller) {
+                return CustomScrollView(
+                  physics: (controller.isSearching.value)
+                    ? AlwaysScrollableScrollPhysics()
+                    : NeverScrollableScrollPhysics(),
+                  slivers: [
+                    SliverAppBar(
+                      pinned: true, toolbarHeight: kToolbarHeight + safeArea.top/2,
+                      leadingWidth: 0, titleSpacing: 0,
+                      title: SearchBox(
+                        searchController: controller.searchController,
+                        focusNode: controller.focusNode,
+                        onChanged: (text) => controller.searchChanged(text),
+                        onSubmitted: (text) => controller.searchSubmitted(text),
+                      )
+                    ),
+                    SliverPadding(
+                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+                      sliver:  SliverToBoxAdapter(
+                        child: (controller.isLoading.value)
+                          ? SearchShimmer()
+                          : (controller.isSearching.value)
+                            ? _searchResults(controller)
+                            : _searchHistory(context, controller),
+                      ),
+                    )
+                  ],
+                );
+              }
+            ),
+            MiniPlayerView()
+          ],
         ),
       ),
       floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),

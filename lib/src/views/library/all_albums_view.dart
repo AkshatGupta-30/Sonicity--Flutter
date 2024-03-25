@@ -5,6 +5,7 @@ import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:sonicity/src/controllers/all_albums_controller.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -20,13 +21,19 @@ class AllAlbumsView extends StatelessWidget {
       init: AllAlbumsController(),
       builder: (controller) {
         return Scaffold(
-          body: BackgroundGradientDecorator(
-            child: CustomScrollView(
-              slivers: [
-                _appbar(context, controller),
-                _body(controller)
-              ],
-            ),
+          body: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              BackgroundGradientDecorator(
+                child: CustomScrollView(
+                  slivers: [
+                    _appbar(context, controller),
+                    _body(controller)
+                  ],
+                ),
+              ),
+              MiniPlayerView()
+            ],
           ),
         );
       }

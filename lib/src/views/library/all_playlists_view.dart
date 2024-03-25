@@ -8,6 +8,7 @@ import 'package:sonicity/src/controllers/my_playlist_controller.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/my_playlist_widget.dart';
 import 'package:sonicity/utils/widgets/playlist_widget.dart';
@@ -33,29 +34,35 @@ class AllPlaylistsView extends StatelessWidget {
               tabs: [Tab(text: "My Playlists"), Tab(text: "Starred"), Tab(text: "Clones")],
             ),
           ),
-          body: BackgroundGradientDecorator(
-            child: TabBarView(
-              controller: controller.tabController,
-              children: [
-                _myPlaylist(context, theme),
-                Obx(() => ListView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                  itemCount: controller.starPlaylists.length,
-                  itemBuilder: (context, index) {
-                    Playlist playlist = controller.starPlaylists[controller.starPlaylists.length - index - 1];
-                    return PlaylistTile(playlist, subtitle: '${playlist.songCount} Songs',);
-                  },
-                )),
-                Obx(() => ListView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                  itemCount: controller.clonePlaylists.length,
-                  itemBuilder: (context, index) {
-                    Playlist playlist = controller.clonePlaylists[controller.clonePlaylists.length - index - 1];
-                    return PlaylistTile(playlist, subtitle: '${playlist.songCount} Songs',);
-                  },
-                )),
-              ],
-            ),
+          body: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              BackgroundGradientDecorator(
+                child: TabBarView(
+                  controller: controller.tabController,
+                  children: [
+                    _myPlaylist(context, theme),
+                    Obx(() => ListView.builder(
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+                      itemCount: controller.starPlaylists.length,
+                      itemBuilder: (context, index) {
+                        Playlist playlist = controller.starPlaylists[controller.starPlaylists.length - index - 1];
+                        return PlaylistTile(playlist, subtitle: '${playlist.songCount} Songs',);
+                      },
+                    )),
+                    Obx(() => ListView.builder(
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+                      itemCount: controller.clonePlaylists.length,
+                      itemBuilder: (context, index) {
+                        Playlist playlist = controller.clonePlaylists[controller.clonePlaylists.length - index - 1];
+                        return PlaylistTile(playlist, subtitle: '${playlist.songCount} Songs',);
+                      },
+                    )),
+                  ],
+                ),
+              ),
+              MiniPlayerView()
+            ],
           ),
         );
       }

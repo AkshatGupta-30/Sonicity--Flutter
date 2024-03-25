@@ -10,11 +10,13 @@ import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/controllers/view_all_search_song_controller.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
 import 'package:sonicity/utils/widgets/report_widget.dart';
 import 'package:sonicity/utils/widgets/song_widget.dart';
+import 'package:sonicity/utils/widgets/style_widget.dart';
 import 'package:super_string/super_string.dart';
 
 class ViewAllSongsView extends StatelessWidget {
@@ -25,32 +27,27 @@ class ViewAllSongsView extends StatelessWidget {
   Widget build(BuildContext context) {
     var media = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: (Theme.of(context).brightness == Brightness.light)
-              ? [Colors.grey.shade200, Colors.white]
-              : [Colors.grey.shade800, Colors.black],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.0, 1],
-            tileMode: TileMode.clamp,
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BackgroundGradientDecorator(
+            child: Obx(() {
+              if(controller.songs.isEmpty) {
+                return Center(
+                  child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+                );
+              }
+              return CustomScrollView(
+                controller: controller.scrollController,
+                slivers: [
+                  _appBar(context, media, controller),
+                  _songList(controller)
+                ],
+              );
+            }),
           ),
-        ),
-        child: Obx(() {
-          if(controller.songs.isEmpty) {
-            return Center(
-              child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
-            );
-          }
-          return CustomScrollView(
-            controller: controller.scrollController,
-            slivers: [
-              _appBar(context, media, controller),
-              _songList(controller)
-            ],
-          );
-        }),
+          MiniPlayerView()
+        ],
       ),
       floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
     );

@@ -14,6 +14,7 @@ import 'package:sonicity/src/controllers/playlist_detail_controller.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -28,25 +29,31 @@ class PlaylistDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: BackgroundGradientDecorator(
-        child: GetBuilder(
-          init: PlaylistDetailController(Get.arguments),
-          builder: (controller) => Obx(() {
-            Playlist playlist = controller.playlist.value;
-            if(playlist.isEmpty()) {
-              return Center(
-                child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
-              );
-            }
-            return CustomScrollView(
-              slivers: [
-                _appBar(context, media, playlist, controller),
-                _summaryHeader(context, playlist, controller),
-                _playlistSongs(playlist),
-              ],
-            );
-          }
-        )),
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BackgroundGradientDecorator(
+            child: GetBuilder(
+              init: PlaylistDetailController(Get.arguments),
+              builder: (controller) => Obx(() {
+                Playlist playlist = controller.playlist.value;
+                if(playlist.isEmpty()) {
+                  return Center(
+                    child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+                  );
+                }
+                return CustomScrollView(
+                  slivers: [
+                    _appBar(context, media, playlist, controller),
+                    _summaryHeader(context, playlist, controller),
+                    _playlistSongs(playlist),
+                  ],
+                );
+              }
+            )),
+          ),
+          MiniPlayerView()
+        ],
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: _floatingActionButton(),

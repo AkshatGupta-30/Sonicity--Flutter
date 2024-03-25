@@ -7,6 +7,7 @@ import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/controllers/view_all_search_album_controller.dart';
 import 'package:sonicity/src/models/album.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -21,24 +22,30 @@ class ViewAllAlbumsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BackgroundGradientDecorator(
-        child: GetBuilder(
-          init: ViewAllSearchAlbumsController(Get.arguments),
-          builder: (controller) {
-            if(controller.albums.isEmpty) {
-              return Center(
-                child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
-              );
-            }
-            return CustomScrollView(
-              controller: controller.scrollController,
-              slivers: [
-                _appBar(context, controller),
-                _albumList(controller)
-              ],
-            );
-          }
-        ),
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BackgroundGradientDecorator(
+            child: GetBuilder(
+              init: ViewAllSearchAlbumsController(Get.arguments),
+              builder: (controller) {
+                if(controller.albums.isEmpty) {
+                  return Center(
+                    child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+                  );
+                }
+                return CustomScrollView(
+                  controller: controller.scrollController,
+                  slivers: [
+                    _appBar(context, controller),
+                    _albumList(controller)
+                  ],
+                );
+              }
+            ),
+          ),
+          MiniPlayerView()
+        ],
       ),
       floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
     );

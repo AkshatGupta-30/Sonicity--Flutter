@@ -21,24 +21,29 @@ class ViewAllArtistsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BackgroundGradientDecorator(
-        child: GetBuilder(
-          init: ViewAllSearchArtistsController(Get.arguments),
-          builder: (controller) {
-            if(controller.artists.isEmpty) {
-              return Center(
-                child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
-              );
-            }
-            return CustomScrollView(
-              controller: controller.scrollController,
-              slivers: [
-                _appBar(context, controller),
-                _albumList(controller)
-              ],
-            );
-          }
-        ),
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BackgroundGradientDecorator(
+            child: GetBuilder(
+              init: ViewAllSearchArtistsController(Get.arguments),
+              builder: (controller) {
+                if(controller.artists.isEmpty) {
+                  return Center(
+                    child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+                  );
+                }
+                return CustomScrollView(
+                  controller: controller.scrollController,
+                  slivers: [
+                    _appBar(context, controller),
+                    _albumList(controller)
+                  ],
+                );
+              }
+            ),
+          ),
+        ],
       ),
       floatingActionButton: CircleAvatar(backgroundColor: Colors.red, radius: 25, child: SpiderReport()),
     );

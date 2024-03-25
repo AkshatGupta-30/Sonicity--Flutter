@@ -7,6 +7,7 @@ import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:sonicity/src/controllers/all_songs_controller.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/pop_up_buttons.dart';
@@ -18,21 +19,27 @@ class AllSongsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      init: AllSongsController(),
-      builder: (controller) {
-        return Scaffold(
-          body: BackgroundGradientDecorator(
-            child: CustomScrollView(
-              slivers: [
-                _appbar(context, controller),
-                SliverPersistentHeader(pinned: true, delegate: _SongsPlayControls(controller)),
-                _body(controller)
-              ],
+    return Scaffold(
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BackgroundGradientDecorator(
+            child: GetBuilder(
+              init: AllSongsController(),
+              builder: (controller) {
+                return CustomScrollView(
+                  slivers: [
+                    _appbar(context, controller),
+                    SliverPersistentHeader(pinned: true, delegate: _SongsPlayControls(controller)),// TODO
+                    _body(controller)
+                  ],
+                );
+              }
             ),
           ),
-        );
-      }
+          MiniPlayerView()
+        ],
+      ),
     );
   }
 

@@ -15,6 +15,7 @@ import 'package:sonicity/src/controllers/song_detail_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:sonicity/utils/sections/download_url_section.dart';
@@ -32,26 +33,32 @@ class SongDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: BackgroundGradientDecorator(
-        child: GetBuilder<SongDetailController>(
-          init: SongDetailController(Get.arguments),
-          builder: (controller) {
-            return Obx(() {
-              Song song = controller.song.value;
-              if(song.isEmpty()) {
-                return Center(
-                  child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
-                );
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BackgroundGradientDecorator(
+            child: GetBuilder<SongDetailController>(
+              init: SongDetailController(Get.arguments),
+              builder: (controller) {
+                return Obx(() {
+                  Song song = controller.song.value;
+                  if(song.isEmpty()) {
+                    return Center(
+                      child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+                    );
+                  }
+                  return NestedScrollView(
+                    headerSliverBuilder: (context, innerBoxIsScrolled) {
+                      return [_appBar(context, media, song, controller),];
+                    },
+                    body: _info(context, controller, song),
+                  );
+                });
               }
-              return NestedScrollView(
-                headerSliverBuilder: (context, innerBoxIsScrolled) {
-                  return [_appBar(context, media, song, controller),];
-                },
-                body: _info(context, controller, song),
-              );
-            });
-          }
-        ),
+            ),
+          ),
+          MiniPlayerView()
+        ],
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: _floatingActionButton(),

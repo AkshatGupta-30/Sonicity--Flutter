@@ -5,6 +5,7 @@ import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:sonicity/src/controllers/all_artists_controller.dart';
 import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/artist.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/artist_widget.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
@@ -16,20 +17,26 @@ class AllArtistsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      init: AllArtistsController(),
-      builder: (controller) {
-        return Scaffold(
-          body: BackgroundGradientDecorator(
-            child: CustomScrollView(
-              slivers: [
-                _appbar(context, controller),
-                _body(controller)
-              ],
+    return Scaffold(
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BackgroundGradientDecorator(
+            child: GetBuilder(
+              init: AllArtistsController(),
+              builder: (controller) {
+                return CustomScrollView(
+                  slivers: [
+                    _appbar(context, controller),
+                    _body(controller)
+                  ],
+                );
+              }
             ),
           ),
-        );
-      }
+          MiniPlayerView()
+        ],
+      ),
     );
   }
 

@@ -14,6 +14,7 @@ import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/sections/cover_image_section.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
@@ -32,35 +33,41 @@ class ArtistDetailsView extends StatelessWidget {
       init: ArtistDetailController(Get.arguments),
       builder: (controller) {
         return Scaffold(
-          body: BackgroundGradientDecorator(
-            child: Obx(() {
-              int selectedTab = controller.selectedTab.value;
-              Artist artist = controller.artist.value;
-              if(artist.isEmpty()) {
-                return Center(
-                  child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
-                );
-              }
-              return NestedScrollView(
-                controller: controller.scrollController,
-                headerSliverBuilder: (context, innerBoxIsScrolled) {
-                  return [
-                    _appBar(context, selectedTab, media, artist, controller),
-                    _tabBar(context, controller),
-                    _summaryHeader(context, artist, controller),
-                  ];
-                },
-                body: TabBarView(
-                  controller: controller.tabController,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    _songsTab(controller),
-                    _albumsTab(controller),
-                    _infoTab(context, artist),
-                  ],
-                ),
-              );
-            }),
+          body: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              BackgroundGradientDecorator(
+                child: Obx(() {
+                  int selectedTab = controller.selectedTab.value;
+                  Artist artist = controller.artist.value;
+                  if(artist.isEmpty()) {
+                    return Center(
+                      child: LottieBuilder.asset("assets/lottie/gramophone2.json", width: 100),
+                    );
+                  }
+                  return NestedScrollView(
+                    controller: controller.scrollController,
+                    headerSliverBuilder: (context, innerBoxIsScrolled) {
+                      return [
+                        _appBar(context, selectedTab, media, artist, controller),
+                        _tabBar(context, controller),
+                        _summaryHeader(context, artist, controller),
+                      ];
+                    },
+                    body: TabBarView(
+                      controller: controller.tabController,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [
+                        _songsTab(controller),
+                        _albumsTab(controller),
+                        _infoTab(context, artist),
+                      ],
+                    ),
+                  );
+                }),
+              ),
+              MiniPlayerView()
+            ],
           ),
         );
       }

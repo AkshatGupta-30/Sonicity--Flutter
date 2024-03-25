@@ -13,6 +13,7 @@ import 'package:sonicity/src/controllers/settings_controller.dart';
 import 'package:sonicity/src/views/drawer/settings_view.dart';
 import 'package:sonicity/src/views/navigation/library_view.dart';
 import 'package:sonicity/src/views/navigation/homeview.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:sonicity/utils/widgets/style_widget.dart';
 
@@ -31,10 +32,16 @@ class NavigationView extends StatelessWidget {
     return Obx(() => Scaffold(
       key: controller.scaffoldKey,
       drawer: _drawer(context, controller),
-      body: TabBarView(
-        controller: controller.tabController,
-        physics: NeverScrollableScrollPhysics(),
-        children: navTabs,
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          TabBarView(
+            controller: controller.tabController,
+            physics: NeverScrollableScrollPhysics(),
+            children: navTabs,
+          ),
+          MiniPlayerView()
+        ],
       ),
       bottomNavigationBar: Container(
         color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,

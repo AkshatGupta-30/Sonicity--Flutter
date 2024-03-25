@@ -11,6 +11,7 @@ import 'package:sonicity/src/models/album.dart';
 import 'package:sonicity/src/models/artist.dart';
 import 'package:sonicity/src/models/playlist.dart';
 import 'package:sonicity/src/models/song.dart';
+import 'package:sonicity/src/views/player/mini_player_view.dart';
 import 'package:sonicity/utils/contants/enums.dart';
 import 'package:sonicity/utils/widgets/album_widget.dart';
 import 'package:sonicity/utils/widgets/artist_widget.dart';
@@ -29,14 +30,20 @@ class RecentsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BackgroundGradientDecorator(
-        child: CustomScrollView(
-          slivers: [
-            _appbar(context),
-            _summaryHeader(context),
-            _body()
-          ],
-        )
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          BackgroundGradientDecorator(
+            child: CustomScrollView(
+              slivers: [
+                _appbar(context),
+                _summaryHeader(context),
+                _body()
+              ],
+            )
+          ),
+          MiniPlayerView()
+        ],
       ),
       floatingActionButton: CircleAvatar(radius: 25, backgroundColor: Colors.red, child: SpiderReport()),
     );
