@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
 import 'package:iconify_flutter_plus/icons/entypo.dart';
 import 'package:iconify_flutter_plus/icons/ic.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 import 'package:iconify_flutter_plus/icons/mi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
 import 'package:iconify_flutter_plus/icons/uis.dart';
+import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/database/database.dart';
@@ -33,7 +33,7 @@ class SongCard extends StatelessWidget {
         return GestureDetector(
           onTap: () async {
             playSong(song);
-            RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+            RecentsDatabase recents = getIt<RecentsDatabase>();
             await recents.insertSong(song);
           },
           child: Container(
@@ -124,7 +124,7 @@ class SongTile extends StatelessWidget {
       builder: (controller) => ListTile(
         onTap: () async {
           playSong(song);
-          RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+          RecentsDatabase recents = getIt<RecentsDatabase>();
           await recents.insertSong(song);
         },
         contentPadding: EdgeInsets.zero,
@@ -165,7 +165,7 @@ class SongCell extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         playSong(song);
-        RecentsDatabase recents = GetIt.instance<RecentsDatabase>();
+        RecentsDatabase recents = getIt<RecentsDatabase>();
         await recents.insertSong(song);
       },
       child: Container(

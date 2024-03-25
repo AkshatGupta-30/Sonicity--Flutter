@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
+import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/utils/contants/constants.dart';
 
 class RecentsController extends GetxController with GetTickerProviderStateMixin {
-  final _recentDatabase = GetIt.instance<RecentsDatabase>();
+  final _recentDatabase = getIt<RecentsDatabase>();
   late TabController tabController;
   final selectedTab = 0.obs;
   final songs = <Song>[].obs;

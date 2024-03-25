@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
+import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/utils/contants/constants.dart';
@@ -9,7 +9,7 @@ class MyPlaylistDetailController extends GetxController {
   MyPlaylistDetailController(this.importedPlaylist);
 
   final playlist = MyPlaylist.empty().obs;
-  final db = GetIt.instance<MyPlaylistsDatabase>();
+  final db = getIt<MyPlaylistsDatabase>();
 
   @override
   void onInit() {

@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sqflite/sqflite.dart';
@@ -139,7 +139,7 @@ class ClonedDatabase {
   }
 
   Future<void> deleteClone(dynamic model) async {
-    GetIt.instance<StarredDatabase>().deleteStarred(model);
+    getIt<StarredDatabase>().deleteStarred(model);
     Database db = await _instance.database;
     Map<Type, Map<String, dynamic>> modelsMap = {
       Song: {tbSongDetail: colSongId},

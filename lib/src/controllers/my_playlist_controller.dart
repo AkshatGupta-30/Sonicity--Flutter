@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
+import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
@@ -10,7 +10,7 @@ class MyPlaylistController extends GetxController {
   final Song song;
   MyPlaylistController(this.song);
 
-  final db = GetIt.instance<MyPlaylistsDatabase>();
+  final db = getIt<MyPlaylistsDatabase>();
   SettingsController settings = Get.find<SettingsController>();
   final playlists = <MyPlaylist>[].obs;
   final isSongPresent = <bool>[].obs;

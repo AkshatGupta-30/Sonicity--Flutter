@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
+import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/models/models.dart';
 

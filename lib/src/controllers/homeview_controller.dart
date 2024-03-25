@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/src/services/services.dart';
@@ -51,7 +51,7 @@ class HomeViewController extends GetxController with GetSingleTickerProviderStat
     TopAlbums tA = TopAlbums.empty();
     HotPlaylists hP = HotPlaylists.empty();
 
-    final homeDatabase = GetIt.instance<HomeDatabase>();
+    final homeDatabase = getIt<HomeDatabase>();
     if(needInstant || !(await homeDatabase.isFilled())) {
       (tN, tC, tA, hP) = await HomeViewApi.get();
       trendingNow.value = tN;

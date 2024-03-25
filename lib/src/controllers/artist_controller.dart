@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
+import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 
@@ -7,8 +7,8 @@ class ArtistController extends GetxController {
   final Artist artist;
   ArtistController(this.artist);
 
-  final cloneDb = GetIt.instance<ClonedDatabase>();
-  final starDb = GetIt.instance<StarredDatabase>();
+  final cloneDb = getIt<ClonedDatabase>();
+  final starDb = getIt<StarredDatabase>();
   final isClone = false.obs;
   final isStar = false.obs;
 
