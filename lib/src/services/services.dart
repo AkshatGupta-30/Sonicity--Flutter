@@ -9,3 +9,4 @@ export 'search_artist_api.dart';
 export 'search_playlist_api.dart';
 export 'search_songs_api.dart';
 export 'song_details_api.dart';
+export 'song_suggesitions_api.dart';

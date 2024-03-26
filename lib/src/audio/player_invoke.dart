@@ -4,19 +4,20 @@ import 'package:audio_service/audio_service.dart';
 import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/models/models.dart';
+// import 'package:sonicity/src/services/services.dart';
 
 DateTime playerTapTime = DateTime.now();
-bool get isProcessForPlay {
-  return DateTime.now().difference(playerTapTime).inMilliseconds > 600;
-}
+bool get isProcessForPlay => DateTime.now().difference(playerTapTime).inMilliseconds > 600;
 
 Timer? debounce;
 
-void playSong(Song song) {
+Future<void> playSong(Song song) async {
+  List<Song> songs = [song];// TODO - song suggession limit in settings
+  // songs.addAll(await SongSuggestionsApi.fetchData(song.id, limit: 10)); // TODO - Implement it
   debounce?.cancel();
   debounce = Timer(
     const Duration(milliseconds: 600), () {
-      PlayerInvoke.init(songsList: [song], index: 0, shuffle: false);
+      PlayerInvoke.init(songsList: songs, index: 0, shuffle: false);
     }
   );
 }
