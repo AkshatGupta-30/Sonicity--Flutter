@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:draggable_bottom_sheet_nullsafety/draggable_bottom_sheet_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:gap/gap.dart';
@@ -12,7 +13,6 @@ import 'package:iconify_flutter/iconify.dart';
 import 'package:interactive_slider/interactive_slider.dart';
 import 'package:perfect_volume_control/perfect_volume_control.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
@@ -50,26 +50,30 @@ class MainPlayerView extends StatelessWidget {
             ],
             isPaused: (state == ButtonState.paused) ? true : false,
             child: BackgroundGradientDecorator(
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                body: SafeArea(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                      children: [
-                        Spacer(flex: 1,),
-                        _songInfo(context),
-                        Gap(20),
-                        _artworkAndSlider(media),
-                        _durationAndVolume(context),
-                        Gap(10),
-                        _buttonRows(context),
-                        Spacer(flex: 2,),
-                      ],
+              child: DraggableBottomSheet(
+                backgroundWidget: Scaffold(
+                  backgroundColor: Colors.transparent,
+                  body: SafeArea(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        children: [
+                          Spacer(flex: 1,),
+                          _songInfo(context),
+                          Gap(20),
+                          _artworkAndSlider(media),
+                          _durationAndVolume(context),
+                          Gap(10),
+                          _buttonRows(context),
+                          Spacer(flex: 2,),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                bottomSheet: _bottomSheet(context),
+                minExtent: 60, maxExtent: MediaQuery.of(context).size.height * 0.8,
+                previewChild: _bottomChild(context), expandedChild: _bottomSheet(context),
+                blurBackground: true, scrollDirection: Axis.vertical, alignment: Alignment.bottomCenter,
               ),
             ),
           );
@@ -233,10 +237,15 @@ class MainPlayerView extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: audioManager.isShuffleModeEnabledNotifier,
               builder: (context, isShuffle, _) {
-                return IconButton(
-                  onPressed: audioManager.shuffle,
-                  padding: EdgeInsets.zero,
-                  icon: Iconify(Ri.shuffle_fill, color: (isShuffle) ? null : Colors.grey,)
+                return ValueListenableBuilder(
+                  valueListenable: audioManager.playlistNotifier,
+                  builder: (context, queue, _) {
+                    return IconButton(
+                      onPressed: (queue.length > 1) ? null : audioManager.shuffle,
+                      padding: EdgeInsets.zero,
+                      icon: Iconify(Ri.shuffle_fill, color: (isShuffle && queue.length > 1) ? null : Colors.grey,)
+                    );
+                  }
                 );
               }
             ),
@@ -296,13 +305,19 @@ class MainPlayerView extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: audioManager.repeatButtonNotifier,
               builder: (context, state, _) {
-                return IconButton(
-                  onPressed: audioManager.repeat,
-                  padding: EdgeInsets.zero,
-                  icon: Iconify(
-                    (state == RepeatState.repeatSong) ? MaterialSymbols.repeat_one_rounded : MaterialSymbols.repeat_rounded,
-                    color: (state == RepeatState.off) ? Colors.grey : null, size: 30,
-                  )
+                return ValueListenableBuilder(
+                  valueListenable: audioManager.playlistNotifier,
+                  builder: (context, queue, _) {
+                    if(queue.length < 2) state = RepeatState.repeatSong;
+                    return IconButton(
+                      onPressed: audioManager.repeat,
+                      padding: EdgeInsets.zero,
+                      icon: Iconify(
+                        (state == RepeatState.repeatSong) ? MaterialSymbols.repeat_one_rounded : MaterialSymbols.repeat_rounded,
+                        color: (state == RepeatState.off) ? Colors.grey : null, size: 30,
+                      )
+                    );
+                  }
                 );
               }
             ),
@@ -377,57 +392,121 @@ class MainPlayerView extends StatelessWidget {
     );
   }
 
-  Row _albumViewAndEqualizer() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        
-      ],
+  Widget _bottomChild(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white12,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16))
+      ),
+      child: Row(
+        children: [
+          Gap(2), Iconify(Ic.round_queue_music, size: 45,),
+          Gap(4), Iconify(MaterialSymbols.arrow_right_rounded, size: 40,), Gap(4),
+          Expanded(
+            child: ValueListenableBuilder(
+              valueListenable: audioManager.playlistNotifier,
+              builder: (context, queue, _) {
+                return ListView.builder(
+                  itemCount: queue.length, scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    MediaItem media = queue[index];
+                    return ValueListenableBuilder(
+                      valueListenable: audioManager.currentSongNotifier,
+                      builder: (context, mediaItem, _) {
+                        return GestureDetector(
+                          onTap: () => (media.id == getIt<AudioManager>().currentSongNotifier.value!.id) 
+                              ? null
+                              : getIt<AudioManager>().skipToQueueItem(index),
+                          child: Container(
+                            width: 45, height: 45,
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Get.find<SettingsController>().getAccent)
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: CachedNetworkImage(
+                                imageUrl: media.artUri.toString(), fit: BoxFit.cover, width: 35, height: 35,
+                                errorWidget: (context, url, error) {
+                                  return Image.asset(
+                                    "assets/images/songCover/songCover50x50.jpg",
+                                    fit: BoxFit.cover, width: 35, height: 35
+                                  );
+                                },
+                                placeholder: (context, url) {
+                                  return Image.asset(
+                                    "assets/images/songCover/songCover50x50.jpg",
+                                    fit: BoxFit.cover, width: 35, height: 35
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+          Iconify(MaterialSymbols.swipe_up_rounded, size: 35,), Gap(5)
+        ],
+      ),
     );
   }
 
   Widget _bottomSheet(BuildContext context) {
-    return SolidBottomSheet(
-      elevation: 2,
-      canUserSwipe: true, autoSwiped: false, draggableBody: true, toggleVisibilityOnTap: true,
-      headerBar: Container(
-        width: double.maxFinite, height: 45,
-        color: Colors.transparent,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Gap(8),
-            Container(
-              width: 40, height: 5,
-              decoration: BoxDecoration(
-                color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
-                borderRadius: BorderRadius.circular(3),
-              ),
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+      child: ClipRRect(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        child: Scaffold(
+          backgroundColor: (Theme.of(context).brightness == Brightness.light)
+              ? Colors.grey.shade200.withOpacity(0.5)
+              : Colors.grey.shade800.withOpacity(0.5),
+          appBar: PreferredSize(
+            preferredSize: Size(double.maxFinite, 25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Gap(8),
+                Container(
+                  width: 40, height: 5,
+                  decoration: BoxDecoration(
+                    color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ),
+                Text("Up Next", style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),),
+              ],
             ),
-            Text("Up Next", style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),),
-          ],
-        ),
-      ),
-      body: ValueListenableBuilder(
-        valueListenable: audioManager.playlistNotifier,
-        builder: (context, queue, _) {
-          final queueStateIndex = (audioManager.currentSongNotifier.value == null)
-              ? 0 : queue.indexOf(audioManager.currentSongNotifier.value!);
-          return ReorderableListView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            itemCount: queue.length,
-            onReorder: (oldIndex, newIndex) => audioManager.moveMediaItem(oldIndex, newIndex),
-            itemBuilder: (context, index) {
-              MediaItem media = queue[index];
-              return Dismissible(
-                key: Key(media.id),
-                direction: (index == queueStateIndex) ? DismissDirection.none : DismissDirection.horizontal,
-                onDismissed: (direction) => audioManager.removeQueueItemAt(index),
-                child: MediaItemTile(media, index: index, queueStateIndex: queueStateIndex),
+          ),
+          body: ValueListenableBuilder(
+            valueListenable: audioManager.playlistNotifier,
+            builder: (context, queue, _) {
+              final queueStateIndex = (audioManager.currentSongNotifier.value == null)
+                  ? 0 : queue.indexOf(audioManager.currentSongNotifier.value!);
+              return ReorderableListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                itemCount: queue.length,
+                onReorder: (oldIndex, newIndex) => audioManager.moveMediaItem(oldIndex, newIndex),
+                itemBuilder: (context, index) {
+                  MediaItem media = queue[index];
+                  return Dismissible(
+                    key: Key(media.id),
+                    direction: (index == queueStateIndex) ? DismissDirection.none : DismissDirection.horizontal,
+                    onDismissed: (direction) => audioManager.removeQueueItemAt(index),
+                    child: MediaItemTile(media, index: index, queueStateIndex: queueStateIndex),
+                  );
+                },
               );
             },
-          );
-        },
+          ),
+        ),
       ),
     );
   }

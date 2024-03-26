@@ -273,6 +273,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
+  draggable_bottom_sheet_nullsafety:
+    dependency: "direct main"
+    description:
+      name: draggable_bottom_sheet_nullsafety
+      sha256: f1107b5081258cf7828864108b4c03f7acfe8df980270aa68d59de3e4cef4054
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   fake_async:
     dependency: transitive
     description:
@@ -971,14 +979,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  solid_bottom_sheet:
-    dependency: "direct main"
-    description:
-      name: solid_bottom_sheet
-      sha256: "7a18ee17da1c57fdad953f785be4cbdaf5e1116650888162ceaccb80e6b6a6aa"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.10"
   source_span:
     dependency: transitive
     description:
