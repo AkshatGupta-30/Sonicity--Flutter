@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:glowy_borders/glowy_borders.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:interactive_slider/interactive_slider.dart';
+import 'package:perfect_volume_control/perfect_volume_control.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
@@ -77,7 +78,7 @@ class MainPlayerView extends StatelessWidget {
     );
   }
 
-  _songInfo(BuildContext context) {
+  ValueListenableBuilder _songInfo(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: audioManager.currentSongNotifier,
       builder: (context, song, _) {
@@ -174,7 +175,7 @@ class MainPlayerView extends StatelessWidget {
     );
   }
 
-  _durationAndVolume(BuildContext context) {
+  ValueListenableBuilder _durationAndVolume(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: audioManager.progressNotifier,
       builder: (context, valueState, _) {
@@ -190,7 +191,7 @@ class MainPlayerView extends StatelessWidget {
                 '${valueState.current}',
               style: Theme.of(context).primaryTextTheme.headlineSmall,
             ),
-            SizedBox(
+            Obx(() => SizedBox(
               width: 225,
               child: InteractiveSlider( // TODO - Volume Control
                 unfocusedHeight: 20, focusedHeight: 40,
@@ -199,11 +200,18 @@ class MainPlayerView extends StatelessWidget {
                 iconGap: 8, iconSize: 25, iconPosition: IconPosition.inside,
                 startIcon: Iconify(Ion.volume_low, color: Colors.grey,),
                 endIcon: Iconify(Ion.volume_high, color: Colors.grey,),
-                min: 0, max: 100,
-                onChanged: (value) {},
-                onProgressUpdated: (value) {},
+                min: 0, initialProgress: controller.volume.value,  max: 1,
+                onChanged: (vol) async {
+                  controller.volume.value = vol;
+                  await PerfectVolumeControl.setVolume(vol);
+                },
+                onProgressUpdated: (vol) async {
+                  controller.volume.value = vol;
+                  await PerfectVolumeControl.setVolume(vol);
+                },
+                centerIcon: Text('${(controller.volume.value * 100).round()}%', style: TextStyle(color: Colors.grey),),
               ),
-            ),
+            )),
             Text(
               RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
                   .firstMatch('${valueState.total}')
@@ -340,8 +348,7 @@ class MainPlayerView extends StatelessWidget {
 
   Row _albumViewAndEqualizer() {
     return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         ClipRRect(// * : Album View
           borderRadius: BorderRadius.circular(12),
@@ -372,8 +379,6 @@ class MainPlayerView extends StatelessWidget {
             }
           ),
         ),
-        Spacer(),
-        Iconify(Mdi.equalizer, size: 40,), // TODO - Equalizer - 'equalizer_flutter_custom'
       ],
     );
   }

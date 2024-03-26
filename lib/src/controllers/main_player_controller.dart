@@ -5,6 +5,7 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
+import 'package:perfect_volume_control/perfect_volume_control.dart';
 import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/database/database.dart';
@@ -15,6 +16,8 @@ import 'package:super_string/super_string.dart';
 
 class PlayerController extends GetxController {
   final audioManager = getIt<AudioManager>();
+
+  final volume = 0.0.obs;
 
   final isStarred = false.obs;
   final isCloned = false.obs;
@@ -29,6 +32,12 @@ class PlayerController extends GetxController {
       await setSong();
       await checkCloneAndStar();
     });
+    volumeConfig();
+  }
+
+  void volumeConfig() async {
+    volume.value = await PerfectVolumeControl.getVolume();
+    PerfectVolumeControl.stream.listen((vol) => volume.value = vol);
   }
 
   Future<void> checkCloneAndStar() async {
