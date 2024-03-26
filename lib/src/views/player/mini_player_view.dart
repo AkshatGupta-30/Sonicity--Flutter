@@ -127,8 +127,8 @@ class MiniPlayerView extends StatelessWidget {
                                       onPressed: controller.toggleStarred,
                                       padding: EdgeInsets.zero,
                                       icon: Iconify(
-                                        (controller.isFavorite.value) ? Uis.favorite : Uit.favorite, size: 30,
-                                        color: (controller.isFavorite.value) ? Colors.yellowAccent : Colors.white
+                                        (controller.isStarred.value) ? Uis.favorite : Uit.favorite, size: 30,
+                                        color: (controller.isStarred.value) ? Colors.yellowAccent : Colors.white
                                       )
                                     )),
                                     Gap(5),

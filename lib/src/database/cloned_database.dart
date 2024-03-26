@@ -126,7 +126,7 @@ class ClonedDatabase {
 
   Future<void> clone(dynamic model) async {
     Database db = await _instance.database;
-    if(await isPresent(model)) return;
+    if(await isPresent(model)) {return;}
     Map<Type, String> tableNames = {
       Song: tbSongDetail,
       Album: tbAlbumDetail,

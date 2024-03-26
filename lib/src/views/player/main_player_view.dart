@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'dart:math';
 import 'dart:ui';
 
@@ -317,14 +315,21 @@ class MainPlayerView extends StatelessWidget {
               icon: Iconify(Entypo.info, size: 27,)
             ),
             Spacer(),
-            Iconify(Bi.speaker_fill, size: 27,), // TODO - System Sound = Ion.headset, Mdi.cellphone_sound, Bi.speaker_fill
+            Obx(() => IconButton(
+              onPressed: controller.toggleClone,
+              padding: EdgeInsets.zero,
+              icon: Iconify(
+                (controller.isCloned.value) ? Ic.twotone_cyclone : Ic.round_cyclone, size: 30,
+                color: (controller.isCloned.value) ? Colors.cyanAccent: Colors.white
+              )
+            )),
             Gap(20),
             Obx(() => IconButton(
               onPressed: controller.toggleStarred,
               padding: EdgeInsets.zero,
               icon: Iconify(
-                (controller.isFavorite.value) ? Uis.favorite : Uit.favorite, size: 30,
-                color: (controller.isFavorite.value) ? Colors.yellowAccent : Colors.white
+                (controller.isStarred.value) ? Uis.favorite : Uit.favorite, size: 30,
+                color: (controller.isStarred.value) ? Colors.yellowAccent : Colors.white
               )
             )),
           ],

@@ -16,7 +16,8 @@ import 'package:super_string/super_string.dart';
 class PlayerController extends GetxController {
   final audioManager = getIt<AudioManager>();
 
-  final isFavorite = false.obs;
+  final isStarred = false.obs;
+  final isCloned = false.obs;
   final currentSong = Song.empty().obs;
   final lyrics = Lyrics.empty().obs;
 
@@ -24,7 +25,16 @@ class PlayerController extends GetxController {
   void onInit() {
     super.onInit();
     setSong();
-    audioManager.currentSongNotifier.addListener(() async => await setSong());
+    audioManager.currentSongNotifier.addListener(() async {
+      await setSong();
+      await checkCloneAndStar();
+    });
+  }
+
+  Future<void> checkCloneAndStar() async {
+    isStarred.value = await getIt<StarredDatabase>().isPresent(currentSong.value);
+    isCloned.value = await getIt<ClonedDatabase>().isPresent(currentSong.value);
+    update();
   }
 
   Future<void> setSong() async {
@@ -32,19 +42,21 @@ class PlayerController extends GetxController {
     if(currentMediaItem != null) {
       currentSong.value = await SongDetailsApi.forPlay(currentMediaItem.id);
       lyrics.value = await LyricsApi.fetch(currentSong.value);
-      isFavorite.value = await getIt<StarredDatabase>().isPresent(currentSong.value);
+      await checkCloneAndStar();
       update();
     }
   }
 
   void toggleStarred() async {
-    if(!isFavorite.value) {
-      await getIt<StarredDatabase>().starred(currentSong.value);
-      isFavorite.value = true;
-    } else {
-      await getIt<StarredDatabase>().deleteStarred(currentSong.value);
-      isFavorite.value = false;
-    }
+    if(!isStarred.value) await getIt<StarredDatabase>().starred(currentSong.value);
+    else await getIt<StarredDatabase>().deleteStarred(currentSong.value);
+    await checkCloneAndStar();
+  }
+
+  void toggleClone() async {
+    if(!isCloned.value) await getIt<ClonedDatabase>().clone(currentSong.value);
+    else await getIt<ClonedDatabase>().deleteClone(currentSong.value);
+    await checkCloneAndStar();
   }
 
   void showLyrics(BuildContext context) {

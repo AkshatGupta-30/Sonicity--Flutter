@@ -125,7 +125,6 @@ class StarredDatabase {
   }
 
   Future<void> starred(dynamic model) async {
-    getIt<ClonedDatabase>().clone(model);
     Database db = await _instance.database;
     Map<Type, String> tableNames = {
       Song: tbSongDetail,
@@ -134,6 +133,7 @@ class StarredDatabase {
       Playlist: tbPlaylistDetail,
     };
     if (tableNames.containsKey(model.runtimeType)) {
+      getIt<ClonedDatabase>().clone(model);
       await db.insert(tableNames[model.runtimeType]!, model.toDb());
     }
   }
