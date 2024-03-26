@@ -52,6 +52,7 @@ dependencies:
   sleek_circular_slider: ^2.0.1
   sliver_tools: ^0.2.12
   smooth_page_indicator: ^1.1.0
+  solid_bottom_sheet: ^0.1.10
   sqflite: ^2.3.2
   super_string: ^1.0.3
 

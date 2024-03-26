@@ -971,6 +971,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
+  solid_bottom_sheet:
+    dependency: "direct main"
+    description:
+      name: solid_bottom_sheet
+      sha256: "7a18ee17da1c57fdad953f785be4cbdaf5e1116650888162ceaccb80e6b6a6aa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.10"
   source_span:
     dependency: transitive
     description:

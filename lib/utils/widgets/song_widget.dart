@@ -1,8 +1,10 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
@@ -200,6 +202,64 @@ class SongCell extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class MediaItemTile extends StatelessWidget {
+  final MediaItem song;
+  final int index, queueStateIndex;
+  MediaItemTile(this.song, {super.key, required this.index, required this.queueStateIndex});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: getIt<AudioManager>().currentSongNotifier,
+      builder: (context, mediaItem, _) {
+        return ListTile(
+          onTap: () => getIt<AudioManager>().skipToQueueItem(index),
+          tileColor: (mediaItem!.id == song.id) ? Colors.white12 : null,
+          contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: CachedNetworkImage(
+              imageUrl: song.artUri.toString(), fit: BoxFit.cover, width: 50, height: 50,
+              errorWidget: (context, url, error) {
+                return Image.asset(
+                  "assets/images/songCover/songCover50x50.jpg",
+                  fit: BoxFit.cover, width: 50, height: 50
+                );
+              },
+              placeholder: (context, url) {
+                return Image.asset(
+                  "assets/images/songCover/songCover50x50.jpg",
+                  fit: BoxFit.cover, width: 50, height: 50
+                );
+              },
+            ),
+          ),
+          horizontalTitleGap: 10,
+          title: Text(song.title, maxLines: 1, overflow: TextOverflow.ellipsis,),
+          subtitle: Text(song.displaySubtitle.toString(), maxLines: 1, overflow: TextOverflow.ellipsis,),
+          trailing: (index == queueStateIndex)
+          ? ValueListenableBuilder(
+            valueListenable: getIt<AudioManager>().playButtonNotifier,
+            builder: (context, state , _) {
+              return Lottie.asset(
+                'assets/lottie/speaker.json', animate: (state == ButtonState.playing),
+                fit: BoxFit.cover,
+              );
+            }
+          )
+          : ReorderableDragStartListener(
+            key: Key(song.id),
+            index: index,
+            enabled: index != queueStateIndex,
+            child: Icon(Icons.drag_handle_rounded, color: Colors.white, size: 30,),
+          ),
+        );
+      }
     );
   }
 }

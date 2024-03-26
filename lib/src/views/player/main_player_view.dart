@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
@@ -11,6 +12,7 @@ import 'package:iconify_flutter/iconify.dart';
 import 'package:interactive_slider/interactive_slider.dart';
 import 'package:perfect_volume_control/perfect_volume_control.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
@@ -55,21 +57,19 @@ class MainPlayerView extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       children: [
-                        Spacer(flex: 2,),
+                        Spacer(flex: 1,),
                         _songInfo(context),
-                        Spacer(flex: 2,),
+                        Gap(20),
                         _artworkAndSlider(media),
-                        Spacer(flex: 1,),
                         _durationAndVolume(context),
-                        Spacer(flex: 1,),
+                        Gap(10),
                         _buttonRows(context),
                         Spacer(flex: 2,),
-                        _albumViewAndEqualizer(),
-                        Spacer(flex: 1,),
                       ],
                     ),
                   ),
                 ),
+                bottomSheet: _bottomSheet(context),
               ),
             ),
           );
@@ -308,8 +308,9 @@ class MainPlayerView extends StatelessWidget {
             ),
           ],
         ),
-        Gap(15),
+        Gap(10),
         Row(// * : Secondary Button
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             IconButton(
               onPressed: () => (controller.currentSong.value.hasLyrics) ? controller.showLyrics(context) : null,
@@ -321,6 +322,36 @@ class MainPlayerView extends StatelessWidget {
               onPressed: () => Get.off(() => SongDetailsView(), arguments: controller.currentSong.value.id),
               padding: EdgeInsets.zero,
               icon: Iconify(Entypo.info, size: 27,)
+            ),
+            Spacer(),
+            ClipRRect(// * : Album View
+              borderRadius: BorderRadius.circular(12),
+              child: ValueListenableBuilder(
+                valueListenable: audioManager.currentSongNotifier,
+                builder: (context, song, _) {
+                  if(song == null) return SizedBox();
+                  return InkWell(
+                    onTap: () => Get.to(() => AlbumDetailsView(), arguments: song.album),
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: 2),
+                        borderRadius: BorderRadius.circular(12)
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl: song.artUri.toString(), fit: BoxFit.cover,
+                        height: 50, width: 50,
+                        errorWidget: (context, url, error) {
+                          return Image.asset("assets/images/albumCover/albumCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
+                        },
+                        placeholder: (context, url) {
+                          return Image.asset("assets/images/albumCover/albumCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
+                        },
+                      ),
+                    ),
+                  );
+                }
+              ),
             ),
             Spacer(),
             Obx(() => IconButton(
@@ -350,36 +381,54 @@ class MainPlayerView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        ClipRRect(// * : Album View
-          borderRadius: BorderRadius.circular(12),
-          child: ValueListenableBuilder(
-            valueListenable: audioManager.currentSongNotifier,
-            builder: (context, song, _) {
-              if(song == null) return SizedBox();
-              return InkWell(
-                onTap: () => Get.to(() => AlbumDetailsView(), arguments: song.album),
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 2),
-                    borderRadius: BorderRadius.circular(12)
-                  ),
-                  child: CachedNetworkImage(
-                    imageUrl: song.artUri.toString(), fit: BoxFit.cover,
-                    height: 50, width: 50,
-                    errorWidget: (context, url, error) {
-                      return Image.asset("assets/images/albumCover/albumCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
-                    },
-                    placeholder: (context, url) {
-                      return Image.asset("assets/images/albumCover/albumCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
-                    },
-                  ),
-                ),
-              );
-            }
-          ),
-        ),
+        
       ],
+    );
+  }
+
+  Widget _bottomSheet(BuildContext context) {
+    return SolidBottomSheet(
+      elevation: 2,
+      canUserSwipe: true, autoSwiped: false, draggableBody: true, toggleVisibilityOnTap: true,
+      headerBar: Container(
+        width: double.maxFinite, height: 45,
+        color: Colors.transparent,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Gap(8),
+            Container(
+              width: 40, height: 5,
+              decoration: BoxDecoration(
+                color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+            Text("Up Next", style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),),
+          ],
+        ),
+      ),
+      body: ValueListenableBuilder(
+        valueListenable: audioManager.playlistNotifier,
+        builder: (context, queue, _) {
+          final queueStateIndex = (audioManager.currentSongNotifier.value == null)
+              ? 0 : queue.indexOf(audioManager.currentSongNotifier.value!);
+          return ReorderableListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            itemCount: queue.length,
+            onReorder: (oldIndex, newIndex) => audioManager.moveMediaItem(oldIndex, newIndex),
+            itemBuilder: (context, index) {
+              MediaItem media = queue[index];
+              return Dismissible(
+                key: Key(media.id),
+                direction: (index == queueStateIndex) ? DismissDirection.none : DismissDirection.horizontal,
+                onDismissed: (direction) => audioManager.removeQueueItemAt(index),
+                child: MediaItemTile(media, index: index, queueStateIndex: queueStateIndex),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
