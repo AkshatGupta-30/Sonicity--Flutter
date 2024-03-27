@@ -13,6 +13,7 @@ export 'my_playlist_detail_controller.dart';
 export 'navigation_controller.dart';
 export 'playlist_controller.dart';
 export 'playlist_detail_controller.dart';
+export 'queue_controller.dart';
 export 'recents_controller.dart';
 export 'searchview_controller.dart';
 export 'settings_controller.dart';

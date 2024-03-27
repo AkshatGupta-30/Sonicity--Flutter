@@ -22,6 +22,7 @@ Future<void> setupServiceLocator() async {
 
   // * : GetX Controllers
   Get.put(SettingsController());
+  Get.put(QueueController());
   Get.lazyPut(() => StorageMethods());
   Get.lazyPut(() => DatabaseMethods());
   Get.lazyPut(() => PlayerController());
