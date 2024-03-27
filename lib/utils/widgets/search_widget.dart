@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
-import 'package:sonicity/src/views/navigation/navigation_view.dart';
+import 'package:sonicity/src/views/navigation/navigation.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
 class SearchContainer extends StatelessWidget {

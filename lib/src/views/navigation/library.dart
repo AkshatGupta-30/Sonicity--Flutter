@@ -47,7 +47,7 @@ class LibraryView extends StatelessWidget {
               title: "Artists",
             ),
             Tile(// * : Stats
-              onPressed: () {},
+              onPressed: () => Get.to(() => StatsView()),
               icon: Wpf.statistics,
               title: "Stats",
             ),

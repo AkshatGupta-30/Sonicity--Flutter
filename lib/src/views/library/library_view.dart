@@ -4,3 +4,4 @@ export 'all_playlists_view.dart';
 export 'all_songs_view.dart';
 export 'recents_view.dart';
 export 'starred_view.dart';
+export 'stats_view.dart';

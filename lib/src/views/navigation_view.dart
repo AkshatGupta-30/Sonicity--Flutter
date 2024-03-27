@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/views/drawer/drawer_view.dart';
-import 'package:sonicity/src/views/navigation/navigation_view.dart';
+import 'package:sonicity/src/views/navigation/navigation.dart';
 import 'package:sonicity/src/views/player/player_view.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
