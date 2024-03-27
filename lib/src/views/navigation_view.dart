@@ -5,6 +5,7 @@ import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/views/drawer/drawer_view.dart';
 import 'package:sonicity/src/views/navigation/navigation.dart';
+import 'package:sonicity/src/views/navigation/queueview.dart';
 import 'package:sonicity/src/views/player/player_view.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
@@ -12,11 +13,7 @@ class NavigationView extends StatelessWidget {
   NavigationView({super.key});
 
   final controller = Get.put(NavigationController());
-  final navTabs = [
-    Center(child: Text("Queue", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold))),
-    HomeView(),
-    LibraryView()
-  ];
+  final navTabs = [QueueView(), HomeView(), LibraryView()];
 
   @override
   Widget build(BuildContext context) {
