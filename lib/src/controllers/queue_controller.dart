@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
@@ -9,8 +8,6 @@ import 'package:sonicity/src/models/models.dart';
 class QueueController extends GetxController {
   final Song song;
   QueueController(this.song);
-  
-  final showFab = true.obs;
 
   final db = getIt<QueueDatabase>();
   SettingsController settings = Get.find<SettingsController>();
@@ -38,25 +35,6 @@ class QueueController extends GetxController {
     await getQueueCount();
     await checkSongPresent();
     await getQueues();
-  }
-
-  bool onNotification(UserScrollNotification notification) {
-    final ScrollDirection direction = notification.direction;
-    if (direction == ScrollDirection.reverse) showFab.value = false;
-    else if (direction == ScrollDirection.forward) showFab.value = true;
-    return true;
-  }
-
-  void showAllQueueDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-        ),
-      ),
-    );
   }
 
   Future<void> getQueues() async => queues.value = await db.queues;

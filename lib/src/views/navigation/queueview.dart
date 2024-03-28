@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/controllers/queue_detail_controller.dart';
 import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
 class QueueView extends StatelessWidget {
@@ -12,7 +15,7 @@ class QueueView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: QueueController(Song.empty()),
+      init: QueueDetailController(),
       builder: (controller) {
         return Scaffold(
           body: BackgroundGradientDecorator(
@@ -25,7 +28,14 @@ class QueueView extends StatelessWidget {
                       children: [
                         Expanded(// TODO - Queue Dialog
                           child: IconButton(
-                            onPressed: () => controller.showAllQueueDialog(context),
+                            onPressed: () => showDialog(
+                              context: context,
+                              builder: (context) => Dialog(
+                                alignment: Alignment.center,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                child: AllQueues(controller),
+                              ),
+                            ),
                             padding: EdgeInsets.zero,
                             icon: Container(
                               padding: EdgeInsets.all(8),
@@ -35,7 +45,7 @@ class QueueView extends StatelessWidget {
                               ),
                               child: Row(
                                 children: [
-                                  Text('Queue 1'),
+                                  Obx(() => Text(controller.selectedQueue.value.name)),
                                   Spacer(),
                                   Iconify(MaterialSymbols.arrow_drop_down_rounded)
                                 ],
@@ -48,80 +58,125 @@ class QueueView extends StatelessWidget {
                         Gap(5)
                       ],
                     ),
-                    Container(// * : Songs Summary
-                      width: double.maxFinite,
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 4),
-                      child: Row(
-                        children: [
-                          Iconify(Ic.baseline_play_arrow, size: 30,),// TODO - Play Songs
-                          Spacer(),
-                          Column(
-                            children: [// * : Songs Details
-                              Text('29 / 591'),// TODO - Current Song index / Total songs length
-                              Gap(2),
-                              RichText(
-                                text: TextSpan(
+                    if(controller.selectedQueue.value.songs == null)
+                      CircularProgressIndicator()
+                    else  ...[
+                      Container(// * : Songs Summary
+                        width: double.maxFinite,
+                        padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+                        child: Row(
+                          children: [
+                            Iconify(Ic.baseline_play_arrow, size: 30,),// TODO - Play Songs
+                            Spacer(),
+                            Column(
+                              children: [// * : Songs Details
+                                Obx(() => Text('${controller.currentSongIndex.value+1} / ${controller.selectedQueue.value.songs!.length}')),
+                                Gap(2),
+                                Row(
                                   children: [
-                                    WidgetSpan(child: Icon(Icons.timer, size: 16,)),
-                                    WidgetSpan(child: Gap(5)),
-                                    TextSpan(text: '38:54:05')// TODO - Total duration of queue
+                                    Icon(Icons.timer, size: 16,),
+                                    Gap(5),
+                                    Obx(() => Text(controller.formatDuration(controller.selectedQueue.value.songs!)))
                                   ]
                                 ),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Iconify(MaterialSymbols.sort_rounded, size: 30,),// TODO - Sort Queue
-                        ],
-                      ),
-                    ),
-                    Gap(4),
-                    Divider(height: 2, thickness: 2,),
-                    Expanded(// * : Songs
-                      child: NotificationListener<UserScrollNotification>(
-                        onNotification: (notification) => controller.onNotification(notification),
-                        child: ReorderableListView.builder(
-                          itemCount: 40,
-                          onReorder: (oldIndex, newIndex) {},
-                          itemBuilder: (context, index) {
-                            return Container(
-                              key: Key(index.toString()),
-                              margin: EdgeInsets.symmetric(vertical: 4),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: (index == 4) ? Get.find<SettingsController>().getAccent : Colors.transparent),
-                                borderRadius: BorderRadius.circular(12)
-                              ),
-                              child: ListTile(
-                                onTap: () {}, // TODO - Play from this song
-                                contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                                leading: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Iconify(Ion.reorder_two),// TODO - Reorder Song in queue
-                                    Gap(10),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.asset(// TODO - song.image
-                                        'assets/images/songCover/songCover500x500.jpg',
-                                        width: 50, height: 50, fit: BoxFit.cover,)
-                                      )
-                                  ],
-                                ),
-                                title: Text('Song Title - $index'),// TODO - Song title
-                                subtitle: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(child: Text('Song Subtitle - $index')),// TODO - Song subtitle
-                                    Text('$index:$index'),// TODO - Song duration
-                                  ],
-                                ),
-                                trailing: Iconify(MaterialSymbols.more_vert, size: 32,),
-                              ),
-                            );
-                          },
+                              ],
+                            ),
+                            Spacer(),
+                            PopupMenuButton(
+                              itemBuilder: (context) {
+                                return [
+                                  PopupMenuItem(
+                                    onTap: () => controller.sort(SortType.name, Sort.asc),
+                                    child: PopUpButtonRow(icon: Mdi.sort_alphabetical_ascending, label: "Name Asc")
+                                  ),
+                                  PopupMenuItem(
+                                    onTap: () => controller.sort(SortType.name, Sort.dsc),
+                                    child: PopUpButtonRow(icon: Mdi.sort_alphabetical_descending, label: "Name Desc")
+                                  ),
+                                  PopupMenuItem(
+                                    onTap: () => controller.sort(SortType.duration, Sort.asc),
+                                    child: PopUpButtonRow(icon: Mdi.sort_numeric_ascending, label: "Duration Asc")
+                                  ),
+                                  PopupMenuItem(
+                                    onTap: () => controller.sort(SortType.duration, Sort.dsc),
+                                    child: PopUpButtonRow(icon: Mdi.sort_numeric_descending, label: "Duration Desc")
+                                  ),
+                                  PopupMenuItem(
+                                    onTap: () => controller.sort(SortType.year, Sort.asc),
+                                    child: PopUpButtonRow(icon: Mdi.sort_calendar_ascending, label: "Year Asc")
+                                  ),
+                                  PopupMenuItem(
+                                    onTap: () => controller.sort(SortType.year, Sort.dsc),
+                                    child: PopUpButtonRow(icon: Mdi.sort_calendar_descending, label: "Year Desc")
+                                  ),
+                                ];
+                              },
+                              icon: Iconify(MaterialSymbols.sort_rounded, color: Theme.of(context).appBarTheme.actionsIconTheme!.color, size: 30,),
+                              padding: EdgeInsets.zero,
+                              position: PopupMenuPosition.under, color: Colors.grey.shade900,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            )
+                          ],
                         ),
                       ),
-                    ),
+                      Gap(4),
+                      Divider(height: 2, thickness: 2,),
+                      Expanded(// * : Songs
+                        child: NotificationListener<UserScrollNotification>(
+                          onNotification: (notification) => controller.onNotification(notification),
+                          child: Obx(() => ReorderableListView.builder(
+                            itemCount: controller.selectedQueue.value.songs!.length,
+                            onReorder: (oldIndex, newIndex) {},
+                            itemBuilder: (context, index) {
+                              Song song = controller.selectedQueue.value.songs![index];
+                              return Container(
+                                key: Key(index.toString()),
+                                margin: EdgeInsets.symmetric(vertical: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: (index == 4) ? Get.find<SettingsController>().getAccent : Colors.transparent),
+                                  borderRadius: BorderRadius.circular(12)
+                                ),
+                                child: ListTile(
+                                  onTap: () {}, // TODO - Play from this song
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                                  leading: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Iconify(Ion.reorder_two),// TODO - Reorder Song in queue
+                                      Gap(10),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: CachedNetworkImage(
+                                          imageUrl: song.image.highQuality, width: 50, height: 50, fit: BoxFit.cover,
+                                          errorWidget: (context, url, error) => Image.asset(
+                                            'assets/images/songCover/songCover500x500.jpg',
+                                            width: 50, height: 50, fit: BoxFit.cover,
+                                          ),
+                                          placeholder: (context, url) => Image.asset(
+                                            'assets/images/songCover/songCover500x500.jpg',
+                                            width: 50, height: 50, fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  title: Text(song.title),
+                                  subtitle: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(child: Text(song.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,)),
+                                      Gap(10),
+                                      Text(controller.formatDuration([song])),
+                                    ],
+                                  ),
+                                  trailing: Iconify(MaterialSymbols.more_vert, size: 32,),
+                                ),
+                              );
+                            },
+                          )),
+                        ),
+                      ),
+                    ]
                   ],
                 ),
               ),

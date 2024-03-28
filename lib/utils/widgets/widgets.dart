@@ -5,6 +5,7 @@ export 'iconify.dart';
 export 'my_playlist_widget.dart';
 export 'playlist_widget.dart';
 export 'pop_up_buttons.dart';
+export 'queue_widget.dart';
 export 'search_history_cells.dart';
 export 'search_widget.dart';
 export 'shimmer_widget.dart';

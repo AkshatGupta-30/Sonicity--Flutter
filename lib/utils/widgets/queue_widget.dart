@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/controllers/queue_detail_controller.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 import 'package:super_string/super_string.dart';
@@ -96,6 +97,76 @@ class QueueName extends StatelessWidget {
           Text(queue.name.title(), style: theme.primaryTextTheme.bodyLarge,),
           Spacer(),
           Text('${queue.songCount} Songs', style: theme.primaryTextTheme.bodySmall,),
+        ],
+      ),
+    );
+  }
+}
+
+class AllQueues extends StatelessWidget {
+  final QueueDetailController controller;
+  AllQueues(this.controller, {super.key,});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      width: double.maxFinite, padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white, width: 0.5),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Iconify(Ic.round_queue_music),
+              Gap(15),
+              Text('Queues', style: theme.textTheme.labelLarge!.copyWith(fontWeight: FontWeight.normal),),
+            ],
+          ),
+          Gap(10),
+          SizedBox(
+            height: controller.queues.length * 72.0,
+            child: Obx(() => ReorderableListView.builder(
+              itemCount: controller.queues.length,
+              onReorder: (oldIndex, newIndex) {
+                Queue temp = controller.queues[oldIndex];
+                controller.queues[oldIndex] = controller.queues[newIndex];
+                controller.queues[newIndex] = temp;
+              },
+              itemBuilder: (context, index) {
+                Queue queue = controller.queues[index];
+                return ListTile(
+                  key: Key(queue.name),
+                  onTap: () {
+                    controller.setSelectedQueue(queue);
+                    Navigator.pop(context);
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  leading: Iconify(
+                    (queue == controller.selectedQueue.value) ? Ic.sharp_radio_button_checked : Ic.baseline_radio_button_unchecked,
+                    color: (queue == controller.selectedQueue.value) ?  Get.find<SettingsController>().getAccent : Colors.grey,
+                  ),
+                  title: Text(queue.name.title()),
+                  subtitle: Text('${queue.songCount} Songs'),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Iconify(Mdi.lead_pencil),// TODO - Rename Queue
+                      Gap(10),
+                      Iconify(IconParkTwotone.delete_four),// TODO - Delete Queue
+                      Gap(8)
+                    ],
+                  ),
+                );
+              },
+            )),
+          )
         ],
       ),
     );
