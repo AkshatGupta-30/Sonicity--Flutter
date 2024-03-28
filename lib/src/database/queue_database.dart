@@ -50,9 +50,7 @@ class QueueDatabase {
         )
       '''
     );
-    if(await queueCount != 0) {
-      createQueue('Queue_A', isFirst: true);
-    }
+    createQueue('Queue_A', isFirst: true);
   }
 
   static const colSongId = 'song_id';
@@ -111,7 +109,6 @@ class QueueDatabase {
         colCurrentQueue : (isFirst) ? 1 : 0
       }
     );
-    'New Queue Created : $queueName'.printInfo();
   }
 
   Future<void> deleteQueue(String queueName) async {
@@ -244,8 +241,7 @@ class QueueDatabase {
 
   Future<int> get queueCount async {
     Database db = await _instance.database;
-    int? count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbQueueDetails'));
-    if(count == null) return 0;
+    int count = (await db.query(tbQueueDetails)).length;
     return count;
   }
 }

@@ -16,11 +16,11 @@ dependencies:
   cloud_firestore: ^4.14.0
   draggable_bottom_sheet_nullsafety: ^1.0.2
   file_manager: ^1.0.2
-  file_picker: ^6.1.1
+  file_picker: ^8.0.0+1
   firebase_auth: ^4.16.0
   firebase_core: ^2.24.2
   firebase_storage: ^11.6.0
-  fl_chart: ^0.66.2
+  fl_chart: ^0.67.0
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.1.0
@@ -41,7 +41,7 @@ dependencies:
   iconify_flutter:
     path: packages/iconify_flutter_plus/
   interactive_slider: ^0.2.2
-  intl: ^0.18.1
+  intl: ^0.19.0
   just_audio: ^0.9.36
   line_awesome_flutter: ^2.0.0
   lottie: ^3.1.0
