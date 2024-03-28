@@ -7,6 +7,7 @@ export 'lyrics.dart';
 export 'music_player_data.dart';
 export 'my_playlist.dart';
 export 'playlist.dart';
+export 'queue.dart';
 export 'report.dart';
 export 'search_all.dart';
 export 'song.dart';

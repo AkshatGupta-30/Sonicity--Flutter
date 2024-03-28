@@ -1,4 +1,5 @@
 export 'add_to_playlist_section.dart';
+export 'add_to_queue_section.dart';
 export 'cover_image_section.dart';
 export 'download_url_section.dart';
 export 'hot_playlists_section.dart';

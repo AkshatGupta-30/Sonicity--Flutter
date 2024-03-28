@@ -1,6 +1,8 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
@@ -292,6 +294,7 @@ class SongPopUpMenu extends StatelessWidget {
             )),
           ),
           PopupMenuItem(
+            onTap: () => _addToQueueDialog(context),
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: PopUpButtonRow(icon: MaterialSymbols.queue_music, label: "Add to Queue"),
           ),
@@ -302,22 +305,12 @@ class SongPopUpMenu extends StatelessWidget {
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),
-            onTap: () {
-              Get.to(
-                () => AlbumDetailsView(),
-                arguments: song.album!.id
-              );
-            },
+            onTap: () => Get.to(() => AlbumDetailsView(), arguments: song.album!.id),
             child: PopUpButtonRow(icon: MaterialSymbols.album, label: "View Album"),
           ),
           PopupMenuItem(
             padding: EdgeInsets.symmetric(horizontal: 8),
-            onTap: () {
-              Get.to(
-                () => SongDetailsView(),
-                arguments: song.id
-              );
-            },
+            onTap: () => Get.to(() => SongDetailsView(), arguments: song.id),
             child: PopUpButtonRow(icon: Entypo.info_with_circle, label: "Song Info"),
           )
         ];
@@ -395,6 +388,78 @@ class SongPopUpMenu extends StatelessWidget {
                 )
               ],
             ),
+          ),
+        );
+      }
+    );
+  }
+
+  void _addToQueueDialog(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    showDialog(
+      context: context,
+      barrierColor: Colors.black.withOpacity(0.5),
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent, surfaceTintColor: Colors.transparent, shadowColor: Colors.transparent,
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Material(
+                elevation: 5, borderRadius: BorderRadius.circular(12),
+                color: Colors.transparent, shadowColor: Colors.transparent,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox.square(
+                      dimension: 150,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: CachedNetworkImage(
+                          imageUrl: song.image.medQuality,
+                          height: 150, width: 150, fit: BoxFit.fill,
+                          errorWidget: (context, url, error) {
+                            return Image.asset(
+                              "assets/images/songCover/songCover500x500.jpg",
+                              fit: BoxFit.fill, width: 150, height: 150
+                            );
+                          },
+                          placeholder: (context, url) {
+                            return Image.asset(
+                              "assets/images/songCover/songCover500x500.jpg",
+                              fit: BoxFit.fill, width: 150, height: 150
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Gap(5),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        width: 250, height: 70, color: Colors.black,
+                        child: BackgroundGradientDecorator(
+                          child: Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                            child: Column(
+                              children: [
+                                Text(song.title, style: theme.textTheme.titleLarge,),
+                                Text(song.subtitle, style: theme.textTheme.titleSmall,),
+                              ],
+                            ),
+                          )
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Gap(10),
+              AddToQueueDialog(song)
+            ],
           ),
         );
       }
