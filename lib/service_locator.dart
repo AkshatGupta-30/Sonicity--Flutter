@@ -12,6 +12,7 @@ Future<void> setupServiceLocator() async {
   // * : Database
   getIt.registerSingleton<HomeDatabase>(HomeDatabase());
   getIt.registerSingleton<RecentsDatabase>(RecentsDatabase());
+  getIt.registerSingleton<QueueDatabase>(QueueDatabase());
   getIt.registerLazySingleton<MyPlaylistsDatabase>(() => MyPlaylistsDatabase());
   getIt.registerLazySingleton<ClonedDatabase>(() => ClonedDatabase());
   getIt.registerLazySingleton<StarredDatabase>(() => StarredDatabase());
@@ -22,7 +23,6 @@ Future<void> setupServiceLocator() async {
 
   // * : GetX Controllers
   Get.put(SettingsController());
-  Get.put(QueueController());
   Get.lazyPut(() => StorageMethods());
   Get.lazyPut(() => DatabaseMethods());
   Get.lazyPut(() => PlayerController());

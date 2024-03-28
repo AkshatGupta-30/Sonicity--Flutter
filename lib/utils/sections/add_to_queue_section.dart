@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/widgets/queue_widget.dart';
 
 class AddToQueueDialog extends StatelessWidget {
   final Song song;
@@ -16,25 +17,33 @@ class AddToQueueDialog extends StatelessWidget {
       decoration: BoxDecoration(
         color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white, width: 2),
+        border: Border.all(color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white, width: 0.5),
       ),
       child: GetBuilder(
-        init: QueueController(),
+        init: QueueController(song),
         builder: (controller) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Add To Queue', style: theme.textTheme.labelLarge!.copyWith(fontWeight: FontWeight.normal),),
               Gap(10),
-              ListView.builder(
+              Obx(() => ListView.builder(
                 shrinkWrap: true,
-                itemCount: 50,
+                itemCount: controller.queues.length,
                 itemBuilder: (context, index) {
-                  return SizedBox();
+                  Queue queue = controller.queues[index];
+                  return QueueName(queue, controller, index: index,);
                 },
-              ),
+              )),
               TextButton(
-                onPressed: () {},
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => NewQueueDialog(controller),
+                ),
+                style: ButtonStyle(
+                  fixedSize: MaterialStatePropertyAll(Size(double.maxFinite, 0)),
+                  alignment: Alignment.centerLeft
+                ),
                 child: Text('＋ New Queue', style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),),
               )
             ],

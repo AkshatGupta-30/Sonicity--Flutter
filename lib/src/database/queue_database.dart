@@ -36,6 +36,7 @@ class QueueDatabase {
   static const colDateCreated = 'date_created';
   static const colSongCount = 'songCount';
   static const colSongIds = 'song_ids';
+  static const colCurrentQueue = 'current_queue';
   Future _onCreate(Database db, int version) async {
     await db.execute(
       '''
@@ -44,10 +45,14 @@ class QueueDatabase {
           $colName TEXT NOT NULL,
           $colDateCreated TEXT NOT NULL,
           $colSongCount INTEGER NOT NULL,
-          $colSongIds TEXT
+          $colSongIds TEXT,
+          $colCurrentQueue INTEGER
         )
       '''
     );
+    if(await queueCount != 0) {
+      createQueue('Queue_A', isFirst: true);
+    }
   }
 
   static const colSongId = 'song_id';
@@ -69,7 +74,7 @@ class QueueDatabase {
   static const colDownload96kbps = 'download_96kbps';
   static const colDownload160kbps = 'download_160kbps';
   static const colDownload320kbps = 'download_320kbps';
-  Future createQueue(String queueName) async {
+  Future createQueue(String queueName, {bool isFirst = false}) async {
     Database db = await _instance.database;
     await db.execute(// * Create queue
       '''
@@ -103,8 +108,10 @@ class QueueDatabase {
         colDateCreated : DateTime.now().toIso8601String(),
         colSongCount : 0,
         colSongIds : "" ,
+        colCurrentQueue : (isFirst) ? 1 : 0
       }
     );
+    'New Queue Created : $queueName'.printInfo();
   }
 
   Future<void> deleteQueue(String queueName) async {
@@ -213,6 +220,26 @@ class QueueDatabase {
       }
     }
     return isSongPresent;
+  }
+
+  Future<void> updateCurrentQueue(String queueName) async {
+    final db = await _instance.database;
+    queueName = queueName.replaceAll(' ', '_');
+    await db.rawUpdate(
+      '''
+        UPDATE $tbQueueDetails 
+        SET $colCurrentQueue = 0
+        WHERE $colCurrentQueue = 1
+      ''',
+    );
+    await db.rawUpdate(
+      '''
+        UPDATE $tbQueueDetails 
+        SET $colCurrentQueue = 1
+        WHERE $colName = ?
+      ''',
+      [queueName]
+    );
   }
 
   Future<int> get queueCount async {

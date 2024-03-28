@@ -435,7 +435,7 @@ class SongPopUpMenu extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Gap(5),
+                    Gap(3),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Container(
@@ -443,11 +443,11 @@ class SongPopUpMenu extends StatelessWidget {
                         child: BackgroundGradientDecorator(
                           child: Container(
                             alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                            padding: EdgeInsets.symmetric(horizontal: 3, vertical: 1),
                             child: Column(
                               children: [
-                                Text(song.title, style: theme.textTheme.titleLarge,),
-                                Text(song.subtitle, style: theme.textTheme.titleSmall,),
+                                Text(song.title, style: theme.textTheme.labelLarge, maxLines: 1, overflow: TextOverflow.ellipsis),
+                                Text(song.subtitle, style: theme.textTheme.labelSmall, maxLines: 1, overflow: TextOverflow.ellipsis),
                               ],
                             ),
                           )
