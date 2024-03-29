@@ -42,7 +42,7 @@ class MainPlayerView extends StatelessWidget {
         builder: (context, state, _) {
           return AnimatedGradientBorder( // TODO - Various Options of Main screen view
             backgroundColor: Colors.black,
-            borderSize: 10, borderRadius: BorderRadius.zero,
+            borderSize: 5, borderRadius: BorderRadius.zero,
             gradientColors: [
               Colors.red, Colors.orange, Colors.yellow,
               Colors.lightGreen, Colors.green, Colors.cyan,
@@ -71,7 +71,7 @@ class MainPlayerView extends StatelessWidget {
                     ),
                   ),
                 ),
-                minExtent: 60, maxExtent: MediaQuery.of(context).size.height * 0.8,
+                minExtent: 70, maxExtent: MediaQuery.of(context).size.height * 0.8,
                 previewChild: _bottomChild(context), expandedChild: _bottomSheet(context),
                 blurBackground: true, scrollDirection: Axis.vertical, alignment: Alignment.bottomCenter,
               ),
@@ -94,12 +94,12 @@ class MainPlayerView extends StatelessWidget {
             GlowText(
               song.displayTitle.toString(), maxLines: 1, overflow: TextOverflow.ellipsis, blurRadius: 2,
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                fontSize: 45, fontWeight: FontWeight.bold
+                fontSize: 36, fontWeight: FontWeight.bold
               ),
             ),
             Text(
               song.displaySubtitle.toString(), maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).primaryTextTheme.titleLarge,
+              style: Theme.of(context).primaryTextTheme.bodyLarge,
             ),
           ],
         );
@@ -241,9 +241,16 @@ class MainPlayerView extends StatelessWidget {
                   valueListenable: audioManager.playlistNotifier,
                   builder: (context, queue, _) {
                     return IconButton(
-                      onPressed: (queue.length > 1) ? null : audioManager.shuffle,
+                      onPressed: (queue.length > 1) ? audioManager.shuffle : null,
                       padding: EdgeInsets.zero,
-                      icon: Iconify(Ri.shuffle_fill, color: (isShuffle && queue.length > 1) ? null : Colors.grey,)
+                      icon: Iconify(
+                        Ri.shuffle_fill,
+                        color: (isShuffle)
+                            ? (queue.length > 1)
+                                ? Colors.grey
+                                : null
+                            : null,
+                        )
                     );
                   }
                 );
@@ -401,8 +408,8 @@ class MainPlayerView extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Gap(2), Iconify(Ic.round_queue_music, size: 45,),
-          Gap(4), Iconify(MaterialSymbols.arrow_right_rounded, size: 40,), Gap(4),
+          Gap(2), Iconify(Ic.round_queue_music, size: 25,),
+          Gap(4), Iconify(MaterialSymbols.arrow_right_rounded, size: 25,), Gap(4),
           Expanded(
             child: ValueListenableBuilder(
               valueListenable: audioManager.playlistNotifier,
@@ -414,17 +421,20 @@ class MainPlayerView extends StatelessWidget {
                     MediaItem media = queue[index];
                     return ValueListenableBuilder(
                       valueListenable: audioManager.currentSongNotifier,
-                      builder: (context, mediaItem, _) {
+                      builder: (context, currentSong, _) {
                         return GestureDetector(
                           onTap: () => (media.id == getIt<AudioManager>().currentSongNotifier.value!.id) 
                               ? null
                               : getIt<AudioManager>().skipToQueueItem(index),
                           child: Container(
                             width: 45, height: 45,
-                            padding: EdgeInsets.all(2),
+                            padding: EdgeInsets.all(2), margin: EdgeInsets.all(2),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: Get.find<SettingsController>().getAccent)
+                              border: Border.all(color: (currentSong!.id == media.id)
+                                  ? Get.find<SettingsController>().getAccent
+                                  : Colors.transparent
+                              )
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
@@ -453,7 +463,8 @@ class MainPlayerView extends StatelessWidget {
               },
             ),
           ),
-          Iconify(MaterialSymbols.swipe_up_rounded, size: 35,), Gap(5)
+          Gap(10),
+          Iconify(MaterialSymbols.swipe_up_rounded, size: 25,), Gap(5)
         ],
       ),
     );

@@ -218,7 +218,11 @@ class MediaItemTile extends StatelessWidget {
       builder: (context, mediaItem, _) {
         return ListTile(
           onTap: () => (mediaItem.id == song.id) ? null : getIt<AudioManager>().skipToQueueItem(index),
-          tileColor: (mediaItem!.id == song.id) ? Colors.white12 : null,
+          tileColor: (mediaItem!.id != song.id) 
+              ? null
+              : (Theme.of(context).brightness == Brightness.light)
+                  ? Colors.black12
+                  : Colors.white12,
           contentPadding: EdgeInsets.symmetric(horizontal: 8),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           leading: ClipRRect(

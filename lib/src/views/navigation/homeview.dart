@@ -34,14 +34,15 @@ class HomeView extends StatelessWidget{
       pinned: true, toolbarHeight: kToolbarHeight + padding.top/2,
       leading: DrawerButton().build(context),
       actions: [
-        GestureDetector(
-          onTap: () {},
-          child: Iconify(
+        IconButton(
+          onPressed: () {},
+          padding: EdgeInsets.zero,
+          icon: Iconify(
             Uis.favorite, size: 30,
             color: (Theme.of(context).brightness == Brightness.light) ? Colors.yellow : Colors.yellowAccent
-          )
+          ),
         ),
-        Gap(12)
+        Gap(6)
       ],
       expandedHeight: 300,
       flexibleSpace: FlexibleSpaceBar(

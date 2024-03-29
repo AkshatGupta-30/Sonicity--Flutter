@@ -1,57 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
+import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/views/library/library_view.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
 class LibraryView extends StatelessWidget {
   LibraryView({super.key});
 
+  final controller = Get.find<NavigationController>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(leading: DrawerButton().build(context), title: Text("Library")),
-      body: BackgroundGradientDecorator(
-        child: ListView(
-          padding: EdgeInsets.all(15),
-          physics: NeverScrollableScrollPhysics(),
-          children: <Tile>[
-            Tile(// * : All Songs
-              onPressed: () => Get.to(() => AllSongsView()),
-              icon: Pepicons.music_note_single,
-              title: "All Songs",
-            ),
-            Tile(// * : Recents
-              onPressed: () => Get.to(() => RecentsView()),
-              icon: Raphael.history,
-              title: "Recents",
-            ),
-            Tile(// * : Starred
-              onPressed: () => Get.to(() => StarredView()),
-              icon: Uis.favorite,
-              title: "Starred",
-            ),
-            Tile(// * : Playlists
-              onPressed: () => Get.to(() => AllPlaylistsView()),
-              icon: Bx.bxs_playlist,
-              title: "Playlists",
-            ),
-            Tile(// * : Album
-              onPressed: () => Get.to(() => AllAlbumsView()),
-              icon: Ic.baseline_album,
-              title: "Album",
-            ),
-            Tile(// * : Artists
-              onPressed: () => Get.to(() => AllArtistsView()),
-              icon: Ion.md_microphone,
-              title: "Artists",
-            ),
-            Tile(// * : Stats
-              onPressed: () => Get.to(() => StatsView()),
-              icon: Wpf.statistics,
-              title: "Stats",
-            ),
-          ],
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        controller.tabController.animateTo(1);
+      },
+      child: Scaffold(
+        appBar: AppBar(leading: DrawerButton().build(context), title: Text("Library")),
+        body: BackgroundGradientDecorator(
+          child: ListView(
+            padding: EdgeInsets.all(15),
+            physics: NeverScrollableScrollPhysics(),
+            children: <Tile>[
+              Tile(// * : All Songs
+                onPressed: () => Get.to(() => AllSongsView()),
+                icon: Pepicons.music_note_single,
+                title: "All Songs",
+              ),
+              Tile(// * : Recents
+                onPressed: () => Get.to(() => RecentsView()),
+                icon: Raphael.history,
+                title: "Recents",
+              ),
+              Tile(// * : Starred
+                onPressed: () => Get.to(() => StarredView()),
+                icon: Uis.favorite,
+                title: "Starred",
+              ),
+              Tile(// * : Playlists
+                onPressed: () => Get.to(() => AllPlaylistsView()),
+                icon: Bx.bxs_playlist,
+                title: "Playlists",
+              ),
+              Tile(// * : Album
+                onPressed: () => Get.to(() => AllAlbumsView()),
+                icon: Ic.baseline_album,
+                title: "Album",
+              ),
+              Tile(// * : Artists
+                onPressed: () => Get.to(() => AllArtistsView()),
+                icon: Ion.md_microphone,
+                title: "Artists",
+              ),
+              Tile(// * : Stats
+                onPressed: () => Get.to(() => StatsView()),
+                icon: Wpf.statistics,
+                title: "Stats",
+              ),
+            ],
+          ),
         ),
       ),
     );
