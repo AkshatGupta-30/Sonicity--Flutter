@@ -6,7 +6,6 @@ import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
-import 'package:sonicity/src/controllers/queue_detail_controller.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/src/views/library/library_view.dart';
 import 'package:sonicity/utils/contants/constants.dart';
@@ -144,12 +143,14 @@ class QueueView extends StatelessWidget {
                           child: ValueListenableBuilder(
                             valueListenable: audioManager.currentSongNotifier,
                             builder: (context, currentSong, _) {
-                              return Obx(() => ListView.builder(// TODO - Reorder
+                              return Obx(() => ReorderableListView.builder(
+                                padding: EdgeInsets.only(bottom: 90),
                                 itemCount: (controller.selectedQueue.value.songs == null) ? 0 : controller.selectedQueue.value.songs!.length,
+                                onReorder: controller.onReorderSongs,
                                 itemBuilder: (context, index) {
                                   Song song = controller.selectedQueue.value.songs![index];
                                   return Container(
-                                    margin: EdgeInsets.symmetric(vertical: 4),
+                                    key: Key(song.id),
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         color: (currentSong != null && song.id == currentSong.id)
@@ -164,8 +165,8 @@ class QueueView extends StatelessWidget {
                                       leading: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          // Iconify(Ion.reorder_two),// TODO - Reorder Song in queue
-                                          // Gap(10),
+                                          Iconify(Ion.reorder_two),
+                                          Gap(10),
                                           ClipRRect(
                                             borderRadius: BorderRadius.circular(8),
                                             child: CachedNetworkImage(

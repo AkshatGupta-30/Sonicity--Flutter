@@ -26,7 +26,7 @@ class QueueDatabase {
 
   static const tbQueueDetails = 'queue_details';
 
-  static const colQueueId = 'queue_id';
+  static const colId = 'auto_id';
   static const colName = 'name';
   static const colDateCreated = 'date_created';
   static const colSongCount = 'songCount';
@@ -36,7 +36,7 @@ class QueueDatabase {
     await db.execute(
       '''
         CREATE TABLE $tbQueueDetails (
-          $colQueueId INTEGER PRIMARY KEY AUTOINCREMENT,
+          $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colName TEXT NOT NULL,
           $colDateCreated TEXT NOT NULL,
           $colSongCount INTEGER NOT NULL,
@@ -72,6 +72,7 @@ class QueueDatabase {
     await db.execute(// * Create queue
       '''
         CREATE TABLE ${queueName.replaceAll(' ', '_')} (
+          $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colSongId TEXT NOT NULL,
           $colName TEXT NOT NULL,
           $colAlbumId TEXT,
@@ -143,6 +144,21 @@ class QueueDatabase {
       queues.add(Queue.fromDb(map));
     }
     return queues;
+  }
+
+  Future<void> reorderQueueRows(List<Queue> newOrderedQueue) async {
+    final db = await _instance.database;
+    await db.transaction((txn) async {
+      for (int i = 0; i < newOrderedQueue.length; i++) {
+        await txn.rawUpdate(
+          '''
+            UPDATE $tbQueueDetails 
+            SET $colId = ? WHERE $colName = ?
+          ''',
+          [i, newOrderedQueue[i].name.replaceAll(' - ', 'qpzm').replaceAll(' ', '_')]
+        );
+      }
+    });
   }
 
   Future<List<Song>> getSongs(String queueName) async {
@@ -249,6 +265,13 @@ class QueueDatabase {
       ''',
       [queueName]
     );
+  }
+
+  Future<void> reorderSongs(String queueName, List<Song> newOrderedSongs) async {
+    final db = await _instance.database;
+    queueName = queueName.replaceAll(' - ', 'qpzm').replaceAll(' ', '_');
+    await db.rawDelete('DELETE FROM $queueName');
+    for (Song song in newOrderedSongs) insertSong(queueName, song);
   }
 
   Future<int> get queueCount async {

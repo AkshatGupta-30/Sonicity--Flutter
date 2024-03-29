@@ -34,23 +34,6 @@ class QueueDetailController extends GetxController {
     db.updateSelectedQueue(q.name);
   }
 
-  void sort(SortType sortType, Sort sortBy) {
-    if(sortType == SortType.name) {
-      (sortBy == Sort.asc)
-        ? selectedQueue.value.songs!.sort((a, b) => a.name.compareTo(b.name))
-        : selectedQueue.value.songs!.sort((a, b) => b.name.compareTo(a.name));
-    } else if(sortType == SortType.duration) {
-      (sortBy == Sort.asc)
-        ? selectedQueue.value.songs!.sort((a, b) => int.parse(a.duration!).compareTo(int.parse(b.duration!)))
-        : selectedQueue.value.songs!.sort((a, b) => int.parse(b.duration!).compareTo(int.parse(a.duration!)));
-    } else {
-      (sortBy == Sort.asc)
-        ? selectedQueue.value.songs!.sort((a, b) => a.year!.compareTo(b.year!))
-        : selectedQueue.value.songs!.sort((a, b) => b.year!.compareTo(a.year!));
-    }
-    update();
-  }
-
   bool onNotification(UserScrollNotification notification) {
     final ScrollDirection direction = notification.direction;
     if (direction == ScrollDirection.reverse) showFab.value = false;
@@ -75,5 +58,37 @@ class QueueDetailController extends GetxController {
     else if(hoursString == '00') return '$minutesString:$secondsString';
 
     return '$hoursString:$minutesString:$secondsString';
+  }
+
+  void sort(SortType sortType, Sort sortBy) {
+    if(sortType == SortType.name) {
+      (sortBy == Sort.asc)
+        ? selectedQueue.value.songs!.sort((a, b) => a.name.compareTo(b.name))
+        : selectedQueue.value.songs!.sort((a, b) => b.name.compareTo(a.name));
+    } else if(sortType == SortType.duration) {
+      (sortBy == Sort.asc)
+        ? selectedQueue.value.songs!.sort((a, b) => int.parse(a.duration!).compareTo(int.parse(b.duration!)))
+        : selectedQueue.value.songs!.sort((a, b) => int.parse(b.duration!).compareTo(int.parse(a.duration!)));
+    } else {
+      (sortBy == Sort.asc)
+        ? selectedQueue.value.songs!.sort((a, b) => a.year!.compareTo(b.year!))
+        : selectedQueue.value.songs!.sort((a, b) => b.year!.compareTo(a.year!));
+    }
+    db.reorderSongs(selectedQueue.value.name, selectedQueue.value.songs!);
+    update();
+  }
+
+  void onReorderQueues(oldIndex, newIndex) {
+    if (newIndex > oldIndex) newIndex -= 1;
+    Queue swappingQueue = queues.removeAt(oldIndex);
+    queues.insert(newIndex, swappingQueue);
+    db.reorderQueueRows(queues);
+  }
+
+  void onReorderSongs(oldIndex, newIndex) {
+    if (newIndex > oldIndex) newIndex -= 1;
+    Song orderingSong = selectedQueue.value.songs!.removeAt(oldIndex);
+    selectedQueue.value.songs!.insert(newIndex, orderingSong);
+    db.reorderSongs(selectedQueue.value.name, selectedQueue.value.songs!);
   }
 }

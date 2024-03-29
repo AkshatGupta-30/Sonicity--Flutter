@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
-import 'package:sonicity/src/controllers/queue_detail_controller.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 import 'package:super_string/super_string.dart';
@@ -134,11 +133,7 @@ class AllQueues extends StatelessWidget {
             height: controller.queues.length * 72.0,
             child: Obx(() => ReorderableListView.builder(
               itemCount: controller.queues.length,
-              onReorder: (oldIndex, newIndex) {
-                Queue temp = controller.queues[oldIndex];
-                controller.queues[oldIndex] = controller.queues[newIndex];
-                controller.queues[newIndex] = temp;
-              },
+              onReorder: controller.onReorderQueues,
               itemBuilder: (context, index) {
                 Queue queue = controller.queues[index];
                 return ListTile(

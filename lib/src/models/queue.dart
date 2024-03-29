@@ -13,7 +13,7 @@ class Queue {
 
   factory Queue.fromDb(Map<String, dynamic> data) {
     return Queue(
-      id: data[QueueDatabase.colQueueId].toString(),
+      id: data[QueueDatabase.colId].toString(),
       name: data[QueueDatabase.colName].toString().replaceAll('qpzm', ' - ').replaceAll('_', ' '),
       songCount: data[QueueDatabase.colSongCount].toString(),
       dateCreated: DateTime.parse(data[QueueDatabase.colDateCreated]),
