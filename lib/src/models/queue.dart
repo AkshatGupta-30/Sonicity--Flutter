@@ -14,7 +14,7 @@ class Queue {
   factory Queue.fromDb(Map<String, dynamic> data) {
     return Queue(
       id: data[QueueDatabase.colQueueId].toString(),
-      name: data[QueueDatabase.colName].toString().replaceAll('_', ' '),
+      name: data[QueueDatabase.colName].toString().replaceAll('qpzm', ' - ').replaceAll('_', ' '),
       songCount: data[QueueDatabase.colSongCount].toString(),
       dateCreated: DateTime.parse(data[QueueDatabase.colDateCreated]),
       isCurrent: (data[QueueDatabase.colCurrentQueue] == 0) ? false : true 

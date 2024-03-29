@@ -164,7 +164,7 @@ class RecentsView extends StatelessWidget {
             ),
             Spacer(),
             if(controller.selectedTab.value == 0)
-              ShuffleNPlay(controller.songs),
+              ShuffleNPlay(controller.songs, queueLabel: 'Recents',),
             Gap(8)
           ],
         )),

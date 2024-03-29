@@ -1,11 +1,6 @@
-// ignore_for_file: unused_import
-
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -128,6 +123,18 @@ class QueueDatabase {
     await db.execute('ALTER TABLE ${queueName.replaceAll(' ', '_')} RENAME TO $newName');
   }
 
+  Future<void> autoQueue(String queueLabel, List<Song> songs) async {
+    queueLabel = queueLabel.replaceAll(' - ', 'qpzm').replaceAll(' ', '_');
+    if(await isQueuePresent(queueLabel)) {
+      await deleteQueue(queueLabel);
+    }
+    createQueue(queueLabel);
+    for (Song song in songs) {
+      await insertSong(queueLabel, song);
+    }
+  }
+
+
   Future<List<Queue>> get queues async {
     Database db = await _instance.database;
     List<Queue> queues = [];
@@ -141,10 +148,8 @@ class QueueDatabase {
   Future<List<Song>> getSongs(String queueName) async {
     Database db = await _instance.database;
     List<Song> songs = [];
-    List<Map<String,dynamic>> songsResult = await db.query(queueName.replaceAll(' ', '_'));
-    for (var map in songsResult) {
-      songs.add(Song.fromDb(map));
-    }
+    List<Map<String,dynamic>> songsResult = await db.query(queueName.replaceAll(' - ', 'qpzm').replaceAll(' ', '_'));
+    for (var map in songsResult) songs.add(Song.fromDb(map));
     return songs;
   }
 
@@ -210,18 +215,25 @@ class QueueDatabase {
     List<Map<String,dynamic>> queryRes = await db.query(tbQueueDetails, columns: [colSongIds]);
     if(queryRes.isEmpty) return [];
     for(var songId in queryRes) {
-      if(songId[colSongIds].toString().contains(song.id)) {
-        isSongPresent.add(true);
-      } else {
-        isSongPresent.add(false);
-      }
+      if(songId[colSongIds].toString().contains(song.id)) isSongPresent.add(true);
+      else isSongPresent.add(false);
     }
     return isSongPresent;
   }
 
-  Future<void> updateCurrentQueue(String queueName) async {
+  Future<bool> isQueuePresent(String queueName) async {
     final db = await _instance.database;
-    queueName = queueName.replaceAll(' ', '_');
+    try {
+      await db.query(queueName);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  Future<void> updateSelectedQueue(String queueName) async {
+    final db = await _instance.database;
+    queueName = queueName.replaceAll(' - ', 'qpzm').replaceAll(' ', '_');
     await db.rawUpdate(
       '''
         UPDATE $tbQueueDetails 

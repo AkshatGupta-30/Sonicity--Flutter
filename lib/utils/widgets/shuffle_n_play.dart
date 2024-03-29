@@ -1,13 +1,17 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:iconify_flutter/iconify.dart';
+import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
+import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
 class ShuffleNPlay extends StatelessWidget {
   final List<Song> songs;
-  ShuffleNPlay(this.songs, {super.key});
+  final String queueLabel;
+  ShuffleNPlay(this.songs, {super.key, required this.queueLabel});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,14 @@ class ShuffleNPlay extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           InkWell(
-            onTap: () => playSongs(songs, index: 0, shuffle: true),
+            onTap: () {
+              playSongs(songs, index: 0, shuffle: true);
+              List<Song> s = [];
+              for(MediaItem media in getIt<AudioManager>().playlistNotifier.value) {
+                s.add(songs[songs.indexWhere((song) => song.id == media.id)]);
+              }
+              getIt<QueueDatabase>().autoQueue(queueLabel, s);
+            },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
               decoration: BoxDecoration(
@@ -46,7 +57,10 @@ class ShuffleNPlay extends StatelessWidget {
           Container(height: 30, width: 1, color: Colors.white38),
           Gap(5),
           InkWell(
-            onTap: () => playSongs(songs, index: 0),
+            onTap: () {
+              playSongs(songs, index: 0);
+              getIt<QueueDatabase>().autoQueue(queueLabel, songs);
+            },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
               decoration: BoxDecoration(

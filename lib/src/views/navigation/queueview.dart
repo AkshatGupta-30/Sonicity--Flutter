@@ -8,6 +8,7 @@ import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/controllers/queue_detail_controller.dart';
 import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/views/library/library_view.dart';
 import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
@@ -62,7 +63,7 @@ class QueueView extends StatelessWidget {
                       ],
                     ),
                     if(controller.selectedQueue.value.songs == null)
-                      CircularProgressIndicator()
+                      Expanded(child: Center(child: CircularProgressIndicator(color: settings.getAccent,)))
                     else  ...[
                       Container(// * : Songs Summary
                         width: double.maxFinite,
@@ -144,7 +145,7 @@ class QueueView extends StatelessWidget {
                             valueListenable: audioManager.currentSongNotifier,
                             builder: (context, currentSong, _) {
                               return Obx(() => ListView.builder(// TODO - Reorder
-                                itemCount: controller.selectedQueue.value.songs!.length,
+                                itemCount: (controller.selectedQueue.value.songs == null) ? 0 : controller.selectedQueue.value.songs!.length,
                                 itemBuilder: (context, index) {
                                   Song song = controller.selectedQueue.value.songs![index];
                                   return Container(
@@ -211,10 +212,18 @@ class QueueView extends StatelessWidget {
             child: AnimatedOpacity(
               duration: Duration(milliseconds: 300),
               opacity: (controller.showFab.value) ? 1 : 0,
-              child: FloatingActionButton(
-                onPressed: () => playSongs(controller.selectedQueue.value.songs!, index: 0, shuffle: true),
-                shape: CircleBorder(), backgroundColor: Theme.of(context).cardColor,
-                child: Iconify(Wpf.shuffle, color: Get.find<SettingsController>().getAccent,),
+              child: ValueListenableBuilder(
+                valueListenable: audioManager.currentSongNotifier,
+                builder: (context, currentSong, _) {
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: (currentSong == null) ? 0 : 80),
+                    child: FloatingActionButton(
+                      onPressed: () => playSongs(controller.selectedQueue.value.songs!, index: 0, shuffle: true),
+                      shape: CircleBorder(), backgroundColor: Theme.of(context).cardColor,
+                      child: Iconify(Wpf.shuffle, color: Get.find<SettingsController>().getAccent,),
+                    ),
+                  );
+                }
               ),
             ),
           ),

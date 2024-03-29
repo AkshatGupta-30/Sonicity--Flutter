@@ -161,7 +161,7 @@ class StarredView extends StatelessWidget {
             ),
             Spacer(),
             if(controller.selectedTab.value == 0)
-              ShuffleNPlay(controller.songs),
+              ShuffleNPlay(controller.songs, queueLabel: 'Starred',),
             Gap(8)
           ],
         )),

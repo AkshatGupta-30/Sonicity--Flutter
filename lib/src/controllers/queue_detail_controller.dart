@@ -26,9 +26,12 @@ class QueueDetailController extends GetxController {
   }
 
   void setSelectedQueue(Queue q) async {
+    queues.firstWhere((element) => element.isCurrent).isCurrent = false;
     selectedQueue.value = q;
+    selectedQueue.value.isCurrent = true;
     selectedQueue.value.songs = await db.getSongs(selectedQueue.value.name);
     update();
+    db.updateSelectedQueue(q.name);
   }
 
   void sort(SortType sortType, Sort sortBy) {

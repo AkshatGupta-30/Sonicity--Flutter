@@ -108,7 +108,7 @@ class AlbumDetailsView extends StatelessWidget {
             Gap(20),
             Text("${album.songs!.length} Songs", style: Theme.of(context).textTheme.bodyLarge),
             Spacer(),
-            ShuffleNPlay(album.songs ?? []),
+            ShuffleNPlay(album.songs ?? [], queueLabel: 'Album - ${album.name}',),
             Gap(4),
             PopupMenuButton(
               itemBuilder: (context) {

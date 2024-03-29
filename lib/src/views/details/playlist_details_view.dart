@@ -105,7 +105,7 @@ class PlaylistDetailsView extends StatelessWidget {
               Gap(20),
               Text("${playlist.songs!.length} Songs", style: Theme.of(context).textTheme.bodyLarge),
               Spacer(),
-              ShuffleNPlay(controller.playlist.value.songs!),
+              ShuffleNPlay(controller.playlist.value.songs!, queueLabel: 'Playlist - ${playlist.name}',),
               PopupMenuButton(
                 itemBuilder: (context) {
                   return [

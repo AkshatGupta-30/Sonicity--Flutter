@@ -1,11 +1,14 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/src/views/player/player_view.dart';
 import 'package:sonicity/utils/contants/constants.dart';
@@ -160,7 +163,10 @@ class ViewAllSongsView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(// * : Play Button
-                        onTap: () => playSongs(controller.songs, index: 0),
+                        onTap: () {
+                          playSongs(controller.songs, index: 0);
+                          getIt<QueueDatabase>().autoQueue('Search - ${controller.searchText}', controller.songs);
+                        },
                         borderRadius: BorderRadius.circular(15),
                         child: Obx(() => Container(
                             padding: EdgeInsets.only(left: 5, top: 10, right: 10, bottom: 10),
@@ -193,7 +199,14 @@ class ViewAllSongsView extends StatelessWidget {
                       ),
                       Gap(10),
                       InkWell(// * : Shuffle Button
-                        onTap: () => playSongs(controller.songs, index: 0, shuffle: true),
+                        onTap: () {
+                          playSongs(controller.songs, index: 0, shuffle: true);
+                          List<Song> s = [];
+                          for(MediaItem media in getIt<AudioManager>().playlistNotifier.value) {
+                            s.add(controller.songs[controller.songs.indexWhere((song) => song.id == media.id)]);
+                          }
+                          getIt<QueueDatabase>().autoQueue('Search - ${controller.searchText}', s);
+                        },
                         borderRadius: BorderRadius.circular(100),
                         child: Container(
                           padding: EdgeInsets.all(10),

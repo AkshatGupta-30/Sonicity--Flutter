@@ -183,7 +183,7 @@ class ArtistDetailsView extends StatelessWidget {
                         Gap(20),
                         Text("${controller.songCount} Songs", style: Theme.of(context).textTheme.bodyLarge),
                         Spacer(),
-                        ShuffleNPlay(controller.songList),
+                        ShuffleNPlay(controller.songList, queueLabel: 'Artist - ${artist.name}',),
                         PopupMenuButton(
                           itemBuilder: (context) {
                             return [
