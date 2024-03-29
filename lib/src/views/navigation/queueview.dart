@@ -80,7 +80,13 @@ class QueueView extends StatelessWidget {
                                   if(controller.selectedQueue.value.songs == null || controller.selectedQueue.value.songs!.isEmpty) {
                                     return Text('0 / 0');
                                   }
-                                  return Text('${controller.currentSongIndex.value + 1} / ${controller.selectedQueue.value.songs!.length}');
+                                  return ValueListenableBuilder(
+                                    valueListenable: audioManager.currentSongNotifier,
+                                    builder: (context, currentSong, _) {
+                                      controller.setCurrentIndex(currentSong);
+                                      return Obx(() => Text('${controller.currentSongIndex.value} / ${controller.selectedQueue.value.songs!.length}'));
+                                    }
+                                  );
                                 }),
                                 Gap(2),
                                 Row(
@@ -89,7 +95,7 @@ class QueueView extends StatelessWidget {
                                     Gap(5),
                                     Obx(() {
                                       if(controller.selectedQueue.value.songs == null || controller.selectedQueue.value.songs!.isEmpty) {
-                                        return Text('00:00');
+                                        return Text('00:00:00');
                                       }
                                       return Text(controller.formatDuration(controller.selectedQueue.value.songs!));
                                     })
@@ -189,7 +195,7 @@ class QueueView extends StatelessWidget {
                                         children: [
                                           Expanded(child: Text(song.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,)),
                                           Gap(10),
-                                          Text(controller.formatDuration([song])),
+                                          Text(controller.formatDuration([song], short: true)),
                                         ],
                                       ),
                                       trailing: Iconify(MaterialSymbols.more_vert, size: 32,),

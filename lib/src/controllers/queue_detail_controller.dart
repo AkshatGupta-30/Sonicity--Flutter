@@ -1,3 +1,4 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -41,7 +42,7 @@ class QueueDetailController extends GetxController {
     return true;
   }
 
-  String formatDuration(List<Song> songs) {
+  String formatDuration(List<Song> songs, {bool short = false}) {
     int seconds = 0;
     for (Song song in songs) seconds += int.parse(song.duration.toString());
     Duration duration = Duration(seconds: seconds);
@@ -54,8 +55,10 @@ class QueueDetailController extends GetxController {
     String minutesString = minutes.toString().padLeft(2, '0');
     String secondsString = remainingSeconds.toString().padLeft(2, '0');
 
-    if(minutesString == '00' && hoursString == '00') return secondsString;
-    else if(hoursString == '00') return '$minutesString:$secondsString';
+    if(short) {
+      if(minutesString == '00' && hoursString == '00') return secondsString;
+      else if(hoursString == '00') return '$minutesString:$secondsString';
+    }
 
     return '$hoursString:$minutesString:$secondsString';
   }
@@ -90,5 +93,13 @@ class QueueDetailController extends GetxController {
     Song orderingSong = selectedQueue.value.songs!.removeAt(oldIndex);
     selectedQueue.value.songs!.insert(newIndex, orderingSong);
     db.reorderSongs(selectedQueue.value.name, selectedQueue.value.songs!);
+  }
+
+  void setCurrentIndex(MediaItem? currentSong) {
+    if(currentSong == null) {
+      currentSongIndex.value = 0;
+      return;
+    }
+    currentSongIndex.value = selectedQueue.value.songs!.indexWhere((song) => (currentSong.id == song.id)) + 1;
   }
 }

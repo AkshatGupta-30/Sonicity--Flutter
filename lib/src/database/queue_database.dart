@@ -71,7 +71,7 @@ class QueueDatabase {
     Database db = await _instance.database;
     await db.execute(// * Create queue
       '''
-        CREATE TABLE ${queueName.replaceAll(' ', '_')} (
+        CREATE TABLE ${queueTableName(queueName)} (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colSongId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -98,7 +98,7 @@ class QueueDatabase {
     await db.insert(
       tbQueueDetails,
       {
-        colName : queueName.replaceAll(' ', '_'),
+        colName : queueTableName(queueName),
         colDateCreated : DateTime.now().toIso8601String(),
         colSongCount : 0,
         colSongIds : "" ,
@@ -109,8 +109,8 @@ class QueueDatabase {
 
   Future<void> deleteQueue(String queueName) async {
     Database db = await _instance.database;
-    await db.delete(tbQueueDetails, where: "$colName = ?", whereArgs: [queueName.replaceAll(' ', '_')]);
-    await db.execute('DROP TABLE IF EXISTS ${queueName.replaceAll(' ', '_')}');
+    await db.delete(tbQueueDetails, where: "$colName = ?", whereArgs: [queueTableName(queueName)]);
+    await db.execute('DROP TABLE IF EXISTS ${queueTableName(queueName)}');
   }
 
   Future<void> renameQueue(String queueName, String newName) async {
@@ -119,13 +119,13 @@ class QueueDatabase {
       tbQueueDetails,
       {colName: newName},
       where: '$colName = ?',
-      whereArgs: [queueName.replaceAll(' ', '_')]
+      whereArgs: [queueTableName(queueName)]
     );
-    await db.execute('ALTER TABLE ${queueName.replaceAll(' ', '_')} RENAME TO $newName');
+    await db.execute('ALTER TABLE ${queueTableName(queueName)} RENAME TO $newName');
   }
 
   Future<void> autoQueue(String queueLabel, List<Song> songs) async {
-    queueLabel = queueLabel.replaceAll(' - ', 'qpzm').replaceAll(' ', '_');
+    queueLabel = queueTableName(queueLabel);
     if(await isQueuePresent(queueLabel)) {
       await deleteQueue(queueLabel);
     }
@@ -155,7 +155,7 @@ class QueueDatabase {
             UPDATE $tbQueueDetails 
             SET $colId = ? WHERE $colName = ?
           ''',
-          [i, newOrderedQueue[i].name.replaceAll(' - ', 'qpzm').replaceAll(' ', '_')]
+          [i, queueTableName(newOrderedQueue[i].name)]
         );
       }
     });
@@ -164,14 +164,14 @@ class QueueDatabase {
   Future<List<Song>> getSongs(String queueName) async {
     Database db = await _instance.database;
     List<Song> songs = [];
-    List<Map<String,dynamic>> songsResult = await db.query(queueName.replaceAll(' - ', 'qpzm').replaceAll(' ', '_'));
+    List<Map<String,dynamic>> songsResult = await db.query(queueTableName(queueName));
     for (var map in songsResult) songs.add(Song.fromDb(map));
     return songs;
   }
 
   Future<void> insertSong(String queueName, Song song) async {
     Database db = await _instance.database;
-    queueName = queueName.replaceAll(" ", "_");
+    queueName = queueTableName(queueName);
     final res = await db.query(queueName, columns: [colSongId], where: "$colSongId = ?", whereArgs: [song.id]);
     if(res.isNotEmpty) return;
     await db.insert(
@@ -182,7 +182,7 @@ class QueueDatabase {
 
   Future<void> deleteSong(String queueName, Song song) async {
     Database db = await _instance.database;
-    queueName = queueName.replaceAll(" ", "_");
+    queueName = queueTableName(queueName);
     final res = await db.query(queueName, columns: [colSongId], where: "$colSongId = ?", whereArgs: [song.id]);
     if(res.isEmpty) return;
     await db.delete(
@@ -249,7 +249,7 @@ class QueueDatabase {
 
   Future<void> updateSelectedQueue(String queueName) async {
     final db = await _instance.database;
-    queueName = queueName.replaceAll(' - ', 'qpzm').replaceAll(' ', '_');
+    queueName = queueTableName(queueName);
     await db.rawUpdate(
       '''
         UPDATE $tbQueueDetails 
@@ -269,7 +269,7 @@ class QueueDatabase {
 
   Future<void> reorderSongs(String queueName, List<Song> newOrderedSongs) async {
     final db = await _instance.database;
-    queueName = queueName.replaceAll(' - ', 'qpzm').replaceAll(' ', '_');
+    queueName = queueTableName(queueName);
     await db.rawDelete('DELETE FROM $queueName');
     for (Song song in newOrderedSongs) insertSong(queueName, song);
   }
@@ -279,4 +279,6 @@ class QueueDatabase {
     int count = (await db.query(tbQueueDetails)).length;
     return count;
   }
+
+  String queueTableName(String queueName) => queueName.replaceAll(' - ', 'qpzm').replaceAll(' ', '_');
 }
