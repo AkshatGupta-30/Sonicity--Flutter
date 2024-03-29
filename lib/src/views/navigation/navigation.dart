@@ -1,3 +1,3 @@
 export 'homeview.dart';
-export 'library.dart';
+export 'libraryview.dart';
 export 'searchview.dart';
