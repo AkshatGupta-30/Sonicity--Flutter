@@ -202,7 +202,7 @@ class Song {
   MediaItem toMediaItem({bool addedByAutoplay = false, bool autoplay = true, String? playlistBox}) {
     List<Map<String, dynamic>> artistsMap = [];
     if(artists != null) {
-      for (var artist in artists!) artistsMap.add(artist.toMap());
+      for (Artist artist in artists!) artistsMap.add(artist.toMap());
     }
 
     return MediaItem(
@@ -223,7 +223,7 @@ class Song {
         'autoplay': autoplay,
         'playlistBox': playlistBox,
         'album': album!.toMap(),
-        'artists': artists,
+        'artists': artistsMap,
         'duration': duration ?? '',
         'year': year ?? '',
         'releaseDate': releaseDate ?? '',

@@ -49,7 +49,7 @@ class PlayerController extends GetxController {
   Future<void> setSong() async {
     MediaItem? currentMediaItem = audioManager.currentSongNotifier.value;
     if(currentMediaItem != null) {
-      currentSong.value = MediaItemConverter.toSong(currentMediaItem);
+      currentSong.value = Song.fromMediaItem(currentMediaItem);
       lyrics.value = await LyricsApi.fetch(currentSong.value);
       await checkCloneAndStar();
       getIt<RecentsDatabase>().insertSong(currentSong.value);

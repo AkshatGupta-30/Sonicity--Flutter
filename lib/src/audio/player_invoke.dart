@@ -50,7 +50,7 @@ class PlayerInvoke {
   static Future<void> setValues(List<Song> arr, int index, {recommend = false}) async {
     final List<MediaItem> queue = [];
     // ! index == arr.length ? null : arr[index + 1] as Map;
-    queue.addAll(arr.map((Song song) => MediaItemConverter.toMediaItem(song, autoplay: recommend)));
+    queue.addAll(arr.map((Song song) => song.toMediaItem(autoplay: recommend)));
     updateNPlay(queue, index);
   }
 

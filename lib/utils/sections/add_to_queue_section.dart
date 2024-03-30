@@ -119,7 +119,7 @@ class AddToQueueDialog extends StatelessWidget {
                               ? TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
-                                  audioManager.add(MediaItemConverter.toMediaItem(controller.song));
+                                  audioManager.add(controller.song.toMediaItem());
                                   controller.insertSong(controller.queues.firstWhere((queue) => queue.isCurrent).name);
                                 },
                                 style: ButtonStyle(
