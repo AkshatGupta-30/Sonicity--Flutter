@@ -441,7 +441,7 @@ class SongPopUpMenu extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Container(
-                        width: 250, height: 70, color: Colors.black,
+                        width: 250, height: 50, color: Colors.black,
                         child: BackgroundGradientDecorator(
                           child: Container(
                             alignment: Alignment.center,
