@@ -13,6 +13,7 @@ class QueueDetailController extends GetxController {
 
   final queues = <Queue>[].obs;
   final selectedQueue = Queue.empty().obs;
+  final playlingQueue = Queue.empty().obs;//TODO - set autoqueue be current playing queue
   final currentSongIndex = 0.obs;
 
   @override

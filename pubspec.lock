@@ -742,6 +742,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
+  mini_music_visualizer:
+    dependency: "direct main"
+    description:
+      name: mini_music_visualizer
+      sha256: "095b3c5e12f4c045544432829a044a7fe1c5a7789a6d0003347c73d9bf3170cc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   octo_image:
     dependency: transitive
     description:

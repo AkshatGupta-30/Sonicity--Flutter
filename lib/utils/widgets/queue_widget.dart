@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
+import 'package:mini_music_visualizer/mini_music_visualizer.dart';
+import 'package:sonicity/service_locator.dart';
+import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
@@ -153,6 +156,18 @@ class AllQueues extends StatelessWidget {
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      if(queue.name == controller.playlingQueue.value.name) ...[
+                        ValueListenableBuilder(
+                          valueListenable: getIt<AudioManager>().playButtonNotifier,
+                          builder: (context, state, _) {
+                            return MiniMusicVisualizer(
+                              color: Get.find<SettingsController>().getAccent,
+                              animate: (state == ButtonState.playing),
+                            );
+                          }
+                        ),
+                        Gap(10),
+                      ],
                       Iconify(Mdi.lead_pencil),// TODO - Rename Queue
                       Gap(10),
                       Iconify(IconParkTwotone.delete_four),// TODO - Delete Queue

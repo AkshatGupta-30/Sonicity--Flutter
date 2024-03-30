@@ -96,7 +96,10 @@ class QueueView extends StatelessWidget {
       child: Row(
         children: [
           IconButton(
-            onPressed: () => playSongs(controller.selectedQueue.value.songs!, index: 0),
+            onPressed: () {
+              playSongs(controller.selectedQueue.value.songs!, index: 0);
+              controller.playlingQueue.value = controller.selectedQueue.value;
+            },
             icon: Iconify(Ic.baseline_play_arrow, size: 30,)
           ),
           Spacer(),
@@ -176,60 +179,76 @@ class QueueView extends StatelessWidget {
         child: ValueListenableBuilder(
           valueListenable: audioManager.currentSongNotifier,
           builder: (context, currentSong, _) {
-            return Obx(() => ReorderableListView.builder(
-              padding: EdgeInsets.only(bottom: 90),
-              itemCount: (controller.selectedQueue.value.songs == null) ? 0 : controller.selectedQueue.value.songs!.length,
-              onReorder: controller.onReorderSongs,
-              itemBuilder: (context, index) {
-                Song song = controller.selectedQueue.value.songs![index];
-                return Container(
-                  key: Key(song.id),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: (currentSong != null && song.id == currentSong.id)
-                          ? Get.find<SettingsController>().getAccent
-                          : Colors.transparent
-                    ),
-                    borderRadius: BorderRadius.circular(12)
-                  ),
-                  child: ListTile(
-                    onTap: () => playSongs(controller.selectedQueue.value.songs!, index: index),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                    leading: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Iconify(Ion.reorder_two),
-                        Gap(10),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: CachedNetworkImage(
-                            imageUrl: song.image.highQuality, width: 50, height: 50, fit: BoxFit.cover,
-                            errorWidget: (context, url, error) => Image.asset(
-                              'assets/images/songCover/songCover500x500.jpg',
-                              width: 50, height: 50, fit: BoxFit.cover,
-                            ),
-                            placeholder: (context, url) => Image.asset(
-                              'assets/images/songCover/songCover500x500.jpg',
-                              width: 50, height: 50, fit: BoxFit.cover,
-                            ),
+            return ValueListenableBuilder(
+              valueListenable: audioManager.playlistNotifier,
+              builder: (context, currentQueue, _) {
+                final queueStateIndex = (audioManager.currentSongNotifier.value == null)
+                    ? 0 : currentQueue.indexOf(audioManager.currentSongNotifier.value!);
+                return Obx(() => ReorderableListView.builder(
+                  padding: EdgeInsets.only(bottom: 90),
+                  itemCount: (controller.selectedQueue.value.songs == null) ? 0 : controller.selectedQueue.value.songs!.length,
+                  onReorder: controller.onReorderSongs,
+                  itemBuilder: (context, index) {
+                    Song song = controller.selectedQueue.value.songs![index];
+                    return Dismissible(
+                      key: Key(song.id),
+                      direction: (index == queueStateIndex) ? DismissDirection.none : DismissDirection.horizontal,
+                      onDismissed: (direction) {
+                        audioManager.removeQueueItemAt(index);
+                        controller.playlingQueue.value.songs!.removeAt(index);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: (
+                              currentSong != null && 
+                              song.id == currentSong.id && 
+                              controller.selectedQueue.value.name == controller.playlingQueue.value.name
+                            ) ? Get.find<SettingsController>().getAccent : Colors.transparent
                           ),
+                          borderRadius: BorderRadius.circular(12)
                         ),
-                      ],
-                    ),
-                    title: Text(song.title),
-                    subtitle: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(child: Text(song.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,)),
-                        Gap(10),
-                        Text(controller.formatDuration([song], short: true)),
-                      ],
-                    ),
-                    trailing: Iconify(MaterialSymbols.more_vert, size: 32,),
-                  ),
-                );
-              },
-            ));
+                        child: ListTile(
+                          onTap: () => playSongs(controller.selectedQueue.value.songs!, index: index),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                          leading: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Iconify(Ion.reorder_two),
+                              Gap(10),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: CachedNetworkImage(
+                                  imageUrl: song.image.highQuality, width: 50, height: 50, fit: BoxFit.cover,
+                                  errorWidget: (context, url, error) => Image.asset(
+                                    'assets/images/songCover/songCover500x500.jpg',
+                                    width: 50, height: 50, fit: BoxFit.cover,
+                                  ),
+                                  placeholder: (context, url) => Image.asset(
+                                    'assets/images/songCover/songCover500x500.jpg',
+                                    width: 50, height: 50, fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          title: Text(song.title, maxLines: 1, overflow: TextOverflow.ellipsis,),
+                          subtitle: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(child: Text(song.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,)),
+                              Gap(10),
+                              Text(controller.formatDuration([song], short: true)),
+                            ],
+                          ),
+                          trailing: Iconify(MaterialSymbols.more_vert, size: 32,),
+                        ),
+                      ),
+                    );
+                  },
+                ));
+              }
+            );
           }
         ),
       ),
@@ -249,7 +268,10 @@ class QueueView extends StatelessWidget {
             return Padding(
               padding: EdgeInsets.only(bottom: (currentSong == null) ? 0 : 80),
               child: FloatingActionButton(
-                onPressed: () => playSongs(controller.selectedQueue.value.songs!, index: 0, shuffle: true),
+                onPressed: () {
+                  playSongs(controller.selectedQueue.value.songs!, index: 0, shuffle: true);
+                  controller.playlingQueue.value = controller.selectedQueue.value;
+                },
                 shape: CircleBorder(), backgroundColor: Theme.of(context).cardColor,
                 child: Iconify(Wpf.shuffle, color: Get.find<SettingsController>().getAccent,),
               ),
