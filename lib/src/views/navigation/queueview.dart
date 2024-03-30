@@ -87,8 +87,15 @@ class QueueView extends StatelessWidget {
             ),
           ),
         ),
-        Gap(20),
-        Iconify(MaterialSymbols.close_rounded),// TODO - Remove Queue
+        Gap(5),
+        IconButton(
+          onPressed: () => showDialog(
+            context: context, barrierDismissible: true, useRootNavigator: true,
+            builder: (ctx) => RemoveQueueDialog(controller, queue: controller.selectedQueue.value),
+          ),
+          padding: EdgeInsets.zero,
+          icon: Iconify(MaterialSymbols.close_rounded)
+        ),
         Gap(5)
       ],
     );

@@ -117,8 +117,11 @@ class QueueDatabase {
 
   Future<void> deleteQueue(String queueName) async {
     Database db = await _instance.database;
+    int id = int.parse((await db.query(tbQueueDetails, columns: [colId], where: "$colName = ?", whereArgs: [queueTableName(queueName)])).first[colId].toString());
     await db.delete(tbQueueDetails, where: "$colName = ?", whereArgs: [queueTableName(queueName)]);
     await db.execute('DROP TABLE IF EXISTS ${queueTableName(queueName)}');
+    await _reorderIds(id);
+    await _updateFirstRowCurrentQueue();
   }
 
   Future<void> renameQueue(String queueName, String newName) async {
@@ -286,6 +289,28 @@ class QueueDatabase {
     Database db = await _instance.database;
     int count = (await db.query(tbQueueDetails)).length;
     return count;
+  }
+
+  Future<void> _reorderIds(int id) async {
+    final db = await _instance.database;
+    await db.transaction((txn) async {
+      await txn.execute('''
+        UPDATE $tbQueueDetails
+        SET $colId = $colId - 1
+        WHERE $colId > $id
+      ''');
+    });
+  }
+
+  Future<void> _updateFirstRowCurrentQueue() async {
+    final db = await _instance.database;
+    await db.transaction((txn) async {
+      await txn.execute('''
+        UPDATE $tbQueueDetails
+        SET $colCurrentQueue = 1
+        WHERE $colId = 1
+      ''');
+    });
   }
 
   String queueTableName(String queueName) => queueName.replaceAll(' - ', 'qpzm').replaceAll(' ', '_');

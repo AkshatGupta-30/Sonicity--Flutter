@@ -120,7 +120,7 @@ class AllQueues extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white, width: 0.5),
       ),
-      child: Column(
+      child: Obx(() => Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -135,7 +135,7 @@ class AllQueues extends StatelessWidget {
           Gap(10),
           SizedBox(
             height: controller.queues.length * 72.0,
-            child: Obx(() => ReorderableListView.builder(
+            child: ReorderableListView.builder(
               itemCount: controller.queues.length,
               onReorder: controller.onReorderQueues,
               itemBuilder: (context, index) {
@@ -147,9 +147,15 @@ class AllQueues extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   contentPadding: EdgeInsets.zero,
-                  leading: Iconify(
-                    (queue == controller.selectedQueue.value) ? Ic.sharp_radio_button_checked : Ic.baseline_radio_button_unchecked,
-                    color: (queue == controller.selectedQueue.value) ?  Get.find<SettingsController>().getAccent : Colors.grey,
+                  leading: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Iconify(Ion.reorder_two),
+                      Iconify(
+                        (queue == controller.selectedQueue.value) ? Ic.sharp_radio_button_checked : Ic.baseline_radio_button_unchecked,
+                        color: (queue == controller.selectedQueue.value) ?  Get.find<SettingsController>().getAccent : Colors.grey,
+                      ),
+                    ],
                   ),
                   title: Text(queue.name.title()),
                   subtitle: Text('${queue.songCount} Songs'),
@@ -169,17 +175,72 @@ class AllQueues extends StatelessWidget {
                         Gap(10),
                       ],
                       Iconify(Mdi.lead_pencil),// TODO - Rename Queue
-                      Gap(10),
-                      Iconify(IconParkTwotone.delete_four),// TODO - Delete Queue
-                      Gap(8)
+                      Gap(2),
+                      IconButton(
+                        onPressed: () => showDialog(
+                          context: context, barrierDismissible: true, useRootNavigator: true,
+                          builder: (ctx) => RemoveQueueDialog(controller, queue: queue),
+                        ),
+                        padding: EdgeInsets.zero,
+                        icon: Iconify(IconParkTwotone.delete_four)
+                      ),
+                      Gap(2)
                     ],
                   ),
                 );
               },
-            )),
+            ),
           )
         ],
-      ),
+      )),
+    );
+  }
+}
+
+class RemoveQueueDialog extends StatelessWidget {
+  final Queue queue;
+  final QueueDetailController controller;
+  const RemoveQueueDialog(this.controller, {super.key, required this.queue,});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final settings = Get.find<SettingsController>();
+    return AlertDialog(
+      elevation: 10,
+      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      backgroundColor: (theme.brightness == Brightness.light) ? Colors.white : Colors.black,
+      shadowColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
+      title: Text("Confirm Delete"),
+      titleTextStyle: theme.textTheme.labelLarge,
+      content: Text('Are you sure you want to delete `${queue.name}`'),
+      actions: [
+        GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(12)
+            ),
+            child: Text("Cancel", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+            controller.deleteQueue(queue);
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: settings.getAccent,
+              borderRadius: BorderRadius.circular(12)
+            ),
+            child: Text("Confirm", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
+          ),
+        )
+      ]
     );
   }
 }

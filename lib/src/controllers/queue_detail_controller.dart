@@ -24,7 +24,7 @@ class QueueDetailController extends GetxController {
 
   Future<void> getAll() async {
     queues.value = await db.queues;
-    setSelectedQueue(queues.singleWhere((queue) => queue.isCurrent));
+    if(queues.isNotEmpty) setSelectedQueue(queues.singleWhere((queue) => queue.isCurrent));
   }
 
   void setSelectedQueue(Queue q) async {
@@ -34,6 +34,10 @@ class QueueDetailController extends GetxController {
     selectedQueue.value.songs = await db.getSongs(selectedQueue.value.name);
     update();
     db.updateSelectedQueue(q.name);
+  }
+
+  void deleteQueue(Queue q) async {
+    await db.deleteQueue(q.name).then((value) => getAll());
   }
 
   bool onNotification(UserScrollNotification notification) {
