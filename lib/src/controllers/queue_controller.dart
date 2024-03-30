@@ -51,4 +51,10 @@ class QueueController extends GetxController {
     if(newQueueTextController.text.isEmpty) return;
     await db.createQueue(newQueueTextController.text).then((value) => initMethods());
   }
+
+  void onReorder(int oldIndex, int newIndex) {
+    final reorderedQueue = queues.removeAt(oldIndex);
+    queues.insert(newIndex, reorderedQueue);
+    db.reorderQueueRows(queues);
+  }
 }

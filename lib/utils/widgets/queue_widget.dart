@@ -82,7 +82,7 @@ class QueueName extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         controller.insertSong(queue.name);
         Navigator.pop(context);
       },
@@ -90,6 +90,7 @@ class QueueName extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
+          Iconify(Ion.reorder_two),
           (queue.isCurrent) 
               ? Iconify(MaterialSymbols.arrow_right_rounded, color: Get.find<SettingsController>().getAccent, size: 27,)
               : Gap(27),

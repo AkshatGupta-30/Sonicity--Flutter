@@ -88,12 +88,13 @@ class AddToQueueDialog extends StatelessWidget {
                 children: [
                   Text('Add To Queue', style: theme.textTheme.labelLarge!.copyWith(fontWeight: FontWeight.normal),),
                   Gap(10),
-                  Obx(() => ListView.builder(
+                  Obx(() => ReorderableListView.builder(
                     shrinkWrap: true,
                     itemCount: controller.queues.length,
+                    onReorder: controller.onReorder,
                     itemBuilder: (context, index) {
                       Queue queue = controller.queues[index];
-                      return QueueName(queue, controller, index: index,);
+                      return QueueName(key: Key(queue.id), queue, controller, index: index,);
                     },
                   )),
                   ValueListenableBuilder(
@@ -116,7 +117,11 @@ class AddToQueueDialog extends StatelessWidget {
                           ),
                           (currentSong != null)
                               ? TextButton(
-                                onPressed: () => audioManager.add(song.toMediaItem()),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  audioManager.add(MediaItemConverter.toMediaItem(controller.song));
+                                  controller.insertSong(controller.queues.firstWhere((queue) => queue.isCurrent).name);
+                                },
                                 style: ButtonStyle(
                                   alignment: Alignment.centerLeft,
                                   backgroundColor: MaterialStatePropertyAll(settings.getAccentDark.withOpacity(0.75))
