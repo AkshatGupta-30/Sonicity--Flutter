@@ -1,7 +1,5 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape.dart';
-import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/utils/sections/sections.dart';
 import 'package:super_string/super_string.dart';
@@ -184,36 +182,57 @@ class Song {
   }
 
   factory Song.fromMediaItem(MediaItem mediaItem) {
+    List<Artist> artists = [];
+    for (Map<String, dynamic> artist in mediaItem.extras!['artists']) artists.add(Artist.name(artist));
     return Song(
       id: mediaItem.id,
       name: mediaItem.title,
-      artists: [],
-      image: ImageUrl.empty(),
-      downloadUrl: DownloadUrl.empty(),
-      hasLyrics: false
+      image: ImageUrl.fromJson(mediaItem.extras!['image']),
+      downloadUrl: DownloadUrl.fromJson(mediaItem.extras!['downloadUrl']),
+      hasLyrics: mediaItem.extras!['hasLyrics'],
+      year: mediaItem.extras!['year'],
+      releaseDate: mediaItem.extras!['releaseDate'],
+      duration: mediaItem.extras!['duration'],
+      artists: artists,
+      album: Album.name(mediaItem.extras!['album']),
+      language: mediaItem.extras!['language'],
     );
   }
 
-  MediaItem toMediaItem() {
-    String songUrl = '';
-    String musicQuality = Get.find<SettingsController>().getMusicQuality;
-    switch(musicQuality) {
-      case "12kbps" : songUrl = downloadUrl.q12kbps; break;
-      case "48kbps" : songUrl = downloadUrl.q48kbps; break;
-      case "96kbps" : songUrl = downloadUrl.q96kbps; break;
-      case "160kbps" : songUrl = downloadUrl.q160kbps; break;
-      default : songUrl = downloadUrl.q320kbps; break;
+  MediaItem toMediaItem({bool addedByAutoplay = false, bool autoplay = true, String? playlistBox}) {
+    List<Map<String, dynamic>> artistsMap = [];
+    if(artists != null) {
+      for (var artist in artists!) artistsMap.add(artist.toMap());
     }
 
     return MediaItem(
-    id: id,
-    artist: artists!.first.id,
-    title: title,
-    artUri: Uri.parse(image.lowQuality),
-    extras: <String, dynamic>{
-      'url': songUrl,
-    },
-  );
+      id: id,
+      album: album!.name,
+      artist: artistsName,
+      duration: Duration(seconds: int.parse(duration!)),
+      title: name,
+      displayTitle: title,
+      displaySubtitle: subtitle,
+      artUri: Uri.parse(image.highQuality),
+      genre: language ?? '',
+      extras: {
+        'user_id': id,
+        'url': downloadUrl.link,
+        'album_id': album!.id,
+        'addedByAutoplay': addedByAutoplay,
+        'autoplay': autoplay,
+        'playlistBox': playlistBox,
+        'album': album!.toMap(),
+        'artists': artists,
+        'duration': duration ?? '',
+        'year': year ?? '',
+        'releaseDate': releaseDate ?? '',
+        'language': language ?? '',
+        'image': image.toMap(),
+        'downloadUrl':  downloadUrl.toMap(),
+        'hasLyrics': hasLyrics
+      },
+    );
   }
 
   bool isEmpty() {
