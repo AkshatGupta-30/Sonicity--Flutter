@@ -353,7 +353,7 @@ class MainPlayerView extends StatelessWidget {
                 builder: (context, song, _) {
                   if(song == null) return SizedBox();
                   return InkWell(
-                    onTap: () => Get.to(() => AlbumDetailsView(), arguments: song.album),
+                    onTap: () => Get.to(() => AlbumDetailsView(), arguments: controller.album.value.id),
                     child: Container(
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
@@ -361,7 +361,7 @@ class MainPlayerView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12)
                       ),
                       child: CachedNetworkImage(
-                        imageUrl: song.artUri.toString(), fit: BoxFit.cover,
+                        imageUrl: controller.album.value.image!.medQuality, fit: BoxFit.cover,
                         height: 50, width: 50,
                         errorWidget: (context, url, error) {
                           return Image.asset("assets/images/albumCover/albumCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);

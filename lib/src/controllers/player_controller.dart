@@ -22,6 +22,7 @@ class PlayerController extends GetxController {
   final isStarred = false.obs;
   final isCloned = false.obs;
   final currentSong = Song.empty().obs;
+  final album = Album.empty().obs;
   final lyrics = Lyrics.empty().obs;
 
   @override
@@ -53,6 +54,7 @@ class PlayerController extends GetxController {
       lyrics.value = await LyricsApi.fetch(currentSong.value);
       await checkCloneAndStar();
       getIt<RecentsDatabase>().insertSong(currentSong.value);
+      getAlbum();
       update();
     }
   }
@@ -138,4 +140,6 @@ class PlayerController extends GetxController {
       ),
     );
   }
+  
+  void getAlbum() async => album.value = await AlbumDetailsApi.getImage(currentSong.value.album!.id);
 }

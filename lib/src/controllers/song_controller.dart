@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
-import 'package:sonicity/src/services/services.dart';
 
 class SongController extends GetxController {
   final Song song;
@@ -18,7 +17,6 @@ class SongController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getAlbum();
     checkCloneAndStar();
   }
   @override
@@ -41,9 +39,5 @@ class SongController extends GetxController {
   void switchStarred() async {
     (isStar.value) ? starDb.deleteStarred(song) : starDb.starred(song);
     checkCloneAndStar();
-  }
-
-  void getAlbum() async {
-    album.value = await AlbumDetailsApi.getImage(song.album!.id);
   }
 }
