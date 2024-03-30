@@ -67,7 +67,7 @@ class QueueDatabase {
   static const colDownload96kbps = 'download_96kbps';
   static const colDownload160kbps = 'download_160kbps';
   static const colDownload320kbps = 'download_320kbps';
-  Future createQueue(String queueName, {bool isFirst = false}) async {
+  Future createQueue(String queueName, {bool isCurrent = false, bool isFirst = false}) async {
     Database db = await _instance.database;
     await db.execute(// * Create queue
       '''
@@ -95,6 +95,15 @@ class QueueDatabase {
         )
       '''
     );
+    if(isCurrent) {
+      await db.rawUpdate(
+        '''
+          UPDATE $tbQueueDetails 
+          SET $colCurrentQueue = 0 
+          WHERE $colCurrentQueue = 1
+        '''
+      );
+    }
     await db.insert(
       tbQueueDetails,
       {
@@ -102,7 +111,7 @@ class QueueDatabase {
         colDateCreated : DateTime.now().toIso8601String(),
         colSongCount : 0,
         colSongIds : "" ,
-        colCurrentQueue : (isFirst) ? 1 : 0
+        colCurrentQueue : (isFirst || isCurrent) ? 1 : 0
       }
     );
   }
@@ -129,7 +138,7 @@ class QueueDatabase {
     if(await isQueuePresent(queueLabel)) {
       await deleteQueue(queueLabel);
     }
-    createQueue(queueLabel);
+    createQueue(queueLabel, isCurrent: true);
     for (Song song in songs) {
       await insertSong(queueLabel, song);
     }

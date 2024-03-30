@@ -30,6 +30,7 @@ class SongCard extends StatelessWidget {
         return GestureDetector(
           onTap: () async {
             playSong(song);
+            getIt<QueueDatabase>().autoQueue('Song - ${song.title}', [song]);
             RecentsDatabase recents = getIt<RecentsDatabase>();
             await recents.insertSong(song);
           },
@@ -121,6 +122,7 @@ class SongTile extends StatelessWidget {
       builder: (controller) => ListTile(
         onTap: () async {
           playSong(song);
+          getIt<QueueDatabase>().autoQueue('Song - ${song.title}', [song]);
           RecentsDatabase recents = getIt<RecentsDatabase>();
           await recents.insertSong(song);
         },
@@ -162,6 +164,7 @@ class SongCell extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         playSong(song);
+        getIt<QueueDatabase>().autoQueue('Song - ${song.title}', [song]);
         RecentsDatabase recents = getIt<RecentsDatabase>();
         await recents.insertSong(song);
       },
@@ -397,7 +400,6 @@ class SongPopUpMenu extends StatelessWidget {
   }
 
   void _addToQueueDialog(BuildContext context) {
-    ThemeData theme = Theme.of(context);
     showDialog(
       context: context,
       barrierColor: Colors.black.withOpacity(0.5),
@@ -405,64 +407,7 @@ class SongPopUpMenu extends StatelessWidget {
         return Dialog(
           backgroundColor: Colors.transparent, surfaceTintColor: Colors.transparent, shadowColor: Colors.transparent,
           alignment: Alignment.center,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Material(
-                elevation: 5, borderRadius: BorderRadius.circular(12),
-                color: Colors.transparent, shadowColor: Colors.transparent,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox.square(
-                      dimension: 150,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: CachedNetworkImage(
-                          imageUrl: song.image.medQuality,
-                          height: 150, width: 150, fit: BoxFit.fill,
-                          errorWidget: (context, url, error) {
-                            return Image.asset(
-                              "assets/images/songCover/songCover500x500.jpg",
-                              fit: BoxFit.fill, width: 150, height: 150
-                            );
-                          },
-                          placeholder: (context, url) {
-                            return Image.asset(
-                              "assets/images/songCover/songCover500x500.jpg",
-                              fit: BoxFit.fill, width: 150, height: 150
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    Gap(3),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Container(
-                        width: 250, height: 50, color: Colors.black,
-                        child: BackgroundGradientDecorator(
-                          child: Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(horizontal: 3, vertical: 1),
-                            child: Column(
-                              children: [
-                                Text(song.title, style: theme.textTheme.labelLarge, maxLines: 1, overflow: TextOverflow.ellipsis),
-                                Text(song.subtitle, style: theme.textTheme.labelSmall, maxLines: 1, overflow: TextOverflow.ellipsis),
-                              ],
-                            ),
-                          )
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Gap(10),
-              AddToQueueDialog(song)
-            ],
-          ),
+          child: AddToQueueDialog(song),
         );
       }
     );

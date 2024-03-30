@@ -24,8 +24,8 @@ class HomeViewController extends GetxController with GetSingleTickerProviderStat
     tabController.addListener(() {
       selectedTab.value = tabController.index;
     });
-    getHomeData(false);
-    checkInstanceTimer();
+    // getHomeData(false);//TODO
+    // checkInstanceTimer();//TODO
   }
 
   void checkInstanceTimer() async {
