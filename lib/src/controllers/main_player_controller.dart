@@ -52,6 +52,7 @@ class PlayerController extends GetxController {
       currentSong.value = await SongDetailsApi.forPlay(currentMediaItem.id);
       lyrics.value = await LyricsApi.fetch(currentSong.value);
       await checkCloneAndStar();
+      getIt<RecentsDatabase>().insertSong(currentSong.value);
       update();
     }
   }

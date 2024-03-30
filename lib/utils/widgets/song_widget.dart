@@ -31,8 +31,6 @@ class SongCard extends StatelessWidget {
           onTap: () async {
             playSong(song);
             getIt<QueueDatabase>().autoQueue('Song - ${song.title}', [song]);
-            RecentsDatabase recents = getIt<RecentsDatabase>();
-            await recents.insertSong(song);
           },
           child: Container(
             width: media.width/1.25, height: media.width/1.25,
@@ -123,8 +121,6 @@ class SongTile extends StatelessWidget {
         onTap: () async {
           playSong(song);
           getIt<QueueDatabase>().autoQueue('Song - ${song.title}', [song]);
-          RecentsDatabase recents = getIt<RecentsDatabase>();
-          await recents.insertSong(song);
         },
         contentPadding: EdgeInsets.zero,
         leading: ClipRRect(
@@ -165,8 +161,6 @@ class SongCell extends StatelessWidget {
       onTap: () async {
         playSong(song);
         getIt<QueueDatabase>().autoQueue('Song - ${song.title}', [song]);
-        RecentsDatabase recents = getIt<RecentsDatabase>();
-        await recents.insertSong(song);
       },
       child: Container(
         width: 140,

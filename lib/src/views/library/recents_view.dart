@@ -12,8 +12,6 @@ import 'package:sonicity/utils/widgets/widgets.dart';
 class RecentsView extends StatelessWidget {
   RecentsView({super.key});
 
-  final controller = Get.find<RecentsController>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,12 +19,17 @@ class RecentsView extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         children: [
           BackgroundGradientDecorator(
-            child: CustomScrollView(
-              slivers: [
-                _appbar(context),
-                _summaryHeader(context),
-                _body()
-              ],
+            child: GetBuilder(
+              init: RecentsController(),
+              builder: (controller) {
+                return CustomScrollView(
+                  slivers: [
+                    _appbar(context, controller),
+                    _summaryHeader(context, controller),
+                    _body(controller)
+                  ],
+                );
+              }
             )
           ),
           MiniPlayerView()
@@ -35,7 +38,7 @@ class RecentsView extends StatelessWidget {
     );
   }
 
-  SliverAppBar _appbar(BuildContext context) {
+  SliverAppBar _appbar(BuildContext context, RecentsController controller) {
     return SliverAppBar(
       pinned: true, shadowColor: Colors.transparent,
       title: Text("Recents"),
@@ -144,7 +147,7 @@ class RecentsView extends StatelessWidget {
     );
   }
 
-  SliverPinnedHeader _summaryHeader(BuildContext context,) {
+  SliverPinnedHeader _summaryHeader(BuildContext context, RecentsController controller) {
     return SliverPinnedHeader(
       child: Container(
         height: kBottomNavigationBarHeight,
@@ -172,7 +175,7 @@ class RecentsView extends StatelessWidget {
     );
   }
 
-  SliverFillRemaining _body() {
+  SliverFillRemaining _body(RecentsController controller) {
     return SliverFillRemaining(
       child: TabBarView(
         controller: controller.tabController,
