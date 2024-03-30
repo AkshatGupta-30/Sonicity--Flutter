@@ -174,7 +174,14 @@ class AllQueues extends StatelessWidget {
                         ),
                         Gap(10),
                       ],
-                      Iconify(Mdi.lead_pencil),// TODO - Rename Queue
+                      IconButton(
+                        onPressed: () => showDialog(
+                          context: context, barrierDismissible: true, useRootNavigator: true,
+                          builder: (ctx) => RenameQueueDialog(controller, queue: queue),
+                        ),
+                        padding: EdgeInsets.zero,
+                        icon: Iconify(Mdi.lead_pencil),
+                      ),
                       Gap(2),
                       IconButton(
                         onPressed: () => showDialog(
@@ -193,6 +200,69 @@ class AllQueues extends StatelessWidget {
           )
         ],
       )),
+    );
+  }
+}
+
+class RenameQueueDialog extends StatelessWidget {
+  final Queue queue;
+  final QueueDetailController controller;
+  const RenameQueueDialog(this.controller, {super.key, required this.queue,});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final settings = Get.find<SettingsController>();
+    return AlertDialog(
+      elevation: 10,
+      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      backgroundColor: (theme.brightness == Brightness.light) ? Colors.white : Colors.black,
+      shadowColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
+      title: Text("Rename : ${queue.name}"),
+      titleTextStyle: theme.textTheme.labelLarge,
+      content: TextField(
+        controller: controller.renameQueueTextController,
+        cursorColor: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+        style: TextStyle(color: (theme.brightness == Brightness.light) ?Colors.black : Colors.white,),
+        decoration: InputDecoration(
+          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: settings.getAccentDark, width: 2),),
+          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: settings.getAccent, width: 3),),
+          hintText: "New Name"
+        ),
+        onTap: () => controller.renameQueueTfActive.value = true,
+        focusNode: controller.renameQueueFocus,
+        onTapOutside: (event) {
+          controller.renameQueueFocus.unfocus();
+          controller.renameQueueTfActive.value = false;
+        },
+      ),
+      actions: [
+        GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(12)
+            ),
+            child: Text("Cancel", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+            controller.renameQueue(queue);
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: settings.getAccent,
+              borderRadius: BorderRadius.circular(12)
+            ),
+            child: Text("Done", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
+          ),
+        )
+      ]
     );
   }
 }

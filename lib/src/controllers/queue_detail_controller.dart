@@ -16,6 +16,10 @@ class QueueDetailController extends GetxController {
   final playlingQueue = Queue.empty().obs;//TODO - set autoqueue be current playing queue
   final currentSongIndex = 0.obs;
 
+  final renameQueueTextController = TextEditingController();
+  FocusNode renameQueueFocus = FocusNode();
+  final renameQueueTfActive = false.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -36,9 +40,9 @@ class QueueDetailController extends GetxController {
     db.updateSelectedQueue(q.name);
   }
 
-  void deleteQueue(Queue q) async {
-    await db.deleteQueue(q.name).then((value) => getAll());
-  }
+  void deleteQueue(Queue q) async => await db.deleteQueue(q.name).then((value) => getAll());
+
+  void renameQueue(Queue q) => db.renameQueue(q.name, renameQueueTextController.text).then((value) => getAll());
 
   bool onNotification(UserScrollNotification notification) {
     final ScrollDirection direction = notification.direction;
