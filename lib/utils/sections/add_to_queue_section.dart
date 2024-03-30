@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
@@ -22,54 +24,60 @@ class AddToQueueDialog extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Material(
-          elevation: 5, borderRadius: BorderRadius.circular(12),
-          color: Colors.transparent, shadowColor: Colors.transparent,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox.square(
-                dimension: 150,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: CachedNetworkImage(
-                    imageUrl: song.image.medQuality,
-                    height: 150, width: 150, fit: BoxFit.fill,
-                    errorWidget: (context, url, error) {
-                      return Image.asset(
-                        "assets/images/songCover/songCover500x500.jpg",
-                        fit: BoxFit.fill, width: 150, height: 150
-                      );
-                    },
-                    placeholder: (context, url) {
-                      return Image.asset(
-                        "assets/images/songCover/songCover500x500.jpg",
-                        fit: BoxFit.fill, width: 150, height: 150
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Gap(3),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Container(
-                  width: 250, height: 55, color: Colors.black,
-                  child: BackgroundGradientDecorator(
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(horizontal: 3, vertical: 1),
-                      child: Column(
-                        children: [
-                          Text(song.title, style: theme.textTheme.labelLarge, maxLines: 1, overflow: TextOverflow.ellipsis),
-                          Text(song.subtitle, style: theme.textTheme.labelSmall, maxLines: 1, overflow: TextOverflow.ellipsis),
-                        ],
+        GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Material(
+            elevation: 5, borderRadius: BorderRadius.circular(12),
+            color: Colors.transparent, shadowColor: Colors.transparent,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IgnorePointer(
+                  ignoring: true,
+                  child: SizedBox.square(
+                    dimension: 150,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: CachedNetworkImage(
+                        imageUrl: song.image.medQuality,
+                        height: 150, width: 150, fit: BoxFit.fill,
+                        errorWidget: (context, url, error) {
+                          return Image.asset(
+                            "assets/images/songCover/songCover500x500.jpg",
+                            fit: BoxFit.fill, width: 150, height: 150
+                          );
+                        },
+                        placeholder: (context, url) {
+                          return Image.asset(
+                            "assets/images/songCover/songCover500x500.jpg",
+                            fit: BoxFit.fill, width: 150, height: 150
+                          );
+                        },
                       ),
-                    )
+                    ),
                   ),
                 ),
-              ),
-            ],
+                Gap(3),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    width: 250, height: 55, color: Colors.black,
+                    child: BackgroundGradientDecorator(
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+                        child: Column(
+                          children: [
+                            Text(song.title, style: theme.textTheme.labelLarge, maxLines: 1, overflow: TextOverflow.ellipsis),
+                            Text(song.subtitle, style: theme.textTheme.labelSmall, maxLines: 1, overflow: TextOverflow.ellipsis),
+                          ],
+                        ),
+                      )
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         Gap(10),
@@ -88,15 +96,19 @@ class AddToQueueDialog extends StatelessWidget {
                 children: [
                   Text('Add To Queue', style: theme.textTheme.labelLarge!.copyWith(fontWeight: FontWeight.normal),),
                   Gap(10),
-                  Obx(() => ReorderableListView.builder(
-                    shrinkWrap: true,
-                    itemCount: controller.queues.length,
-                    onReorder: controller.onReorder,
-                    itemBuilder: (context, index) {
-                      Queue queue = controller.queues[index];
-                      return QueueName(key: Key(queue.id), queue, controller, index: index,);
-                    },
-                  )),
+                  Obx(() {
+                    if (controller.queues.isEmpty) return Text('No Queue Found');
+                    return ReorderableListView.builder(
+                      shrinkWrap: true,
+                      itemCount: controller.queues.length,
+                      onReorder: controller.onReorder,
+                      itemBuilder: (context, index) {
+                        Queue queue = controller.queues[index];
+                        return QueueName(key: Key(queue.id), queue, controller, index: index,);
+                      },
+                    );
+                  }),
+                  Gap(10),
                   ValueListenableBuilder(
                     valueListenable: audioManager.currentSongNotifier,
                     builder: (context, currentSong, _) {

@@ -15,9 +15,9 @@ class QueueView extends StatelessWidget {
   QueueView({super.key});
 
   final controller = Get.find<NavigationController>();
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final audioManager = getIt<AudioManager>();
     return PopScope(
       canPop: false,
@@ -33,7 +33,11 @@ class QueueView extends StatelessWidget {
                   child: Column(
                     children: [
                       _allQueuesHeader(context, controller),
-                      if(controller.selectedQueue.value.songs == null)
+                      if(controller.queues.isEmpty)
+                        Expanded(child: Center(child: Text('No Tracks Queued Up', style: theme.textTheme.titleLarge!.copyWith(
+                          color: (theme.brightness == Brightness.light) ? Colors.yellow.shade900 : Colors.yellow.shade100,
+                        ))))
+                      else if(controller.selectedQueue.value.songs == null)
                         Expanded(child: Center(child: CircularProgressIndicator(color: settings.getAccent,)))
                       else  ...[
                         _songsSummary(controller, audioManager, context),
@@ -52,7 +56,8 @@ class QueueView extends StatelessWidget {
     );
   }
 
-  Row _allQueuesHeader(BuildContext context, QueueDetailController controller) {
+  Widget _allQueuesHeader(BuildContext context, QueueDetailController controller) {
+    if(controller.queues.isEmpty) return SizedBox();
     return Row(// * : Queue Dialog
       children: [
         Expanded(
@@ -256,30 +261,33 @@ class QueueView extends StatelessWidget {
   }
 
   Obx _shuffleButton(QueueDetailController controller, AudioManager audioManager) {
-    return Obx(() => AnimatedSlide(
-      offset: (controller.showFab.value) ? Offset.zero : Offset(0, 2),
-      duration: Duration(milliseconds: 300),
-      child: AnimatedOpacity(
-        duration: Duration(milliseconds: 300),
-        opacity: (controller.showFab.value) ? 1 : 0,
-        child: ValueListenableBuilder(
-          valueListenable: audioManager.currentSongNotifier,
-          builder: (context, currentSong, _) {
-            return Padding(
-              padding: EdgeInsets.only(bottom: (currentSong == null) ? 0 : 80),
-              child: FloatingActionButton(
-                onPressed: () {
-                  playSongs(controller.selectedQueue.value.songs!, index: 0, shuffle: true);
-                  controller.playlingQueue.value = controller.selectedQueue.value;
-                },
-                shape: CircleBorder(), backgroundColor: Theme.of(context).cardColor,
-                child: Iconify(Wpf.shuffle, color: Get.find<SettingsController>().getAccent,),
-              ),
-            );
-          }
-        ),
-      ),
-    ));
+    return Obx(() => (controller.queues.isNotEmpty)
+        ? AnimatedSlide(
+          offset: (controller.showFab.value) ? Offset.zero : Offset(0, 2),
+          duration: Duration(milliseconds: 300),
+          child: AnimatedOpacity(
+            duration: Duration(milliseconds: 300),
+            opacity: (controller.showFab.value) ? 1 : 0,
+            child: ValueListenableBuilder(
+              valueListenable: audioManager.currentSongNotifier,
+              builder: (context, currentSong, _) {
+                return Padding(
+                  padding: EdgeInsets.only(bottom: (currentSong == null) ? 0 : 80),
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      playSongs(controller.selectedQueue.value.songs!, index: 0, shuffle: true);
+                      controller.playlingQueue.value = controller.selectedQueue.value;
+                    },
+                    shape: CircleBorder(), backgroundColor: Theme.of(context).cardColor,
+                    child: Iconify(Wpf.shuffle, color: Get.find<SettingsController>().getAccent,),
+                  ),
+                );
+              }
+            ),
+          ),
+        )
+        : SizedBox()
+    );
   }
 }
 

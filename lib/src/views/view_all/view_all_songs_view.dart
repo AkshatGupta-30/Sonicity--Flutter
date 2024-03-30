@@ -1,4 +1,3 @@
-import 'package:audio_service/audio_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -201,11 +200,7 @@ class ViewAllSongsView extends StatelessWidget {
                       InkWell(// * : Shuffle Button
                         onTap: () {
                           playSongs(controller.songs, index: 0, shuffle: true);
-                          List<Song> s = [];
-                          for(MediaItem media in getIt<AudioManager>().playlistNotifier.value) {
-                            s.add(controller.songs[controller.songs.indexWhere((song) => song.id == media.id)]);
-                          }
-                          getIt<QueueDatabase>().autoQueue('Search - ${controller.searchText}', s);
+                          getIt<QueueDatabase>().autoQueue('Search - ${controller.searchText}', controller.songs);
                         },
                         borderRadius: BorderRadius.circular(100),
                         child: Container(

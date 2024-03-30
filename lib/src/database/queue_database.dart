@@ -45,7 +45,6 @@ class QueueDatabase {
         )
       '''
     );
-    createQueue('Queue_A', isFirst: true);
   }
 
   static const colSongId = 'song_id';
