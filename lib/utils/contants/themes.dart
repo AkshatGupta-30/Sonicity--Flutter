@@ -17,17 +17,15 @@ class MyTheme {
         return Iconify(MaterialSymbols.close_rounded, color: Colors.grey.shade200);
       },
       drawerButtonIconBuilder: (context) {
-        return IconButton(
-          onPressed: () => Get.find<NavigationController>().openDrawer(),
-          padding: EdgeInsets.zero,
-          icon: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
+        return GestureDetector(
+          onTap: () => Get.find<NavigationController>().openDrawer(),
+          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
         );
       },
       endDrawerButtonIconBuilder: (context) {
-        return IconButton(
-          onPressed: () => Get.find<NavigationController>().openDrawer(),
-          padding: EdgeInsets.zero,
-          icon: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
+        return GestureDetector(
+          onTap: () => Get.find<NavigationController>().openDrawer(),
+          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
         );
       },
     ),
@@ -141,17 +139,15 @@ class MyTheme {
         return Iconify(MaterialSymbols.close_rounded, color: Colors.grey.shade800);
       },
       drawerButtonIconBuilder: (context) {
-        return IconButton(
-          onPressed: () => Get.find<NavigationController>().openDrawer(),
-          padding: EdgeInsets.zero,
-          icon: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
+        return GestureDetector(
+          onTap: () => Get.find<NavigationController>().openDrawer(),
+          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
         );
       },
       endDrawerButtonIconBuilder: (context) {
-        return IconButton(
-          onPressed: () => Get.find<NavigationController>().openDrawer(),
-          padding: EdgeInsets.zero,
-          icon: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
+        return GestureDetector(
+          onTap: () => Get.find<NavigationController>().openDrawer(),
+          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
         );
       },
     ),

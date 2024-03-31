@@ -4,17 +4,17 @@ Sonicity is a Flutter-based mobile application that leverages the JioSaavn API t
 ----
 
 # Screenshots
-![Splash Screen]() 
-![Home Screen]() 
-![Mini Player]() 
-![Main Player]() 
-![Settings Screen]() 
-![Search Songs Screen]() 
-![Search Albums Screen]() 
-![Playlist Screen]() 
-![Queue Screen]() 
+![Splash Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/splashScreen.jpg) 
+![Home Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/homeScreen.jpg) 
+![Mini Player](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/miniPlayer.jpg) 
+![Main Player](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/mainPlayer.jpg) 
+![Settings Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/settingsScreen.jpg) 
+![Search Songs Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchSongScreen.jpg) 
+![Search Albums Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchAlbumScreen.jpg) 
+![Playlist Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/playlistScreen.jpg) 
+![Queue Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/queueScreen.jpg) 
 ![Stats Screen]() 
-![Lyrics Screen]()
+![Lyrics Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/lyricsScreen.jpg)
 ----
 
 <details>

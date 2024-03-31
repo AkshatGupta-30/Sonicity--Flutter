@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:audio_service/audio_service.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
@@ -84,62 +85,65 @@ class PlayerController extends GetxController {
       context: context, builder: (context, scrollController, bottomSheetOffset) => BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Obx(() {
-          return Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent, shadowColor: Colors.transparent,
-              centerTitle: true,
-              title: Text(
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Gap(10),
+              Text(
                 lyrics.value.snippet.title(), maxLines: 1, overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleLarge,
               ),
-              bottom: PreferredSize(
-                preferredSize: Size(double.maxFinite, 16),
-                child: Row(
-                  children: [
-                    Spacer(),
-                    IconButton(
-                      onPressed: () {
-                        Get.defaultDialog(
-                          backgroundColor: Colors.grey.shade800,
-                          title: "© Copyright",
-                          titleStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.cyan),
-                          content: SelectableText(
-                            lyrics.value.copyright, textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyMedium
+              Row(
+                children: [
+                  Spacer(),
+                  IconButton(
+                    onPressed: () {
+                      Get.defaultDialog(
+                        backgroundColor: Colors.grey.shade800,
+                        title: "© Copyright",
+                        titleStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.cyan),
+                        content: SelectableText(
+                          lyrics.value.copyright, textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyMedium
+                        )
+                      );
+                    },
+                    icon: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        children: <InlineSpan>[
+                          WidgetSpan(child: Iconify(Ic.twotone_copyright, color: Colors.cyan, size: 16)),
+                          TextSpan(
+                            text: " Copyright",
+                            style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Colors.cyan)
                           )
-                        );
-                      },
-                      icon: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: <InlineSpan>[
-                            WidgetSpan(child: Iconify(Ic.twotone_copyright, color: Colors.cyan, size: 16)),
-                            TextSpan(
-                              text: " Copyright",
-                              style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Colors.cyan)
-                            )
-                          ]
-                        ),
-                      )
-                    ),
-                    Gap(20)
-                  ],
-                ),
+                        ]
+                      ),
+                    )
+                  ),
+                  Gap(20)
+                ],
               ),
-            ),
-            body: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 21),
-              children: [
-                SelectableText.rich(
-                  textAlign: TextAlign.center,
-                  TextSpan(
-                    text: lyrics.value.lyrics.replaceAll('<br>', '\n').title(),
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SelectableText.rich(
+                          textAlign: TextAlign.center,
+                          TextSpan(
+                            text: lyrics.value.lyrics.replaceAll('<br>', '\n').title(),
+                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         }),
       ),
