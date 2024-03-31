@@ -1,5 +1,5 @@
 name: sonicity
-description: "A new Flutter project."
+description: "Sonicity is a Flutter-based mobile application that leverages the JioSaavn API to provide users with an immersive audio experience. The project is structured to offer a seamless and intuitive user interface, making it easy for users to navigate through different functionalities such as browsing, searching, and playing music tracks available via the JioSaavn API."
 publish_to: 'none'
 version: 0.1.0
 
