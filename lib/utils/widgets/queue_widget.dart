@@ -99,6 +99,18 @@ class QueueName extends StatelessWidget {
               : Gap(27),
           Text(queue.name.title(), style: theme.primaryTextTheme.bodyLarge,),
           Spacer(),
+          if(queue.name == controller.playingQueue.value.name) ...[
+            ValueListenableBuilder(
+              valueListenable: getIt<AudioManager>().playButtonNotifier,
+              builder: (context, state, _) {
+                return MiniMusicVisualizer(
+                  color: Get.find<SettingsController>().getAccent,
+                  animate: (state == ButtonState.playing),
+                );
+              }
+            ),
+            Gap(5),
+          ],
           Text('${queue.songCount} Songs', style: theme.primaryTextTheme.bodySmall,),
         ],
       ),
@@ -162,7 +174,7 @@ class AllQueues extends StatelessWidget {
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      if(queue.name == controller.playlingQueue.value.name) ...[
+                      if(queue.name == controller.playingQueue.value.name) ...[
                         ValueListenableBuilder(
                           valueListenable: getIt<AudioManager>().playButtonNotifier,
                           builder: (context, state, _) {

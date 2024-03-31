@@ -6,10 +6,10 @@ class Queue {
   final String name;
   final String songCount;
   final DateTime dateCreated;
-  bool isCurrent;
+  bool isCurrent, isPlaying;
   List<Song> ? songs;
 
-  Queue({required this.id, required this.name, required this.dateCreated, required this.songCount, required this.isCurrent, this.songs});
+  Queue({required this.id, required this.name, required this.dateCreated, required this.songCount, required this.isCurrent, required this.isPlaying, this.songs});
 
   factory Queue.fromDb(Map<String, dynamic> data) {
     return Queue(
@@ -17,11 +17,12 @@ class Queue {
       name: data[QueueDatabase.colName].toString().replaceAll('qpzm', ' - ').replaceAll('_', ' '),
       songCount: data[QueueDatabase.colSongCount].toString(),
       dateCreated: DateTime.parse(data[QueueDatabase.colDateCreated]),
-      isCurrent: (data[QueueDatabase.colCurrentQueue] == 0) ? false : true 
+      isCurrent: (data[QueueDatabase.colCurrentQueue] == 0) ? false : true,
+      isPlaying: (data[QueueDatabase.colPlayingQueue] == 0) ? false : true,
     );
   }
 
   factory Queue.empty() {
-    return Queue(id: '', name: '', dateCreated: DateTime.now(), songCount: '', isCurrent: false);
+    return Queue(id: '', name: '', dateCreated: DateTime.now(), songCount: '', isCurrent: false, isPlaying: false);
   }
 }

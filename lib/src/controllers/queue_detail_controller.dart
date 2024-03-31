@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/service_locator.dart';
+import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/utils/contants/constants.dart';
@@ -13,7 +14,7 @@ class QueueDetailController extends GetxController {
 
   final queues = <Queue>[].obs;
   final selectedQueue = Queue.empty().obs;
-  final playlingQueue = Queue.empty().obs;//TODO - set autoqueue be current playing queue
+  final playingQueue = Queue.empty().obs;//TODO - set autoqueue be current playing queue
   final currentSongIndex = 0.obs;
 
   final renameQueueTextController = TextEditingController();
@@ -24,15 +25,27 @@ class QueueDetailController extends GetxController {
   void onInit() {
     super.onInit();
     getAll();
+    getIt<AudioManager>().currentSongNotifier.addListener(() {
+      if(getIt<AudioManager>().currentSongNotifier.value == null) {
+        db.updatePlayingQueue(playingQueue.value.name, isPlaying: false).then((value) => getAll());
+      }
+    });
   }
 
   Future<void> getAll() async {
     queues.value = await db.queues;
     if(queues.isNotEmpty) setSelectedQueue(queues.singleWhere((queue) => queue.isCurrent));
+    if(queues.isNotEmpty) {
+      try {
+        playingQueue.value = (queues.singleWhere((queue) => queue.isPlaying));
+      } catch (e) {
+        playingQueue.value = Queue.empty();
+      }
+    }
   }
 
   void setSelectedQueue(Queue q) async {
-    queues.firstWhere((element) => element.isCurrent).isCurrent = false;
+    queues.firstWhere((queue) => queue.isCurrent).isCurrent = false;
     selectedQueue.value = q;
     selectedQueue.value.isCurrent = true;
     selectedQueue.value.songs = await db.getSongs(selectedQueue.value.name);

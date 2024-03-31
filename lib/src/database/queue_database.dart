@@ -32,6 +32,7 @@ class QueueDatabase {
   static const colSongCount = 'songCount';
   static const colSongIds = 'song_ids';
   static const colCurrentQueue = 'current_queue';
+  static const colPlayingQueue = 'playing_queue';
   Future _onCreate(Database db, int version) async {
     await db.execute(
       '''
@@ -41,7 +42,8 @@ class QueueDatabase {
           $colDateCreated TEXT NOT NULL,
           $colSongCount INTEGER NOT NULL,
           $colSongIds TEXT,
-          $colCurrentQueue INTEGER
+          $colCurrentQueue INTEGER, 
+          $colPlayingQueue INTEGER
         )
       '''
     );
@@ -66,7 +68,7 @@ class QueueDatabase {
   static const colDownload96kbps = 'download_96kbps';
   static const colDownload160kbps = 'download_160kbps';
   static const colDownload320kbps = 'download_320kbps';
-  Future createQueue(String queueName, {bool isCurrent = false, bool isFirst = false}) async {
+  Future createQueue(String queueName, {bool isCurrent = false, bool isPlaying = false}) async {
     Database db = await _instance.database;
     await db.execute(// * Create queue
       '''
@@ -103,6 +105,15 @@ class QueueDatabase {
         '''
       );
     }
+    if(isPlaying) {
+      await db.rawUpdate(
+        '''
+          UPDATE $tbQueueDetails 
+          SET $colPlayingQueue = 0 
+          WHERE $colPlayingQueue = 1
+        '''
+      );
+    }
     await db.insert(
       tbQueueDetails,
       {
@@ -110,7 +121,8 @@ class QueueDatabase {
         colDateCreated : DateTime.now().toIso8601String(),
         colSongCount : 0,
         colSongIds : "" ,
-        colCurrentQueue : (isFirst || isCurrent) ? 1 : 0
+        colCurrentQueue : (isCurrent) ? 1 : 0,
+        colPlayingQueue : (isPlaying) ? 1 : 0
       }
     );
   }
@@ -140,7 +152,7 @@ class QueueDatabase {
     if(await isQueuePresent(queueLabel)) {
       await deleteQueue(queueLabel);
     }
-    createQueue(queueLabel, isCurrent: true);
+    createQueue(queueLabel, isCurrent: true, isPlaying: true);
     for (Song song in songs) {
       await insertSong(queueLabel, song);
     }
@@ -278,6 +290,28 @@ class QueueDatabase {
     );
   }
 
+  Future<void> updatePlayingQueue(String queueName, {bool isPlaying = false}) async {
+    final db = await _instance.database;
+    queueName = queueTableName(queueName);
+    await db.rawUpdate(
+      '''
+        UPDATE $tbQueueDetails 
+        SET $colPlayingQueue = 0
+        WHERE $colPlayingQueue = 1
+      ''',
+    );
+    if(isPlaying) {
+      await db.rawUpdate(
+        '''
+          UPDATE $tbQueueDetails 
+          SET $colPlayingQueue = 1
+          WHERE $colName = ?
+        ''',
+        [queueName]
+      );
+    }
+  }
+
   Future<void> reorderSongs(String queueName, List<Song> newOrderedSongs) async {
     final db = await _instance.database;
     queueName = queueTableName(queueName);
@@ -313,5 +347,5 @@ class QueueDatabase {
     });
   }
 
-  String queueTableName(String queueName) => queueName.replaceAll(' - ', 'qpzm').replaceAll(' ', '_');
+  String queueTableName(String queueName) => queueName.replaceAll(' - ', 'qpzm').replaceAll(' ', '_').replaceAll('.', '');
 }

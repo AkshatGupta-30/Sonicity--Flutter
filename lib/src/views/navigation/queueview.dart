@@ -110,7 +110,7 @@ class QueueView extends StatelessWidget {
           IconButton(
             onPressed: () {
               playSongs(controller.selectedQueue.value.songs!, index: 0);
-              controller.playlingQueue.value = controller.selectedQueue.value;
+              controller.playingQueue.value = controller.selectedQueue.value;
             },
             icon: Iconify(Ic.baseline_play_arrow, size: 30,)
           ),
@@ -207,7 +207,7 @@ class QueueView extends StatelessWidget {
                       direction: (index == queueStateIndex) ? DismissDirection.none : DismissDirection.horizontal,
                       onDismissed: (direction) {
                         audioManager.removeQueueItemAt(index);
-                        controller.playlingQueue.value.songs!.removeAt(index);
+                        controller.playingQueue.value.songs!.removeAt(index);
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -215,7 +215,7 @@ class QueueView extends StatelessWidget {
                             color: (
                               currentSong != null && 
                               song.id == currentSong.id && 
-                              controller.selectedQueue.value.name == controller.playlingQueue.value.name
+                              controller.selectedQueue.value.name == controller.playingQueue.value.name
                             ) ? Get.find<SettingsController>().getAccent : Colors.transparent
                           ),
                           borderRadius: BorderRadius.circular(12)
@@ -283,7 +283,7 @@ class QueueView extends StatelessWidget {
                   child: FloatingActionButton(
                     onPressed: () {
                       playSongs(controller.selectedQueue.value.songs!, index: 0, shuffle: true);
-                      controller.playlingQueue.value = controller.selectedQueue.value;
+                      controller.playingQueue.value = controller.selectedQueue.value;
                     },
                     shape: CircleBorder(), backgroundColor: Theme.of(context).cardColor,
                     child: Iconify(Wpf.shuffle, color: Get.find<SettingsController>().getAccent,),
