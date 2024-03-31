@@ -4,28 +4,28 @@ Sonicity is a Flutter-based mobile application that leverages the JioSaavn API t
 ----
 
 # Screenshots
-- Splash Screen:
-![Splash Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/splashScreen.jpg "Splash Screen")  
-- Home Screen:
-![Home Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/homeScreen.jpg "Home Screen")  
-- Mini Player:
-![Mini Player](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/miniPlayer.jpg "Mini Player")  
-- Main Player:
-![Main Player](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/mainPlayer.jpg "Main Player")  
-- Settings Screen:
-![Settings Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/settingsScreen.jpg "Settings Screen")  
-- Search Songs Screen:
-![Search Songs Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchSongScreen.jpg "Search Songs Screen")  
-- Search Albums Screen:
-![Search Albums Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchAlbumScreen.jpg "Search Albums Screen")  
-- Playlist Screen:
-![Playlist Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/playlistScreen.jpg "Playlist Screen")  
-- Queue Screen:
-![Queue Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/queueScreen.jpg "Queue Screen")  
+- Splash Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/splashScreen.jpg" alt="Splash Screen" height="300">
+
+- Home Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/homeScreen.jpg" alt="Home Screen" height="300">
+
+- Mini Player: ![Mini Player](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/miniPlayer.jpg "Mini Player")  
+
+- Main Player: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/mainPlayer.jpg" alt="Main Player" height="300">
+
+- Settings Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/settingsScreen.jpg" alt="Settings Screen" height="300">
+
+- Search Songs Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchSongScreen.jpg" alt="Search Songs Screen" height="300">
+
+- Search Albums Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchAlbumScreen.jpg" alt="Search Albums Screen" height="300">
+
+- Playlist Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/playlistScreen.jpg" alt="Playlist Screen" height="300">
+
+- Queue Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/queueScreen.jpg" alt="Queue Screen" height="300">
+
 - Stats Screen:
-![Stats Screen]( "Stats Screen")  
-- Lyrics Screen:
-![Lyrics Screen](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/lyricsScreen.jpg "Lyrics Screen") 
+<!-- No image provided for Stats Screen -->
+
+- Lyrics Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/lyricsScreen.jpg" alt="Lyrics Screen" height="300">
 ----
 
 <details>
