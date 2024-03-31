@@ -4,28 +4,38 @@ Sonicity is a Flutter-based mobile application that leverages the JioSaavn API t
 ----
 
 # Screenshots
-- Splash Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/splashScreen.jpg" alt="Splash Screen" height="300">
+- Splash Screen:
+<img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/splashScreen.jpg" alt="Splash Screen" height="300">
 
-- Home Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/homeScreen.jpg" alt="Home Screen" height="300">
+- Home Screen:
+<img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/homeScreen.jpg" alt="Home Screen" height="300">
 
-- Mini Player: ![Mini Player](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/miniPlayer.jpg "Mini Player")  
+- Mini Player:
+![Mini Player](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/miniPlayer.jpg "Mini Player")  
 
-- Main Player: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/mainPlayer.jpg" alt="Main Player" height="300">
+- Main Player:
+<img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/mainPlayer.jpg" alt="Main Player" height="300">
 
-- Settings Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/settingsScreen.jpg" alt="Settings Screen" height="300">
+- Settings Screen:
+<img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/settingsScreen.jpg" alt="Settings Screen" height="300">
 
-- Search Songs Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchSongScreen.jpg" alt="Search Songs Screen" height="300">
+- Search Songs Screen:
+<img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchSongScreen.jpg" alt="Search Songs Screen" height="300">
 
-- Search Albums Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchAlbumScreen.jpg" alt="Search Albums Screen" height="300">
+- Search Albums Screen:
+<img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchAlbumScreen.jpg" alt="Search Albums Screen" height="300">
 
-- Playlist Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/playlistScreen.jpg" alt="Playlist Screen" height="300">
+- Playlist Screen:
+<img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/playlistScreen.jpg" alt="Playlist Screen" height="300">
 
-- Queue Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/queueScreen.jpg" alt="Queue Screen" height="300">
+- Queue Screen:
+<img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/queueScreen.jpg" alt="Queue Screen" height="300">
 
 - Stats Screen:
 <!-- No image provided for Stats Screen -->
 
-- Lyrics Screen: <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/lyricsScreen.jpg" alt="Lyrics Screen" height="300">
+- Lyrics Screen:
+<img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/lyricsScreen.jpg" alt="Lyrics Screen" height="300">
 ----
 
 <details>
