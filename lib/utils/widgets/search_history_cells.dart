@@ -21,9 +21,10 @@ class SearchHistoryCell extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            GestureDetector(
-              onTap: onTap,
-              child: Text(
+            IconButton(
+              onPressed: onTap,
+              padding: EdgeInsets.zero,
+              icon: Text(
                 itemText,
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
@@ -31,9 +32,10 @@ class SearchHistoryCell extends StatelessWidget {
               ),
             ),
             Gap(8),
-            GestureDetector(
-              onTap: onRemove,
-              child: Iconify(Ri.close_circle_fill, size: 20,),
+            IconButton(
+              onPressed: onRemove,
+              padding: EdgeInsets.zero,
+              icon: Iconify(Ri.close_circle_fill, size: 20,),
             )
           ],
         ),

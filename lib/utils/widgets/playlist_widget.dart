@@ -19,12 +19,9 @@ class PlaylistCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
+        Get.to(() => PlaylistDetailsView(), arguments: playlist.id);
         RecentsDatabase recents = getIt<RecentsDatabase>();
         await recents.insertPlaylist(playlist);
-        Get.to(
-          () => PlaylistDetailsView(),
-          arguments: playlist.id
-        );
       },
       child: Container(
         width: 140,

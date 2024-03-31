@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:audio_service/audio_service.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:perfect_volume_control/perfect_volume_control.dart';
@@ -94,8 +95,8 @@ class PlayerController extends GetxController {
                 child: Row(
                   children: [
                     Spacer(),
-                    GestureDetector(
-                      onTap: () {
+                    IconButton(
+                      onPressed: () {
                         Get.defaultDialog(
                           backgroundColor: Colors.grey.shade800,
                           title: "© Copyright",
@@ -106,7 +107,7 @@ class PlayerController extends GetxController {
                           )
                         );
                       },
-                      child: RichText(
+                      icon: RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           children: <InlineSpan>[
@@ -119,6 +120,7 @@ class PlayerController extends GetxController {
                         ),
                       )
                     ),
+                    Gap(20)
                   ],
                 ),
               ),

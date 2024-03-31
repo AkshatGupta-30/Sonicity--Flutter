@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/views/library/library_view.dart';
 import 'package:sonicity/utils/sections/sections.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
@@ -35,7 +36,7 @@ class HomeView extends StatelessWidget{
       leading: DrawerButton().build(context),
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () => Get.to(() => StarredView()),
           padding: EdgeInsets.zero,
           icon: Iconify(
             Uis.favorite, size: 30,

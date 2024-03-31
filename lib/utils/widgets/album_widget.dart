@@ -23,12 +23,9 @@ class AlbumCard extends StatelessWidget {
       builder: (controller) {
         return GestureDetector(
           onTap: () async {
+            Get.to(() => AlbumDetailsView(), arguments: album.id);
             RecentsDatabase recents = getIt<RecentsDatabase>();
             await recents.insertAlbum(album);
-            Get.to(
-              () => AlbumDetailsView(),
-              arguments: album.id
-            );
           },
           child: Container(
             width: media.width/1.25, height: media.width/1.25,
@@ -112,12 +109,9 @@ class AlbumCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
+        Get.to(() => AlbumDetailsView(), arguments: album.id);
         RecentsDatabase recents = getIt<RecentsDatabase>();
         await recents.insertAlbum(album);
-        Get.to(
-          () => AlbumDetailsView(),
-          arguments: album.id
-        );
       },
       child: Container(
         width: 140,

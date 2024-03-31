@@ -67,11 +67,10 @@ class ArtistCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Get.to(
-          () => ArtistDetailsView(),
-          arguments: artist.id
-        );
+      onTap: () async {
+        Get.to(() => ArtistDetailsView(), arguments: artist.id);
+        RecentsDatabase recents = getIt<RecentsDatabase>();
+        await recents.insertArtist(artist);
       },
       child: Container(
         width: 160,

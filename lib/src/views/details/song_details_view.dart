@@ -225,31 +225,32 @@ class SongDetailsView extends StatelessWidget {
                 Row(
                   children: [
                     Spacer(),
-                    GestureDetector(
-                      onTap: () {
+                    IconButton(
+                      onPressed: () {
                         Get.defaultDialog(
                           backgroundColor: Colors.grey.shade800,
                           title: "© Copyright",
-                          titleStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.blue),
+                          titleStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.cyan),
                           content: SelectableText(
                             controller.lyrics.value.copyright, textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyMedium
                           )
                         );
                       },
-                      child: RichText(
+                      icon: RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           children: <InlineSpan>[
-                            WidgetSpan(child: Iconify(Ic.twotone_copyright, color: Colors.blue, size: 27)),
+                            WidgetSpan(child: Iconify(Ic.twotone_copyright, color: Colors.cyan, size: 16)),
                             TextSpan(
                               text: " Copyright",
-                              style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.blue)
+                              style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Colors.cyan)
                             )
                           ]
                         ),
                       )
                     ),
+                    Gap(20)
                   ],
                 ),
                 SelectableText.rich(

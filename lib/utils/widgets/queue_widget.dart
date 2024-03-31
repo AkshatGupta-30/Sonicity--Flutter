@@ -44,9 +44,10 @@ class NewQueueDialog extends StatelessWidget {
           },
         ),
         actions: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Container(
+          IconButton(
+            onPressed: () => Navigator.pop(context),
+            padding: EdgeInsets.zero,
+            icon: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.5),
@@ -55,12 +56,13 @@ class NewQueueDialog extends StatelessWidget {
               child: Text("Cancel", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
             ),
           ),
-          GestureDetector(
-            onTap: () {
+          IconButton(
+            onPressed: () {
               Navigator.pop(context);
               controller.createQueue();
             },
-            child: Container(
+            padding: EdgeInsets.zero,
+            icon: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: settings.getAccent,
@@ -249,9 +251,10 @@ class RenameQueueDialog extends StatelessWidget {
         },
       ),
       actions: [
-        GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Container(
+        IconButton(
+          onPressed: () => Navigator.pop(context),
+          padding: EdgeInsets.zero,
+          icon: Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
               color: Colors.grey.withOpacity(0.5),
@@ -260,12 +263,13 @@ class RenameQueueDialog extends StatelessWidget {
             child: Text("Cancel", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
           ),
         ),
-        GestureDetector(
-          onTap: () {
+        IconButton(
+          onPressed: () {
             Navigator.pop(context);
             controller.renameQueue(queue);
           },
-          child: Container(
+          padding: EdgeInsets.zero,
+          icon: Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
               color: settings.getAccent,
@@ -297,9 +301,10 @@ class RemoveQueueDialog extends StatelessWidget {
       titleTextStyle: theme.textTheme.labelLarge,
       content: Text('Are you sure you want to delete `${queue.name}`'),
       actions: [
-        GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Container(
+        IconButton(
+          onPressed: () => Navigator.pop(context),
+          padding: EdgeInsets.zero,
+          icon: Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
               color: Colors.grey.withOpacity(0.5),
@@ -308,12 +313,13 @@ class RemoveQueueDialog extends StatelessWidget {
             child: Text("Cancel", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
           ),
         ),
-        GestureDetector(
-          onTap: () {
+        IconButton(
+          onPressed: () {
             Navigator.pop(context);
             controller.deleteQueue(queue);
           },
-          child: Container(
+          padding: EdgeInsets.zero,
+          icon: Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
               color: settings.getAccent,

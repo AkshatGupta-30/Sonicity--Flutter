@@ -253,9 +253,10 @@ class NewPlaylistDialog extends StatelessWidget {
           },
         ),
         actions: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Container(
+          IconButton(
+            onPressed: () => Navigator.pop(context),
+            padding: EdgeInsets.zero,
+            icon: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.5),
@@ -264,12 +265,13 @@ class NewPlaylistDialog extends StatelessWidget {
               child: Text("Cancel", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
             ),
           ),
-          GestureDetector(
-            onTap: () {
+          IconButton(
+            onPressed: () {
               Navigator.pop(context);
               controller.createPlaylist();
             },
-            child: Container(
+            padding: EdgeInsets.zero,
+            icon: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: controller.settings.getAccent,
@@ -319,9 +321,10 @@ class RenamePlaylistDialog extends StatelessWidget {
           },
         ),
         actions: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Container(
+          IconButton(
+            onPressed: () => Navigator.pop(context),
+            padding: EdgeInsets.zero,
+            icon: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.5),
@@ -330,12 +333,13 @@ class RenamePlaylistDialog extends StatelessWidget {
               child: Text("Cancel", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
             ),
           ),
-          GestureDetector(
-            onTap: () {
+          IconButton(
+            onPressed: () {
               Navigator.pop(context);
               controller.renamePlaylist(playlistName);
             },
-            child: Container(
+            padding: EdgeInsets.zero,
+            icon: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: controller.settings.getAccent,
