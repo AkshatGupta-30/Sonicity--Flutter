@@ -323,71 +323,12 @@ class SongPopUpMenu extends StatelessWidget {
   }
 
   void _addToPlaylistDialog(BuildContext context) {
-    ThemeData theme = Theme.of(context);
     showDialog(
       context: context,
-      barrierColor: Colors.black.withOpacity(0.5),
       builder: (context) {
         return Dialog(
           backgroundColor: Colors.transparent, surfaceTintColor: Colors.transparent,
-          child: SizedBox(
-            height: 675,
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                SizedBox(
-                  height: 675,
-                  child: Column(
-                    children: [
-                      Spacer(),
-                      SizedBox(
-                        height: 650,
-                        child: AddToPlaylistDialog(song)
-                      ),
-                    ],
-                  ),
-                ),
-                Material(
-                  elevation: 5, borderRadius: BorderRadius.circular(12),
-                  shadowColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
-                  color: (theme.brightness == Brightness.light) ? Colors.white : Colors.black,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: BackgroundGradientDecorator(
-                      height: 80,
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                        child: ListTile(
-                          leading: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: CachedNetworkImage(
-                              imageUrl: song.image.medQuality,
-                              height: 50, width: 50, fit: BoxFit.fill,
-                              errorWidget: (context, url, error) {
-                                return Image.asset(
-                                  "assets/images/songCover/songCover150x150.jpg",
-                                  fit: BoxFit.fill, width: 50, height: 50
-                                );
-                              },
-                              placeholder: (context, url) {
-                                return Image.asset(
-                                  "assets/images/songCover/songCover150x150.jpg",
-                                  fit: BoxFit.fill, width: 50, height: 50
-                                );
-                              },
-                            ),
-                          ),
-                          title: Text(song.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: theme.textTheme.bodyLarge,),
-                          subtitle: Text(song.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis, style: theme.textTheme.bodySmall,),
-                        ),
-                      )
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
+          child: AddToPlaylistDialog(song),
         );
       }
     );
