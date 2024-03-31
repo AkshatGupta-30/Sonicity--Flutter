@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/views/drawer/drawer_view.dart';
+import 'package:sonicity/src/views/library/all_playlists_view.dart';
 import 'package:sonicity/src/views/navigation/navigation.dart';
 import 'package:sonicity/src/views/navigation/queueview.dart';
 import 'package:sonicity/src/views/player/player_view.dart';
@@ -78,22 +79,26 @@ class NavigationView extends StatelessWidget {
             children: [
               DrawerHeader(child: Center(child: Text("Sonicity", style: Theme.of(context).textTheme.displayLarge))),
               ListTile(
-                onTap: () => controller.closeDrawer(),
-                leading: Obx(() => Iconify(Ion.home_outline, color: Get.find<SettingsController>().getAccent)),
-                title: Obx(() => Text("Home", style: TextStyle(color: Get.find<SettingsController>().getAccent))),
+                onTap: () {
+                  controller.closeDrawer();
+                  if(controller.tabController.index != 1) controller.tabController.animateTo(1);
+                },
+                leading: Iconify(Ion.home_outline, color: (controller.tabController.index == 1) ? Get.find<SettingsController>().getAccent : null),
+                title: Text("Home", style: TextStyle(color: (controller.tabController.index == 1) ? Get.find<SettingsController>().getAccent : null)),
               ),
               ListTile(
-                onTap: () => controller.closeDrawer(),
-                leading: Iconify(IconParkTwotone.folder_music,),
-                title: Text("My Music"),
+                onTap: () {
+                  controller.closeDrawer();
+                  if(controller.tabController.index != 2) controller.tabController.animateTo(2);
+                },
+                leading: Iconify(IconParkTwotone.folder_music, color: (controller.tabController.index == 2) ? Get.find<SettingsController>().getAccent : null),
+                title: Text("Library", style: TextStyle(color: (controller.tabController.index == 2) ? Get.find<SettingsController>().getAccent : null),),
               ),
               ListTile(
-                onTap: () => controller.closeDrawer(),
-                leading: Iconify(Codicon.repo_clone,),
-                title: Text("Cloned"),
-              ),
-              ListTile(
-                onTap: () => controller.closeDrawer(),
+                onTap: () {
+                  controller.closeDrawer();
+                  Get.to(() => AllPlaylistsView());
+                },
                 leading: Iconify(Ic.sharp_playlist_play,),
                 title: Text("Playlists"),
               ),

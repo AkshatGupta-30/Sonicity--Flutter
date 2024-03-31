@@ -59,6 +59,7 @@ class QueueView extends StatelessWidget {
     if(controller.queues.isEmpty) return SizedBox();
     return Row(// * : Queue Dialog
       children: [
+        DrawerButton().build(context),
         Expanded(
           child: IconButton(
             onPressed: () => showDialog(
