@@ -124,4 +124,9 @@ class QueueDetailController extends GetxController {
     }
     currentSongIndex.value = selectedQueue.value.songs!.indexWhere((song) => (currentSong.id == song.id)) + 1;
   }
+
+  void removeSong(Song song) {
+    selectedQueue.value.songs!.remove(song);
+    db.deleteSong(selectedQueue.value.name, song);
+  }
 }
