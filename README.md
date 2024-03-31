@@ -36,6 +36,7 @@ Sonicity is a Flutter-based mobile application that leverages the JioSaavn API t
 
 - Lyrics Screen:
 <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/lyricsScreen.jpg" alt="Lyrics Screen" height="300">
+
 ----
 
 <details>
