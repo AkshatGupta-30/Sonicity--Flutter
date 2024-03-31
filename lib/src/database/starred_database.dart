@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sqflite/sqflite.dart';
 
 class StarredDatabase {

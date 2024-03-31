@@ -7,16 +7,19 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:perfect_volume_control/perfect_volume_control.dart';
-import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/src/services/services.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:super_string/super_string.dart';
 
 class PlayerController extends GetxController {
   final audioManager = getIt<AudioManager>();
+  final starDb = getIt<StarredDatabase>();
+  final cloneDb = getIt<ClonedDatabase>();
+  final recentsDb = getIt<RecentsDatabase>();
 
   final volume = 0.0.obs;
 
@@ -43,8 +46,8 @@ class PlayerController extends GetxController {
   }
 
   Future<void> checkCloneAndStar() async {
-    isStarred.value = await getIt<StarredDatabase>().isPresent(currentSong.value);
-    isCloned.value = await getIt<ClonedDatabase>().isPresent(currentSong.value);
+    isStarred.value = await starDb.isPresent(currentSong.value);
+    isCloned.value = await cloneDb.isPresent(currentSong.value);
     update();
   }
 
@@ -54,21 +57,21 @@ class PlayerController extends GetxController {
       currentSong.value = Song.fromMediaItem(currentMediaItem);
       lyrics.value = await LyricsApi.fetch(currentSong.value);
       await checkCloneAndStar();
-      getIt<RecentsDatabase>().insertSong(currentSong.value);
+      recentsDb.insertSong(currentSong.value);
       getAlbum();
       update();
     }
   }
 
   void toggleStarred() async {
-    if(!isStarred.value) await getIt<StarredDatabase>().starred(currentSong.value);
-    else await getIt<StarredDatabase>().deleteStarred(currentSong.value);
+    if(!isStarred.value) await starDb.starred(currentSong.value);
+    else await starDb.deleteStarred(currentSong.value);
     await checkCloneAndStar();
   }
 
   void toggleClone() async {
-    if(!isCloned.value) await getIt<ClonedDatabase>().clone(currentSong.value);
-    else await getIt<ClonedDatabase>().deleteClone(currentSong.value);
+    if(!isCloned.value) await cloneDb.clone(currentSong.value);
+    else await cloneDb.deleteClone(currentSong.value);
     await checkCloneAndStar();
   }
 

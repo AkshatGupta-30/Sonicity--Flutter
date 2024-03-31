@@ -13,10 +13,10 @@ import 'package:iconify_flutter/iconify.dart';
 import 'package:interactive_slider/interactive_slider.dart';
 import 'package:perfect_volume_control/perfect_volume_control.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/views/details/details_view.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 // TODO - Adjust View with theme (Dark , light)
 class MainPlayerView extends StatelessWidget {
@@ -131,11 +131,11 @@ class MainPlayerView extends StatelessWidget {
         ),
         ValueListenableBuilder(
           valueListenable: audioManager.progressNotifier,
-          builder: (context, valueState, _) {
+          builder: (context, state, _) {
             double? dragValue;
             bool dragging = false;
 
-            final value = min(valueState.current.inMilliseconds.toDouble(), valueState.total.inMilliseconds.toDouble());
+            final value = min(state.current.inMilliseconds.toDouble(), state.total.inMilliseconds.toDouble());
             // ignore: dead_code, unnecessary_null_comparison
             if(dragValue != null && dragging) dragValue = null;
             return Container( // * : Slider
@@ -160,7 +160,7 @@ class MainPlayerView extends StatelessWidget {
                   infoProperties: InfoProperties(mainLabelStyle: TextStyle(color: Colors.transparent)),
                 ),
                 min: 0, initialValue: value,
-                max: max(valueState.current.inMilliseconds.toDouble(), valueState.total.inMilliseconds.toDouble()),
+                max: max(state.current.inMilliseconds.toDouble(), state.total.inMilliseconds.toDouble()),
                 onChangeStart: (startValue) {
                   if(!dragging) return;
                   dragValue = startValue;
@@ -423,9 +423,9 @@ class MainPlayerView extends StatelessWidget {
                       valueListenable: audioManager.currentSongNotifier,
                       builder: (context, currentSong, _) {
                         return GestureDetector(
-                          onTap: () => (media.id == getIt<AudioManager>().currentSongNotifier.value!.id) 
+                          onTap: () => (media.id == audioManager.currentSongNotifier.value!.id) 
                               ? null
-                              : getIt<AudioManager>().skipToQueueItem(index),
+                              : audioManager.skipToQueueItem(index),
                           child: Container(
                             width: 45, height: 45,
                             padding: EdgeInsets.all(2), margin: EdgeInsets.all(2),

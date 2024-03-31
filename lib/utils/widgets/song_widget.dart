@@ -5,12 +5,12 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/src/views/details/details_view.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sonicity/utils/sections/sections.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
@@ -208,13 +208,15 @@ class MediaItemTile extends StatelessWidget {
   final int index, queueStateIndex;
   MediaItemTile(this.song, {super.key, required this.index, required this.queueStateIndex});
 
+  final audioManager = getIt<AudioManager>();
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: getIt<AudioManager>().currentSongNotifier,
+      valueListenable: audioManager.currentSongNotifier,
       builder: (context, mediaItem, _) {
         return ListTile(
-          onTap: () => (mediaItem.id == song.id) ? null : getIt<AudioManager>().skipToQueueItem(index),
+          onTap: () => (mediaItem.id == song.id) ? null : audioManager.skipToQueueItem(index),
           tileColor: (mediaItem!.id != song.id) 
               ? null
               : (Theme.of(context).brightness == Brightness.light)
@@ -244,21 +246,21 @@ class MediaItemTile extends StatelessWidget {
           title: Text(song.title, maxLines: 1, overflow: TextOverflow.ellipsis,),
           subtitle: Text(song.displaySubtitle.toString(), maxLines: 1, overflow: TextOverflow.ellipsis,),
           trailing: (index == queueStateIndex)
-          ? ValueListenableBuilder(
-            valueListenable: getIt<AudioManager>().playButtonNotifier,
-            builder: (context, state , _) {
-              return Lottie.asset(
-                'assets/lottie/speaker.json', animate: (state == ButtonState.playing),
-                fit: BoxFit.cover,
-              );
-            }
-          )
-          : ReorderableDragStartListener(
-            key: Key(song.id),
-            index: index,
-            enabled: index != queueStateIndex,
-            child: Icon(Icons.drag_handle_rounded, color: Colors.white, size: 30,),
-          ),
+              ? ValueListenableBuilder(
+                valueListenable: audioManager.playButtonNotifier,
+                builder: (context, state , _) {
+                  return Lottie.asset(
+                    'assets/lottie/speaker.json', animate: (state == ButtonState.playing),
+                    fit: BoxFit.cover,
+                  );
+                }
+              )
+              : ReorderableDragStartListener(
+                key: Key(song.id),
+                index: index,
+                enabled: index != queueStateIndex,
+                child: Icon(Icons.drag_handle_rounded, color: Colors.white, size: 30,),
+              ),
         );
       }
     );

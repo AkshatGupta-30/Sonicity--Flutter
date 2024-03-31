@@ -3,10 +3,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:mini_music_visualizer/mini_music_visualizer.dart';
-import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 import 'package:super_string/super_string.dart';
 
@@ -83,6 +83,8 @@ class QueueName extends StatelessWidget {
   final int index;
   QueueName(this.queue, this.controller, {super.key, required this.index,});
 
+  final audioManager = getIt<AudioManager>();
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -103,7 +105,7 @@ class QueueName extends StatelessWidget {
           Spacer(),
           if(queue.name == controller.playingQueue.value.name) ...[
             ValueListenableBuilder(
-              valueListenable: getIt<AudioManager>().playButtonNotifier,
+              valueListenable: audioManager.playButtonNotifier,
               builder: (context, state, _) {
                 return MiniMusicVisualizer(
                   color: Get.find<SettingsController>().getAccent,
@@ -123,6 +125,8 @@ class QueueName extends StatelessWidget {
 class AllQueues extends StatelessWidget {
   final QueueDetailController controller;
   AllQueues(this.controller, {super.key,});
+
+  final audioManager = getIt<AudioManager>();
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +182,7 @@ class AllQueues extends StatelessWidget {
                     children: [
                       if(queue.name == controller.playingQueue.value.name) ...[
                         ValueListenableBuilder(
-                          valueListenable: getIt<AudioManager>().playButtonNotifier,
+                          valueListenable: audioManager.playButtonNotifier,
                           builder: (context, state, _) {
                             return MiniMusicVisualizer(
                               color: Get.find<SettingsController>().getAccent,

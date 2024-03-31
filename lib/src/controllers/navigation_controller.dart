@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 
 class NavigationController extends GetxController with GetSingleTickerProviderStateMixin {
   var scaffoldKey = GlobalKey<ScaffoldState>();

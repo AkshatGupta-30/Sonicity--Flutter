@@ -2,11 +2,11 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/views/navigation_view.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 
 class SplashViewController extends GetxController with GetSingleTickerProviderStateMixin {
   late AnimationController _controller;

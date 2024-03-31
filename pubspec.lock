@@ -918,6 +918,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.7.4"
+  readme_helper:
+    dependency: "direct main"
+    description:
+      name: readme_helper
+      sha256: "43ae1dc579faae4cc91ff977c3f7c3d601ffdd0aba1c26b64043e99295100f55"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   rename:
     dependency: "direct main"
     description:

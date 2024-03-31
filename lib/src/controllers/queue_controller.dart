@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 
 class QueueController extends GetxController {
   final Song song;
   QueueController(this.song);
 
+  final audioManager = getIt<AudioManager>();
   final db = getIt<QueueDatabase>();
   SettingsController settings = Get.find<SettingsController>();
+  
   final playingQueue = Queue.empty().obs;
   final queues = <Queue>[].obs;
   final isSongPresent = <bool>[].obs;
@@ -37,8 +39,8 @@ class QueueController extends GetxController {
     await getQueueCount();
     await checkSongPresent();
     await getQueues();
-    getIt<AudioManager>().currentSongNotifier.addListener(() {
-      if(getIt<AudioManager>().currentSongNotifier.value == null) {
+    audioManager.currentSongNotifier.addListener(() {
+      if(audioManager.currentSongNotifier.value == null) {
         db.updatePlayingQueue(playingQueue.value.name, isPlaying: false).then((value) => initMethods());
       }
     });

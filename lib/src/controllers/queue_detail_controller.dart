@@ -2,7 +2,6 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:sonicity/service_locator.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
@@ -11,6 +10,7 @@ import 'package:sonicity/utils/contants/constants.dart';
 class QueueDetailController extends GetxController {
   final showFab = true.obs;
   final db = getIt<QueueDatabase>();
+  final audioManager = getIt<AudioManager>();
 
   final queues = <Queue>[].obs;
   final selectedQueue = Queue.empty().obs;
@@ -25,8 +25,8 @@ class QueueDetailController extends GetxController {
   void onInit() {
     super.onInit();
     getAll();
-    getIt<AudioManager>().currentSongNotifier.addListener(() {
-      if(getIt<AudioManager>().currentSongNotifier.value == null) {
+    audioManager.currentSongNotifier.addListener(() {
+      if(audioManager.currentSongNotifier.value == null) {
         db.updatePlayingQueue(playingQueue.value.name, isPlaying: false).then((value) => getAll());
       }
     });
