@@ -64,93 +64,8 @@ class MiniPlayerView extends StatelessWidget {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                ValueListenableBuilder<ProgressBarState>(
-                                  valueListenable: audioManager.progressNotifier,
-                                  builder: (context, value, _) {
-                                    final position = value.current;
-                                    final total = value.total;
-                                    if(position.inSeconds.toDouble() < 0.0 || position.inSeconds.toDouble() > total.inSeconds.toDouble()) return SizedBox();
-                                    return SliderTheme(
-                                      data: SliderThemeData(
-                                        activeTrackColor: Get.find<SettingsController>().getAccent,
-                                        inactiveTrackColor: Colors.grey, trackHeight: 5,
-                                        thumbColor: Get.find<SettingsController>().getAccent,
-                                        thumbShape:  RoundSliderOverlayShape(overlayRadius: 2.5),
-                                        overlayColor: Colors.transparent, overlayShape: RoundSliderOverlayShape(overlayRadius: 2.5)
-                                      ),
-                                      child: Center(
-                                        child: Slider(
-                                          min: 0,
-                                          value: position.inSeconds.toDouble(),
-                                          max: total.inSeconds.toDouble(),
-                                          onChanged: (newPosition) => audioManager.seek(Duration(seconds: newPosition.round())),
-                                          inactiveColor: Colors.transparent,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                ),
-                                ListTile(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        opaque: false,
-                                        pageBuilder: (_,__,___) => MainPlayerView(),
-                                      )
-                                    );
-                                  },
-                                  leading: ClipRRect(// * : Song Artwork
-                                    borderRadius: BorderRadius.circular(6),
-                                    child: CachedNetworkImage(
-                                      imageUrl: mediaItem.artUri.toString(), fit: BoxFit.cover,
-                                      height: 50, width: 50,
-                                      errorWidget: (context, url, error) {
-                                        return Image.asset("assets/images/songCover/songCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
-                                      },
-                                      placeholder: (context, url) {
-                                        return Image.asset("assets/images/songCover/songCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
-                                      },
-                                    )
-                                  ),
-                                  title: Text(
-                                    mediaItem.title, maxLines: 1, overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-                                  ),
-                                  subtitle: Text(
-                                    mediaItem.displaySubtitle ?? '', maxLines: 1, overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(color: Colors.white, fontSize: 15),
-                                  ),
-                                  trailing: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Obx(() => IconButton(
-                                        onPressed: controller.toggleStarred,
-                                        padding: EdgeInsets.zero,
-                                        icon: Iconify(
-                                          (controller.isStarred.value) ? Uis.favorite : Uit.favorite, size: 30,
-                                          color: (controller.isStarred.value) ? Colors.yellowAccent : Colors.white
-                                        )
-                                      )),
-                                      Gap(5),
-                                      ValueListenableBuilder<ButtonState>(
-                                        valueListenable: audioManager.playButtonNotifier,
-                                        builder: (context, state, _) {
-                                          if(state == ButtonState.loading) {
-                                            return CircularProgressIndicator(color: Get.find<SettingsController>().getAccent);
-                                          } else {
-                                            return IconButton(
-                                              onPressed: (state == ButtonState.playing) ? audioManager.pause : audioManager.play,
-                                              padding: EdgeInsets.zero,
-                                              icon: Iconify((state == ButtonState.playing) ? Ic.round_pause : Ic.round_play_arrow, size: 36,)
-                                            );
-                                          }
-                                        }
-                                      ),
-                                      Gap(5),
-                                    ],
-                                  ),
-                                ),
+                                _progressSlider(audioManager),
+                                _songTile(context, mediaItem, audioManager),
                               ],
                             ),
                           ),
@@ -165,5 +80,99 @@ class MiniPlayerView extends StatelessWidget {
         }
       ),
     );
+  }
+
+  ValueListenableBuilder<ProgressBarState> _progressSlider(AudioManager audioManager) {
+    return ValueListenableBuilder<ProgressBarState>(
+      valueListenable: audioManager.progressNotifier,
+      builder: (context, value, _) {
+        final position = value.current;
+        final total = value.total;
+        if(position.inSeconds.toDouble() < 0.0 || position.inSeconds.toDouble() > total.inSeconds.toDouble()) return SizedBox();
+        return SliderTheme(
+          data: SliderThemeData(
+            activeTrackColor: Get.find<SettingsController>().getAccent,
+            inactiveTrackColor: Colors.grey, trackHeight: 5,
+            thumbColor: Get.find<SettingsController>().getAccent,
+            thumbShape:  RoundSliderOverlayShape(overlayRadius: 2.5),
+            overlayColor: Colors.transparent, overlayShape: RoundSliderOverlayShape(overlayRadius: 2.5)
+          ),
+          child: Center(
+            child: Slider(
+              min: 0,
+              value: position.inSeconds.toDouble(),
+              max: total.inSeconds.toDouble(),
+              onChanged: (newPosition) => audioManager.seek(Duration(seconds: newPosition.round())),
+              inactiveColor: Colors.transparent,
+            ),
+          ),
+        );
+      }
+    );
+  }
+
+  Obx _songTile(BuildContext context, MediaItem mediaItem, AudioManager audioManager) {
+    return Obx(() => ListTile(
+      dense: Get.find<SettingsController>().getDensePlayer,
+      onTap: () {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            opaque: false,
+            pageBuilder: (_,__,___) => MainPlayerView(),
+          )
+        );
+      },
+      leading: ClipRRect(// * : Song Artwork
+        borderRadius: BorderRadius.circular(6),
+        child: CachedNetworkImage(
+          imageUrl: mediaItem.artUri.toString(), fit: BoxFit.cover,
+          height: 50, width: 50,
+          errorWidget: (context, url, error) {
+            return Image.asset("assets/images/songCover/songCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
+          },
+          placeholder: (context, url) {
+            return Image.asset("assets/images/songCover/songCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
+          },
+        )
+      ),
+      title: Text(
+        mediaItem.title, maxLines: 1, overflow: TextOverflow.ellipsis,
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      subtitle: Text(
+        mediaItem.displaySubtitle ?? '', maxLines: 1, overflow: TextOverflow.ellipsis,
+        style: TextStyle(color: Colors.white, fontSize: 15),
+      ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Obx(() => IconButton(
+            onPressed: controller.toggleStarred,
+            padding: EdgeInsets.zero,
+            icon: Iconify(
+              (controller.isStarred.value) ? Uis.favorite : Uit.favorite, size: 30,
+              color: (controller.isStarred.value) ? Colors.yellowAccent : Colors.white
+            )
+          )),
+          Gap(5),
+          ValueListenableBuilder<ButtonState>(
+            valueListenable: audioManager.playButtonNotifier,
+            builder: (context, state, _) {
+              if(state == ButtonState.loading) {
+                return CircularProgressIndicator(color: Get.find<SettingsController>().getAccent);
+              } else {
+                return IconButton(
+                  onPressed: (state == ButtonState.playing) ? audioManager.pause : audioManager.play,
+                  padding: EdgeInsets.zero,
+                  icon: Iconify((state == ButtonState.playing) ? Ic.round_pause : Ic.round_play_arrow, size: 36,)
+                );
+              }
+            }
+          ),
+          Gap(5),
+        ],
+      ),
+    ));
   }
 }

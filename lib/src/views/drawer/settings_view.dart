@@ -19,6 +19,7 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Settings'),),
       body: BackgroundGradientDecorator(
         child: SafeArea(
           child: Stack(
