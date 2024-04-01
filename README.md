@@ -11,7 +11,7 @@ Sonicity is a Flutter-based mobile application that leverages the JioSaavn API t
 <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/homeScreen.jpg" alt="Home Screen" height="300">
 
 - Mini Player:
-![Mini Player](https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/miniPlayer.jpg "Mini Player")  
+<img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/miniPlayer.jpg" alt="Mini Player">
 
 - Main Player:
 <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/mainPlayer.jpg" alt="Main Player" height="300">
