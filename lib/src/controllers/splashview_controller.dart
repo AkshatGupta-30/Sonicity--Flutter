@@ -19,10 +19,10 @@ class SplashViewController extends GetxController with GetSingleTickerProviderSt
     scaleAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _controller.forward();
 
-    initSetup();
+    Future.delayed(Duration(milliseconds: 1000), () async => await initSetup());
   }
   
-  void initSetup() async {
+  Future<void> initSetup() async {
     await setupServiceLocator();
     Future.delayed(Duration(milliseconds: 2500), () async => Get.off(() => NavigationView()));
   }

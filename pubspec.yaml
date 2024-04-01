@@ -83,6 +83,7 @@ flutter:
     - assets/images/myPlaylistCover/
     - assets/images/playlistCover/
     - assets/images/songCover/
+    - assets/images/splashCover/
     - assets/lottie/
   fonts:
     - family: Blkchcry
