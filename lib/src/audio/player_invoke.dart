@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:sonicity/src/audio/audio.dart';
+import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/src/services/services.dart';
 import 'package:sonicity/utils/contants/constants.dart';
 // import 'package:sonicity/src/services/services.dart';
 
@@ -11,9 +13,12 @@ bool get isProcessForPlay => DateTime.now().difference(playerTapTime).inMillisec
 
 Timer? debounce;
 
-Future<void> playSong(Song song) async {
+Future<void> playSong(Song song, {bool isAutoQueue = false}) async {
   List<Song> songs = [song];// TODO - song suggession limit in settings
-  // songs.addAll(await SongSuggestionsApi.fetchData(song.id, limit: 10)); // TODO - Implement it
+  if(isAutoQueue) {
+    songs.addAll(await SongSuggestionsApi.fetchData(song.id, limit: 10));
+    getIt<QueueDatabase>().autoQueue('Song - ${song.title}', songs);
+  }
   debounce?.cancel();
   debounce = Timer(
     const Duration(milliseconds: 600), () {

@@ -7,7 +7,6 @@ import 'package:iconify_flutter/iconify.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
-import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/src/views/details/details_view.dart';
 import 'package:sonicity/utils/contants/constants.dart';
@@ -28,10 +27,7 @@ class SongCard extends StatelessWidget {
       init: SongController(song),
       builder: (controller) {
         return GestureDetector(
-          onTap: () async {
-            playSong(song);
-            getIt<QueueDatabase>().autoQueue('Song - ${song.title}', [song]);
-          },
+          onTap: () async => playSong(song, isAutoQueue: true),
           child: Container(
             width: media.width/1.25, height: media.width/1.25,
             decoration: BoxDecoration(
@@ -118,10 +114,7 @@ class SongTile extends StatelessWidget {
       global: false,
       init: SongController(song),
       builder: (controller) => ListTile(
-        onTap: () async {
-          playSong(song);
-          getIt<QueueDatabase>().autoQueue('Song - ${song.title}', [song]);
-        },
+        onTap: () async => playSong(song, isAutoQueue: true),
         contentPadding: EdgeInsets.zero,
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
@@ -158,10 +151,7 @@ class SongCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        playSong(song);
-        getIt<QueueDatabase>().autoQueue('Song - ${song.title}', [song]);
-      },
+      onTap: () async => playSong(song, isAutoQueue: true),
       child: Container(
         width: 140,
         margin: EdgeInsets.symmetric(horizontal: 8),

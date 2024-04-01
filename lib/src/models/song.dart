@@ -256,7 +256,7 @@ class Song {
   
   String get artistsName {
     String text = "";
-    if(artists != null || artists!.isNotEmpty) text = artists!.first.name;
+    if(artists != null && artists!.isNotEmpty) text = artists!.first.name;
     return text;
   }
 }

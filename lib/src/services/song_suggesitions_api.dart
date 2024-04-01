@@ -22,8 +22,14 @@ class SongSuggestionsApi {
       return [];
     }
     List<Song> songs = [];
-    for (var element in result['data']['results']) {
-      songs.add(Song.forPlay(element));
+    for (var songMap in result['data']) {
+      List<Map<String, dynamic>> artists = [];
+      for (var artist in songMap['artists']['all']) {
+        artists.add(Artist.name(artist).toMap());
+      }
+
+      songMap['artists'] = artists;
+      songs.add(Song.forPlay(songMap));
     }
     return songs;
   }
