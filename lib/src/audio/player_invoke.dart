@@ -14,9 +14,9 @@ bool get isProcessForPlay => DateTime.now().difference(playerTapTime).inMillisec
 Timer? debounce;
 
 Future<void> playSong(Song song, {bool isAutoQueue = false}) async {
-  List<Song> songs = [song];// TODO - song suggession limit in settings
+  List<Song> songs = [song];
   if(isAutoQueue) {
-    songs.addAll(await SongSuggestionsApi.fetchData(song.id, limit: 10));
+    songs.addAll(await SongSuggestionsApi.fetchData(song.id));
     getIt<QueueDatabase>().autoQueue('Song - ${song.title}', songs);
   }
   debounce?.cancel();

@@ -13,8 +13,6 @@ import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sonicity/utils/sections/sections.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
-//TODO add Hero widget
-
 class SongCard extends StatelessWidget {
   final Song song;
   SongCard(this.song, {super.key});

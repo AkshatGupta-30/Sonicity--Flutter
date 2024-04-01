@@ -194,7 +194,7 @@ class MainPlayerView extends StatelessWidget {
             ),
             Obx(() => SizedBox(
               width: 225,
-              child: InteractiveSlider( // TODO - Volume Control
+              child: InteractiveSlider(
                 unfocusedHeight: 20, focusedHeight: 40,
                 backgroundColor: Colors.grey.shade900.withOpacity(0.75),
                 foregroundColor: Colors.grey.shade50,

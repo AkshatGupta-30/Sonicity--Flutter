@@ -15,6 +15,7 @@ class SettingsController extends GetxController {
     _initMusicLang();
     _initMusicQuality();
     _initRecentsSaved();
+    _initSuggestionSaved();
   }
 
   final _themeModeSaved = ThemeMode.system.obs;
@@ -104,5 +105,15 @@ class SettingsController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     int selection = prefs.getInt(PrefsKey.recentsLength) ?? 50;
     setRecentsMaxLength = lengths[lengths.indexOf(selection)];
+  }
+
+  final suggestionSavedLength = 0.obs;
+  int get getSuggestionMaxLength => suggestionSavedLength.value;
+  set setSuggestionMaxLength(int newLength) => suggestionSavedLength.value = newLength;
+  void _initSuggestionSaved() async {
+    final lengths = [5, 10, 12, 15, 20, 25];
+    final prefs = await SharedPreferences.getInstance();
+    int selection = prefs.getInt(PrefsKey.suggestionLength) ?? 10;
+    setSuggestionMaxLength = lengths[lengths.indexOf(selection)];
   }
 }

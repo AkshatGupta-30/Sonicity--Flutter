@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:glowy_borders/glowy_borders.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/views/player/player_view.dart';
 import 'package:sonicity/src/views/todo/todo_view.dart';
@@ -26,33 +27,43 @@ class SettingsView extends StatelessWidget {
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              ListView(
-                padding: EdgeInsets.all(15),
-                children: [
-                  TitleSection(title: "Theme"),
-                  Gap(5),
-                  _buildTheme(context),
-                  Gap(10),
-                  _buildAccent(context),
-                  Gap(10),
-                  _buildFont(context),
-                  Gap(10),
-                  _buildBackground(context),
-                  Gap(20),
-                  TitleSection(title: "App Ui"),
-                  Gap(5),
-                  _buildPlayerBorder(context),
-                  Gap(10),
-                  _buildDenseMiniPlayer(context),
-                  Gap(20),
-                  TitleSection(title: "Music & Playback"),
-                  Gap(5),
-                  _buildMusicLanguage(context),
-                  Gap(10),
-                  _buildMusicQualitySettings(context),
-                  Gap(10),
-                  _buildRecentsSongLimit(context),
-                ],
+              ValueListenableBuilder(
+                valueListenable: getIt<AudioManager>().currentSongNotifier,
+                builder: (context, currentSong, _) {
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: (currentSong != null) ? 90 : 0),
+                    child: ListView(
+                      padding: EdgeInsets.all(15),
+                      children: [
+                        TitleSection(title: "Theme"),
+                        Gap(5),
+                        _buildTheme(context),
+                        Gap(10),
+                        _buildAccent(context),
+                        Gap(10),
+                        _buildFont(context),
+                        Gap(10),
+                        _buildBackground(context),
+                        Gap(20),
+                        TitleSection(title: "App Ui"),
+                        Gap(5),
+                        _buildPlayerBorder(context),
+                        Gap(10),
+                        _buildDenseMiniPlayer(context),
+                        Gap(20),
+                        TitleSection(title: "Music & Playback"),
+                        Gap(5),
+                        _buildMusicLanguage(context),
+                        Gap(10),
+                        _buildMusicQualitySettings(context),
+                        Gap(10),
+                        _buildRecentsSongLimit(context),
+                        Gap(10),
+                        _buildSongSuggestionLimit(context)
+                      ],
+                    ),
+                  );
+                }
               ),
               MiniPlayerView()
             ],
@@ -361,7 +372,7 @@ class SettingsView extends StatelessWidget {
     );
   }
 
-  final lengths = [25, 40, 50, 75, 100, 150, 200];
+  final recentsLengths = [25, 40, 50, 75, 100, 150, 200];
   _buildRecentsSongLimit(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return ListTile(
@@ -370,11 +381,38 @@ class SettingsView extends StatelessWidget {
       subtitle: Text("Set how many songs you want to save in recents"),
       trailing: Obx(() => DropdownButton(
           value: controller.getRecentsMaxLength,
-          items: lengths.map((item) => DropdownMenuItem(value: item, child: Text("$item"))).toList(),
+          items: recentsLengths.map((item) => DropdownMenuItem(value: item, child: Text("$item"))).toList(),
           onChanged: (newValue) async {
-            controller.setRecentsMaxLength = lengths[lengths.indexOf(newValue!)];
+            controller.setRecentsMaxLength = recentsLengths[recentsLengths.indexOf(newValue!)];
             final prefs = await SharedPreferences.getInstance();
             await prefs.setInt(PrefsKey.recentsLength, controller.getRecentsMaxLength);
+          },
+          icon: Iconify(MaterialSymbols.arrow_drop_down_rounded,),
+          padding: EdgeInsets.zero,
+          underline: SizedBox(),
+          borderRadius: BorderRadius.circular(12),
+          dropdownColor: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+          style: theme.textTheme.labelMedium!.copyWith(
+            color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white
+          ),
+        )),
+    );
+  }
+
+  final suggestionLengths = [5, 10, 12, 15, 20, 25];
+  _buildSongSuggestionLimit(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    return ListTile(
+      leading: Iconify(EosIcons.counting),
+      title: Text("Suggestion Songs Count"),
+      subtitle: Text("Set how many songs you want to get in suggestions"),
+      trailing: Obx(() => DropdownButton(
+          value: controller.getSuggestionMaxLength,
+          items: suggestionLengths.map((item) => DropdownMenuItem(value: item, child: Text("$item"))).toList(),
+          onChanged: (newValue) async {
+            controller.setSuggestionMaxLength = suggestionLengths[suggestionLengths.indexOf(newValue!)];
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setInt(PrefsKey.suggestionLength, controller.getSuggestionMaxLength);
           },
           icon: Iconify(MaterialSymbols.arrow_drop_down_rounded,),
           padding: EdgeInsets.zero,

@@ -14,7 +14,7 @@ class QueueDetailController extends GetxController {
 
   final queues = <Queue>[].obs;
   final selectedQueue = Queue.empty().obs;
-  final playingQueue = Queue.empty().obs;//TODO - set autoqueue be current playing queue
+  final playingQueue = Queue.empty().obs;
   final currentSongIndex = 0.obs;
 
   final renameQueueTextController = TextEditingController();

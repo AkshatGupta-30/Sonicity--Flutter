@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/models/models.dart';
 
 class SongSuggestionsApi {
@@ -16,8 +17,8 @@ class SongSuggestionsApi {
     return data;
   }
 
-  static Future<List<Song>> fetchData(String id, {required int limit}) async {
-    Map result = await _apiCall(id, 10);
+  static Future<List<Song>> fetchData(String id) async {
+    Map result = await _apiCall(id, Get.find<SettingsController>().getSuggestionMaxLength);
     if(result['data'] == null) {
       return [];
     }
