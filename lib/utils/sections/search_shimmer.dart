@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:iconify_flutter/iconify.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:sonicity/utils/widgets/widgets.dart';
 class SearchShimmer extends StatelessWidget {
   SearchShimmer({super.key});
 
@@ -14,134 +12,98 @@ class SearchShimmer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Gap(20),
-          Container(// * Top Results Title
-            height: 27.0, width: 125,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12)
-            )
-          ),
           Gap(10),
-          _listTile(),
+          _title(),
+          Gap(10),
+          _cell(),
           Gap(20),
-          Row(// * Songs Title
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                height: 27.0, width: 80,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12)
-                )
-              ),
-              Spacer(),
-              Container(
-                height: 16.0, width: 65,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12)
-                )
-              ),
-            ],
-          ),
-          _listTile(), _listTile(), _listTile(),
+          _viewAllTitle(),
+          _listView(),
           Gap(20),
-          Row(// * Albums Title
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                height: 27.0, width: 95,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12)
-                )
-              ),
-              Spacer(),
-              Container(
-                height: 16.0, width: 65,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12)
-                )
-              ),
-            ],
-          ),
-          _listTile(), _listTile(), _listTile(),
+          _viewAllTitle(),
+          _listView(),
           Gap(20),
-          Row(// * Artists Title
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                height: 27.0, width: 90,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12)
-                )
-              ),
-              Spacer(),
-              Container(
-                height: 16.0, width: 65,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12)
-                )
-              ),
-            ],
-          ),
-          _listTile(), _listTile(), _listTile(),
-          Gap(20),
-          Row(// * Playlists Title
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                height: 27.0, width: 110,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12)
-                )
-              ),
-              Spacer(),
-              Container(
-                height: 16.0, width: 65,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12)
-                )
-              ),
-            ],
-          ),
-          _listTile(), _listTile(), _listTile(),
         ],
       ),
     );
   }
 
-  ListTile _listTile() {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      leading: Container(
-        height: 60, width: 60,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12)
-        )
+  Container _title() {
+    return Container(// * Top Results Title
+      height: 22.0, width: 125,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12)
+      )
+    );
+  }
+
+  Row _viewAllTitle() {
+    return Row(// * Songs Title
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Container(
+          height: 22.0, width: 80,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12)
+          )
+        ),
+        Spacer(),
+        Container(
+          height: 16.0, width: 60,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12)
+          )
+        ),
+      ],
+    );
+  }
+
+  Container _cell() {
+    return Container(
+      width: 140, alignment: Alignment.center,
+      margin: EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 140, width: 140,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12)
+            )
+          ),
+          Gap(2),
+          Container(
+            height: 14, width: 80,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12)
+            )
+          ),
+          Gap(1),
+          Container(
+            height: 11, width: 50,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12)
+            )
+          )
+        ],
       ),
-      title: Container(
-        height: 18, margin: EdgeInsets.only(right: 40),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12)
-        )
+    );
+  }
+
+  SizedBox _listView() {
+    return SizedBox(
+      height: 190,
+      child: ListView.builder(
+        padding: EdgeInsets.only(top: 10),
+        itemCount: 3, scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) => _cell(),
       ),
-      subtitle: Container(
-        height: 14, margin: EdgeInsets.only(right: 90),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12)
-        )
-      ),
-      trailing: Iconify(Ic.sharp_more_vert, size: 30),
     );
   }
 }
