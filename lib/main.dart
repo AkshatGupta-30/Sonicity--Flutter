@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
+import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/views/splash_view.dart';
 import 'package:sonicity/utils/contants/constants.dart';
 
-void main(){
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MainApp());
 }
@@ -25,16 +26,19 @@ class _MainAppState extends State<MainApp> {
     return Obx(() => GetMaterialApp(
       title: 'Sonicity',
       debugShowCheckedModeBanner: false,
-      home: SplashView(),
       themeMode: settingsController.getThemeMode,
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,
+      home: SplashView(),
+      onDispose: () {
+        getIt<AudioManager>().dispose();
+        getIt<HomeDatabase>().dispose();
+        getIt<RecentsDatabase>().dispose();
+        getIt<QueueDatabase>().dispose();
+        getIt<MyPlaylistsDatabase>().dispose();
+        getIt<ClonedDatabase>().dispose();
+        getIt<StarredDatabase>().dispose();
+      },
     ));
-  }
-
-  @override
-  void dispose() {
-    getIt<AudioManager>().dispose();
-    super.dispose();
   }
 }

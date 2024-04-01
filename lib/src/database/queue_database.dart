@@ -348,4 +348,9 @@ class QueueDatabase {
   }
 
   String queueTableName(String queueName) => queueName.replaceAll(' - ', 'qpzm').replaceAll(' ', '_').replaceAll('.', '');
+
+  void dispose() async {
+    final db = await _instance.database;
+    db.close();
+  }
 }

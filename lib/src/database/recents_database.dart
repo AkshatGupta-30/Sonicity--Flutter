@@ -226,4 +226,9 @@ class RecentsDatabase {
       await db.delete(tableName, where: 'id = ?', whereArgs: [firstRowId]);
     }
   }
+
+  void dispose() async {
+    final db = await _instance.database;
+    db.close();
+  }
 }

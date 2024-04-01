@@ -290,4 +290,9 @@ class MyPlaylistsDatabase {
     if(count == null) return 0;
     return count;
   }
+
+  void dispose() async {
+    final db = await _instance.database;
+    db.close();
+  }
 }

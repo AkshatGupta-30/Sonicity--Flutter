@@ -272,4 +272,9 @@ class HomeDatabase {
       await db.delete(table);
     }
   }
+
+  void dispose() async {
+    final db = await _instance.database;
+    db.close();
+  }
 }
