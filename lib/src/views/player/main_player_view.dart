@@ -96,7 +96,7 @@ class MainPlayerView extends StatelessWidget {
             ),
             Text(
               song.displaySubtitle.toString(), maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).primaryTextTheme.bodyLarge,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ],
         );
@@ -115,12 +115,12 @@ class MainPlayerView extends StatelessWidget {
             return ClipOval(// * : Artwork
               child: CachedNetworkImage(
                 imageUrl: song.artUri.toString(), fit: BoxFit.cover,
-                height: media.width * 0.75, width: media.width * 0.75,
+                height: media.width * 0.74, width: media.width * 0.74,
                 errorWidget: (context, url, error) {
-                  return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.75, width: media.width * 0.75,);
+                  return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.74, width: media.width * 0.74,);
                 },
                 placeholder: (context, url) {
-                  return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.75, width: media.width * 0.75,);
+                  return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.74, width: media.width * 0.74,);
                 },
               )
             );
@@ -135,15 +135,14 @@ class MainPlayerView extends StatelessWidget {
             final value = min(state.current.inMilliseconds.toDouble(), state.total.inMilliseconds.toDouble());
             // ignore: dead_code, unnecessary_null_comparison
             if(dragValue != null && dragging) dragValue = null;
-            return Container( // * : Slider
+            return SizedBox( // * : Slider
               height: media.width * 0.8, width: media.width * 0.8,
-              margin: EdgeInsets.symmetric( vertical: 10),
               child: SleekCircularSlider(
                 appearance: CircularSliderAppearance(
                   angleRange: 340,
                   startAngle: 280,
                   customWidths: CustomSliderWidths(
-                    handlerSize: 8, progressBarWidth: 8, trackWidth: 4,
+                    handlerSize: 7, progressBarWidth: 8, trackWidth: 4,
                   ),
                   customColors: CustomSliderColors(
                     dotColor: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
@@ -190,14 +189,14 @@ class MainPlayerView extends StatelessWidget {
                   .firstMatch('${valueState.current}')
                   ?.group(1) ??
                 '${valueState.current}',
-              style: Theme.of(context).primaryTextTheme.headlineSmall,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
             Obx(() => SizedBox(
               width: 225,
               child: InteractiveSlider(
                 unfocusedHeight: 20, focusedHeight: 40,
                 backgroundColor: (Theme.of(context).brightness == Brightness.light) 
-                    ? Colors.grey.shade100.withOpacity(0.75)
+                    ? Colors.grey.shade300.withOpacity(0.75)
                     : Colors.grey.shade900.withOpacity(0.75),
                 foregroundColor: (Theme.of(context).brightness == Brightness.light) ? Color(0xFF151515) : Color(0xFFFAFAFA),
                 iconGap: 8, iconSize: 25, iconPosition: IconPosition.inside,
@@ -220,7 +219,7 @@ class MainPlayerView extends StatelessWidget {
                   .firstMatch('${valueState.total}')
                   ?.group(1) ??
                 '${valueState.current}',
-              style: Theme.of(context).primaryTextTheme.headlineSmall,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ],
         );
@@ -485,7 +484,7 @@ class MainPlayerView extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         child: Scaffold(
           backgroundColor: (Theme.of(context).brightness == Brightness.light)
-              ? Colors.grey.shade200.withOpacity(0.5)
+              ? Colors.grey.shade50.withOpacity(0.5)
               : Colors.grey.shade800.withOpacity(0.5),
           appBar: PreferredSize(
             preferredSize: Size(double.maxFinite, 25),

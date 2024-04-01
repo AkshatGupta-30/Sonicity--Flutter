@@ -33,9 +33,9 @@ class NavigationView extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: Container(
-        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900.withOpacity(0.75),
         child: TabBar(
-          controller: controller.tabController,
+          controller: controller.tabController, dividerColor: Colors.transparent, dividerHeight: 0,
           unselectedLabelColor: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
           tabs: [
             Tab(

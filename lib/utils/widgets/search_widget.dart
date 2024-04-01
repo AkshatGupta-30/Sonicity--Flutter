@@ -14,14 +14,18 @@ class SearchContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme  = Theme.of(context);
     return GestureDetector(
       onTap: () => Get.to(() => SearchView()),
       child: Container(
-        width: media.width/1.4, height: kToolbarHeight,
+        width: media.width/1.4, height: 54,
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: (Theme.of(context).brightness == Brightness.light) ? Color(0xFFEAEAEA)  : Color(0xFF151515),
-          border: Border.all(width: 2, color: Colors.cyan.withOpacity(0.75),),
+          border: Border.all(
+            width: 2,
+            color: (theme.brightness == Brightness.light) ? Colors.cyan.withOpacity(0.75) : Colors.cyanAccent.withOpacity(0.75),
+          ),
           borderRadius: BorderRadius.circular(kToolbarHeight/2)
         ),
         child: RichText(
@@ -34,7 +38,8 @@ class SearchContainer extends StatelessWidget {
                   "S", blurRadius: 25,
                   style: GoogleFonts.audiowide(
                     fontSize: 32,letterSpacing: 10,
-                    fontWeight: FontWeight.bold, color: Colors.cyan,
+                    fontWeight: FontWeight.bold,
+                    color: (theme.brightness == Brightness.light) ? Colors.cyan : Colors.cyanAccent,
                   )
                 )
               ),
@@ -43,7 +48,8 @@ class SearchContainer extends StatelessWidget {
                 child: GlowContainer(
                   blurRadius: 25,
                   child: Iconify(
-                    IconParkTwotone.search, size: 32, color: Colors.cyan,
+                    IconParkTwotone.search, size: 32,
+                    color: (theme.brightness == Brightness.light) ? Colors.cyan : Colors.cyanAccent,
                   )
                 )
               ),
@@ -53,7 +59,8 @@ class SearchContainer extends StatelessWidget {
                   "nicity", blurRadius: 25,
                   style: GoogleFonts.audiowide(
                     fontSize: 32, letterSpacing: 10,
-                    fontWeight: FontWeight.bold, color: Colors.cyan,
+                    fontWeight: FontWeight.bold,
+                    color: (theme.brightness == Brightness.light) ? Colors.cyan : Colors.cyanAccent,
                   )
                 )
               )

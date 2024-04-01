@@ -39,11 +39,14 @@ class ShuffleNPlay extends StatelessWidget {
                 children: [
                   Text(
                     "Shuffle",
-                    style: Theme.of(context).primaryTextTheme.headlineSmall,
+                    style: Theme.of(context).primaryTextTheme.headlineSmall!.copyWith(
+                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+                    ),
                   ),
                   Iconify(
                     Ic.twotone_shuffle, size: 25,
-                    color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,),
+                    color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+                  ),
                 ],
               ),
             ),

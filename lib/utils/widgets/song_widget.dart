@@ -208,7 +208,7 @@ class MediaItemTile extends StatelessWidget {
           tileColor: (mediaItem!.id != song.id) 
               ? null
               : (Theme.of(context).brightness == Brightness.light)
-                  ? Colors.black12
+                  ? Color.fromRGBO(0, 0, 0, 0.30)
                   : Colors.white12,
           contentPadding: EdgeInsets.symmetric(horizontal: 8),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -247,7 +247,7 @@ class MediaItemTile extends StatelessWidget {
                 key: Key(song.id),
                 index: index,
                 enabled: index != queueStateIndex,
-                child: Icon(Icons.drag_handle_rounded, color: Colors.white, size: 30,),
+                child: Iconify(Ion.reorder_two, size: 30,),
               ),
         );
       }

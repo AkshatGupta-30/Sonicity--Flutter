@@ -20,6 +20,7 @@ class MiniPlayerView extends StatelessWidget {
   final controller = Get.find<PlayerController>();
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final audioManager = getIt<AudioManager>();
     return SafeArea(
       child: ValueListenableBuilder<AudioProcessingState>(
@@ -46,7 +47,7 @@ class MiniPlayerView extends StatelessWidget {
                   },
                   child: Card(
                     margin: EdgeInsets.zero,
-                    color: Colors.white10,
+                    color: (theme.brightness == Brightness.light) ? Colors.black12 : Colors.white12,
                     child: SizedBox(
                       height: 80,
                       child: ClipRect(
@@ -57,7 +58,9 @@ class MiniPlayerView extends StatelessWidget {
                               return LinearGradient(
                                 end: Alignment.topCenter,
                                 begin: Alignment.bottomCenter,
-                                colors: [Colors.black, Colors.black, Colors.transparent]
+                                colors: (theme.brightness == Brightness.light)
+                                    ? [Colors.black, Colors.black, Colors.transparent]
+                                    : [Colors.black, Colors.black, Colors.transparent]
                               ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
                             },
                             blendMode: BlendMode.dst,
@@ -165,7 +168,7 @@ class MiniPlayerView extends StatelessWidget {
                 return IconButton(
                   onPressed: (state == ButtonState.playing) ? audioManager.pause : audioManager.play,
                   padding: EdgeInsets.zero,
-                  icon: Iconify((state == ButtonState.playing) ? Ic.round_pause : Ic.round_play_arrow, size: 36,)
+                  icon: Iconify((state == ButtonState.playing) ? Ic.round_pause : Ic.round_play_arrow, size: 36, color: Colors.white,)
                 );
               }
             }

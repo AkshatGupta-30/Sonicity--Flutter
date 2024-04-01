@@ -54,7 +54,7 @@ class AlbumDetailsView extends StatelessWidget {
     return SliverAppBar(
       pinned: true, floating: false, snap: false,
       leading: BackButton(),
-      expandedHeight: 380,
+      expandedHeight: 350,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true, expandedTitleScale: 1.5,
         stretchModes: [StretchMode.blurBackground],
@@ -69,22 +69,22 @@ class AlbumDetailsView extends StatelessWidget {
         background: Stack(
           children: [
             CachedNetworkImage(
-              imageUrl: album.image!.highQuality, fit: BoxFit.fill,
+              imageUrl: album.image!.highQuality, fit: BoxFit.cover,
               width: double.maxFinite, height: 380,
               placeholder: (context, url) {
-                return Image.asset("assets/images/albumCover/albumCover500x500.jpg", fit: BoxFit.fill);
+                return Image.asset("assets/images/albumCover/albumCover500x500.jpg", fit: BoxFit.cover);
               },
               errorWidget: (context, url, error) {
                 return Image.asset("assets/images/albumCover/albumCover500x500.jpg", fit: BoxFit.fill);
               },
             ),
             Container(
-              width: media.width, height: 420,
+              width: media.width, height: 380,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: (Theme.of(context).brightness == Brightness.light)
-                    ? [Colors.white.withOpacity(0), Colors.white.withOpacity(0.75)]
-                    : [Colors.black.withOpacity(0), Colors.black.withOpacity(0.75)],
+                    ? [Colors.white.withOpacity(0), Colors.white.withOpacity(0.65)]
+                    : [Colors.black.withOpacity(0), Colors.black.withOpacity(0.65)],
                   begin: Alignment.center, end: Alignment.bottomCenter,
                 )
               ),

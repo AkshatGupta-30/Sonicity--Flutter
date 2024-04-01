@@ -141,13 +141,13 @@ class MyTheme {
       drawerButtonIconBuilder: (context) {
         return GestureDetector(
           onTap: () => Get.find<NavigationController>().openDrawer(),
-          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
+          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade800)
         );
       },
       endDrawerButtonIconBuilder: (context) {
         return GestureDetector(
           onTap: () => Get.find<NavigationController>().openDrawer(),
-          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade200)
+          child: Iconify(MaterialSymbols.line_weight_rounded, color: Colors.grey.shade800)
         );
       },
     ),
