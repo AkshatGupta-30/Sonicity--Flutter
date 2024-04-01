@@ -1,6 +1,8 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:sonicity/src/audio/audio.dart';
+import 'package:sonicity/src/database/database.dart';
+import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/utils/contants/constants.dart';
 
 /// The PlayButtonNotifier class is a ValueNotifier that manages the state of a play button with
@@ -184,6 +186,7 @@ class AudioManager {
     /// media item being played.
     audioHandler.mediaItem.listen((mediaItem) async {
       currentSongNotifier.value = mediaItem;
+      if(mediaItem != null) getIt<RecentsDatabase>().insertSong(Song.fromMediaItem(mediaItem));
       updateSkipButton();
     });
   }

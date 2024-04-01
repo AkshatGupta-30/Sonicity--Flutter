@@ -420,9 +420,11 @@ class MainPlayerView extends StatelessWidget {
                       valueListenable: audioManager.currentSongNotifier,
                       builder: (context, currentSong, _) {
                         return GestureDetector(
-                          onTap: () => (media.id == audioManager.currentSongNotifier.value!.id) 
-                              ? null
-                              : audioManager.skipToQueueItem(index),
+                          onTap: () {
+                            (media.id == audioManager.currentSongNotifier.value!.id) 
+                                ? null
+                                : audioManager.skipToQueueItem(index);
+                          },
                           child: Container(
                             width: 45, height: 45,
                             padding: EdgeInsets.all(2), margin: EdgeInsets.all(2),

@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:audio_service/audio_service.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
@@ -20,7 +19,6 @@ class PlayerController extends GetxController {
   final audioManager = getIt<AudioManager>();
   final starDb = getIt<StarredDatabase>();
   final cloneDb = getIt<ClonedDatabase>();
-  final recentsDb = getIt<RecentsDatabase>();
 
   final volume = 0.0.obs;
 
@@ -58,7 +56,6 @@ class PlayerController extends GetxController {
       currentSong.value = Song.fromMediaItem(currentMediaItem);
       lyrics.value = await LyricsApi.fetch(currentSong.value);
       await checkCloneAndStar();
-      recentsDb.insertSong(currentSong.value);
       getAlbum();
       update();
     }
