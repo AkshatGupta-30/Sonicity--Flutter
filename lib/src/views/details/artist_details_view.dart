@@ -84,10 +84,10 @@ class ArtistDetailsView extends StatelessWidget {
             CachedNetworkImage(
               imageUrl: artist.image!.highQuality, fit: BoxFit.fill,
               width: media.width, height: 390,
-              placeholder: (context, url) {
+              placeholder: (_,__) {
                 return Image.asset("assets/images/artistCover/artistCover500x500.jpg", fit: BoxFit.fill);
               },
-              errorWidget: (context, url, error) {
+              errorWidget: (_,__,___) {
                 return Image.asset("assets/images/artistCover/artistCover500x500.jpg", fit: BoxFit.fill);
               },
             ),

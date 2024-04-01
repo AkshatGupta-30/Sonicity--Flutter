@@ -81,7 +81,7 @@ class MyPlaylistViewTile extends StatelessWidget {
                 PopupMenuItem(
                   onTap: () => showDialog(
                     context: context, barrierDismissible: true, useRootNavigator: true,
-                    builder: (ctx) => RenamePlaylistDialog(controller, playlistName: playlist.name),
+                    builder: (_) => RenamePlaylistDialog(controller, playlistName: playlist.name),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 8),
                   child: PopUpButtonRow(icon: MaterialSymbols.drive_file_rename_outline_outline_rounded, label: "Rename"),

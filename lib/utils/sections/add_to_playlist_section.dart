@@ -41,13 +41,13 @@ class AddToPlaylistDialog extends StatelessWidget {
                       child: CachedNetworkImage(
                         imageUrl: song.image.medQuality,
                         height: 50, width: 50, fit: BoxFit.fill,
-                        errorWidget: (context, url, error) {
+                        errorWidget: (_,__,___) {
                           return Image.asset(
                             "assets/images/songCover/songCover150x150.jpg",
                             fit: BoxFit.fill, width: 50, height: 50
                           );
                         },
-                        placeholder: (context, url) {
+                        placeholder: (_,__) {
                           return Image.asset(
                             "assets/images/songCover/songCover150x150.jpg",
                             fit: BoxFit.fill, width: 50, height: 50

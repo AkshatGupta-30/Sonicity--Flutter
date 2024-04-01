@@ -27,7 +27,7 @@ class QueueDetailController extends GetxController {
     getAll();
     audioManager.currentSongNotifier.addListener(() {
       if(audioManager.currentSongNotifier.value == null) {
-        db.updatePlayingQueue(playingQueue.value.name, isPlaying: false).then((value) => getAll());
+        db.updatePlayingQueue(playingQueue.value.name, isPlaying: false).then((_) => getAll());
       }
     });
   }
@@ -53,9 +53,9 @@ class QueueDetailController extends GetxController {
     db.updateSelectedQueue(q.name);
   }
 
-  void deleteQueue(Queue q) async => await db.deleteQueue(q.name).then((value) async => await getAll());
+  void deleteQueue(Queue q) async => await db.deleteQueue(q.name).then((_) async => await getAll());
 
-  void renameQueue(Queue q) => db.renameQueue(q.name, renameQueueTextController.text).then((value) => getAll());
+  void renameQueue(Queue q) => db.renameQueue(q.name, renameQueueTextController.text).then((_) => getAll());
 
   bool onNotification(UserScrollNotification notification) {
     final ScrollDirection direction = notification.direction;

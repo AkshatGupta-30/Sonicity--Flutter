@@ -80,7 +80,7 @@ class PlayerController extends GetxController {
       isSafeArea: true, bottomSheetColor: Colors.transparent,
       bottomSheetBorderRadius: BorderRadius.vertical(top: Radius.circular(12)),
       isCollapsible: true, isDismissible: true,
-      context: context, builder: (context, scrollController, bottomSheetOffset) => BackdropFilter(
+      context: context, builder: (_, __, ___) => BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Obx(() {
           return Column(

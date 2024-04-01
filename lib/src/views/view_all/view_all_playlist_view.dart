@@ -90,13 +90,13 @@ class ViewAllPlaylistsView extends StatelessWidget {
               ? CachedNetworkImage(
                 imageUrl: controller.playlists.first.image.highQuality, fit: BoxFit.cover,
                 height: 320, width: 320,
-                errorWidget: (context, url, error) {
+                errorWidget: (_,__,___) {
                   return Image.asset(
                     "assets/images/playlistCover/playlistCover500x500.jpg",
                     fit: BoxFit.cover, height: 320, width: 320
                   );
                 },
-                placeholder: (context, url) {
+                placeholder: (_,__) {
                   return Image.asset(
                     "assets/images/playlistCover/playlistCover500x500.jpg",
                     fit: BoxFit.cover, height: 320, width: 320
@@ -112,13 +112,13 @@ class ViewAllPlaylistsView extends StatelessWidget {
                   return CachedNetworkImage(
                     imageUrl: image, fit: BoxFit.cover,
                     height: 40, width: 40,
-                    errorWidget: (context, url, error) {
+                    errorWidget: (_,__,___) {
                       return Image.asset(
                         "assets/images/playlistCover/playlistCover50x50.jpg",
                         fit: BoxFit.cover, height: 40, width: 40,
                       );
                     },
-                    placeholder: (context, url) {
+                    placeholder: (_,__) {
                       return Image.asset(
                         "assets/images/playlistCover/playlistCover50x50.jpg",
                         fit: BoxFit.cover, height: 40, width: 40,

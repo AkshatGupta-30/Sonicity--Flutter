@@ -87,13 +87,13 @@ class ViewAllArtistsView extends StatelessWidget {
               ? CachedNetworkImage(
                 imageUrl: controller.artists.first.image!.highQuality, fit: BoxFit.cover,
                 height: 320, width: 320,
-                errorWidget: (context, url, error) {
+                errorWidget: (_,__,___) {
                   return Image.asset(
                     "assets/images/artistCover/artistCover500x500.jpg",
                     fit: BoxFit.cover, height: 320, width: 320
                   );
                 },
-                placeholder: (context, url) {
+                placeholder: (_,__) {
                   return Image.asset(
                     "assets/images/artistCover/artistCover500x500.jpg",
                     fit: BoxFit.cover, height: 320, width: 320
@@ -109,13 +109,13 @@ class ViewAllArtistsView extends StatelessWidget {
                   return CachedNetworkImage(
                     imageUrl: image, fit: BoxFit.cover,
                     height: 40, width: 40,
-                    errorWidget: (context, url, error) {
+                    errorWidget: (_,__,___) {
                       return Image.asset(
                         "assets/images/artistCover/artistCover50x50.jpg",
                         fit: BoxFit.cover, height: 40, width: 40,
                       );
                     },
-                    placeholder: (context, url) {
+                    placeholder: (_,__) {
                       return Image.asset(
                         "assets/images/artistCover/artistCover50x50.jpg",
                         fit: BoxFit.cover, height: 40, width: 40,

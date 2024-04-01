@@ -103,7 +103,7 @@ class SearchShimmer extends StatelessWidget {
       child: ListView.builder(
         padding: EdgeInsets.only(top: 10),
         itemCount: 3, scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => _cell(),
+        itemBuilder: (_,__) => _cell(),
       ),
     );
   }

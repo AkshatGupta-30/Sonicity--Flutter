@@ -89,13 +89,13 @@ class ViewAllAlbumsView extends StatelessWidget {
               ? CachedNetworkImage(
                 imageUrl: controller.albums.first.image!.highQuality, fit: BoxFit.cover,
                 height: 320, width: 320,
-                errorWidget: (context, url, error) {
+                errorWidget: (_,__,___) {
                   return Image.asset(
                     "assets/images/albumCover/albumCover500x500.jpg",
                     fit: BoxFit.cover, height: 320, width: 320
                   );
                 },
-                placeholder: (context, url) {
+                placeholder: (_,__) {
                   return Image.asset(
                     "assets/images/albumCover/albumCover500x500.jpg",
                     fit: BoxFit.cover, height: 320, width: 320
@@ -111,13 +111,13 @@ class ViewAllAlbumsView extends StatelessWidget {
                   return CachedNetworkImage(
                     imageUrl: image, fit: BoxFit.cover,
                     height: 40, width: 40,
-                    errorWidget: (context, url, error) {
+                    errorWidget: (_,__,___) {
                       return Image.asset(
                         "assets/images/albumCover/albumCover50x50.jpg",
                         fit: BoxFit.cover, height: 40, width: 40,
                       );
                     },
-                    placeholder: (context, url) {
+                    placeholder: (_,__) {
                       return Image.asset(
                         "assets/images/albumCover/albumCover50x50.jpg",
                         fit: BoxFit.cover, height: 40, width: 40,

@@ -129,7 +129,7 @@ class SettingsView extends StatelessWidget {
         trailing: CircleAvatar(radius: 16, backgroundColor: accent),
         onTap: () => showDialog(
           context: context,
-          builder: (context) => Dialog(
+          builder: (_) => Dialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             child: SizedBox(
               height: 650,
@@ -182,7 +182,7 @@ class SettingsView extends StatelessWidget {
       ),
       onTap: () => showDialog(
         context: context,
-        builder: (context) => Dialog(
+        builder: (_) => Dialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: SizedBox(
             height: 650,
@@ -430,7 +430,7 @@ class SettingsView extends StatelessWidget {
     final theme = Theme.of(context);
     showDialog(
       context: context,
-      builder: (context) => Dialog(
+      builder: (_) => Dialog(
         child: Container(
           width: double.maxFinite, padding: EdgeInsets.all(12),
           decoration: BoxDecoration(

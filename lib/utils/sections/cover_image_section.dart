@@ -31,7 +31,7 @@ class CoverImageSection extends StatelessWidget {
             context, q: ImgQuality.high, url: image.highQuality,
             onTap: () {
               FlutterClipboard.copy(image.highQuality).then(
-                (value) => Get.showSnackbar(GetSnackBar(
+                (_) => Get.showSnackbar(GetSnackBar(
                   messageText: Row(
                     children: [
                       Obx(() => Text(
@@ -54,7 +54,7 @@ class CoverImageSection extends StatelessWidget {
             q: ImgQuality.med, url: image.highQuality,
             onTap: () {
               FlutterClipboard.copy(image.medQuality).then(
-                (value) => Get.showSnackbar(GetSnackBar(
+                (_) => Get.showSnackbar(GetSnackBar(
                   messageText: Row(
                     children: [
                       Obx(() => Text(
@@ -77,7 +77,7 @@ class CoverImageSection extends StatelessWidget {
             q: ImgQuality.low, url: image.highQuality,
             onTap: () {
               FlutterClipboard.copy(image.lowQuality).then(
-                (value) => Get.showSnackbar(GetSnackBar(
+                (_) => Get.showSnackbar(GetSnackBar(
                   messageText: Row(
                     children: [
                       Obx(() => Text(
@@ -117,13 +117,13 @@ class CoverImageSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               child: CachedNetworkImage(
                 imageUrl: url, fit: BoxFit.cover, height: 120, width: 120,
-                placeholder: (context, url) {
+                placeholder: (_,__) {
                   return Image.asset(
                     "assets/images/appLogo/appLogo500x500.png",
                     fit: BoxFit.cover, height: 120, width: 120
                   );
                 },
-                errorWidget: (context, url, error) {
+                errorWidget: (_,__,___) {
                   return Image.asset(
                     "assets/images/appLogo/appLogo500x500.png",
                     fit: BoxFit.cover, height: 120, width: 120,

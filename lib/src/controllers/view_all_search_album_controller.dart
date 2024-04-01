@@ -33,7 +33,7 @@ class ViewAllSearchAlbumsController extends GetxController {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       isLoadingMore.value = true;
       currentPage++;
-      await fetchAlbums(searchText, currentPage).then((value) => isLoadingMore.value = false);
+      await fetchAlbums(searchText, currentPage).then((_) => isLoadingMore.value = false);
     }
     update();
   }

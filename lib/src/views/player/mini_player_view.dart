@@ -131,10 +131,10 @@ class MiniPlayerView extends StatelessWidget {
         child: CachedNetworkImage(
           imageUrl: mediaItem.artUri.toString(), fit: BoxFit.cover,
           height: 50, width: 50,
-          errorWidget: (context, url, error) {
+          errorWidget: (_,__,___) {
             return Image.asset("assets/images/songCover/songCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
           },
-          placeholder: (context, url) {
+          placeholder: (_,__) {
             return Image.asset("assets/images/songCover/songCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
           },
         )

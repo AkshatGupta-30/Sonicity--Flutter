@@ -35,13 +35,13 @@ class ArtistTile extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: artist.image!.lowQuality,
               fit: BoxFit.cover, width: 50, height: 50,
-              errorWidget: (context, url, error) {
+              errorWidget: (_,__,___) {
                 return Image.asset(
                   "assets/images/artistCover/artistCover50x50.jpg",
                   fit: BoxFit.cover, width: 50, height: 50
                 );
               },
-              placeholder: (context, url) {
+              placeholder: (_,__) {
                 return Image.asset(
                   "assets/images/artistCover/artistCover50x50.jpg",
                   fit: BoxFit.cover, width: 50, height: 50
@@ -81,13 +81,13 @@ class ArtistCell extends StatelessWidget {
             ClipOval(
               child: CachedNetworkImage(
                 imageUrl: artist.image!.medQuality, fit: BoxFit.fill, height: 140, width: 140,
-                placeholder: (context, url) {
+                placeholder: (_,__) {
                   return Image.asset(
                     "assets/images/artistCover/artistCover150x150.jpg",
                     fit: BoxFit.fill, height: 140, width: 140
                   );
                 },
-                errorWidget: (context, url, error) {
+                errorWidget: (_,__,___) {
                   return Image.asset(
                     "assets/images/artistCover/artistCover150x150.jpg",
                     fit: BoxFit.fill, height: 140, width: 140,

@@ -9,7 +9,7 @@ class ImageUrl {
 
   String _getImageUrl(String quality) {
     final link = _imageData.firstWhere(
-      (element) => element.quality == quality,
+      (img) => img.quality == quality,
       orElse: () => ImageData(quality: '', link: ''),
     );
     return link.link;

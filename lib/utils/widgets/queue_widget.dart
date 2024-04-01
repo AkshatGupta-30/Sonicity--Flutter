@@ -195,7 +195,7 @@ class AllQueues extends StatelessWidget {
                       IconButton(
                         onPressed: () => showDialog(
                           context: context, barrierDismissible: true, useRootNavigator: true,
-                          builder: (ctx) => RenameQueueDialog(controller, queue: queue),
+                          builder: (_) => RenameQueueDialog(controller, queue: queue),
                         ),
                         padding: EdgeInsets.zero,
                         icon: Iconify(Mdi.lead_pencil),
@@ -204,7 +204,7 @@ class AllQueues extends StatelessWidget {
                       IconButton(
                         onPressed: () => showDialog(
                           context: context, barrierDismissible: true, useRootNavigator: true,
-                          builder: (ctx) => RemoveQueueDialog(controller, queue: queue, fromAllQueue: true,),
+                          builder: (_) => RemoveQueueDialog(controller, queue: queue, fromAllQueue: true,),
                         ),
                         padding: EdgeInsets.zero,
                         icon: Iconify(IconParkTwotone.delete_four)

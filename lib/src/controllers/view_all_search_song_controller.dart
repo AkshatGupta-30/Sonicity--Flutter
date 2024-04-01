@@ -27,7 +27,7 @@ class ViewAllSearchSongsController extends GetxController {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
       isLoadingMore.value = true;
       currentPage++;
-      await fetchSongs(searchText, currentPage).then((value) => isLoadingMore.value = false);
+      await fetchSongs(searchText, currentPage).then((_) => isLoadingMore.value = false);
     }
     update();
   }

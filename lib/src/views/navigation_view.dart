@@ -63,9 +63,7 @@ class NavigationView extends StatelessWidget {
               text: "Library"
             ),
           ],
-          onTap: (index) {
-            controller.selectedTab.value = index;
-          },
+          onTap: (index) => controller.selectedTab.value = index,
         ),
       ),
     ));

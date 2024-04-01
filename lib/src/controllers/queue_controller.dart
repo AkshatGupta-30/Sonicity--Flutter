@@ -41,7 +41,7 @@ class QueueController extends GetxController {
     await getQueues();
     audioManager.currentSongNotifier.addListener(() {
       if(audioManager.currentSongNotifier.value == null) {
-        db.updatePlayingQueue(playingQueue.value.name, isPlaying: false).then((value) => initMethods());
+        db.updatePlayingQueue(playingQueue.value.name, isPlaying: false).then((_) => initMethods());
       }
     });
   }
@@ -61,13 +61,13 @@ class QueueController extends GetxController {
   
   Future<void> checkSongPresent() async => isSongPresent.value = await db.isSongPresent(song);
 
-  void insertSong(String queueName) async => await db.insertSong(queueName, song).then((value) => initMethods());
+  void insertSong(String queueName) async => await db.insertSong(queueName, song).then((_) => initMethods());
 
-  void deleteSong(String queueName) async => await db.deleteSong(queueName, song).then((value) => initMethods());
+  void deleteSong(String queueName) async => await db.deleteSong(queueName, song).then((_) => initMethods());
 
   void createQueue() async {
     if(newQueueTextController.text.isEmpty) return;
-    await db.createQueue(newQueueTextController.text).then((value) => initMethods());
+    await db.createQueue(newQueueTextController.text).then((_) => initMethods());
   }
 
   void onReorder(int oldIndex, int newIndex) {

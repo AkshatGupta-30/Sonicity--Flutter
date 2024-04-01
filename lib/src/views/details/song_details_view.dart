@@ -70,10 +70,10 @@ class SongDetailsView extends StatelessWidget {
             CachedNetworkImage(
               imageUrl: song.image.highQuality, fit: BoxFit.fill,
               width: 400, height: 400,
-              placeholder: (context, url) {
+              placeholder: (_,__) {
                 return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.fill);
               },
-              errorWidget: (context, url, error) {
+              errorWidget: (_,__,___) {
                 return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.fill);
               },
             ),

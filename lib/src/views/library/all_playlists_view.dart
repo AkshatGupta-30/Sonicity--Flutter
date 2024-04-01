@@ -76,7 +76,7 @@ class AllPlaylistsView extends StatelessWidget {
                   child: ListTile(
                     onTap: () => showDialog(
                       context: context, barrierDismissible: true, useRootNavigator: true,
-                      builder: (ctx) => NewPlaylistDialog(controller),
+                      builder: (_) => NewPlaylistDialog(controller),
                     ),
                     leading: Iconify(Tabler.playlist_add, size: 30,),
                     title: Text("Create Playlist", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),)
@@ -111,7 +111,7 @@ class AllPlaylistsView extends StatelessWidget {
             ),
           )),
           floatingActionButton:  Obx(() {
-            bool shouldShowButton = controller.isMerging.where((element) => element).length > 1 && controller.isMerge.value;
+            bool shouldShowButton = controller.isMerging.where((value) => value).length > 1 && controller.isMerge.value;
             if(shouldShowButton) return FloatingActionButton.extended(
               onPressed: () => controller.mergePlaylist(),
               label: Text("Merge", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),

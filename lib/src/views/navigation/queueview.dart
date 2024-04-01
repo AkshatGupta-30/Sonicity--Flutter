@@ -20,7 +20,7 @@ class QueueView extends StatelessWidget {
     final audioManager = getIt<AudioManager>();
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) => controller.tabController.animateTo(1),
+      onPopInvoked: (_) => controller.tabController.animateTo(1),
       child: GetBuilder(
         init: QueueDetailController(),
         builder: (controller) {
@@ -64,7 +64,7 @@ class QueueView extends StatelessWidget {
           child: IconButton(
             onPressed: () => showDialog(
               context: context,
-              builder: (context) => Dialog(
+              builder: (_) => Dialog(
                 alignment: Alignment.center,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 child: AllQueues(controller),
@@ -91,7 +91,7 @@ class QueueView extends StatelessWidget {
         IconButton(
           onPressed: () => showDialog(
             context: context, barrierDismissible: true, useRootNavigator: true,
-            builder: (ctx) => RemoveQueueDialog(controller, queue: controller.selectedQueue.value),
+            builder: (_) => RemoveQueueDialog(controller, queue: controller.selectedQueue.value),
           ),
           padding: EdgeInsets.zero,
           icon: Iconify(MaterialSymbols.close_rounded)
@@ -240,11 +240,11 @@ class QueueView extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(8),
                                     child: CachedNetworkImage(
                                       imageUrl: song.image.highQuality, width: 50, height: 50, fit: BoxFit.cover,
-                                      errorWidget: (context, url, error) => Image.asset(
+                                      errorWidget: (_,__,___) => Image.asset(
                                         'assets/images/songCover/songCover500x500.jpg',
                                         width: 50, height: 50, fit: BoxFit.cover,
                                       ),
-                                      placeholder: (context, url) => Image.asset(
+                                      placeholder: (_,__) => Image.asset(
                                         'assets/images/songCover/songCover500x500.jpg',
                                         width: 50, height: 50, fit: BoxFit.cover,
                                       ),

@@ -193,7 +193,7 @@ class QueueDatabase {
     await db.insert(
       queueName,
       song.toDb()
-    ).then((value) async => await updateInMain(queueName, song, isInsert: true));
+    ).then((_) async => await updateInMain(queueName, song, isInsert: true));
   }
 
   Future<void> deleteSong(String queueName, Song song) async {
@@ -205,7 +205,7 @@ class QueueDatabase {
       queueName,
       where: "$colSongId = ?",
       whereArgs: [song.id]
-    ).then((value) async => await updateInMain(queueName, song, isInsert: false));
+    ).then((_) async => await updateInMain(queueName, song, isInsert: false));
   }
 
   Future<void> updateInMain(String queueName, Song song, {required bool isInsert}) async {

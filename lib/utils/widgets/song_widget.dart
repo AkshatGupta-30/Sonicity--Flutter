@@ -40,13 +40,13 @@ class SongCard extends StatelessWidget {
                   child: CachedNetworkImage(
                     imageUrl: song.image.highQuality,
                     width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
-                    placeholder: (context, url) {
+                    placeholder: (_,__) {
                       return Image.asset(
                         "assets/images/songCover/songCover500x500.jpg",
                         width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
                       );
                     },
-                    errorWidget: (context, url, error) {
+                    errorWidget: (_,__,___) {
                       return Image.asset(
                         "assets/images/songCover/songCover500x500.jpg",
                         width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
@@ -119,13 +119,13 @@ class SongTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           child: CachedNetworkImage(
             imageUrl: song.image.lowQuality, fit: BoxFit.cover, width: 50, height: 50,
-            errorWidget: (context, url, error) {
+            errorWidget: (_,__,___) {
               return Image.asset(
                 "assets/images/songCover/songCover50x50.jpg",
                 fit: BoxFit.cover, width: 50, height: 50
               );
             },
-            placeholder: (context, url) {
+            placeholder: (_,__) {
               return Image.asset(
                 "assets/images/songCover/songCover50x50.jpg",
                 fit: BoxFit.cover, width: 50, height: 50
@@ -163,13 +163,13 @@ class SongCell extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: song.image.medQuality,
                 width: 140, height: 140, fit: BoxFit.fill,
-                placeholder: (context, url) {
+                placeholder: (_,__) {
                   return Image.asset(
                     "assets/images/albumCover/albumCover150x150.jpg",
                     width: 140, height: 140, fit: BoxFit.fill,
                   );
                 },
-                errorWidget: (context, url, error) {
+                errorWidget: (_,__,___) {
                   return Image.asset(
                     "assets/images/albumCover/albumCover150x150.jpg",
                     width: 140, height: 140, fit: BoxFit.fill,
@@ -219,13 +219,13 @@ class MediaItemTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             child: CachedNetworkImage(
               imageUrl: song.artUri.toString(), fit: BoxFit.cover, width: 50, height: 50,
-              errorWidget: (context, url, error) {
+              errorWidget: (_,__,___) {
                 return Image.asset(
                   "assets/images/songCover/songCover50x50.jpg",
                   fit: BoxFit.cover, width: 50, height: 50
                 );
               },
-              placeholder: (context, url) {
+              placeholder: (_,__) {
                 return Image.asset(
                   "assets/images/songCover/songCover50x50.jpg",
                   fit: BoxFit.cover, width: 50, height: 50

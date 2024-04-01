@@ -41,13 +41,13 @@ class AlbumCard extends StatelessWidget {
                   child: CachedNetworkImage(
                     imageUrl: album.image!.highQuality,
                     width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
-                    placeholder: (context, url) {
+                    placeholder: (_,__) {
                       return Image.asset(
                         "assets/images/albumCover/albumCover500x500.jpg",
                         width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
                       );
                     },
-                    errorWidget: (context, url, error) {
+                    errorWidget: (_,__,___) {
                       return Image.asset(
                         "assets/images/albumCover/albumCover500x500.jpg",
                         width: media.width/1.25, height: media.width/1.25, fit: BoxFit.fill,
@@ -126,13 +126,13 @@ class AlbumCell extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: album.image!.medQuality,
                 width: 140, height: 140, fit: BoxFit.fill,
-                placeholder: (context, url) {
+                placeholder: (_,__) {
                   return Image.asset(
                     "assets/images/albumCover/albumCover150x150.jpg",
                     width: 140, height: 140, fit: BoxFit.fill,
                   );
                 },
-                errorWidget: (context, url, error) {
+                errorWidget: (_,__,___) {
                   return Image.asset(
                     "assets/images/albumCover/albumCover150x150.jpg",
                     width: 140, height: 140, fit: BoxFit.fill,
@@ -182,13 +182,13 @@ class AlbumTile extends StatelessWidget {
           child: CachedNetworkImage(
             imageUrl: album.image!.lowQuality,
             fit: BoxFit.cover, width: 50, height: 50,
-            errorWidget: (context, url, error) {
+            errorWidget: (_,__,___) {
               return Image.asset(
                 "assets/images/albumCover/albumCover50x50.jpg",
                 fit: BoxFit.cover, width: 50, height: 50
               );
             },
-            placeholder: (context, url) {
+            placeholder: (_,__) {
               return Image.asset(
                 "assets/images/albumCover/albumCover50x50.jpg",
                 fit: BoxFit.cover, width: 50, height: 50

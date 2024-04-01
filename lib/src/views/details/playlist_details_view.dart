@@ -69,10 +69,10 @@ class PlaylistDetailsView extends StatelessWidget {
             CachedNetworkImage(
               imageUrl: playlist.image.highQuality, fit: BoxFit.fill,
               width: double.maxFinite, height: double.maxFinite,
-              placeholder: (context, url) {
+              placeholder: (_,__) {
                 return Image.asset("assets/images/playlistCover/playlistCover500x500.jpg", fit: BoxFit.fill);
               },
-              errorWidget: (context, url, error) {
+              errorWidget: (_,__,___) {
                 return Image.asset("assets/images/playlistCover/playlistCover500x500.jpg", fit: BoxFit.fill);
               },
             ),

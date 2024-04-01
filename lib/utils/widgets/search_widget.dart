@@ -92,7 +92,7 @@ class SearchBox extends StatelessWidget {
         keyboardType: TextInputType.text,
         cursorColor: Get.find<SettingsController>().getAccent,
         style: TextStyle(color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white),
-        onTapOutside: (event) => focusNode.unfocus(),
+        onTapOutside: (_) => focusNode.unfocus(),
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: "Songs, albums or artists",

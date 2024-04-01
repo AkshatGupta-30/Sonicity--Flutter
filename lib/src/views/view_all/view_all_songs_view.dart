@@ -111,13 +111,13 @@ class ViewAllSongsView extends StatelessWidget {
                     ? CachedNetworkImage(
                     imageUrl: controller.songs.first.image.medQuality,
                     fit: BoxFit.cover, height: 160, width: 160,
-                    errorWidget: (context, url, error) {
+                    errorWidget: (_,__,___) {
                       return Image.asset(
                         "assets/images/songCover/songCover150x150.jpg",
                         fit: BoxFit.cover, height: 160, width: 160,
                       );
                     },
-                    placeholder: (context, url) {
+                    placeholder: (_,__) {
                       return Image.asset(
                         "assets/images/songCover/songCover150x150.jpg",
                         fit: BoxFit.cover, height: 160, width: 160,
@@ -133,13 +133,13 @@ class ViewAllSongsView extends StatelessWidget {
                         return CachedNetworkImage(
                           imageUrl: image, fit: BoxFit.cover,
                           height: 40, width: 40,
-                          errorWidget: (context, url, error) {
+                          errorWidget: (_,__,___) {
                             return Image.asset(
                               "assets/images/songCover/songCover50x50.jpg",
                               fit: BoxFit.cover, height: 40, width: 40,
                             );
                           },
-                          placeholder: (context, url) {
+                          placeholder: (_,__) {
                             return Image.asset(
                               "assets/images/songCover/songCover50x50.jpg",
                               fit: BoxFit.cover, height: 40, width: 40,

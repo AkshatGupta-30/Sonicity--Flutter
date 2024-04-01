@@ -35,13 +35,13 @@ class PlaylistCell extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: playlist.image.medQuality,
                 width: 140, height: 140, fit: BoxFit.fill,
-                placeholder: (context, url) {
+                placeholder: (_,__) {
                   return Image.asset(
                     "assets/images/playlistCover/playlistCover150x150.jpg",
                     width: 140, height: 140, fit: BoxFit.fill,
                   );
                 },
-                errorWidget: (context, url, error) {
+                errorWidget: (_,__,___) {
                   return Image.asset(
                     "assets/images/playlistCover/playlistCover150x150.jpg",
                     width: 140, height: 140, fit: BoxFit.fill,
@@ -92,13 +92,13 @@ class PlaylistTile extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: playlist.image.lowQuality,
               fit: BoxFit.cover, width: 50, height: 50,
-              errorWidget: (context, url, error) {
+              errorWidget: (_,__,___) {
                 return Image.asset(
                   "assets/images/playlistCover/playlistCover50x50.jpg",
                   fit: BoxFit.cover, width: 50, height: 50
                 );
               },
-              placeholder: (context, url) {
+              placeholder: (_,__) {
                 return Image.asset(
                   "assets/images/playlistCover/playlistCover50x50.jpg",
                   fit: BoxFit.cover, width: 50, height: 50

@@ -72,10 +72,10 @@ class AlbumDetailsView extends StatelessWidget {
             CachedNetworkImage(
               imageUrl: album.image!.highQuality, fit: BoxFit.cover,
               width: double.maxFinite, height: 380,
-              placeholder: (context, url) {
+              placeholder: (_,__) {
                 return Image.asset("assets/images/albumCover/albumCover500x500.jpg", fit: BoxFit.cover);
               },
-              errorWidget: (context, url, error) {
+              errorWidget: (_,__,___) {
                 return Image.asset("assets/images/albumCover/albumCover500x500.jpg", fit: BoxFit.fill);
               },
             ),

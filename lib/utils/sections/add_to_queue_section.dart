@@ -39,13 +39,13 @@ class AddToQueueDialog extends StatelessWidget {
                       child: CachedNetworkImage(
                         imageUrl: song.image.medQuality,
                         height: 150, width: 150, fit: BoxFit.fill,
-                        errorWidget: (context, url, error) {
+                        errorWidget: (_,__,___) {
                           return Image.asset(
                             "assets/images/songCover/songCover500x500.jpg",
                             fit: BoxFit.fill, width: 150, height: 150
                           );
                         },
-                        placeholder: (context, url) {
+                        placeholder: (_,__) {
                           return Image.asset(
                             "assets/images/songCover/songCover500x500.jpg",
                             fit: BoxFit.fill, width: 150, height: 150

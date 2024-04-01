@@ -38,7 +38,7 @@ class MainPlayerView extends StatelessWidget {
           child: ColoredBox(color: Colors.transparent),
         ),
       ),
-      onDismissed: (direction) => Get.back(),
+      onDismissed: (_) => Get.back(),
       child: ValueListenableBuilder(
         valueListenable: audioManager.playButtonNotifier,
         builder: (context, state, _) {
@@ -118,10 +118,10 @@ class MainPlayerView extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: song.artUri.toString(), fit: BoxFit.cover,
                 height: media.width * 0.74, width: media.width * 0.74,
-                errorWidget: (context, url, error) {
+                errorWidget: (_,__,___) {
                   return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.74, width: media.width * 0.74,);
                 },
-                placeholder: (context, url) {
+                placeholder: (_,__) {
                   return Image.asset("assets/images/songCover/songCover500x500.jpg", fit: BoxFit.cover, height: media.width * 0.74, width: media.width * 0.74,);
                 },
               )
@@ -370,10 +370,10 @@ class MainPlayerView extends StatelessWidget {
                       child: CachedNetworkImage(
                         imageUrl: controller.album.value.image!.medQuality, fit: BoxFit.cover,
                         height: 50, width: 50,
-                        errorWidget: (context, url, error) {
+                        errorWidget: (_,__,___) {
                           return Image.asset("assets/images/albumCover/albumCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
                         },
-                        placeholder: (context, url) {
+                        placeholder: (_,__) {
                           return Image.asset("assets/images/albumCover/albumCover150x150.jpg", fit: BoxFit.cover, height: 50, width: 50,);
                         },
                       ),
@@ -454,13 +454,13 @@ class MainPlayerView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               child: CachedNetworkImage(
                                 imageUrl: media.artUri.toString(), fit: BoxFit.cover, width: 35, height: 35,
-                                errorWidget: (context, url, error) {
+                                errorWidget: (_,__,___) {
                                   return Image.asset(
                                     "assets/images/songCover/songCover50x50.jpg",
                                     fit: BoxFit.cover, width: 35, height: 35
                                   );
                                 },
-                                placeholder: (context, url) {
+                                placeholder: (_,__) {
                                   return Image.asset(
                                     "assets/images/songCover/songCover50x50.jpg",
                                     fit: BoxFit.cover, width: 35, height: 35
@@ -525,7 +525,7 @@ class MainPlayerView extends StatelessWidget {
                   return Dismissible(
                     key: Key(media.id),
                     direction: (index == queueStateIndex) ? DismissDirection.none : DismissDirection.horizontal,
-                    onDismissed: (direction) => audioManager.removeQueueItemAt(index),
+                    onDismissed: (_) => audioManager.removeQueueItemAt(index),
                     child: MediaItemTile(media, index: index, queueStateIndex: queueStateIndex),
                   );
                 },

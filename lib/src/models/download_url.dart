@@ -15,7 +15,7 @@ class DownloadUrl {
 
   String _getImageUrl(String quality) {
     final link = _downloadData.firstWhere(
-      (element) => element.quality == quality,
+      (dLoad) => dLoad.quality == quality,
       orElse: () => DownloadData(quality: '', link: ''),
     );
     return link.link;

@@ -40,19 +40,19 @@ class MyPlaylistController extends GetxController {
   }
 
   Future<void> initMethods() async {
-    await getPlaylistCount().then((value) => mergeCount());
+    await getPlaylistCount().then((_) => mergeCount());
     await checkSongPresent();
     await getPlaylists();
   }
 
   void createPlaylist() async {
     if(newPlaylistTextController.text.isEmpty) return;
-    await db.createPlaylist(newPlaylistTextController.text).then((value) => initMethods());
+    await db.createPlaylist(newPlaylistTextController.text).then((_) => initMethods());
   }
 
-  void renamePlaylist(String old) => db.renamePlaylist(old, renamePlaylistTextController.text).then((value) => initMethods());
+  void renamePlaylist(String old) => db.renamePlaylist(old, renamePlaylistTextController.text).then((_) => initMethods());
 
-  void deletePlaylist(MyPlaylist playlist) async => await db.deletePlaylist(playlist.name).then((value) => initMethods());
+  void deletePlaylist(MyPlaylist playlist) async => await db.deletePlaylist(playlist.name).then((_) => initMethods());
 
   void mergePlaylist() async {
     merging.clear();
@@ -82,9 +82,9 @@ class MyPlaylistController extends GetxController {
   
   Future<void> checkSongPresent() async => isSongPresent.value = await db.isSongPresent(song);
 
-  void insertSong(String playlistName) async => await db.insertSong(playlistName, song).then((value) => initMethods());
+  void insertSong(String playlistName) async => await db.insertSong(playlistName, song).then((_) => initMethods());
 
-  void deleteSong(String playlistName) async => await db.deleteSong(playlistName, song).then((value) => initMethods());
+  void deleteSong(String playlistName) async => await db.deleteSong(playlistName, song).then((_) => initMethods());
 
   void sort(SortType sortType, Sort sortBy) {
     final initialPlaylistIds = List<String>.from(playlists.map((playlist) => playlist.id));

@@ -164,7 +164,7 @@ class MyPlaylistsDatabase {
     await db.insert(
       playlistName,
       song.toDb()
-    ).then((value) async => await updateInMain(playlistName, song, isInsert: true));
+    ).then((_) async => await updateInMain(playlistName, song, isInsert: true));
   }
 
   Future<void> deleteSong(String playlistName, Song song) async {
@@ -176,7 +176,7 @@ class MyPlaylistsDatabase {
       playlistName,
       where: "$colSongId = ?",
       whereArgs: [song.id]
-    ).then((value) async => await updateInMain(playlistName, song, isInsert: false));
+    ).then((_) async => await updateInMain(playlistName, song, isInsert: false));
   }
 
   Future<void> updateInMain(String playlistName, Song song, {required bool isInsert}) async {
