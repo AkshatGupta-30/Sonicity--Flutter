@@ -27,7 +27,7 @@ class RecentsController extends GetxController with GetTickerProviderStateMixin 
     List<Artist> ar = [];
     List<Playlist> pl = [];
     (so, al, ar, pl) = await _recentDatabase.all;
-    
+
     songs.value = so;
     albums.value = al;
     artists.value = ar;

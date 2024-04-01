@@ -152,7 +152,7 @@ class QueueDatabase {
     if(await isQueuePresent(queueLabel)) {
       await deleteQueue(queueLabel);
     }
-    createQueue(queueLabel, isCurrent: true, isPlaying: true);
+    await createQueue(queueLabel, isCurrent: true, isPlaying: true);
     for (Song song in songs) {
       await insertSong(queueLabel, song);
     }

@@ -18,7 +18,7 @@ import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/views/details/details_view.dart';
 import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
-// TODO - Adjust View with theme (Dark , light)
+
 class MainPlayerView extends StatelessWidget {
   MainPlayerView({super.key});
 
@@ -42,7 +42,7 @@ class MainPlayerView extends StatelessWidget {
         valueListenable: audioManager.playButtonNotifier,
         builder: (context, state, _) {
           return Obx(() => AnimatedGradientBorder(
-            backgroundColor: Colors.black,
+            backgroundColor: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Colors.black,
             borderSize: 5, borderRadius: BorderRadius.zero,
             gradientColors: settings.playerBorderColors[settings.getPlayerBorderIndex],
             isPaused: (state == ButtonState.paused) ? true : false,
@@ -146,9 +146,9 @@ class MainPlayerView extends StatelessWidget {
                     handlerSize: 8, progressBarWidth: 8, trackWidth: 4,
                   ),
                   customColors: CustomSliderColors(
-                    dotColor: Colors.white,
-                    progressBarColor: Colors.purpleAccent,
-                    trackColor: Colors.cyanAccent,
+                    dotColor: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+                    progressBarColor: (Theme.of(context).brightness == Brightness.light) ? Colors.deepPurpleAccent : Colors.purpleAccent,
+                    trackColor: (Theme.of(context).brightness == Brightness.light) ? Colors.blueAccent : Colors.cyanAccent,
                     hideShadow: true,
                     gradientEndAngle: 100,
                     gradientStartAngle: 0
@@ -196,8 +196,10 @@ class MainPlayerView extends StatelessWidget {
               width: 225,
               child: InteractiveSlider(
                 unfocusedHeight: 20, focusedHeight: 40,
-                backgroundColor: Colors.grey.shade900.withOpacity(0.75),
-                foregroundColor: Colors.grey.shade50,
+                backgroundColor: (Theme.of(context).brightness == Brightness.light) 
+                    ? Colors.grey.shade100.withOpacity(0.75)
+                    : Colors.grey.shade900.withOpacity(0.75),
+                foregroundColor: (Theme.of(context).brightness == Brightness.light) ? Color(0xFF151515) : Color(0xFFFAFAFA),
                 iconGap: 8, iconSize: 25, iconPosition: IconPosition.inside,
                 startIcon: Iconify(Ion.volume_low, color: Colors.grey,),
                 endIcon: Iconify(Ion.volume_high, color: Colors.grey,),
@@ -354,7 +356,10 @@ class MainPlayerView extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 2),
+                        border: Border.all(
+                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+                          width: 2
+                        ),
                         borderRadius: BorderRadius.circular(12)
                       ),
                       child: CachedNetworkImage(
@@ -378,7 +383,9 @@ class MainPlayerView extends StatelessWidget {
               padding: EdgeInsets.zero,
               icon: Iconify(
                 (controller.isCloned.value) ? Ic.twotone_cyclone : Ic.round_cyclone, size: 30,
-                color: (controller.isCloned.value) ? Colors.cyanAccent: Colors.white
+                color: (Theme.of(context).brightness == Brightness.light)
+                    ? (controller.isCloned.value) ? Colors.blueAccent: Colors.black
+                    : (controller.isCloned.value) ? Colors.cyanAccent: Colors.white
               )
             )),
             Gap(20),
@@ -387,7 +394,9 @@ class MainPlayerView extends StatelessWidget {
               padding: EdgeInsets.zero,
               icon: Iconify(
                 (controller.isStarred.value) ? Uis.favorite : Uit.favorite, size: 30,
-                color: (controller.isStarred.value) ? Colors.yellowAccent : Colors.white
+                color: (Theme.of(context).brightness == Brightness.light)
+                    ? (controller.isStarred.value) ? Colors.deepOrangeAccent : Colors.black
+                    : (controller.isStarred.value) ? Colors.yellowAccent : Colors.white
               )
             )),
           ],
@@ -400,7 +409,7 @@ class MainPlayerView extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.white12,
+        color: (Theme.of(context).brightness == Brightness.light) ? Colors.black12 : Colors.white12,
         borderRadius: BorderRadius.vertical(top: Radius.circular(16))
       ),
       child: Row(
