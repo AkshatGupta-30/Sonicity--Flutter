@@ -66,7 +66,7 @@ Sonicity is a Flutter-based mobile application that leverages the JioSaavn API t
 ----
 
 ## Dependencies Used
-| [*audio_service*](https://pub.dev/packages/audio_service) | [audioplayers](https://pub.dev/packages/audioplayers) | [clipboard](https://pub.dev/packages/clipboard) | [get](https://pub.dev/packages/get) | [get_it](https://pub.dev/packages/get_it) | [http](https://pub.dev/packages/http) | [just_audio](https://pub.dev/packages/just_audio) |
+| [audio_service](https://pub.dev/packages/audio_service) | [audioplayers](https://pub.dev/packages/audioplayers) | [clipboard](https://pub.dev/packages/clipboard) | [get](https://pub.dev/packages/get) | [get_it](https://pub.dev/packages/get_it) | [http](https://pub.dev/packages/http) | [just_audio](https://pub.dev/packages/just_audio) |
 | --- | --- | --- | --- | --- | --- | --- |
 | [**path_provider**](https://pub.dev/packages/path_provider) | [**rxdart**](https://pub.dev/packages/rxdart) | [**shared_preferences**](https://pub.dev/packages/shared_preferences) | [**shimmer**](https://pub.dev/packages/shimmer) | [**sleek_circular_slider**](https://pub.dev/packages/sleek_circular_slider) | [**sliver_tools**](https://pub.dev/packages/sliver_tools) | [**sqflite**](https://pub.dev/packages/sqflite) |
 
