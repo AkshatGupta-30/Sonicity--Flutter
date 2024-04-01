@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:glowy_borders/glowy_borders.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
@@ -40,7 +41,7 @@ class SettingsView extends StatelessWidget {
                   Gap(20),
                   TitleSection(title: "App Ui"),
                   Gap(5),
-                  _buildPlayerBackground(context),
+                  _buildPlayerBorder(context),
                   Gap(10),
                   _buildDenseMiniPlayer(context),
                   Gap(20),
@@ -240,34 +241,38 @@ class SettingsView extends StatelessWidget {
     );
   }
 
-  _buildPlayerBackground(BuildContext context) {
+  _buildPlayerBorder(BuildContext context) {
     return ListTile(
       leading: Iconify(Carbon.gradient,),
       title: Text("Main Player Background"),
-      trailing: Container(
+      trailing: Obx(() => Container(
         height: 32, width: 32,
-        decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle,),
-      ),
-      onTap: () => ToDoView(text: "Background")
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            colors: controller.playerBorderColors[controller.getPlayerBorderIndex],
+            begin: Alignment.topCenter, end: Alignment.bottomCenter
+          )
+        ),
+      )),
+      onTap: () => _mainPlayerBorderDialog(context)
     );
   }
 
   _buildDenseMiniPlayer(BuildContext context) {
-    return ListTile(
-      leading: Iconify(Fe.tiled,),
+    return Obx(() => SwitchListTile(
+      secondary: Iconify(Fe.tiled,),
       title: Text("Use dense mini player"),
-      trailing: Obx(() => Switch(
-        value: controller.getDensePlayer,
-        onChanged: (newValue) async {
-          controller.setDensePlayer = newValue;
-          final prefs = await SharedPreferences.getInstance();
-          await prefs.setBool(PrefsKey.useDensePlayer, newValue);
-        },
-        activeTrackColor: controller.getAccentDark,
-        activeColor: controller.getAccent,
-        inactiveTrackColor: Colors.grey,
-        inactiveThumbColor: Colors.grey.shade300,
-      ),
+      value: controller.getDensePlayer,
+      onChanged: (newValue) async {
+        controller.setDensePlayer = newValue;
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool(PrefsKey.useDensePlayer, newValue);
+      },
+      activeTrackColor: controller.getAccentDark,
+      activeColor: controller.getAccent,
+      inactiveTrackColor: Colors.grey,
+      inactiveThumbColor: Colors.grey.shade300,
     ));
   }
 
@@ -380,6 +385,50 @@ class SettingsView extends StatelessWidget {
             color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white
           ),
         )),
+    );
+  }
+
+  _mainPlayerBorderDialog(BuildContext context) {
+    final theme = Theme.of(context);
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: Container(
+          width: double.maxFinite, padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white, width: 0.5),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Select a border', style: theme.textTheme.labelLarge!.copyWith(fontWeight: FontWeight.normal),),
+              Gap(10),
+              Obx(() => Wrap(
+                runAlignment: WrapAlignment.start, spacing: 10, runSpacing: 10,
+                children: List.generate(controller.playerBorderColors.length, (index) => GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    controller.setPlayerBorderIndex = index;
+                  },
+                  child: AnimatedGradientBorder(
+                      backgroundColor: theme.scaffoldBackgroundColor,
+                      borderSize: 5, borderRadius: BorderRadius.zero,
+                      gradientColors: controller.playerBorderColors[index],
+                      child: SizedBox(
+                        width: 40, height: 60,
+                        child: (controller.getPlayerBorderIndex == index)
+                            ? Iconify(Ic.baseline_check)
+                            : null,
+                      ),
+                    ),
+                )),
+              )),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -10,7 +10,7 @@ class SettingsController extends GetxController {
     _initThemeMode();
     _initAccent();
     _initFontFamily();
-    _initBackGround();
+    _initPlayerBorder();
     _initDensePlayer();
     _initMusicLang();
     _initMusicQuality();
@@ -47,13 +47,21 @@ class SettingsController extends GetxController {
     setFontfamily = selection;
   }
 
-  final _backGround = 0.obs;
-  int get getBackGround => _backGround.value;
-  set setBackground(int index) => _backGround.value = index;
-  void _initBackGround() async {
+  List<List<Color>> playerBorderColors = [
+    [Colors.red, Colors.orange, Colors.yellow, Colors.lightGreenAccent, Colors.green, Colors.cyan, Colors.blue, Colors.purple, Colors.pink],
+    [Colors.redAccent, Colors.lightGreenAccent, Colors.lightBlueAccent],
+    [Colors.red, Colors.orange, Colors.yellow, Colors.amber],
+    [Colors.lightGreenAccent, Colors.cyan, Colors.blue, Colors.purple],
+    [Colors.cyanAccent, Colors.purpleAccent],
+    Colors.accents
+  ];
+  final _playerBorder = 0.obs;
+  int get getPlayerBorderIndex => _playerBorder.value;
+  set setPlayerBorderIndex(int index) => _playerBorder.value = index;
+  void _initPlayerBorder() async {
     final prefs = await SharedPreferences.getInstance();
     int selection = prefs.getInt(PrefsKey.backGradient) ?? 0;
-    setBackground = selection;
+    setPlayerBorderIndex = selection;
   }
 
   final _useDensePlayer = false.obs;

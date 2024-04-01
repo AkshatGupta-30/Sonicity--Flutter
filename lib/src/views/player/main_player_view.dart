@@ -24,6 +24,7 @@ class MainPlayerView extends StatelessWidget {
 
   final audioManager = getIt<AudioManager>();
   final controller = Get.find<PlayerController>();
+  final settings = Get.find<SettingsController>();
   @override
   Widget build(BuildContext context) {
     Size media = MediaQuery.sizeOf(context);
@@ -40,14 +41,10 @@ class MainPlayerView extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: audioManager.playButtonNotifier,
         builder: (context, state, _) {
-          return AnimatedGradientBorder( // TODO - Various Options of Main screen view
+          return Obx(() => AnimatedGradientBorder(
             backgroundColor: Colors.black,
             borderSize: 5, borderRadius: BorderRadius.zero,
-            gradientColors: [
-              Colors.red, Colors.orange, Colors.yellow,
-              Colors.lightGreen, Colors.green, Colors.cyan,
-              Colors.blue, Colors.purple, Colors.pink
-            ],
+            gradientColors: settings.playerBorderColors[settings.getPlayerBorderIndex],
             isPaused: (state == ButtonState.paused) ? true : false,
             child: BackgroundGradientDecorator(
               child: DraggableBottomSheet(
@@ -76,7 +73,7 @@ class MainPlayerView extends StatelessWidget {
                 blurBackground: true, scrollDirection: Axis.vertical, alignment: Alignment.bottomCenter,
               ),
             ),
-          );
+          ));
         }
       ),
     );
