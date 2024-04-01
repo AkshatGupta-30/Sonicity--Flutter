@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sqflite/sqflite.dart';
 
 class RecentsDatabase {
@@ -30,39 +31,10 @@ class RecentsDatabase {
     );
   }
 
-  static const tbSongDetail = 'song_details';
-  static const tbAlbumDetail = 'album_details';
-  static const tbArtistDetail = 'artist_details';
-  static const tbPlaylistDetail = 'playlist_details';
-
-  static const colId = 'id';
-  static const colSongId = 'song_id';
-  static const colAlbumId = 'album_id';
-  static const colArtistId = 'artist_id';
-  static const colPlaylistId = 'playlist_id';
-  static const colName = 'name';
-  static const colAlbumName = 'album_name';
-  static const colArtistIds = 'artist_ids';
-  static const colArtistNames = 'artist_names';
-  static const colHasLyrics = 'hasLyrics';
-  static const colYear = 'year';
-  static const colReleaseDate = 'releaseDate';
-  static const colDuration = 'duration';
-  static const colLanguage = 'language';
-  static const colSongCount = 'songCount';
-  static const colDominantType = 'dominantType';
-  static const colImgLow = 'img_low';
-  static const colImgMed = 'img_med';
-  static const colImgHigh = 'img_high';
-  static const colDownload12kbps = 'download_12kbps';
-  static const colDownload48kbps = 'download_48kbps';
-  static const colDownload96kbps = 'download_96kbps';
-  static const colDownload160kbps = 'download_160kbps';
-  static const colDownload320kbps = 'download_320kbps';
   Future _onCreate(Database db, int version) async {
     await db.execute( // * Song Details
       '''
-        CREATE TABLE $tbSongDetail (
+        CREATE TABLE $dbRecentsTbSongDetail (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colSongId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -88,7 +60,7 @@ class RecentsDatabase {
     );
     await db.execute(// * Album Details
       '''
-        CREATE TABLE $tbAlbumDetail (
+        CREATE TABLE $dbRecentsTbAlbumDetail (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colAlbumId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -101,7 +73,7 @@ class RecentsDatabase {
     );
     await db.execute(// * Artist Details
       '''
-        CREATE TABLE $tbArtistDetail (
+        CREATE TABLE $dbRecentsTbArtistDetail (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colArtistId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -114,7 +86,7 @@ class RecentsDatabase {
     );
     await db.execute(// * Playlist Details
       '''
-        CREATE TABLE $tbPlaylistDetail (
+        CREATE TABLE $dbRecentsTbPlaylistDetail (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colPlaylistId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -129,34 +101,34 @@ class RecentsDatabase {
 
   Future<void> insertSong(Song song) async {
     Database db = await _instance.database;
-    await db.delete(tbSongDetail, where: '$colSongId = ?', whereArgs: [song.id]);
+    await db.delete(dbRecentsTbSongDetail, where: '$colSongId = ?', whereArgs: [song.id]);
     int maxCount = Get.find<SettingsController>().getRecentsMaxLength;
-    if(await count == maxCount) _deleteFirstRow(tbSongDetail);
-    await db.insert(tbSongDetail, song.toDb());
+    if(await count == maxCount) _deleteFirstRow(dbRecentsTbSongDetail);
+    await db.insert(dbRecentsTbSongDetail, song.toDb());
   }
 
   Future<void> insertAlbum(Album album) async {
     Database db = await _instance.database;
-    await db.delete(tbAlbumDetail, where: '$colAlbumId = ?', whereArgs: [album.id]);
+    await db.delete(dbRecentsTbAlbumDetail, where: '$colAlbumId = ?', whereArgs: [album.id]);
     int maxCount = Get.find<SettingsController>().getRecentsMaxLength;
-    if(await count == maxCount) _deleteFirstRow(tbAlbumDetail);
-    await db.insert(tbAlbumDetail, album.toDb());
+    if(await count == maxCount) _deleteFirstRow(dbRecentsTbAlbumDetail);
+    await db.insert(dbRecentsTbAlbumDetail, album.toDb());
   }
 
   Future<void> insertArtist(Artist artist) async {
     Database db = await _instance.database;
-    await db.delete(tbArtistDetail, where: '$colArtistId = ?', whereArgs: [artist.id]);
+    await db.delete(dbRecentsTbArtistDetail, where: '$colArtistId = ?', whereArgs: [artist.id]);
     int maxCount = Get.find<SettingsController>().getRecentsMaxLength;
-    if(await count == maxCount) _deleteFirstRow(tbArtistDetail);
-    await db.insert(tbArtistDetail, artist.toDb());
+    if(await count == maxCount) _deleteFirstRow(dbRecentsTbArtistDetail);
+    await db.insert(dbRecentsTbArtistDetail, artist.toDb());
   }
 
   Future<void> insertPlaylist(Playlist playlist) async {
     Database db = await _instance.database;
-    await db.delete(tbPlaylistDetail, where: '$colPlaylistId = ?', whereArgs: [playlist.id]);
+    await db.delete(dbRecentsTbPlaylistDetail, where: '$colPlaylistId = ?', whereArgs: [playlist.id]);
     int maxCount = Get.find<SettingsController>().getRecentsMaxLength;
-    if(await count == maxCount) _deleteFirstRow(tbPlaylistDetail);
-    await db.insert(tbPlaylistDetail, playlist.toDb());
+    if(await count == maxCount) _deleteFirstRow(dbRecentsTbPlaylistDetail);
+    await db.insert(dbRecentsTbPlaylistDetail, playlist.toDb());
   }
 
   Future<(List<Song>, List<Album>, List<Artist>, List<Playlist>)> get all async {
@@ -166,16 +138,16 @@ class RecentsDatabase {
     List<Artist> artists = [];
     List<Playlist> playlists = [];
     
-    List<Map<String,dynamic>> songResult = await db.query(tbSongDetail);
+    List<Map<String,dynamic>> songResult = await db.query(dbRecentsTbSongDetail);
     for (var map in songResult)  songs.add(Song.fromDb(map));
 
-    List<Map<String,dynamic>> albumResult = await db.query(tbAlbumDetail);
+    List<Map<String,dynamic>> albumResult = await db.query(dbRecentsTbAlbumDetail);
     for (var map in albumResult) albums.add(Album.fromDb(map));
 
-    List<Map<String,dynamic>> artistResult = await db.query(tbArtistDetail);
+    List<Map<String,dynamic>> artistResult = await db.query(dbRecentsTbArtistDetail);
     for (var map in artistResult) artists.add(Artist.fromDb(map));
 
-    List<Map<String,dynamic>> playlistResult = await db.query(tbPlaylistDetail);
+    List<Map<String,dynamic>> playlistResult = await db.query(dbRecentsTbPlaylistDetail);
     for (var map in playlistResult) playlists.add(Playlist.fromDb(map));
 
     return (songs, albums, artists, playlists);
@@ -184,7 +156,7 @@ class RecentsDatabase {
   Future<List<Album>> getAlbums() async {
     Database db = await _instance.database;
     List<Album> albums = [];
-    List<Map<String,dynamic>> result = await db.query(tbAlbumDetail);
+    List<Map<String,dynamic>> result = await db.query(dbRecentsTbAlbumDetail);
     for (var map in result) {
       albums.add(Album.fromDb(map));
     }
@@ -194,7 +166,7 @@ class RecentsDatabase {
   Future<List<Artist>> getArtists() async {
     Database db = await _instance.database;
     List<Artist> artists = [];
-    List<Map<String,dynamic>> result = await db.query(tbArtistDetail);
+    List<Map<String,dynamic>> result = await db.query(dbRecentsTbArtistDetail);
     for (var map in result) {
       artists.add(Artist.fromDb(map));
     }
@@ -204,7 +176,7 @@ class RecentsDatabase {
   Future<List<Playlist>> getPlaylists() async {
     Database db = await _instance.database;
     List<Playlist> playlists = [];
-    List<Map<String,dynamic>> result = await db.query(tbPlaylistDetail);
+    List<Map<String,dynamic>> result = await db.query(dbRecentsTbPlaylistDetail);
     for (var map in result) {
       playlists.add(Playlist.fromDb(map));
     }
@@ -213,7 +185,7 @@ class RecentsDatabase {
 
   Future<int> get count async {
     Database db = await _instance.database;
-    int? count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbSongDetail'));
+    int? count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $dbRecentsTbSongDetail'));
     if(count == null) return 0;
     return count;
   }

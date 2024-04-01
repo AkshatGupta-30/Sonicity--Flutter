@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sqflite/sqflite.dart';
 
 class QueueDatabase {
@@ -24,19 +25,11 @@ class QueueDatabase {
     return await openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
 
-  static const tbQueueDetails = 'queue_details';
-
-  static const colId = 'auto_id';
-  static const colName = 'name';
-  static const colDateCreated = 'date_created';
-  static const colSongCount = 'songCount';
-  static const colSongIds = 'song_ids';
-  static const colCurrentQueue = 'current_queue';
-  static const colPlayingQueue = 'playing_queue';
+  
   Future _onCreate(Database db, int version) async {
     await db.execute(
       '''
-        CREATE TABLE $tbQueueDetails (
+        CREATE TABLE $dbQueueTbQueueDetails (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colName TEXT NOT NULL,
           $colDateCreated TEXT NOT NULL,
@@ -99,7 +92,7 @@ class QueueDatabase {
     if(isCurrent) {
       await db.rawUpdate(
         '''
-          UPDATE $tbQueueDetails 
+          UPDATE $dbQueueTbQueueDetails 
           SET $colCurrentQueue = 0 
           WHERE $colCurrentQueue = 1
         '''
@@ -108,14 +101,14 @@ class QueueDatabase {
     if(isPlaying) {
       await db.rawUpdate(
         '''
-          UPDATE $tbQueueDetails 
+          UPDATE $dbQueueTbQueueDetails 
           SET $colPlayingQueue = 0 
           WHERE $colPlayingQueue = 1
         '''
       );
     }
     await db.insert(
-      tbQueueDetails,
+      dbQueueTbQueueDetails,
       {
         colName : queueTableName(queueName),
         colDateCreated : DateTime.now().toIso8601String(),
@@ -129,8 +122,8 @@ class QueueDatabase {
 
   Future<void> deleteQueue(String queueName) async {
     Database db = await _instance.database;
-    int id = int.parse((await db.query(tbQueueDetails, columns: [colId], where: "$colName = ?", whereArgs: [queueTableName(queueName)])).first[colId].toString());
-    await db.delete(tbQueueDetails, where: "$colName = ?", whereArgs: [queueTableName(queueName)]);
+    int id = int.parse((await db.query(dbQueueTbQueueDetails, columns: [colId], where: "$colName = ?", whereArgs: [queueTableName(queueName)])).first[colId].toString());
+    await db.delete(dbQueueTbQueueDetails, where: "$colName = ?", whereArgs: [queueTableName(queueName)]);
     await db.execute('DROP TABLE IF EXISTS ${queueTableName(queueName)}');
     await _reorderIds(id);
     await _updateFirstRowCurrentQueue();
@@ -139,7 +132,7 @@ class QueueDatabase {
   Future<void> renameQueue(String queueName, String newName) async {
     final db = await _instance.database;
     await db.update(
-      tbQueueDetails,
+      dbQueueTbQueueDetails,
       {colName: newName},
       where: '$colName = ?',
       whereArgs: [queueTableName(queueName)]
@@ -162,7 +155,7 @@ class QueueDatabase {
   Future<List<Queue>> get queues async {
     Database db = await _instance.database;
     List<Queue> queues = [];
-    List<Map<String,dynamic>> queueResult = await db.query(tbQueueDetails);
+    List<Map<String,dynamic>> queueResult = await db.query(dbQueueTbQueueDetails);
     for (var map in queueResult) {
       queues.add(Queue.fromDb(map));
     }
@@ -175,7 +168,7 @@ class QueueDatabase {
       for (int i = 0; i < newOrderedQueue.length; i++) {
         await txn.rawUpdate(
           '''
-            UPDATE $tbQueueDetails 
+            UPDATE $dbQueueTbQueueDetails 
             SET $colId = ? WHERE $colName = ?
           ''',
           [i, queueTableName(newOrderedQueue[i].name)]
@@ -217,7 +210,7 @@ class QueueDatabase {
 
   Future<void> updateInMain(String queueName, Song song, {required bool isInsert}) async {
     Database db = await _instance.database;
-    List<Map<String, dynamic>> result = await db.query(tbQueueDetails,
+    List<Map<String, dynamic>> result = await db.query(dbQueueTbQueueDetails,
       columns: [colSongIds],
       where: '$colName = ?',
       whereArgs: [queueName],
@@ -229,7 +222,7 @@ class QueueDatabase {
       String updatedIds = existingIds.isEmpty ? song.id.toString() : '$existingIds,${song.id}';
       await db.rawUpdate(
         '''
-          UPDATE $tbQueueDetails 
+          UPDATE $dbQueueTbQueueDetails 
           SET $colSongCount = $colSongCount + 1, $colSongIds = ? 
           WHERE $colName = ?
         ''',
@@ -239,7 +232,7 @@ class QueueDatabase {
       String updatedIds = existingIds.replaceFirst(',${song.id}', '').replaceAll(song.id.toString(), '');
       await db.rawUpdate(
         '''
-          UPDATE $tbQueueDetails 
+          UPDATE $dbQueueTbQueueDetails 
           SET $colSongCount = $colSongCount - 1, $colSongIds = ? 
           WHERE $colName = ?
         ''',
@@ -251,7 +244,7 @@ class QueueDatabase {
   Future<List<bool>> isSongPresent(Song song) async {
     final db = await _instance.database;
     List<bool> isSongPresent = [];
-    List<Map<String,dynamic>> queryRes = await db.query(tbQueueDetails, columns: [colSongIds]);
+    List<Map<String,dynamic>> queryRes = await db.query(dbQueueTbQueueDetails, columns: [colSongIds]);
     if(queryRes.isEmpty) return [];
     for(var songId in queryRes) {
       if(songId[colSongIds].toString().contains(song.id)) isSongPresent.add(true);
@@ -275,14 +268,14 @@ class QueueDatabase {
     queueName = queueTableName(queueName);
     await db.rawUpdate(
       '''
-        UPDATE $tbQueueDetails 
+        UPDATE $dbQueueTbQueueDetails 
         SET $colCurrentQueue = 0
         WHERE $colCurrentQueue = 1
       ''',
     );
     await db.rawUpdate(
       '''
-        UPDATE $tbQueueDetails 
+        UPDATE $dbQueueTbQueueDetails 
         SET $colCurrentQueue = 1
         WHERE $colName = ?
       ''',
@@ -295,7 +288,7 @@ class QueueDatabase {
     queueName = queueTableName(queueName);
     await db.rawUpdate(
       '''
-        UPDATE $tbQueueDetails 
+        UPDATE $dbQueueTbQueueDetails 
         SET $colPlayingQueue = 0
         WHERE $colPlayingQueue = 1
       ''',
@@ -303,7 +296,7 @@ class QueueDatabase {
     if(isPlaying) {
       await db.rawUpdate(
         '''
-          UPDATE $tbQueueDetails 
+          UPDATE $dbQueueTbQueueDetails 
           SET $colPlayingQueue = 1
           WHERE $colName = ?
         ''',
@@ -321,7 +314,7 @@ class QueueDatabase {
 
   Future<int> get queueCount async {
     Database db = await _instance.database;
-    int count = (await db.query(tbQueueDetails)).length;
+    int count = (await db.query(dbQueueTbQueueDetails)).length;
     return count;
   }
 
@@ -329,7 +322,7 @@ class QueueDatabase {
     final db = await _instance.database;
     await db.transaction((txn) async {
       await txn.execute('''
-        UPDATE $tbQueueDetails
+        UPDATE $dbQueueTbQueueDetails
         SET $colId = $colId - 1
         WHERE $colId > $id
       ''');
@@ -340,7 +333,7 @@ class QueueDatabase {
     final db = await _instance.database;
     await db.transaction((txn) async {
       await txn.execute('''
-        UPDATE $tbQueueDetails
+        UPDATE $dbQueueTbQueueDetails
         SET $colCurrentQueue = 1
         WHERE $colId = 1
       ''');

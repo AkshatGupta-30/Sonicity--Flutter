@@ -1,5 +1,5 @@
-import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 
 class Queue {
   final String id;
@@ -13,12 +13,12 @@ class Queue {
 
   factory Queue.fromDb(Map<String, dynamic> data) {
     return Queue(
-      id: data[QueueDatabase.colId].toString(),
-      name: data[QueueDatabase.colName].toString().replaceAll('qpzm', ' - ').replaceAll('_', ' '),
-      songCount: data[QueueDatabase.colSongCount].toString(),
-      dateCreated: DateTime.parse(data[QueueDatabase.colDateCreated]),
-      isCurrent: (data[QueueDatabase.colCurrentQueue] == 0) ? false : true,
-      isPlaying: (data[QueueDatabase.colPlayingQueue] == 0) ? false : true,
+      id: data[colId].toString(),
+      name: data[colName].toString().replaceAll('qpzm', ' - ').replaceAll('_', ' '),
+      songCount: data[colSongCount].toString(),
+      dateCreated: DateTime.parse(data[colDateCreated]),
+      isCurrent: (data[colCurrentQueue] == 0) ? false : true,
+      isPlaying: (data[colPlayingQueue] == 0) ? false : true,
     );
   }
 

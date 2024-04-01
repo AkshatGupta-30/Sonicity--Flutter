@@ -26,40 +26,10 @@ class StarredDatabase {
     return await openDatabase(path, version: _databaseVersion, onCreate: _onCreate,);
   }
 
-  // TODO : separate class for this
-  static const tbSongDetail = 'starred_song';
-  static const tbAlbumDetail = 'starred_album';
-  static const tbArtistDetail = 'starred_artist';
-  static const tbPlaylistDetail = 'starred_playlist';
-
-  static const colId = 'id';
-  static const colSongId = 'song_id';
-  static const colAlbumId = 'album_id';
-  static const colArtistId = 'artist_id';
-  static const colPlaylistId = 'playlist_id';
-  static const colName = 'name';
-  static const colAlbumName = 'album_name';
-  static const colArtistIds = 'artist_ids';
-  static const colArtistNames = 'artist_names';
-  static const colHasLyrics = 'hasLyrics';
-  static const colYear = 'year';
-  static const colReleaseDate = 'releaseDate';
-  static const colDuration = 'duration';
-  static const colLanguage = 'language';
-  static const colSongCount = 'songCount';
-  static const colDominantType = 'dominantType';
-  static const colImgLow = 'img_low';
-  static const colImgMed = 'img_med';
-  static const colImgHigh = 'img_high';
-  static const colDownload12kbps = 'download_12kbps';
-  static const colDownload48kbps = 'download_48kbps';
-  static const colDownload96kbps = 'download_96kbps';
-  static const colDownload160kbps = 'download_160kbps';
-  static const colDownload320kbps = 'download_320kbps';
   Future _onCreate(Database db, int version) async {
     await db.execute( // * Song Details
       '''
-        CREATE TABLE $tbSongDetail (
+        CREATE TABLE $dbStarredTbSongDetail (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colSongId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -85,7 +55,7 @@ class StarredDatabase {
     );
     await db.execute(// * Album Details
       '''
-        CREATE TABLE $tbAlbumDetail (
+        CREATE TABLE $dbStarredTbAlbumDetail (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colAlbumId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -98,7 +68,7 @@ class StarredDatabase {
     );
     await db.execute(// * Artist Details
       '''
-        CREATE TABLE $tbArtistDetail (
+        CREATE TABLE $dbStarredTbArtistDetail (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colArtistId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -111,7 +81,7 @@ class StarredDatabase {
     );
     await db.execute(// * Playlist Details
       '''
-        CREATE TABLE $tbPlaylistDetail (
+        CREATE TABLE $dbStarredTbPlaylistDetail (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colPlaylistId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -127,10 +97,10 @@ class StarredDatabase {
   Future<void> starred(dynamic model) async {
     Database db = await _instance.database;
     Map<Type, String> tableNames = {
-      Song: tbSongDetail,
-      Album: tbAlbumDetail,
-      Artist: tbArtistDetail,
-      Playlist: tbPlaylistDetail,
+      Song: dbStarredTbSongDetail,
+      Album: dbStarredTbAlbumDetail,
+      Artist: dbStarredTbArtistDetail,
+      Playlist: dbStarredTbPlaylistDetail,
     };
     if (tableNames.containsKey(model.runtimeType)) {
       getIt<ClonedDatabase>().clone(model);
@@ -141,10 +111,10 @@ class StarredDatabase {
   Future<void> deleteStarred(dynamic model) async {
     Database db = await _instance.database;
     Map<Type, Map<String, dynamic>> modelsMap = {
-      Song: {tbSongDetail: colSongId},
-      Album: {tbAlbumDetail: colAlbumId},
-      Artist: {tbArtistDetail: colArtistId},
-      Playlist: {tbPlaylistDetail: colPlaylistId}
+      Song: {dbStarredTbSongDetail: colSongId},
+      Album: {dbStarredTbAlbumDetail: colAlbumId},
+      Artist: {dbStarredTbArtistDetail: colArtistId},
+      Playlist: {dbStarredTbPlaylistDetail: colPlaylistId}
     };
 
     final tableColumn = modelsMap[model.runtimeType];
@@ -154,10 +124,10 @@ class StarredDatabase {
   Future<bool> isPresent(dynamic model) async {
     Database db = await _instance.database;
     Map<Type, Map<String, dynamic>> modelsMap = {
-      Song: {tbSongDetail: colSongId},
-      Album: {tbAlbumDetail: colAlbumId},
-      Artist: {tbArtistDetail: colArtistId},
-      Playlist: {tbPlaylistDetail: colPlaylistId}
+      Song: {dbStarredTbSongDetail: colSongId},
+      Album: {dbStarredTbAlbumDetail: colAlbumId},
+      Artist: {dbStarredTbArtistDetail: colArtistId},
+      Playlist: {dbStarredTbPlaylistDetail: colPlaylistId}
     };
 
     final tableColumn = modelsMap[model.runtimeType];
@@ -172,16 +142,16 @@ class StarredDatabase {
     List<Artist> artists = [];
     List<Playlist> playlists = [];
     
-    List<Map<String,dynamic>> songResult = await db.query(tbSongDetail);
+    List<Map<String,dynamic>> songResult = await db.query(dbStarredTbSongDetail);
     for (var map in songResult)  songs.add(Song.fromDb(map));
 
-    List<Map<String,dynamic>> albumResult = await db.query(tbAlbumDetail);
+    List<Map<String,dynamic>> albumResult = await db.query(dbStarredTbAlbumDetail);
     for (var map in albumResult) albums.add(Album.fromDb(map));
 
-    List<Map<String,dynamic>> artistResult = await db.query(tbArtistDetail);
+    List<Map<String,dynamic>> artistResult = await db.query(dbStarredTbArtistDetail);
     for (var map in artistResult) artists.add(Artist.fromDb(map));
 
-    List<Map<String,dynamic>> playlistResult = await db.query(tbPlaylistDetail);
+    List<Map<String,dynamic>> playlistResult = await db.query(dbStarredTbPlaylistDetail);
     for (var map in playlistResult) playlists.add(Playlist.fromDb(map));
 
     return (songs, albums, artists, playlists);
@@ -190,7 +160,7 @@ class StarredDatabase {
   Future<List<Song>> get songs async {
     Database db = await _instance.database;
     List<Song> songs = [];
-    List<Map<String,dynamic>> songResult = await db.query(tbSongDetail);
+    List<Map<String,dynamic>> songResult = await db.query(dbStarredTbSongDetail);
     for (var map in songResult)  songs.add(Song.fromDb(map));
     return songs;
   }
@@ -198,7 +168,7 @@ class StarredDatabase {
   Future<List<Album>> get albums async {
     Database db = await _instance.database;
     List<Album> albums = [];
-    List<Map<String,dynamic>> albumResult = await db.query(tbAlbumDetail);
+    List<Map<String,dynamic>> albumResult = await db.query(dbStarredTbAlbumDetail);
     for (var map in albumResult) albums.add(Album.fromDb(map));
     return albums;
   }
@@ -206,7 +176,7 @@ class StarredDatabase {
   Future<List<Artist>> get artists async {
     Database db = await _instance.database;
     List<Artist> artists = [];
-    List<Map<String,dynamic>> artistResult = await db.query(tbArtistDetail);
+    List<Map<String,dynamic>> artistResult = await db.query(dbStarredTbArtistDetail);
     for (var map in artistResult) artists.add(Artist.fromDb(map));
     return artists;
   }
@@ -214,14 +184,14 @@ class StarredDatabase {
   Future<List<Playlist>> get playlists async {
     Database db = await _instance.database;
     List<Playlist> playlists = [];
-    List<Map<String,dynamic>> playlistResult = await db.query(tbPlaylistDetail);
+    List<Map<String,dynamic>> playlistResult = await db.query(dbStarredTbPlaylistDetail);
     for (var map in playlistResult) playlists.add(Playlist.fromDb(map));
     return playlists;
   }
 
   Future<int> get count async {
     Database db = await _instance.database;
-    int? count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbSongDetail'));
+    int? count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $dbStarredTbSongDetail'));
     if(count == null) return 0;
     return count;
   }

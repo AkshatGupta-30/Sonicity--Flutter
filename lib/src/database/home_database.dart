@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sqflite/sqflite.dart';
 
 class HomeDatabase {
@@ -28,40 +29,10 @@ class HomeDatabase {
     );
   }
 
-  static const tbTrendingSongs = 'trending_songs';
-  static const tbTrendingAlbums = 'trending_albums';
-  static const tbTopCharts = 'top_charts';
-  static const tbTopAlbums = 'top_albums';
-  static const tbHotPlaylists = 'hot_playlist';
-
-  static const colId = 'id';
-  static const colSongId = 'song_id';
-  static const colAlbumId = 'album_id';
-  static const colArtistId = 'artist_id';
-  static const colPlaylistId = 'playlist_id';
-  static const colName = 'name';
-  static const colAlbumName = 'album_name';
-  static const colArtistIds = 'artist_ids';
-  static const colArtistNames = 'artist_names';
-  static const colHasLyrics = 'hasLyrics';
-  static const colYear = 'year';
-  static const colReleaseDate = 'releaseDate';
-  static const colDuration = 'duration';
-  static const colLanguage = 'language';
-  static const colSongCount = 'songCount';
-  static const colDominantType = 'dominantType';
-  static const colImgLow = 'img_low';
-  static const colImgMed = 'img_med';
-  static const colImgHigh = 'img_high';
-  static const colDownload12kbps = 'download_12kbps';
-  static const colDownload48kbps = 'download_48kbps';
-  static const colDownload96kbps = 'download_96kbps';
-  static const colDownload160kbps = 'download_160kbps';
-  static const colDownload320kbps = 'download_320kbps';
   Future _onCreate(Database db, int version) async {
     await db.execute( // * Tremdong Songs
       '''
-        CREATE TABLE $tbTrendingSongs (
+        CREATE TABLE $dbHomeTbTrendingSongs (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colSongId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -87,7 +58,7 @@ class HomeDatabase {
     );
     await db.execute(// * Trending Albums
       '''
-        CREATE TABLE $tbTrendingAlbums (
+        CREATE TABLE $dbHomeTbTrendingAlbums (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colAlbumId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -100,7 +71,7 @@ class HomeDatabase {
     );
     await db.execute(// * Top Charts
       '''
-        CREATE TABLE $tbTopCharts (
+        CREATE TABLE $dbHomeTbTopCharts (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colPlaylistId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -113,7 +84,7 @@ class HomeDatabase {
     );
     await db.execute(// * TopAlbums
       '''
-        CREATE TABLE $tbTopAlbums (
+        CREATE TABLE $dbHomeTbTopAlbums (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colAlbumId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -126,7 +97,7 @@ class HomeDatabase {
     );
     await db.execute(// * Hot Playlists
       '''
-        CREATE TABLE $tbHotPlaylists (
+        CREATE TABLE $dbHomeTbHotPlaylists (
           $colId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colPlaylistId TEXT NOT NULL,
           $colName TEXT NOT NULL,
@@ -146,8 +117,8 @@ class HomeDatabase {
     required HotPlaylists htPlaylist,
   }) async {
     Database db = await _instance.database;
-    for (var song in trendNow.songs) (await db.insert(tbTrendingSongs, song.toDb()));
-    for (var album in trendNow.albums) (await db.insert(tbTrendingAlbums, album.toDb()));
+    for (var song in trendNow.songs) (await db.insert(dbHomeTbTrendingSongs, song.toDb()));
+    for (var album in trendNow.albums) (await db.insert(dbHomeTbTrendingAlbums, album.toDb()));
     for (var playlist in tpChart.playlists) {
       Map<String,dynamic> playlistDb = {
         "playlist_id" : playlist.id,
@@ -157,7 +128,7 @@ class HomeDatabase {
         "img_med" : playlist.image.medQuality,
         "img_high" : playlist.image.highQuality,
       };
-      await db.insert(tbTopCharts, playlistDb);
+      await db.insert(dbHomeTbTopCharts, playlistDb);
     }
     for (var album in tpAlbum.albums) {
       Map<String,dynamic> albumDb = {
@@ -168,7 +139,7 @@ class HomeDatabase {
         "img_med" : album.image!.medQuality,
         "img_high" : album.image!.highQuality,
       };
-      await db.insert(tbTopAlbums, albumDb);
+      await db.insert(dbHomeTbTopAlbums, albumDb);
     }
     for (var playlist in htPlaylist.playlists) {
       Map<String,dynamic> playlistDb = {
@@ -179,7 +150,7 @@ class HomeDatabase {
         "img_med" : playlist.image.medQuality,
         "img_high" : playlist.image.highQuality,
       };
-      await db.insert(tbHotPlaylists, playlistDb);
+      await db.insert(dbHomeTbHotPlaylists, playlistDb);
     }
   }
 
@@ -191,19 +162,19 @@ class HomeDatabase {
     List<Album> tpAlbum = [];
     List<Playlist> htPlaylist = [];
 
-    List<Map<String,dynamic>> trendSongsResult = await db.query(tbTrendingSongs);
+    List<Map<String,dynamic>> trendSongsResult = await db.query(dbHomeTbTrendingSongs);
     for (var map in trendSongsResult) trendSongs.add(Song.fromDb(map));
 
-    List<Map<String,dynamic>> trendAlbumsResult = await db.query(tbTrendingAlbums);
+    List<Map<String,dynamic>> trendAlbumsResult = await db.query(dbHomeTbTrendingAlbums);
     for (var map in trendAlbumsResult) trendAlbums.add(Album.fromDb(map));
 
-    List<Map<String,dynamic>> topChartsResult = await db.query(tbTopCharts);
+    List<Map<String,dynamic>> topChartsResult = await db.query(dbHomeTbTopCharts);
     for (var map in topChartsResult) tpChart.add(Playlist.fromDb(map));
 
-    List<Map<String,dynamic>> topAlbumsResult = await db.query(tbTopAlbums);
+    List<Map<String,dynamic>> topAlbumsResult = await db.query(dbHomeTbTopAlbums);
     for (var map in topAlbumsResult) tpAlbum.add(Album.fromDb(map));
 
-    List<Map<String,dynamic>> hotPlaylistsResult = await db.query(tbHotPlaylists);
+    List<Map<String,dynamic>> hotPlaylistsResult = await db.query(dbHomeTbHotPlaylists);
     for (var map in hotPlaylistsResult) htPlaylist.add(Playlist.fromDb(map));
 
     return (
@@ -219,10 +190,10 @@ class HomeDatabase {
     List<Song> trendSongs = [];
     List<Album> trendAlbums = [];
 
-    List<Map<String,dynamic>> trendSongsResult = await db.query(tbTrendingSongs);
+    List<Map<String,dynamic>> trendSongsResult = await db.query(dbHomeTbTrendingSongs);
     for (var map in trendSongsResult) trendSongs.add(Song.fromDb(map));
 
-    List<Map<String,dynamic>> trendAlbumsResult = await db.query(tbTrendingAlbums);
+    List<Map<String,dynamic>> trendAlbumsResult = await db.query(dbHomeTbTrendingAlbums);
     for (var map in trendAlbumsResult) trendAlbums.add(Album.fromDb(map));
 
     return TrendingNow.fromList(albums: trendAlbums, songs: trendSongs);
@@ -232,7 +203,7 @@ class HomeDatabase {
     Database db = await _instance.database;
     List<Playlist> tpChart = [];
 
-    List<Map<String,dynamic>> topChartsResult = await db.query(tbTopCharts);
+    List<Map<String,dynamic>> topChartsResult = await db.query(dbHomeTbTopCharts);
     for (var map in topChartsResult) tpChart.add(Playlist.fromDb(map));
     return TopCharts.fromList(jsonList: tpChart);
   }
@@ -241,7 +212,7 @@ class HomeDatabase {
     Database db = await _instance.database;
     List<Album> tpAlbum = [];
 
-    List<Map<String,dynamic>> topAlbumsResult = await db.query(tbTopAlbums);
+    List<Map<String,dynamic>> topAlbumsResult = await db.query(dbHomeTbTopAlbums);
     for (var map in topAlbumsResult) tpAlbum.add(Album.fromDb(map));
     return TopAlbums.fromJson(jsonList: tpAlbum);
   }
@@ -250,24 +221,24 @@ class HomeDatabase {
     Database db = await _instance.database;
     List<Playlist> htPlaylist = [];
 
-    List<Map<String,dynamic>> hotPlaylistsResult = await db.query(tbHotPlaylists);
+    List<Map<String,dynamic>> hotPlaylistsResult = await db.query(dbHomeTbHotPlaylists);
     for (var map in hotPlaylistsResult) htPlaylist.add(Playlist.fromDb(map));
     return HotPlaylists.fromJson(jsonList: htPlaylist);
   }
 
   Future<bool> isFilled() async {
     Database db = await _instance.database;
-    final trS = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbTrendingSongs'));
-    final trA = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbTrendingAlbums'))!;
-    final tC = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbTopCharts'))!;
-    final tA = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbTopAlbums'))!;
-    final hP = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbHotPlaylists'))!;
+    final trS = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $dbHomeTbTrendingSongs'));
+    final trA = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $dbHomeTbTrendingAlbums'))!;
+    final tC = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $dbHomeTbTopCharts'))!;
+    final tA = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $dbHomeTbTopAlbums'))!;
+    final hP = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $dbHomeTbHotPlaylists'))!;
     return (trS!=0 || trA!=0 || tC!=0 || tA!=0 || hP!=0);
   }
 
   void clearAll() async {
     Database db = await _instance.database;
-    List<String> tables = [tbTrendingSongs, tbTrendingAlbums, tbTopCharts, tbTopAlbums, tbHotPlaylists];
+    List<String> tables = [dbHomeTbTrendingSongs, dbHomeTbTrendingAlbums, dbHomeTbTopCharts, dbHomeTbTopAlbums, dbHomeTbHotPlaylists];
     for (String table in tables) {
       await db.delete(table);
     }

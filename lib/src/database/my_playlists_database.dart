@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
+import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MyPlaylistsDatabase {
@@ -29,21 +30,11 @@ class MyPlaylistsDatabase {
     return await openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
 
-  static const tbPlaylistDetails = 'playlist_details';
-  static const defaultImg = 'assets/images/myPlaylistCover/myPlaylistCover50x50.jpg${specCharQuality}assets/images/myPlaylistCover/myPlaylistCover150x150.jpg${specCharQuality}assets/images/myPlaylistCover/myPlaylistCover500x500.jpg';
-  static const specCharSong = '(*_*)';
-  static const specCharQuality = '[*]';
-
-  static const colPlaylistId = 'playlist_id';
-  static const colName = 'name';
-  static const colDateCreated = 'date_created';
-  static const colSongCount = 'songCount';
-  static const colImages = 'images';
-  static const colSongIds = 'song_ids';
+  
   Future _onCreate(Database db, int version) async {
     await db.execute(
       '''
-        CREATE TABLE $tbPlaylistDetails (
+        CREATE TABLE $dbMyPlaylistsTbPlaylistDetails (
           $colPlaylistId INTEGER PRIMARY KEY AUTOINCREMENT,
           $colName TEXT NOT NULL,
           $colDateCreated TEXT NOT NULL,
@@ -102,27 +93,27 @@ class MyPlaylistsDatabase {
       '''
     );
     await db.insert(
-      tbPlaylistDetails,
+      dbMyPlaylistsTbPlaylistDetails,
       {
         colName : playlistName.replaceAll(' ', '_'),
         colDateCreated : DateTime.now().toIso8601String(),
         colSongCount : 0,
         colSongIds : "" ,
-        colImages : defaultImg
+        colImages : dbMyPlaylistsDefaultImg
       }
     );
   }
 
   Future<void> deletePlaylist(String playlistName) async {
     Database db = await _instance.database;
-    await db.delete(tbPlaylistDetails, where: "$colName = ?", whereArgs: [playlistName.replaceAll(' ', '_')]);
+    await db.delete(dbMyPlaylistsTbPlaylistDetails, where: "$colName = ?", whereArgs: [playlistName.replaceAll(' ', '_')]);
     await db.execute('DROP TABLE IF EXISTS ${playlistName.replaceAll(' ', '_')}');
   }
 
   Future<void> renamePlaylist(String playlistName, String newName) async {
     final db = await _instance.database;
     await db.update(
-      tbPlaylistDetails,
+      dbMyPlaylistsTbPlaylistDetails,
       {colName: newName},
       where: '$colName = ?',
       whereArgs: [playlistName.replaceAll(' ', '_')]
@@ -133,7 +124,7 @@ class MyPlaylistsDatabase {
   Future<List<MyPlaylist>> get playlists async {
     Database db = await _instance.database;
     List<MyPlaylist> playlists = [];
-    List<Map<String,dynamic>> playlistResult = await db.query(tbPlaylistDetails);
+    List<Map<String,dynamic>> playlistResult = await db.query(dbMyPlaylistsTbPlaylistDetails);
     for (var map in playlistResult) {
       playlists.add(MyPlaylist.fromDb(map));
     }
@@ -190,7 +181,7 @@ class MyPlaylistsDatabase {
 
   Future<void> updateInMain(String playlistName, Song song, {required bool isInsert}) async {
     Database db = await _instance.database;
-    List<Map<String, dynamic>> result = await db.query(tbPlaylistDetails,
+    List<Map<String, dynamic>> result = await db.query(dbMyPlaylistsTbPlaylistDetails,
       columns: [colSongIds, colImages],
       where: '$colName = ?',
       whereArgs: [playlistName],
@@ -202,7 +193,7 @@ class MyPlaylistsDatabase {
       String updatedIds = existingIds.isEmpty ? song.id.toString() : '$existingIds,${song.id}';
       await db.rawUpdate(
         '''
-          UPDATE $tbPlaylistDetails 
+          UPDATE $dbMyPlaylistsTbPlaylistDetails 
           SET $colSongCount = $colSongCount + 1, $colSongIds = ? 
           WHERE $colName = ?
         ''',
@@ -212,7 +203,7 @@ class MyPlaylistsDatabase {
       String updatedIds = existingIds.replaceFirst(',${song.id}', '').replaceAll(song.id.toString(), '');
       await db.rawUpdate(
         '''
-          UPDATE $tbPlaylistDetails 
+          UPDATE $dbMyPlaylistsTbPlaylistDetails 
           SET $colSongCount = $colSongCount - 1, $colSongIds = ? 
           WHERE $colName = ?
         ''',
@@ -223,12 +214,12 @@ class MyPlaylistsDatabase {
     int count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM ${playlistName.replaceAll(' ', '_')}'))!;
     if(count < 4) {
       if(isInsert) {
-        String imageLinks = '${song.image.lowQuality}$specCharQuality${song.image.medQuality}$specCharQuality${song.image.highQuality}';
+        String imageLinks = '${song.image.lowQuality}$dbMyPlaylistsSpecCharQuality${song.image.medQuality}$dbMyPlaylistsSpecCharQuality${song.image.highQuality}';
         if(count <= 4) {
           String existingImages = (result.isNotEmpty) ? result.first[colImages] : '';
-          String appendImage = "$existingImages$specCharSong$imageLinks";
+          String appendImage = "$existingImages$dbMyPlaylistsSpecCharSong$imageLinks";
           await db.update(
-            tbPlaylistDetails,
+            dbMyPlaylistsTbPlaylistDetails,
             {colImages : appendImage},
             where: '$colName = ?',
             whereArgs: [playlistName]
@@ -237,17 +228,17 @@ class MyPlaylistsDatabase {
       } else {
         if(count == 0) {
           await db.update(
-            tbPlaylistDetails,
-            {colImages : defaultImg},
+            dbMyPlaylistsTbPlaylistDetails,
+            {colImages : dbMyPlaylistsDefaultImg},
             where: '$colName = ?',
             whereArgs: [playlistName]
           );
         } else {
-          String imageLinks = '${song.image.lowQuality}$specCharQuality${song.image.medQuality}$specCharQuality${song.image.highQuality}';
+          String imageLinks = '${song.image.lowQuality}$dbMyPlaylistsSpecCharQuality${song.image.medQuality}$dbMyPlaylistsSpecCharQuality${song.image.highQuality}';
           String existingImages = (result.isNotEmpty) ? result.first[colImages] : '';
-          String newImages = existingImages.replaceFirst("$specCharSong$imageLinks", "");
+          String newImages = existingImages.replaceFirst("$dbMyPlaylistsSpecCharSong$imageLinks", "");
           await db.update(
-            tbPlaylistDetails,
+            dbMyPlaylistsTbPlaylistDetails,
             {colImages: newImages},
             where: '$colName = ?',
             whereArgs: [playlistName]
@@ -262,7 +253,7 @@ class MyPlaylistsDatabase {
   Future<List<bool>> isSongPresent(Song song) async {
     final db = await _instance.database;
     List<bool> isSongPresent = [];
-    List<Map<String,dynamic>> queryRes = await db.query(tbPlaylistDetails, columns: [colSongIds]);
+    List<Map<String,dynamic>> queryRes = await db.query(dbMyPlaylistsTbPlaylistDetails, columns: [colSongIds]);
     if(queryRes.isEmpty) return [];
     for(var songId in queryRes) {
       if(songId[colSongIds].toString().contains(song.id)) {
@@ -286,7 +277,7 @@ class MyPlaylistsDatabase {
 
   Future<int> get playlistCount async {
     Database db = await _instance.database;
-    int? count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tbPlaylistDetails'));
+    int? count = Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $dbMyPlaylistsTbPlaylistDetails'));
     if(count == null) return 0;
     return count;
   }
