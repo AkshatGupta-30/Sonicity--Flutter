@@ -4,18 +4,13 @@ Sonicity is a Flutter-based mobile application that leverages the JioSaavn API t
 ----
 
 # Screenshots
-| Splash Screen | Home Screen | Queue Screen | Settings Screen | Search Songs Screen | Search Albums Screen|
-| --- | --- | --- | --- | --- | --- |
-| <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/splashScreen.jpg" alt="Splash Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/homeScreen.jpg" alt="Home Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/queueScreen.jpg" alt="Queue Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/settingsScreen.jpg" alt="Settings Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchSongScreen.jpg" alt="Search Songs Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchAlbumScreen.jpg" alt="Search Albums Screen" height="300"> |
+| Splash Screen | Home Screen | Queue Screen | Settings Screen | Search Songs Screen | Search Albums Screen | Main Player | Lyrics Screen | Playlist Screen |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/splashScreen.jpg" alt="Splash Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/homeScreen.jpg" alt="Home Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/queueScreen.jpg" alt="Queue Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/settingsScreen.jpg" alt="Settings Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchSongScreen.jpg" alt="Search Songs Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/searchAlbumScreen.jpg" alt="Search Albums Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/mainPlayer.jpg" alt="Main Player" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/lyricsScreen.jpg" alt="Lyrics Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/playlistScreen.jpg" alt="Playlist Screen" height="300"> |
 
 | Mini Player |
 | --- |
 | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/miniPlayer.jpg" alt="Mini Player"> |
-
-
-| Main Player | Lyrics Screen | Playlist Screen |
-| --- | --- | --- |
-| <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/mainPlayer.jpg" alt="Main Player" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/lyricsScreen.jpg" alt="Lyrics Screen" height="300"> | <img src="https://github.com/AkshatGupta-30/Sonicity--Flutter/blob/main/assets/screenshots/playlistScreen.jpg" alt="Playlist Screen" height="300"> |
 
 ----
 
@@ -66,7 +61,7 @@ Sonicity is a Flutter-based mobile application that leverages the JioSaavn API t
 ----
 
 ## Dependencies Used
-| [*audio_service*](https://pub.dev/packages/audio_service) | [audioplayers](https://pub.dev/packages/audioplayers) | [clipboard](https://pub.dev/packages/clipboard) | [get](https://pub.dev/packages/get) | [get_it](https://pub.dev/packages/get_it) | [http](https://pub.dev/packages/http) | [just_audio](https://pub.dev/packages/just_audio) |
+| [audio_service](https://pub.dev/packages/audio_service) | [audioplayers](https://pub.dev/packages/audioplayers) | [clipboard](https://pub.dev/packages/clipboard) | [get](https://pub.dev/packages/get) | [get_it](https://pub.dev/packages/get_it) | [http](https://pub.dev/packages/http) | [just_audio](https://pub.dev/packages/just_audio) |
 | --- | --- | --- | --- | --- | --- | --- |
 | [**path_provider**](https://pub.dev/packages/path_provider) | [**rxdart**](https://pub.dev/packages/rxdart) | [**shared_preferences**](https://pub.dev/packages/shared_preferences) | [**shimmer**](https://pub.dev/packages/shimmer) | [**sleek_circular_slider**](https://pub.dev/packages/sleek_circular_slider) | [**sliver_tools**](https://pub.dev/packages/sliver_tools) | [**sqflite**](https://pub.dev/packages/sqflite) |
 
