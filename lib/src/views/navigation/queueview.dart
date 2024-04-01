@@ -29,7 +29,7 @@ class QueueView extends StatelessWidget {
               child: SafeArea(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Column(
+                  child: Obx(() => Column(
                     children: [
                       _allQueuesHeader(context, controller),
                       if(controller.queues.isEmpty)
@@ -45,7 +45,7 @@ class QueueView extends StatelessWidget {
                         _allSongs(controller, audioManager),
                       ]
                     ],
-                  ),
+                  )),
                 ),
               ),
             ),

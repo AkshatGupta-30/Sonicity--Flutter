@@ -204,7 +204,7 @@ class AllQueues extends StatelessWidget {
                       IconButton(
                         onPressed: () => showDialog(
                           context: context, barrierDismissible: true, useRootNavigator: true,
-                          builder: (ctx) => RemoveQueueDialog(controller, queue: queue),
+                          builder: (ctx) => RemoveQueueDialog(controller, queue: queue, fromAllQueue: true,),
                         ),
                         padding: EdgeInsets.zero,
                         icon: Iconify(IconParkTwotone.delete_four)
@@ -290,7 +290,8 @@ class RenameQueueDialog extends StatelessWidget {
 class RemoveQueueDialog extends StatelessWidget {
   final Queue queue;
   final QueueDetailController controller;
-  const RemoveQueueDialog(this.controller, {super.key, required this.queue,});
+  final bool fromAllQueue;
+  const RemoveQueueDialog(this.controller, {super.key, required this.queue, this.fromAllQueue = false});
 
   @override
   Widget build(BuildContext context) {
@@ -320,6 +321,7 @@ class RemoveQueueDialog extends StatelessWidget {
         IconButton(
           onPressed: () {
             Navigator.pop(context);
+            if(fromAllQueue) Navigator.pop(context);
             controller.deleteQueue(queue);
           },
           padding: EdgeInsets.zero,

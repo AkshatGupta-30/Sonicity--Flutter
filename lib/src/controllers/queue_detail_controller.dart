@@ -53,7 +53,7 @@ class QueueDetailController extends GetxController {
     db.updateSelectedQueue(q.name);
   }
 
-  void deleteQueue(Queue q) async => await db.deleteQueue(q.name).then((value) => getAll());
+  void deleteQueue(Queue q) async => await db.deleteQueue(q.name).then((value) async => await getAll());
 
   void renameQueue(Queue q) => db.renameQueue(q.name, renameQueueTextController.text).then((value) => getAll());
 
