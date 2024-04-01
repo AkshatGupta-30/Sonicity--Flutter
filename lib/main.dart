@@ -5,7 +5,7 @@ import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/views/splash_view.dart';
 import 'package:sonicity/utils/contants/constants.dart';
-
+// TODO - Add Home View Api and remove analysis options.yaml then release apk
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MainApp());
