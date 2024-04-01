@@ -68,7 +68,10 @@ class MyPlaylistViewTile extends StatelessWidget {
           child: MyPlaylistLeadingCover(playlist: playlist, size: 0,)
         )
       ),
-      title: Text(playlist.name.title(), style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),),
+      title: Text(
+        playlist.name.title(), maxLines: 1, overflow: TextOverflow.ellipsis,
+        style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),
+      ),
       subtitle: Text("${playlist.songCount} Songs"),
       trailing: InkWell(
         onTap: () => controller.deletePlaylist(playlist),
@@ -126,7 +129,10 @@ class MyPlaylistMergeTile extends StatelessWidget {
           child: MyPlaylistLeadingCover(playlist: playlist, size: 0,)
         )
       ),
-      title: Text(playlist.name.title(), style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),),
+      title: Text(
+        playlist.name.title(), maxLines: 1, overflow: TextOverflow.ellipsis,
+        style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),
+      ),
       subtitle: Text("${playlist.songCount} Songs"),
       value: isMerging,
       onChanged: (value) => controller.addToMerge(index, value!),
@@ -154,7 +160,10 @@ class MyPlaylistAddSongTile extends StatelessWidget{
         width: 50, height: 50,
         child: ClipRRect(borderRadius: BorderRadius.circular(8), child: MyPlaylistLeadingCover(playlist: playlist, size: 50))
       ),
-      title: Text(playlist.name.title(), style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w400)),
+      title: Text(
+        playlist.name.title(), maxLines: 1, overflow: TextOverflow.ellipsis,
+        style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w400)
+      ),
       subtitle: Text("${playlist.songCount} Songs"),
       trailing: Checkbox(
         value: checkBoxValue,

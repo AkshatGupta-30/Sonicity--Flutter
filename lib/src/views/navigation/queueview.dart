@@ -6,7 +6,6 @@ import 'package:iconify_flutter/iconify.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/models/models.dart';
-import 'package:sonicity/src/views/library/library_view.dart';
 import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
@@ -14,6 +13,7 @@ class QueueView extends StatelessWidget {
   QueueView({super.key});
 
   final controller = Get.find<NavigationController>();
+  final settings = Get.find<SettingsController>();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

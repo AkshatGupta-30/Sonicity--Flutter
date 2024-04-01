@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify.dart';
@@ -7,7 +6,6 @@ import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/views/drawer/drawer_view.dart';
 import 'package:sonicity/src/views/library/all_playlists_view.dart';
 import 'package:sonicity/src/views/navigation/navigation.dart';
-import 'package:sonicity/src/views/navigation/queueview.dart';
 import 'package:sonicity/src/views/player/player_view.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 import 'package:url_launcher/link.dart';

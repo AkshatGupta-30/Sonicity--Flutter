@@ -54,11 +54,6 @@ class LibraryView extends StatelessWidget {
                 icon: Ion.md_microphone,
                 title: "Artists",
               ),
-              Tile(// * : Stats
-                onPressed: () => Get.to(() => StatsView()),
-                icon: Wpf.statistics,
-                title: "Stats",
-              ),
             ],
           ),
         ),
