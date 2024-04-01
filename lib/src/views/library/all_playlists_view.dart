@@ -21,7 +21,7 @@ class AllPlaylistsView extends StatelessWidget {
             title: Text("Playlists"),
             bottom: TabBar(
               controller: controller.tabController,
-              labelColor: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+              labelColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
               unselectedLabelColor: Colors.grey,
               indicatorColor: Get.find<SettingsController>().getAccent, dividerColor: Get.find<SettingsController>().getAccentDark,
               tabs: [Tab(text: "My Playlists"), Tab(text: "Starred"), Tab(text: "Clones")],

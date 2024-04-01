@@ -74,6 +74,7 @@ class PlayerController extends GetxController {
   }
 
   void showLyrics(BuildContext context) {
+    final theme = Theme.of(context);
     showFlexibleBottomSheet(
       minHeight: 0, initHeight: 0.5, maxHeight: 0.8,
       isSafeArea: true, bottomSheetColor: Colors.transparent,
@@ -89,7 +90,7 @@ class PlayerController extends GetxController {
               Gap(10),
               Text(
                 lyrics.value.snippet.title(), maxLines: 1, overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleLarge,
+                textAlign: TextAlign.center, style: theme.textTheme.titleLarge,
               ),
               Row(
                 children: [
@@ -99,10 +100,10 @@ class PlayerController extends GetxController {
                       Get.defaultDialog(
                         backgroundColor: Colors.grey.shade800,
                         title: "© Copyright",
-                        titleStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.cyan),
+                        titleStyle: theme.textTheme.headlineMedium!.copyWith(color: Colors.cyan),
                         content: SelectableText(
                           lyrics.value.copyright, textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyMedium
+                          style: theme.textTheme.bodyMedium
                         )
                       );
                     },
@@ -113,7 +114,7 @@ class PlayerController extends GetxController {
                           WidgetSpan(child: Iconify(Ic.twotone_copyright, color: Colors.cyan, size: 16)),
                           TextSpan(
                             text: " Copyright",
-                            style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Colors.cyan)
+                            style: theme.textTheme.labelSmall!.copyWith(color: Colors.cyan)
                           )
                         ]
                       ),
@@ -132,7 +133,7 @@ class PlayerController extends GetxController {
                           textAlign: TextAlign.center,
                           TextSpan(
                             text: lyrics.value.lyrics.replaceAll('<br>', '\n').title(),
-                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)
+                            style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)
                           ),
                         ),
                       ],

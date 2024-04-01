@@ -99,7 +99,7 @@ class AddToPlaylistDialog extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text("Add to Playlist", style: Theme.of(context).appBarTheme.titleTextStyle!.copyWith(fontWeight: FontWeight.w300)),
+            Text("Add to Playlist", style: theme.appBarTheme.titleTextStyle!.copyWith(fontWeight: FontWeight.w300)),
             Spacer(),
             Tooltip(
               message: "New playlist",
@@ -147,7 +147,7 @@ class AddToPlaylistDialog extends StatelessWidget {
                   ),
                 ];
               },
-              icon: Iconify(MaterialSymbols.sort_rounded, color: Theme.of(context).appBarTheme.actionsIconTheme!.color),
+              icon: Iconify(MaterialSymbols.sort_rounded, color: theme.appBarTheme.actionsIconTheme!.color),
               position: PopupMenuPosition.under, color: Colors.grey.shade900,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),

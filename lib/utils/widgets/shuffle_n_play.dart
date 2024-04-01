@@ -14,6 +14,7 @@ class ShuffleNPlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       height: kToolbarHeight, alignment: Alignment.center,
       child: Row(
@@ -29,9 +30,9 @@ class ShuffleNPlay extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
               decoration: BoxDecoration(
-                color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
+                color: (theme.brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
                 border: Border.all(
-                  color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300
+                  color: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300
                 ),
                 borderRadius: BorderRadius.circular(12)
               ),
@@ -39,13 +40,13 @@ class ShuffleNPlay extends StatelessWidget {
                 children: [
                   Text(
                     "Shuffle",
-                    style: Theme.of(context).primaryTextTheme.headlineSmall!.copyWith(
-                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+                    style: theme.primaryTextTheme.headlineSmall!.copyWith(
+                      color: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
                     ),
                   ),
                   Iconify(
                     Ic.twotone_shuffle, size: 25,
-                    color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+                    color: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
                   ),
                 ],
               ),
@@ -62,15 +63,15 @@ class ShuffleNPlay extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
               decoration: BoxDecoration(
-                color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
+                color: (theme.brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
                 border: Border.all(
-                  color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300
+                  color: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300
                 ),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Iconify(
                 Ic.twotone_play_arrow, size: 27,
-                color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+                color: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
               ),
             ),
           ),

@@ -31,6 +31,7 @@ class HomeView extends StatelessWidget{
   }
 
   SliverAppBar _appBar(BuildContext context, Size media, EdgeInsets padding) {
+    final theme = Theme.of(context);
     return SliverAppBar(
       pinned: true, toolbarHeight: kToolbarHeight + padding.top/2,
       leading: DrawerButton().build(context),
@@ -40,7 +41,7 @@ class HomeView extends StatelessWidget{
           padding: EdgeInsets.zero,
           icon: Iconify(
             Uis.favorite, size: 30,
-            color: (Theme.of(context).brightness == Brightness.light) ? Colors.yellow : Colors.yellowAccent
+            color: (theme.brightness == Brightness.light) ? Colors.yellow : Colors.yellowAccent
           ),
         ),
         Gap(6)
@@ -51,7 +52,7 @@ class HomeView extends StatelessWidget{
         titlePadding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
         title: SafeArea(child: SearchContainer(media: media)),
         background: Image.asset(
-          (Theme.of(context).brightness == Brightness.light)
+          (theme.brightness == Brightness.light)
               ? "assets/images/homeCover/concertLight.jpg"
               : "assets/images/homeCover/concertDark.jpg",
           fit: BoxFit.cover, filterQuality: FilterQuality.low

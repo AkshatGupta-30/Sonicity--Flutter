@@ -19,6 +19,7 @@ class SongCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     var media = MediaQuery.sizeOf(context);
     return GetBuilder(
       global: false,
@@ -59,7 +60,7 @@ class SongCard extends StatelessWidget {
                     width: media.width/1.25, height: media.width/1.25,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: (Theme.of(context).brightness == Brightness.light)
+                        colors: (theme.brightness == Brightness.light)
                           ? [Colors.white.withOpacity(0.25), Colors.grey.shade200]
                           : [Colors.black.withOpacity(0.25), Colors.black],
                         begin: Alignment.center, end: Alignment.bottomCenter,
@@ -77,12 +78,12 @@ class SongCard extends StatelessWidget {
                     children: <Text>[
                       Text(
                         song.title, maxLines: 1, overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.labelLarge!,
+                        style: theme.textTheme.labelLarge!,
                       ),
                       Text(
                         song.subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade800 : null
+                        style: theme.textTheme.labelSmall!.copyWith(
+                          color: (theme.brightness == Brightness.light) ? Colors.grey.shade800 : null
                         ),
                       ),
                     ],
@@ -148,6 +149,7 @@ class SongCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: () async => playSong(song, isAutoQueue: true),
       child: Container(
@@ -178,11 +180,11 @@ class SongCell extends StatelessWidget {
             Gap(2),
             Text(
               song.title, maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 14),
+              style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14),
             ),
             Text(
               (subtitle.isEmpty) ? song.subtitle : subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 11),
+              style: theme.textTheme.bodySmall!.copyWith(fontSize: 11),
             )
           ],
         ),
@@ -200,6 +202,7 @@ class MediaItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ValueListenableBuilder(
       valueListenable: audioManager.currentSongNotifier,
       builder: (context, mediaItem, _) {
@@ -207,7 +210,7 @@ class MediaItemTile extends StatelessWidget {
           onTap: () => (mediaItem.id == song.id) ? null : audioManager.skipToQueueItem(index),
           tileColor: (mediaItem!.id != song.id) 
               ? null
-              : (Theme.of(context).brightness == Brightness.light)
+              : (theme.brightness == Brightness.light)
                   ? Color.fromRGBO(0, 0, 0, 0.30)
                   : Colors.white12,
           contentPadding: EdgeInsets.symmetric(horizontal: 8),
@@ -262,6 +265,7 @@ class SongPopUpMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return PopupMenuButton(
       onOpened: () => controller.checkCloneAndStar(),
       itemBuilder: (context) {
@@ -307,7 +311,7 @@ class SongPopUpMenu extends StatelessWidget {
       padding: EdgeInsets.zero,
       icon: Iconify(
         Ic.sharp_more_vert, size: 32,
-        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+        color: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
       ),
     );
   }

@@ -16,6 +16,7 @@ class ViewAllSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: EdgeInsets.only(right: rightPadding, left: leftPadding),
       child: Row(
@@ -26,7 +27,7 @@ class ViewAllSection extends StatelessWidget {
             onPressed: onPressed,
             child: Row(
               children: [
-                Text(buttonTitle, style: Theme.of(context).textTheme.labelSmall),
+                Text(buttonTitle, style: theme.textTheme.labelSmall),
                 Iconify(Ic.baseline_keyboard_arrow_right, color: Colors.grey)
               ],
             ),

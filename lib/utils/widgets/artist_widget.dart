@@ -66,6 +66,7 @@ class ArtistCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: () async {
         Get.to(() => ArtistDetailsView(), arguments: artist.id);
@@ -97,12 +98,12 @@ class ArtistCell extends StatelessWidget {
             Gap(2),
             Text(
               artist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white)
+              style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white)
             ),
             if(subtitle.isNotEmpty)
               Text(
                 subtitle, maxLines: 1, overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodySmall
+                style: theme.textTheme.bodySmall
               ),
           ],
         ),
@@ -118,6 +119,7 @@ class ArtistPopUpMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return PopupMenuButton(
       itemBuilder: (context) {
         return [
@@ -142,7 +144,7 @@ class ArtistPopUpMenu extends StatelessWidget {
       padding: EdgeInsets.zero,
       icon: Iconify(
         Ic.sharp_more_vert, size: 32,
-        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+        color: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
       ),
     );
   }

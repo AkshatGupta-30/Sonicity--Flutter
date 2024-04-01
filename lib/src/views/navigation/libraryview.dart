@@ -76,17 +76,18 @@ class Tile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ListTile(
       onTap: onPressed,
       contentPadding: EdgeInsets.all(5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       leading: Iconify(
         icon, size: 30,
-        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+        color: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
       ),
       horizontalTitleGap: 30,
-      title: Text(title, style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),),
-      splashColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 :Colors.grey.shade900,
+      title: Text(title, style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal),),
+      splashColor: (theme.brightness == Brightness.light) ? Colors.grey.shade100 :Colors.grey.shade900,
     );
   }
 }

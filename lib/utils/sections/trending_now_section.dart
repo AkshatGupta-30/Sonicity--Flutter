@@ -16,6 +16,7 @@ class TrendingNowSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Obx(() => Column(
       children: [
         TitleSection(title: "Trending Now", center: true),
@@ -37,7 +38,7 @@ class TrendingNowSection extends StatelessWidget {
                   Gap(8),
                   Obx(() => Text(
                     "Music",
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    style: theme.textTheme.labelLarge!.copyWith(
                       color: (controller.selectedTab.value == 0)
                         ? Get.find<SettingsController>().getAccent
                         : Get.find<SettingsController>().getAccentDark
@@ -59,7 +60,7 @@ class TrendingNowSection extends StatelessWidget {
                   Gap(8),
                   Obx(() => Text(
                     "Album",
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    style: theme.textTheme.labelLarge!.copyWith(
                       color: (controller.selectedTab.value == 1)
                         ? Get.find<SettingsController>().getAccent
                         : Get.find<SettingsController>().getAccentDark

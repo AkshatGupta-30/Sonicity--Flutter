@@ -7,11 +7,12 @@ class BackgroundGradientDecorator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       height: height ?? double.maxFinite, width: width ?? double.maxFinite,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: (Theme.of(context).brightness == Brightness.light) 
+          colors: (theme.brightness == Brightness.light) 
             ? [Colors.grey.shade100, Colors.grey.shade100.withOpacity(0.3)]
             : [Colors.grey.shade900, Colors.grey.shade900.withOpacity(0.3)],
           begin: Alignment.topCenter, end: Alignment.bottomCenter,

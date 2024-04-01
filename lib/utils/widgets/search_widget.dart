@@ -21,7 +21,7 @@ class SearchContainer extends StatelessWidget {
         width: media.width/1.4, height: 54,
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: (Theme.of(context).brightness == Brightness.light) ? Color(0xFFEAEAEA)  : Color(0xFF151515),
+          color: (theme.brightness == Brightness.light) ? Color(0xFFEAEAEA)  : Color(0xFF151515),
           border: Border.all(
             width: 2,
             color: (theme.brightness == Brightness.light) ? Colors.cyan.withOpacity(0.75) : Colors.cyanAccent.withOpacity(0.75),
@@ -80,6 +80,7 @@ class SearchBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       height: kToolbarHeight, alignment: Alignment.center,
       child: TextField(
@@ -90,7 +91,7 @@ class SearchBox extends StatelessWidget {
         textInputAction: TextInputAction.done,
         keyboardType: TextInputType.text,
         cursorColor: Get.find<SettingsController>().getAccent,
-        style: TextStyle(color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white),
+        style: TextStyle(color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white),
         onTapOutside: (event) => focusNode.unfocus(),
         decoration: InputDecoration(
           border: InputBorder.none,

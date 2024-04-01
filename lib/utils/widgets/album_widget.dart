@@ -16,6 +16,7 @@ class AlbumCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     var media = MediaQuery.sizeOf(context);
     return GetBuilder(
       global: false,
@@ -60,7 +61,7 @@ class AlbumCard extends StatelessWidget {
                     width: media.width/1.25, height: media.width/1.25,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: (Theme.of(context).brightness == Brightness.light)
+                        colors: (theme.brightness == Brightness.light)
                           ? [Colors.white.withOpacity(0.25), Colors.grey.shade200]
                           : [Colors.black.withOpacity(0.25), Colors.black],
                         begin: Alignment.center, end: Alignment.bottomCenter,
@@ -78,12 +79,12 @@ class AlbumCard extends StatelessWidget {
                     children:<Text> [
                       Text(
                         album.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.labelLarge,
+                        style: theme.textTheme.labelLarge,
                       ),
                       Text(
                         "${album.songCount!} Songs", maxLines: 1, overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade800 : null
+                        style: theme.textTheme.labelSmall!.copyWith(
+                          color: (theme.brightness == Brightness.light) ? Colors.grey.shade800 : null
                         ),
                       ),
                     ],
@@ -107,6 +108,7 @@ class AlbumCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: () async {
         Get.to(() => AlbumDetailsView(), arguments: album.id);
@@ -141,12 +143,12 @@ class AlbumCell extends StatelessWidget {
             Gap(2),
             Text(
               album.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 14),
+              style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14),
             ),
             if(subtitle.isNotEmpty)
               Text(
                 subtitle,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 11),
+                style: theme.textTheme.bodySmall!.copyWith(fontSize: 11),
               )
           ],
         ),
@@ -210,6 +212,7 @@ class AlbumPopUpMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return PopupMenuButton(
       itemBuilder: (context) {
         return [
@@ -237,7 +240,7 @@ class AlbumPopUpMenu extends StatelessWidget {
       color: Colors.grey.shade900,
       icon: Iconify(
         Ic.sharp_more_vert, size: 32,
-        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+        color: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
       ),
     );
   }

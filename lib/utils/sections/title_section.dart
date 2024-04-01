@@ -16,10 +16,11 @@ class TitleSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Obx(() => Container(
       alignment: (center) ? Alignment.center : Alignment.centerLeft,
       padding: EdgeInsets.only(left: (center) ? 0 : leftPadding),
-      child: Text(title, style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Get.find<SettingsController>().getAccent, fontSize: size)),
+      child: Text(title, style: theme.textTheme.titleLarge!.copyWith(color: Get.find<SettingsController>().getAccent, fontSize: size)),
     ));
   }
 }

@@ -6,9 +6,10 @@ class SearchShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Shimmer.fromColors(
       baseColor: Colors.grey,
-      highlightColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+      highlightColor: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

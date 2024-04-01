@@ -19,6 +19,7 @@ class DownloadUrlSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -30,12 +31,12 @@ class DownloadUrlSection extends StatelessWidget {
                   Get.to(() => ToDoView(text: "Donwload this song on high quality"));
                 },
                 icon: CircleAvatar(
-                  backgroundColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
+                  backgroundColor: (theme.brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
                   radius: 40,
                   child: Iconify(Ic.twotone_cloud_download, size: 50,)
                 ),
               ),
-              Text(DownloadQuality.q320kbps, style: Theme.of(context).textTheme.labelMedium),
+              Text(DownloadQuality.q320kbps, style: theme.textTheme.labelMedium),
             ],
           ),
           Column(
@@ -45,12 +46,12 @@ class DownloadUrlSection extends StatelessWidget {
                   Get.to(() => ToDoView(text: "Donwload this song on medium quality"));
                 },
                 icon: CircleAvatar(
-                  backgroundColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
+                  backgroundColor: (theme.brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
                   radius: 40,
                   child: Iconify(Ic.round_download, size: 50,)
                 ),
               ),
-              Text(DownloadQuality.q160kbps, style: Theme.of(context).textTheme.labelMedium),
+              Text(DownloadQuality.q160kbps, style: theme.textTheme.labelMedium),
             ],
           ),
           Column(
@@ -60,12 +61,12 @@ class DownloadUrlSection extends StatelessWidget {
                   Get.to(() => ToDoView(text: "Donwload this song on low quality"));
                 },
                 icon: CircleAvatar(
-                  backgroundColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
+                  backgroundColor: (theme.brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
                   radius: 40,
                   child: Iconify(MaterialSymbols.download_rounded, size: 50,)
                 ),
               ),
-              Text(DownloadQuality.q96kbps, style: Theme.of(context).textTheme.labelMedium),
+              Text(DownloadQuality.q96kbps, style: theme.textTheme.labelMedium),
             ],
           ),
         ],

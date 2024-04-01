@@ -64,6 +64,7 @@ class ArtistDetailsView extends StatelessWidget {
   }
 
   SliverAppBar _appBar(BuildContext context, int selectedTab, Size media, Artist artist, ArtistDetailController controller) {
+    final theme = Theme.of(context);
     return SliverAppBar(
       pinned: true, floating: false, snap: false,
       leading: BackButton(),
@@ -75,7 +76,7 @@ class ArtistDetailsView extends StatelessWidget {
         title: FittedBox(
           child: Text(
             artist.name, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: theme.textTheme.titleLarge,
           ),
         ),
         background: Stack(
@@ -94,7 +95,7 @@ class ArtistDetailsView extends StatelessWidget {
               width: media.width, height: 390,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: (Theme.of(context).brightness == Brightness.light)
+                  colors: (theme.brightness == Brightness.light)
                     ? [Colors.white.withOpacity(0), Colors.white.withOpacity(0.75)]
                     : [Colors.black.withOpacity(0), Colors.black.withOpacity(0.75)],
                   begin: Alignment.center, end: Alignment.bottomCenter,
@@ -108,11 +109,12 @@ class ArtistDetailsView extends StatelessWidget {
   }
 
   SliverPinnedHeader _tabBar(BuildContext context, ArtistDetailController controller) {
+    final theme = Theme.of(context);
     return SliverPinnedHeader(
       child: Obx(() {
         int selectedTab = controller.selectedTab.value;
         return Container(
-          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+          color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
           child: TabBar(
             controller: controller.tabController,
             dividerColor: Colors.transparent,
@@ -168,20 +170,21 @@ class ArtistDetailsView extends StatelessWidget {
   }
 
   SliverPinnedHeader _summaryHeader(BuildContext context, Artist artist, ArtistDetailController controller) {
+    final theme = Theme.of(context);
     return SliverPinnedHeader(
       child: Obx(
         () {
           if(controller.selectedTab.value == 2) return SizedBox();
           return Container(
             height: kToolbarHeight, padding: EdgeInsets.zero,
-            color: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Colors.black,
+            color: (theme.brightness == Brightness.light) ? Colors.white : Colors.black,
             child: Column(
               children: [
                 (controller.selectedTab.value == 0)
                     ? Row( 
                       children: [
                         Gap(20),
-                        Text("${controller.songCount} Songs", style: Theme.of(context).textTheme.bodyLarge),
+                        Text("${controller.songCount} Songs", style: theme.textTheme.bodyLarge),
                         Spacer(),
                         ShuffleNPlay(controller.songList, queueLabel: 'Artist - ${artist.name}',),
                         PopupMenuButton(
@@ -215,7 +218,7 @@ class ArtistDetailsView extends StatelessWidget {
                           },
                           icon: Iconify(MaterialSymbols.sort_rounded,),
                           position: PopupMenuPosition.under,
-                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+                          color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         Gap(10)
@@ -228,7 +231,7 @@ class ArtistDetailsView extends StatelessWidget {
                       padding: EdgeInsets.only(left: 20),
                       child: Row(
                         children: [
-                          Text("${controller.albumCount} Albums", style: Theme.of(context).textTheme.bodyLarge),
+                          Text("${controller.albumCount} Albums", style: theme.textTheme.bodyLarge),
                           Spacer(),
                           PopupMenuButton(
                             itemBuilder: (context) {
@@ -261,7 +264,7 @@ class ArtistDetailsView extends StatelessWidget {
                             },
                             icon: Iconify(MaterialSymbols.sort_rounded,),
                             position: PopupMenuPosition.under,
-                            color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+                            color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                           ),
                           Gap(10)
@@ -342,14 +345,16 @@ class ArtistDetailsView extends StatelessWidget {
   }
 
   Text _head(BuildContext context, String text) {
-    return Text(text, style: Theme.of(context).textTheme.titleSmall);
+    final theme = Theme.of(context);
+    return Text(text, style: theme.textTheme.titleSmall);
   }
 
   Widget _detail(BuildContext context, String text, {bool isSelectable = false}) {
+    final theme = Theme.of(context);
     if(isSelectable) {
-      return SelectableText(text, style: Theme.of(context).textTheme.labelLarge);
+      return SelectableText(text, style: theme.textTheme.labelLarge);
     }
-    return Text(text, style: Theme.of(context).textTheme.labelLarge);
+    return Text(text, style: theme.textTheme.labelLarge);
   }
 
   Column _dobSection(BuildContext context, String dob) {

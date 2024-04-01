@@ -27,6 +27,7 @@ class MainPlayerView extends StatelessWidget {
   final settings = Get.find<SettingsController>();
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     Size media = MediaQuery.sizeOf(context);
     return Dismissible(
       key: Key('mainPlayer'),
@@ -42,7 +43,7 @@ class MainPlayerView extends StatelessWidget {
         valueListenable: audioManager.playButtonNotifier,
         builder: (context, state, _) {
           return Obx(() => AnimatedGradientBorder(
-            backgroundColor: (Theme.of(context).brightness == Brightness.light) ? Colors.white : Colors.black,
+            backgroundColor: (theme.brightness == Brightness.light) ? Colors.white : Colors.black,
             borderSize: 5, borderRadius: BorderRadius.zero,
             gradientColors: settings.playerBorderColors[settings.getPlayerBorderIndex],
             isPaused: (state == ButtonState.paused) ? true : false,
@@ -80,6 +81,7 @@ class MainPlayerView extends StatelessWidget {
   }
 
   ValueListenableBuilder _songInfo(BuildContext context) {
+    final theme = Theme.of(context);
     return ValueListenableBuilder(
       valueListenable: audioManager.currentSongNotifier,
       builder: (context, song, _) {
@@ -90,13 +92,13 @@ class MainPlayerView extends StatelessWidget {
           children: [
             GlowText(
               song.displayTitle.toString(), maxLines: 1, overflow: TextOverflow.ellipsis, blurRadius: 2,
-              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+              style: theme.textTheme.displayLarge!.copyWith(
                 fontSize: 36, fontWeight: FontWeight.bold
               ),
             ),
             Text(
               song.displaySubtitle.toString(), maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: theme.textTheme.bodyLarge,
             ),
           ],
         );
@@ -129,6 +131,7 @@ class MainPlayerView extends StatelessWidget {
         ValueListenableBuilder(
           valueListenable: audioManager.progressNotifier,
           builder: (context, state, _) {
+            final theme = Theme.of(context);
             double? dragValue;
             bool dragging = false;
 
@@ -145,9 +148,9 @@ class MainPlayerView extends StatelessWidget {
                     handlerSize: 7, progressBarWidth: 8, trackWidth: 4,
                   ),
                   customColors: CustomSliderColors(
-                    dotColor: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
-                    progressBarColor: (Theme.of(context).brightness == Brightness.light) ? Colors.deepPurpleAccent : Colors.purpleAccent,
-                    trackColor: (Theme.of(context).brightness == Brightness.light) ? Colors.blueAccent : Colors.cyanAccent,
+                    dotColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
+                    progressBarColor: (theme.brightness == Brightness.light) ? Colors.deepPurpleAccent : Colors.purpleAccent,
+                    trackColor: (theme.brightness == Brightness.light) ? Colors.blueAccent : Colors.cyanAccent,
                     hideShadow: true,
                     gradientEndAngle: 100,
                     gradientStartAngle: 0
@@ -179,6 +182,7 @@ class MainPlayerView extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: audioManager.progressNotifier,
       builder: (context, valueState, _) {
+        final theme = Theme.of(context);
         return Row( // * : Duration & Volume
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -189,16 +193,16 @@ class MainPlayerView extends StatelessWidget {
                   .firstMatch('${valueState.current}')
                   ?.group(1) ??
                 '${valueState.current}',
-              style: Theme.of(context).textTheme.titleSmall,
+              style: theme.textTheme.titleSmall,
             ),
             Obx(() => SizedBox(
               width: 225,
               child: InteractiveSlider(
                 unfocusedHeight: 20, focusedHeight: 40,
-                backgroundColor: (Theme.of(context).brightness == Brightness.light) 
+                backgroundColor: (theme.brightness == Brightness.light) 
                     ? Colors.grey.shade300.withOpacity(0.75)
                     : Colors.grey.shade900.withOpacity(0.75),
-                foregroundColor: (Theme.of(context).brightness == Brightness.light) ? Color(0xFF151515) : Color(0xFFFAFAFA),
+                foregroundColor: (theme.brightness == Brightness.light) ? Color(0xFF151515) : Color(0xFFFAFAFA),
                 iconGap: 8, iconSize: 25, iconPosition: IconPosition.inside,
                 startIcon: Iconify(Ion.volume_low, color: Colors.grey,),
                 endIcon: Iconify(Ion.volume_high, color: Colors.grey,),
@@ -219,7 +223,7 @@ class MainPlayerView extends StatelessWidget {
                   .firstMatch('${valueState.total}')
                   ?.group(1) ??
                 '${valueState.current}',
-              style: Theme.of(context).textTheme.titleSmall,
+              style: theme.textTheme.titleSmall,
             ),
           ],
         );
@@ -228,6 +232,7 @@ class MainPlayerView extends StatelessWidget {
   }
 
   Column _buttonRows(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(// * : Button Rows
       children: [
         Row(// * : Primary Buttons
@@ -349,6 +354,7 @@ class MainPlayerView extends StatelessWidget {
               child: ValueListenableBuilder(
                 valueListenable: audioManager.currentSongNotifier,
                 builder: (context, song, _) {
+                  final theme = Theme.of(context);
                   if(song == null) return SizedBox();
                   return InkWell(
                     onTap: () => Get.to(() => AlbumDetailsView(), arguments: controller.album.value.id),
@@ -356,7 +362,7 @@ class MainPlayerView extends StatelessWidget {
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+                          color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
                           width: 2
                         ),
                         borderRadius: BorderRadius.circular(12)
@@ -382,7 +388,7 @@ class MainPlayerView extends StatelessWidget {
               padding: EdgeInsets.zero,
               icon: Iconify(
                 (controller.isCloned.value) ? Ic.twotone_cyclone : Ic.round_cyclone, size: 30,
-                color: (Theme.of(context).brightness == Brightness.light)
+                color: (theme.brightness == Brightness.light)
                     ? (controller.isCloned.value) ? Colors.blueAccent: Colors.black
                     : (controller.isCloned.value) ? Colors.cyanAccent: Colors.white
               )
@@ -393,7 +399,7 @@ class MainPlayerView extends StatelessWidget {
               padding: EdgeInsets.zero,
               icon: Iconify(
                 (controller.isStarred.value) ? Uis.favorite : Uit.favorite, size: 30,
-                color: (Theme.of(context).brightness == Brightness.light)
+                color: (theme.brightness == Brightness.light)
                     ? (controller.isStarred.value) ? Colors.deepOrangeAccent : Colors.black
                     : (controller.isStarred.value) ? Colors.yellowAccent : Colors.white
               )
@@ -405,10 +411,11 @@ class MainPlayerView extends StatelessWidget {
   }
 
   Widget _bottomChild(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: (Theme.of(context).brightness == Brightness.light) ? Colors.black12 : Colors.white12,
+        color: (theme.brightness == Brightness.light) ? Colors.black12 : Colors.white12,
         borderRadius: BorderRadius.vertical(top: Radius.circular(16))
       ),
       child: Row(
@@ -478,12 +485,13 @@ class MainPlayerView extends StatelessWidget {
   }
 
   Widget _bottomSheet(BuildContext context) {
+    final theme = Theme.of(context);
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
       child: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         child: Scaffold(
-          backgroundColor: (Theme.of(context).brightness == Brightness.light)
+          backgroundColor: (theme.brightness == Brightness.light)
               ? Colors.grey.shade50.withOpacity(0.5)
               : Colors.grey.shade800.withOpacity(0.5),
           appBar: PreferredSize(
@@ -495,11 +503,11 @@ class MainPlayerView extends StatelessWidget {
                 Container(
                   width: 40, height: 5,
                   decoration: BoxDecoration(
-                    color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+                    color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
                     borderRadius: BorderRadius.circular(3),
                   ),
                 ),
-                Text("Up Next", style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),),
+                Text("Up Next", style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),),
               ],
             ),
           ),

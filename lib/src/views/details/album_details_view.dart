@@ -51,6 +51,7 @@ class AlbumDetailsView extends StatelessWidget {
   }
 
   SliverAppBar _appBar(BuildContext context, Size media, Album album, AlbumDetailController controller,) {
+    final theme = Theme.of(context);
     return SliverAppBar(
       pinned: true, floating: false, snap: false,
       leading: BackButton(),
@@ -63,7 +64,7 @@ class AlbumDetailsView extends StatelessWidget {
           width: media.width/1.4,
           child: Text(
             album.name, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge
+            style: theme.textTheme.titleLarge
           ),
         ),
         background: Stack(
@@ -82,7 +83,7 @@ class AlbumDetailsView extends StatelessWidget {
               width: media.width, height: 380,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: (Theme.of(context).brightness == Brightness.light)
+                  colors: (theme.brightness == Brightness.light)
                     ? [Colors.white.withOpacity(0), Colors.white.withOpacity(0.65)]
                     : [Colors.black.withOpacity(0), Colors.black.withOpacity(0.65)],
                   begin: Alignment.center, end: Alignment.bottomCenter,
@@ -96,13 +97,14 @@ class AlbumDetailsView extends StatelessWidget {
   }
 
   SliverPinnedHeader _summaryHeader(BuildContext context, Album album, AlbumDetailController controller) {
+    final theme = Theme.of(context);
     return SliverPinnedHeader(
       child: Container(
-        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+        color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
         child: Row( 
           children: [
             Gap(20),
-            Text("${album.songs!.length} Songs", style: Theme.of(context).textTheme.bodyLarge),
+            Text("${album.songs!.length} Songs", style: theme.textTheme.bodyLarge),
             Spacer(),
             ShuffleNPlay(album.songs ?? [], queueLabel: 'Album - ${album.name}',),
             Gap(4),
@@ -137,7 +139,7 @@ class AlbumDetailsView extends StatelessWidget {
               },
               icon: Iconify(MaterialSymbols.sort_rounded,),
               position: PopupMenuPosition.under,
-              color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+              color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
             Gap(8)

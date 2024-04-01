@@ -49,6 +49,7 @@ class SongDetailsView extends StatelessWidget {
   }
 
   SliverAppBar _appBar(BuildContext context, Size media, Song song, SongDetailController controller) {
+    final theme = Theme.of(context);
     return SliverAppBar(
       pinned: true, floating: false, snap: false,
       leading: BackButton(),
@@ -61,7 +62,7 @@ class SongDetailsView extends StatelessWidget {
           width: media.width/1.4,
           child: Text(
             song.name, maxLines: 1, overflow: TextOverflow.ellipsis,  textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: theme.textTheme.titleLarge,
           ),
         ),
         background: Stack(
@@ -80,7 +81,7 @@ class SongDetailsView extends StatelessWidget {
               width: media.width, height: 400,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: (Theme.of(context).brightness == Brightness.light)
+                  colors: (theme.brightness == Brightness.light)
                     ? [Colors.white.withOpacity(0), Colors.white.withOpacity(0.75)]
                     : [Colors.black.withOpacity(0), Colors.black.withOpacity(0.75)],
                   begin: Alignment.center, end: Alignment.bottomCenter,
@@ -108,7 +109,7 @@ class SongDetailsView extends StatelessWidget {
                 Gap(8),
                 Obx(() => Text(
                   "Details",
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  style: theme.textTheme.labelLarge!.copyWith(
                     color: (controller.selectedTab.value == 0)
                       ? Get.find<SettingsController>().getAccent
                       : Get.find<SettingsController>().getAccentDark
@@ -130,7 +131,7 @@ class SongDetailsView extends StatelessWidget {
                 Gap(8),
                 Obx(() => Text(
                   "Lyrics",
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  style: theme.textTheme.labelLarge!.copyWith(
                     color: (controller.selectedTab.value == 1)
                       ? Get.find<SettingsController>().getAccent
                       : Get.find<SettingsController>().getAccentDark
@@ -145,6 +146,7 @@ class SongDetailsView extends StatelessWidget {
   }
 
   TabBarView _info(BuildContext context, SongDetailController controller, Song song) {
+    final theme = Theme.of(context);
     return TabBarView(
       controller: controller.tabController,
       physics: NeverScrollableScrollPhysics(),
@@ -197,11 +199,11 @@ class SongDetailsView extends StatelessWidget {
                     children: [
                       Iconify(
                         Ic.twotone_error, size: 50,
-                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.red : Colors.redAccent,
+                        color: (theme.brightness == Brightness.light) ? Colors.red : Colors.redAccent,
                       ),
                       Text(
                         "This song doesn't have any available lyrics.", textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.redAccent),
+                        style: theme.textTheme.headlineSmall!.copyWith(color: Colors.redAccent),
                       )
                     ]
                   ),
@@ -214,7 +216,7 @@ class SongDetailsView extends StatelessWidget {
                 Text(
                   controller.lyrics.value.snippet.title(), textAlign: TextAlign.center,
                   maxLines: 1, overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: theme.textTheme.titleLarge,
                 ),
                 Gap(5),
                 Row(
@@ -225,10 +227,10 @@ class SongDetailsView extends StatelessWidget {
                         Get.defaultDialog(
                           backgroundColor: Colors.grey.shade800,
                           title: "© Copyright",
-                          titleStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.cyan),
+                          titleStyle: theme.textTheme.headlineMedium!.copyWith(color: Colors.cyan),
                           content: SelectableText(
                             controller.lyrics.value.copyright, textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyMedium
+                            style: theme.textTheme.bodyMedium
                           )
                         );
                       },
@@ -239,7 +241,7 @@ class SongDetailsView extends StatelessWidget {
                             WidgetSpan(child: Iconify(Ic.twotone_copyright, color: Colors.cyan, size: 16)),
                             TextSpan(
                               text: " Copyright",
-                              style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Colors.cyan)
+                              style: theme.textTheme.labelSmall!.copyWith(color: Colors.cyan)
                             )
                           ]
                         ),
@@ -252,7 +254,7 @@ class SongDetailsView extends StatelessWidget {
                   textAlign: TextAlign.center,
                   TextSpan(
                     text: controller.lyrics.value.lyrics,
-                    style: Theme.of(context).textTheme.bodyLarge
+                    style: theme.textTheme.bodyLarge
                   ),
                 ),
               ],
@@ -270,14 +272,16 @@ class SongDetailsView extends StatelessWidget {
   }
 
   Text _head(BuildContext context, String text) {
-    return Text(text, style: Theme.of(context).textTheme.titleSmall);
+    final theme = Theme.of(context);
+    return Text(text, style: theme.textTheme.titleSmall);
   }
 
   Widget _detail(BuildContext context, String text, {bool isSelectable = false}) {
+    final theme = Theme.of(context);
     if(isSelectable) {
-      return SelectableText(text, style: Theme.of(context).textTheme.labelLarge);
+      return SelectableText(text, style: theme.textTheme.labelLarge);
     }
-    return Text(text, style: Theme.of(context).textTheme.labelLarge);
+    return Text(text, style: theme.textTheme.labelLarge);
   }
 
   AlbumCell _albumSection(Album album) {

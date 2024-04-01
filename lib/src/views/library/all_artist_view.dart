@@ -36,6 +36,7 @@ class AllArtistsView extends StatelessWidget {
   }
 
   SliverAppBar _appbar(BuildContext context, AllArtistsController controller) {
+    final theme = Theme.of(context);
     return SliverAppBar(
       pinned: true, shadowColor: Colors.transparent,
       title: Text("All Artists"),
@@ -71,13 +72,13 @@ class AllArtistsView extends StatelessWidget {
           },
           icon: Iconify(MaterialSymbols.sort_rounded,),
           position: PopupMenuPosition.under,
-          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+          color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ],
       bottom: TabBar(
         controller: controller.tabController,
-        labelColor: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+        labelColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
         unselectedLabelColor: Colors.grey,
         indicatorColor: Get.find<SettingsController>().getAccent, dividerColor: Get.find<SettingsController>().getAccentDark,
         tabs: [Tab(text: "Starred"), Tab(text: "Clones")],

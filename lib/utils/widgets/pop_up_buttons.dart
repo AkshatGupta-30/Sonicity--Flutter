@@ -14,14 +14,15 @@ class PopUpButtonRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Row(
       children: [
         Iconify(
           icon, size: 22,
-          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+          color: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
         ),
         Gap(10),
-        Text(label, style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
+        Text(label, style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.normal)),
       ],
     );
   }

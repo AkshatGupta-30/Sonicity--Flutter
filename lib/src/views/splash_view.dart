@@ -10,6 +10,7 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
@@ -41,7 +42,7 @@ class SplashView extends StatelessWidget {
                   Gap(10),
                   GlowText(
                     'Sonicity', glowColor: Colors.white, blurRadius: 20,
-                    style: Theme.of(context).primaryTextTheme.displayMedium!.copyWith(color: Colors.white),
+                    style: theme.primaryTextTheme.displayMedium!.copyWith(color: Colors.white),
                   ),
                 ],
               ),

@@ -46,6 +46,7 @@ class ViewAllAlbumsView extends StatelessWidget {
   }
 
   SliverAppBar _appBar(BuildContext context, ViewAllSearchAlbumsController controller) {
+    final theme = Theme.of(context);
     return SliverAppBar(
       pinned: true, floating: true, snap:  true,
       leading: BackButton(),
@@ -72,7 +73,7 @@ class ViewAllAlbumsView extends StatelessWidget {
               ),
             ];
           },
-          icon: Iconify(MaterialSymbols.sort_rounded, color: Theme.of(context).appBarTheme.actionsIconTheme!.color),
+          icon: Iconify(MaterialSymbols.sort_rounded, color: theme.appBarTheme.actionsIconTheme!.color),
           position: PopupMenuPosition.under, color: Colors.grey.shade900,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
@@ -128,7 +129,7 @@ class ViewAllAlbumsView extends StatelessWidget {
             ),
             Container(
               height: 360, width: double.maxFinite,
-              color: (Theme.of(context).brightness == Brightness.light) ? Colors.white.withOpacity(0.45) : Colors.black.withOpacity(0.45)
+              color: (theme.brightness == Brightness.light) ? Colors.white.withOpacity(0.45) : Colors.black.withOpacity(0.45)
             ),
             Container(
               margin: EdgeInsets.only(top: kToolbarHeight), alignment: Alignment.center,
@@ -138,15 +139,15 @@ class ViewAllAlbumsView extends StatelessWidget {
                 children: <Text>[
                   Text(
                     "Albums",
-                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                    style: theme.textTheme.displayMedium!.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
+                      color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white
                     )
                   ),
                   Text(
                     "${controller.albumCount.value} Albums",
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300
+                    style: theme.textTheme.headlineSmall!.copyWith(
+                      color: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300
                     )
                   ),
                 ],

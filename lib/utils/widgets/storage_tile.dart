@@ -12,6 +12,7 @@ class StorageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ListTile(
       onTap: onTap,
       leading: FileManager.isFile(entity)
@@ -22,7 +23,7 @@ class StorageTile extends StatelessWidget {
           entity,
           showFileExtension: true,
         ),
-        style: Theme.of(context).textTheme.bodyLarge,
+        style: theme.textTheme.bodyLarge,
       ),
       subtitle: FutureBuilder<FileStat>(
         future: entity.stat(),
@@ -32,17 +33,17 @@ class StorageTile extends StatelessWidget {
               int size = snapshot.data!.size;
               return Text(
                 FileManager.formatBytes(size),
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: theme.textTheme.bodyMedium,
               );
             }
             return Text(
               "${snapshot.data!.modified}".substring(0, 10),
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: theme.textTheme.bodyMedium,
             );
           } else {
             return Text(
               "error",
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: theme.textTheme.bodyMedium,
             );
           }
         },

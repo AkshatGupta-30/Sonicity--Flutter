@@ -39,6 +39,7 @@ class AllSongsView extends StatelessWidget {
   }
 
   SliverAppBar _appbar(BuildContext context, AllSongsController controller) {
+    final theme = Theme.of(context);
     return SliverAppBar(
       pinned: true, shadowColor: Colors.transparent,
       title: Text("All Songs"),
@@ -74,13 +75,13 @@ class AllSongsView extends StatelessWidget {
           },
           icon: Iconify(MaterialSymbols.sort_rounded,),
           position: PopupMenuPosition.under,
-          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+          color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ],
       bottom: TabBar(
         controller: controller.tabController,
-        labelColor: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+        labelColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
         unselectedLabelColor: Colors.grey,
         indicatorColor: Get.find<SettingsController>().getAccent, dividerColor: Get.find<SettingsController>().getAccentDark,
         tabs: [Tab(text: "Starred"), Tab(text: "Clones")],
@@ -89,13 +90,14 @@ class AllSongsView extends StatelessWidget {
   }
 
   SliverPinnedHeader _summaryHeader(BuildContext context, AllSongsController controller) {
+    final theme = Theme.of(context);
     return SliverPinnedHeader(
       child: Container(
         height: kToolbarHeight,
         decoration: BoxDecoration(
-          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
+          color: (theme.brightness == Brightness.light) ? Colors.grey.shade200 : Colors.grey.shade800,
           boxShadow: [BoxShadow(
-            color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+            color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
             spreadRadius: 1, blurRadius: 5
           )]
         ),
@@ -103,8 +105,8 @@ class AllSongsView extends StatelessWidget {
           children: [
             Gap(20),
             Obx(() => (controller.selectedTab.value == 0)
-                ? Text("${controller.starSongs.length} Songs", style: Theme.of(context).textTheme.bodyLarge)
-                : Text("${controller.cloneSongs.length} Songs", style: Theme.of(context).textTheme.bodyLarge)),
+                ? Text("${controller.starSongs.length} Songs", style: theme.textTheme.bodyLarge)
+                : Text("${controller.cloneSongs.length} Songs", style: theme.textTheme.bodyLarge)),
             Spacer(),
             Container(
               height: kBottomNavigationBarHeight, alignment: Alignment.center,
@@ -121,7 +123,7 @@ class AllSongsView extends StatelessWidget {
                       ),
                       Iconify(
                         Ic.twotone_shuffle, size: 25,
-                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,),
+                        color: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,),
                     ],
                   ),
                   Gap(5),
@@ -135,7 +137,7 @@ class AllSongsView extends StatelessWidget {
                     ),
                     child: Iconify(
                       Ic.twotone_play_arrow, size: 27,
-                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+                      color: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
                     ),
                   ),
                 ],

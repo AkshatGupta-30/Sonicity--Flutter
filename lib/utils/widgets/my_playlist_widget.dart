@@ -15,6 +15,7 @@ class MyPlaylistCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: (int.parse(playlist.songCount) == 0) ? null : () => Get.to(() => MyPlaylistDetailsView(), arguments: playlist),
       child: Container(
@@ -33,11 +34,11 @@ class MyPlaylistCell extends StatelessWidget {
             Gap(2),
             Text(
               playlist.name.title(), maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 13),
+              style: theme.textTheme.titleLarge!.copyWith(fontSize: 13),
             ),
             Text(
               "${playlist.songCount} Songs",
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 11),
+              style: theme.textTheme.titleSmall!.copyWith(fontSize: 11),
             )
           ],
         ),
@@ -95,7 +96,7 @@ class MyPlaylistViewTile extends StatelessWidget {
             padding: EdgeInsets.zero,
             icon: Iconify(
               Ic.sharp_more_vert, size: 32,
-              color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+              color: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
             ),
           ),
         ),

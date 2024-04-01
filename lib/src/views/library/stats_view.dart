@@ -13,8 +13,9 @@ class StatsView extends StatelessWidget {
   final settings = Get.find<SettingsController>();
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final brightness = theme.brightness;
+    final textTheme = theme.textTheme;
     final cardColor = Color(0xFF252525);
     return Scaffold(
       appBar: AppBar(title: Text('Stats'),),

@@ -17,6 +17,7 @@ class PlaylistCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: () async {
         Get.to(() => PlaylistDetailsView(), arguments: playlist.id);
@@ -51,12 +52,12 @@ class PlaylistCell extends StatelessWidget {
             Gap(2),
             Text(
               playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 13),
+              style: theme.textTheme.titleLarge!.copyWith(fontSize: 13),
             ),
             if(subtitle.isNotEmpty)
               Text(
                 subtitle,
-                style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 11),
+                style: theme.textTheme.titleSmall!.copyWith(fontSize: 11),
               )
           ],
         ),
@@ -126,6 +127,7 @@ class PlaylistPopUpMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return PopupMenuButton(
       itemBuilder: (context) {
         return [
@@ -150,7 +152,7 @@ class PlaylistPopUpMenu extends StatelessWidget {
       padding: EdgeInsets.zero,
       icon: Iconify(
         Ic.sharp_more_vert,
-        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+        color: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
         size: 32
       ),
     );

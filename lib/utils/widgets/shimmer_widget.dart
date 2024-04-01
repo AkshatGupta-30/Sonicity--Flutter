@@ -9,6 +9,7 @@ class ShimmerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     var media = MediaQuery.sizeOf(context);
     return Container(
       width: media.width/1.25, height: media.width/1.25,
@@ -22,7 +23,7 @@ class ShimmerCard extends StatelessWidget {
             direction: ShimmerDirection.ltr,
             period: Duration(milliseconds: 1000),
             baseColor: Colors.grey,
-            highlightColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade600 :  Colors.grey.shade400,
+            highlightColor: (theme.brightness == Brightness.light) ? Colors.grey.shade600 :  Colors.grey.shade400,
             child: Container(
               width: media.width/1.25, height: media.width/1.25,
               decoration: BoxDecoration(
@@ -32,8 +33,8 @@ class ShimmerCard extends StatelessWidget {
             ),
           ),
           Shimmer.fromColors(
-            baseColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
-            highlightColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+            baseColor: (theme.brightness == Brightness.light) ? Colors.grey.shade700 : Colors.grey.shade300,
+            highlightColor: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
             direction: ShimmerDirection.ltr,
             period: Duration(milliseconds: 750),
             child: Padding(
@@ -47,7 +48,7 @@ class ShimmerCard extends StatelessWidget {
                     Spacer(),
                     Iconify(
                       Ic.sharp_more_vert, size: 32,
-                      color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+                      color: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
                     ),
                     Gap(6)
                     ]
@@ -78,6 +79,7 @@ class ShimmerCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8),
       child: Column(
@@ -89,7 +91,7 @@ class ShimmerCell extends StatelessWidget {
               direction: ShimmerDirection.ltr,
               period: Duration(milliseconds: 1000),
               baseColor: Colors.grey,
-              highlightColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+              highlightColor: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
               child: Container(
                 width: 140, height: 140,
                 decoration: BoxDecoration(
@@ -104,7 +106,7 @@ class ShimmerCell extends StatelessWidget {
             direction: ShimmerDirection.ltr,
             period: Duration(milliseconds: 1000),
             baseColor: Colors.grey,
-            highlightColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+            highlightColor: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 8),
               child: Column(
@@ -128,12 +130,13 @@ class ShimmerRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       height: 60, width: double.maxFinite,
       margin: EdgeInsets.only(bottom: 10),
       child: Shimmer.fromColors(
         baseColor: Colors.grey,
-        highlightColor: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
+        highlightColor: (theme.brightness == Brightness.light) ? Colors.grey.shade900 : Colors.grey.shade100,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

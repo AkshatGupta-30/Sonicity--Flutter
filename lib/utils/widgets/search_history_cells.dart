@@ -10,12 +10,13 @@ class SearchHistoryCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Container(
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: (Theme.of(context).brightness == Brightness.light) ? Color(0xFFC2C2C2) : Color(0xFF3d3d3d),
+          color: (theme.brightness == Brightness.light) ? Color(0xFFC2C2C2) : Color(0xFF3d3d3d),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
@@ -25,8 +26,8 @@ class SearchHistoryCell extends StatelessWidget {
               onTap: onTap,
               child: Text(
                 itemText,
-                style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white
+                style: theme.textTheme.labelSmall!.copyWith(
+                  color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white
                 ),
               ),
             ),

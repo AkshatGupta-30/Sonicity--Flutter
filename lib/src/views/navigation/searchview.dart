@@ -60,6 +60,7 @@ class SearchView extends StatelessWidget {
   }
 
   Widget _searchHistory(BuildContext context, SearchViewController controller) {
+    final theme = Theme.of(context);
     return (controller.historyList.isEmpty)
       ? SizedBox()
       : Column(
@@ -69,7 +70,7 @@ class SearchView extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             child: Obx(() => Text(
               "History",
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Get.find<SettingsController>().getAccent),
+              style: theme.textTheme.titleLarge!.copyWith(color: Get.find<SettingsController>().getAccent),
             )),
           ),
           Wrap(// * : All History Chip

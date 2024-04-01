@@ -18,6 +18,7 @@ class NavigationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Obx(() => Scaffold(
       key: controller.scaffoldKey,
       drawer: _drawer(context, controller),
@@ -33,10 +34,10 @@ class NavigationView extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: Container(
-        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900.withOpacity(0.75),
+        color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900.withOpacity(0.75),
         child: TabBar(
           controller: controller.tabController, dividerColor: Colors.transparent, dividerHeight: 0,
-          unselectedLabelColor: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+          unselectedLabelColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
           tabs: [
             Tab(
               icon: Iconify(
@@ -71,13 +72,14 @@ class NavigationView extends StatelessWidget {
   }
 
   Drawer _drawer(BuildContext context, NavigationController controller) {
+    final theme = Theme.of(context);
     return Drawer(
       child: BackgroundGradientDecorator(
         child: Container(
           padding: EdgeInsets.all(8),
           child: Column(
             children: [
-              DrawerHeader(child: Center(child: Text("Sonicity", style: Theme.of(context).textTheme.displayLarge))),
+              DrawerHeader(child: Center(child: Text("Sonicity", style: theme.textTheme.displayLarge))),
               ListTile(
                 onTap: () {
                   controller.closeDrawer();
@@ -119,7 +121,7 @@ class NavigationView extends StatelessWidget {
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  style: GoogleFonts.arbutus(color: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white),
+                  style: GoogleFonts.arbutus(color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white),
                   children: [
                     TextSpan(text: "Made with "),
                     WidgetSpan(child: Iconify(MaterialSymbols.favorite_rounded, color: Colors.red)),

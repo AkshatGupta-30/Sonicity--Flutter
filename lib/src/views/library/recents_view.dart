@@ -39,6 +39,7 @@ class RecentsView extends StatelessWidget {
   }
 
   SliverAppBar _appbar(BuildContext context, RecentsController controller) {
+    final theme = Theme.of(context);
     return SliverAppBar(
       pinned: true, shadowColor: Colors.transparent,
       title: Text("Recents"),
@@ -133,13 +134,13 @@ class RecentsView extends StatelessWidget {
           },
           icon: Iconify(MaterialSymbols.sort_rounded,),
           position: PopupMenuPosition.under,
-          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+          color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ],
       bottom: TabBar(
         controller: controller.tabController,
-        labelColor: (Theme.of(context).brightness == Brightness.light) ? Colors.black : Colors.white,
+        labelColor: (theme.brightness == Brightness.light) ? Colors.black : Colors.white,
         unselectedLabelColor: Colors.grey,
         indicatorColor: Get.find<SettingsController>().getAccent, dividerColor: Get.find<SettingsController>().getAccentDark,
         tabs: [Tab(text: "Songs"), Tab(text: "Albums"), Tab(text: "Artists") , Tab(text: "Playlists")],
@@ -148,10 +149,11 @@ class RecentsView extends StatelessWidget {
   }
 
   SliverPinnedHeader _summaryHeader(BuildContext context, RecentsController controller) {
+    final theme = Theme.of(context);
     return SliverPinnedHeader(
       child: Container(
         height: kBottomNavigationBarHeight,
-        color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+        color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
         child: Obx(() => Row( 
           children: [
             Gap(20),
@@ -163,7 +165,7 @@ class RecentsView extends StatelessWidget {
                       : (controller.selectedTab.value == 2)
                           ? "${controller.artists.length} Artists"
                           : "${controller.playlists.length} Playlists",
-              style: Theme.of(context).textTheme.bodyLarge
+              style: theme.textTheme.bodyLarge
             ),
             Spacer(),
             if(controller.selectedTab.value == 0)

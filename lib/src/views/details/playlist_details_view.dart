@@ -48,6 +48,7 @@ class PlaylistDetailsView extends StatelessWidget {
   }
 
   SliverAppBar _appBar(BuildContext context, Size media, Playlist playlist, PlaylistDetailController controller) {
+    final theme = Theme.of(context);
     return SliverAppBar(
       pinned: true, floating: false, snap: false,
       leading: BackButton(),
@@ -60,7 +61,7 @@ class PlaylistDetailsView extends StatelessWidget {
           width: media.width/1.4,
           child: Text(
             playlist.name, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: theme.textTheme.titleLarge,
           ),
         ),
         background: Stack(
@@ -79,7 +80,7 @@ class PlaylistDetailsView extends StatelessWidget {
               width: media.width, height: double.maxFinite,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: (Theme.of(context).brightness == Brightness.light)
+                  colors: (theme.brightness == Brightness.light)
                     ? [Colors.white.withOpacity(0), Colors.white.withOpacity(0.75)]
                     : [Colors.black.withOpacity(0), Colors.black.withOpacity(0.75)],
                   begin: Alignment.center, end: Alignment.bottomCenter,
@@ -93,13 +94,14 @@ class PlaylistDetailsView extends StatelessWidget {
   }
 
   SliverPinnedHeader _summaryHeader(BuildContext context, Playlist playlist, PlaylistDetailController controller) {
+    final theme = Theme.of(context);
     return SliverPinnedHeader(
       child: Container(
-          color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+          color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
           child: Row( 
             children: [
               Gap(20),
-              Text("${playlist.songs!.length} Songs", style: Theme.of(context).textTheme.bodyLarge),
+              Text("${playlist.songs!.length} Songs", style: theme.textTheme.bodyLarge),
               Spacer(),
               ShuffleNPlay(controller.playlist.value.songs!, queueLabel: 'Playlist - ${playlist.name}',),
               PopupMenuButton(
@@ -133,7 +135,7 @@ class PlaylistDetailsView extends StatelessWidget {
                 },
                 icon: Iconify(MaterialSymbols.sort_rounded,),
                 position: PopupMenuPosition.under,
-                color: (Theme.of(context).brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
+                color: (theme.brightness == Brightness.light) ? Colors.grey.shade100 : Colors.grey.shade900,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
               Gap(10)

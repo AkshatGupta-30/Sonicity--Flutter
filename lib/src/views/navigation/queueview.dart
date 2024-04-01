@@ -39,7 +39,7 @@ class QueueView extends StatelessWidget {
                       else if(controller.selectedQueue.value.songs == null)
                         Expanded(child: Center(child: CircularProgressIndicator(color: settings.getAccent,)))
                       else  ...[
-                        _songsSummary(controller, audioManager, context),
+                        _songsSummary(context, controller, audioManager),
                         Gap(4),
                         Divider(height: 2, thickness: 2,),
                         _allSongs(controller, audioManager),
@@ -101,7 +101,8 @@ class QueueView extends StatelessWidget {
     );
   }
 
-  Container _songsSummary(QueueDetailController controller, AudioManager audioManager, BuildContext context) {
+  Container _songsSummary(BuildContext context, QueueDetailController controller, AudioManager audioManager) {
+    final theme = Theme.of(context);
     return Container(// * : Songs Summary
       width: double.maxFinite,
       padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
@@ -174,7 +175,7 @@ class QueueView extends StatelessWidget {
                 ),
               ];
             },
-            icon: Iconify(MaterialSymbols.sort_rounded, color: Theme.of(context).appBarTheme.actionsIconTheme!.color, size: 30,),
+            icon: Iconify(MaterialSymbols.sort_rounded, color: theme.appBarTheme.actionsIconTheme!.color, size: 30,),
             padding: EdgeInsets.zero,
             position: PopupMenuPosition.under, color: Colors.grey.shade900,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -287,6 +288,7 @@ class QueueView extends StatelessWidget {
             child: ValueListenableBuilder(
               valueListenable: audioManager.currentSongNotifier,
               builder: (context, currentSong, _) {
+                final theme = Theme.of(context);
                 return Padding(
                   padding: EdgeInsets.only(bottom: (currentSong == null) ? 0 : 80),
                   child: FloatingActionButton(
@@ -294,7 +296,7 @@ class QueueView extends StatelessWidget {
                       playSongs(controller.selectedQueue.value.songs!, index: 0, shuffle: true);
                       controller.playingQueue.value = controller.selectedQueue.value;
                     },
-                    shape: CircleBorder(), backgroundColor: Theme.of(context).cardColor,
+                    shape: CircleBorder(), backgroundColor: theme.cardColor,
                     child: Iconify(Wpf.shuffle, color: Get.find<SettingsController>().getAccent,),
                   ),
                 );

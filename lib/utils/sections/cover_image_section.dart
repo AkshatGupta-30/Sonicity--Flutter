@@ -21,6 +21,7 @@ class CoverImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -39,7 +40,7 @@ class CoverImageSection extends StatelessWidget {
                       )),
                       Iconify(
                         MaterialSymbols.done, size: 25,
-                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.green : Colors.greenAccent,
+                        color: (theme.brightness == Brightness.light) ? Colors.green : Colors.greenAccent,
                       ),
                     ],
                   ),
@@ -62,7 +63,7 @@ class CoverImageSection extends StatelessWidget {
                       )),
                       Iconify(
                         MaterialSymbols.done, size: 25,
-                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.green : Colors.greenAccent,
+                        color: (theme.brightness == Brightness.light) ? Colors.green : Colors.greenAccent,
                       ),
                     ],
                   ),
@@ -85,7 +86,7 @@ class CoverImageSection extends StatelessWidget {
                       )),
                       Iconify(
                         MaterialSymbols.done, size: 25,
-                        color: (Theme.of(context).brightness == Brightness.light) ? Colors.green : Colors.greenAccent,
+                        color: (theme.brightness == Brightness.light) ? Colors.green : Colors.greenAccent,
                       ),
                     ],
                   ),
@@ -100,6 +101,7 @@ class CoverImageSection extends StatelessWidget {
   }
 
   Container _column(BuildContext context, {required ImgQuality q, required String url, required VoidCallback onTap}) {
+    final theme = Theme.of(context);
     String quality = (q == ImgQuality.high)
       ? "High Quality"
       : ((q == ImgQuality.med) ? "Medium Quality" : "Low Quality");
@@ -107,7 +109,7 @@ class CoverImageSection extends StatelessWidget {
       padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Column(
         children: [
-          Text(quality, style: Theme.of(context).textTheme.bodyMedium),
+          Text(quality, style: theme.textTheme.bodyMedium),
           Gap(4),
           GestureDetector(
             onTap: onTap,
