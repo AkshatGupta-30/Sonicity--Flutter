@@ -42,6 +42,7 @@ class QueueDetailController extends GetxController {
         playingQueue.value = Queue.empty();
       }
     }
+    renameQueueTextController.clear();
   }
 
   void setSelectedQueue(Queue q) async {
@@ -128,5 +129,11 @@ class QueueDetailController extends GetxController {
   void removeSong(Song song) {
     selectedQueue.value.songs!.remove(song);
     db.deleteSong(selectedQueue.value.name, song);
+  }
+
+  @override
+  void onClose() {
+    renameQueueTextController.dispose();
+    super.onClose();
   }
 }

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
-import 'package:perfect_volume_control/perfect_volume_control.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/database/database.dart';
 import 'package:sonicity/src/models/models.dart';
@@ -14,6 +13,7 @@ import 'package:sonicity/src/services/services.dart';
 import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sonicity/utils/widgets/iconify.dart';
 import 'package:super_string/super_string.dart';
+import 'package:volume_controller/volume_controller.dart';
 
 class PlayerController extends GetxController {
   final audioManager = getIt<AudioManager>();
@@ -40,8 +40,9 @@ class PlayerController extends GetxController {
   }
 
   void volumeConfig() async {
-    volume.value = await PerfectVolumeControl.getVolume();
-    PerfectVolumeControl.stream.listen((vol) => volume.value = vol);
+    await VolumeController().getVolume().then((vol) => volume.value = vol);
+    VolumeController().listener((vol) => volume.value = vol);
+    VolumeController().showSystemUI = false;
   }
 
   Future<void> checkCloneAndStar() async {
@@ -149,4 +150,10 @@ class PlayerController extends GetxController {
   }
   
   void getAlbum() async => album.value = await AlbumDetailsApi.getImage(currentSong.value.album!.id);
+
+  @override
+  void onClose() {
+    VolumeController().removeListener();
+    super.onClose();
+  }
 }

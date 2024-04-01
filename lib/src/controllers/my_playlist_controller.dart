@@ -43,6 +43,8 @@ class MyPlaylistController extends GetxController {
     await getPlaylistCount().then((_) => mergeCount());
     await checkSongPresent();
     await getPlaylists();
+    newPlaylistTextController.clear();
+    renamePlaylistTextController.clear();
   }
 
   void createPlaylist() async {
@@ -135,5 +137,13 @@ class MyPlaylistController extends GetxController {
     }
     searchResults.assignAll(filteredPlaylists);
     searchIsSongPresent.assignAll(filteredIsSongPresent);
+  }
+
+  @override
+  void onClose() {
+    searchPlaylistController.dispose();
+    newPlaylistTextController.dispose();
+    renamePlaylistTextController.dispose();
+    super.onClose();
   }
 }

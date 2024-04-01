@@ -55,6 +55,8 @@ class QueueController extends GetxController {
         playingQueue.value = Queue.empty();
       }
     }
+    searchQueueController.clear();
+    newQueueTextController.clear();
   }
   
   Future<void> getQueueCount() async => queueCount.value= await db.queueCount;
@@ -74,5 +76,12 @@ class QueueController extends GetxController {
     final reorderedQueue = queues.removeAt(oldIndex);
     queues.insert(newIndex, reorderedQueue);
     db.reorderQueueRows(queues);
+  }
+
+  @override
+  void onClose() {
+    searchQueueController.dispose();
+    newQueueTextController.dispose();
+    super.onClose();
   }
 }

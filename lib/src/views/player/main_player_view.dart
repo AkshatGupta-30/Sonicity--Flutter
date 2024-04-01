@@ -11,13 +11,13 @@ import 'package:get/get.dart';
 import 'package:glowy_borders/glowy_borders.dart';
 import 'package:iconify_flutter/iconify.dart';
 import 'package:interactive_slider/interactive_slider.dart';
-import 'package:perfect_volume_control/perfect_volume_control.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:sonicity/src/audio/audio.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/views/details/details_view.dart';
 import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
+import 'package:volume_controller/volume_controller.dart';
 
 class MainPlayerView extends StatelessWidget {
   MainPlayerView({super.key});
@@ -209,11 +209,11 @@ class MainPlayerView extends StatelessWidget {
                 min: 0, initialProgress: controller.volume.value,  max: 1,
                 onChanged: (vol) async {
                   controller.volume.value = vol;
-                  await PerfectVolumeControl.setVolume(vol);
+                  VolumeController().setVolume(vol);
                 },
                 onProgressUpdated: (vol) async {
                   controller.volume.value = vol;
-                  await PerfectVolumeControl.setVolume(vol);
+                  VolumeController().setVolume(vol);
                 },
                 centerIcon: Text('${(controller.volume.value * 100).round()}%', style: TextStyle(color: Colors.grey),),
               ),
