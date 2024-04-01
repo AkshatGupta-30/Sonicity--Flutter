@@ -96,13 +96,16 @@ class AllPlaylistsView extends StatelessWidget {
                   ),
                 ),
                 SliverToBoxAdapter(child: Gap(10)),
-                SliverList.builder(
-                  itemCount: controller.playlists.length,
-                  itemBuilder: (context, index) {
-                    return (controller.isMerge.value)
-                      ? MyPlaylistMergeTile(controller: controller, index: index)
-                      : MyPlaylistViewTile(controller: controller, index: index,);
-                  },
+                SliverPadding(
+                  padding: EdgeInsets.only(bottom: (controller.isMerge.value) ? 70 : 0),
+                  sliver: SliverList.builder(
+                    itemCount: controller.playlists.length,
+                    itemBuilder: (context, index) {
+                      return (controller.isMerge.value)
+                        ? MyPlaylistMergeTile(controller: controller, index: index)
+                        : MyPlaylistViewTile(controller: controller, index: index,);
+                    },
+                  ),
                 ),
               ],
             ),

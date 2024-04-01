@@ -144,6 +144,7 @@ class MyPlaylistsDatabase {
     Database db = await _instance.database;
     String mergedName = 'merge_${playlistsNameList.join('_')}';
 
+    if(await isPlaylistPresent(mergedName)) await deletePlaylist(mergedName);
     await createPlaylist(mergedName);
 
     for (var playlistName in playlistsNameList) {
@@ -271,6 +272,16 @@ class MyPlaylistsDatabase {
       }
     }
     return isSongPresent;
+  }
+
+  Future<bool> isPlaylistPresent(String playlistName) async {
+    final db = await _instance.database;
+    try {
+      await db.query(playlistName);
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 
   Future<int> get playlistCount async {

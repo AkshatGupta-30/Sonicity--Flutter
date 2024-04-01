@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify.dart';
@@ -9,7 +8,6 @@ import 'package:sliver_tools/sliver_tools.dart';
 import 'package:sonicity/src/controllers/controllers.dart';
 import 'package:sonicity/src/models/models.dart';
 import 'package:sonicity/src/views/player/player_view.dart';
-import 'package:sonicity/src/views/todo/todo_view.dart';
 import 'package:sonicity/utils/contants/constants.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
 
@@ -46,8 +44,6 @@ class PlaylistDetailsView extends StatelessWidget {
           MiniPlayerView()
         ],
       ),
-      floatingActionButtonLocation: ExpandableFab.location,
-      floatingActionButton: _floatingActionButton(),
     );
   }
 
@@ -158,52 +154,5 @@ class PlaylistDetailsView extends StatelessWidget {
         },
       ),
     );
-  }
-
-  Obx _floatingActionButton() {
-    return Obx(() => ExpandableFab(
-      duration: Duration(milliseconds: 250),
-      distance: 100.0,
-      type: ExpandableFabType.fan,
-      pos: ExpandableFabPos.right,
-      childrenOffset: Offset(0,0),
-      fanAngle: 60,
-      openButtonBuilder: RotateFloatingActionButtonBuilder(
-        child: Iconify(IconParkTwotone.more_four, color: Get.find<SettingsController>().getAccent),
-        fabSize: ExpandableFabSize.regular,
-        foregroundColor: Get.find<SettingsController>().getAccent,
-        backgroundColor: Get.find<SettingsController>().getAccentDark,
-        shape: CircleBorder(),
-        angle: 3.14 * 2,
-      ),
-      closeButtonBuilder: FloatingActionButtonBuilder(
-        size: 56,
-        builder: (BuildContext context, void Function()? onPressed, Animation<double> progress) {
-          return IconButton(
-            onPressed: onPressed,
-            icon: Iconify(AntDesign.close_circle_twotone, size: 40, color: Get.find<SettingsController>().getAccent),
-          );
-        },
-      ),
-      overlayStyle: ExpandableFabOverlayStyle(blur: 5),
-      children: <Obx>[
-        Obx(() => FloatingActionButton(
-          onPressed: () {
-            Get.to(() => ToDoView(text: "Add this playlist to starred"));
-          },
-          tooltip: "Add to Playlist",
-          backgroundColor: Get.find<SettingsController>().getAccentDark, shape: CircleBorder(),
-          child: Iconify(MaterialSymbols.star_outline_rounded, color: Get.find<SettingsController>().getAccent, size: 40)
-        )),
-        Obx(() => FloatingActionButton(
-          onPressed: () {
-            Get.to(() => ToDoView(text: "Add this playlist to library"));
-          },
-          tooltip: "Add to Queue",
-          backgroundColor: Get.find<SettingsController>().getAccentDark, shape: CircleBorder(),
-          child: Iconify(MaterialSymbols.add, color: Get.find<SettingsController>().getAccent, size: 40)
-        )),
-      ],
-    ));
   }
 }
