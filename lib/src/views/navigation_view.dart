@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify.dart';
@@ -9,6 +10,7 @@ import 'package:sonicity/src/views/navigation/navigation.dart';
 import 'package:sonicity/src/views/navigation/queueview.dart';
 import 'package:sonicity/src/views/player/player_view.dart';
 import 'package:sonicity/utils/widgets/widgets.dart';
+import 'package:url_launcher/link.dart';
 
 class NavigationView extends StatelessWidget {
   NavigationView({super.key});
@@ -110,22 +112,37 @@ class NavigationView extends StatelessWidget {
                 leading: Iconify(Ion.settings_sharp,),
                 title: Text("Settings"),
               ),
-              ListTile(
-                onTap: () => controller.closeDrawer(),
-                leading: Iconify(IcomoonFree.info,),
-                title: Text("About"),
+              Link(
+                uri: Uri.parse('https://github.com/AkshatGupta-30/Sonicity--Flutter.git'),
+                builder: (context, followLink) {
+                  return ListTile(
+                    onTap: () {
+                      if(followLink != null) followLink();
+                      controller.closeDrawer();
+                    },
+                    leading: Iconify(IcomoonFree.info,),
+                    title: Text("About"),
+                  );
+                }
               ),
               Spacer(),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  style: GoogleFonts.arbutus(color: (theme.brightness == Brightness.light) ? Colors.black : Colors.white),
-                  children: [
-                    TextSpan(text: "Made with "),
-                    WidgetSpan(child: Iconify(MaterialSymbols.favorite_rounded, color: Colors.red)),
-                    TextSpan(text: " by Akshat Gupta",),
-                  ],
-                )
+              Link(
+                uri: Uri.parse('https://github.com/AkshatGupta-30'),
+                builder: (context, followLink) {
+                  return GestureDetector(
+                    onTap: () {
+                      if(followLink != null) followLink();
+                      controller.closeDrawer();
+                    },
+                    child: Text(
+                      "Made by Akshat Gupta",
+                      style: GoogleFonts.arbutus(
+                        color: Colors.cyanAccent,
+                        decoration: TextDecoration.underline, decorationColor: Colors.cyanAccent
+                      ),
+                    ),
+                  );
+                }
               ),
             ],
           ),
