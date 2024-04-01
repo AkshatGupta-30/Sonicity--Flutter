@@ -1,4 +1,4 @@
-package com.example.sonicity;
+package com.bytecraft.sonicity;
 
 import io.flutter.embedding.android.FlutterActivity;
 

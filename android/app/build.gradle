@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.sonicity"
+    namespace "com.bytecraft.sonicity"
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
